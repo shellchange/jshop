@@ -15,6 +15,11 @@
 <link href="<%=request.getContextPath() %>/resource/js/slideTab2/css/lanrenzhijia.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="<%=request.getContextPath() %>/resource/js/slideTab2/js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/resource/js/slideTab2/js/lanrenzhijia.js"></script>
+<style type="text/css">
+.lazy {
+  display: none;
+}
+</style>
 </head>
 
 <body>
@@ -29,13 +34,13 @@
 		          <li class="J_slide_item">
 		          <s:if test="link!=null">
 			          <a href="<s:property escape="false" value="link"/>" target="_blank">
-			          	<img class="lazy" style="max-width: 100%;" data-original="<%=SystemManager.systemSetting.getImageRootPath()%><s:property escape="false" value="picture"/>" 
-			          	src="<%=SystemManager.systemSetting.getDefaultProductImg()%>" >
+			          	<img style="max-width: 100%;" 
+			          	src="<%=SystemManager.systemSetting.getImageRootPath()%><s:property escape="false" value="picture"/>" >
 			          </a>
 		          </s:if>
 		          <s:else>
-		          		<img class="lazy" style="max-width: 100%;" data-original="<%=SystemManager.systemSetting.getImageRootPath()%><s:property escape="false" value="picture"/>" 
-			          	src="<%=SystemManager.systemSetting.getDefaultProductImg()%>" >
+		          		<img style="max-width: 100%;" 
+			          	src="<%=SystemManager.systemSetting.getImageRootPath()%><s:property escape="false" value="picture"/>" >
 		          </s:else>
 		          </li>
 			</s:iterator>

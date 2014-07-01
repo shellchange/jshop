@@ -1,3 +1,5 @@
+/strutsSpring/
+/system.properties
 /__area.json
 /add.sql
 /applicationContext.xml
@@ -11,5 +13,3 @@
 /qqconnectconfig.properties
 /spy.properties
 /struts.xml
-/strutsSpring/
-/system.properties

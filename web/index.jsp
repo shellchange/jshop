@@ -46,6 +46,9 @@ img.err-product {
 background: url(<%=SystemManager.systemSetting.getDefaultProductImg()%>) no-repeat 50% 50%;
 <%}%>
 }
+.lazy {
+  display: none;
+}
 </style>
 <script>
 function defaultProductImg(){ 

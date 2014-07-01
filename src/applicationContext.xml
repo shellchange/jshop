@@ -21,7 +21,7 @@
 		destroy-method="close">
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
 		
-		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/jeeshop_20140630" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/git_jeeshop" />
 		<property name="user" value="root" />
 		<property name="password" value="ff2e8307dea774dddc12da17d25d85b6" />
 <!-- 		<property name="setAutoCommitOnClose" value="false"/> -->
