@@ -23,7 +23,7 @@
 		
 		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/git_jeeshop" />
 		<property name="user" value="root" />
-		<property name="password" value="root" />
+		<property name="password" value="ff2e8307dea774dddc12da17d25d85b6" />
 <!-- 		<property name="setAutoCommitOnClose" value="false"/> -->
 		<!--连接池中保留的最小连接数。 -->
 		<property name="minPoolSize">

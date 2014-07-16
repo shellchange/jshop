@@ -101,7 +101,7 @@
 			<tr>
 				<td style="text-align: right;">名称</td>
 				<td style="text-align: left;"><s:textfield name="e.name" id="name" data-rule="名称;required;name;" size="20" maxlength="20" 
-						id="name" /></td>
+						/></td>
 			</tr>
 			<tr>
 				<td style="text-align: right;">编码</td>
