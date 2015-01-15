@@ -7,7 +7,7 @@
     <package name="user" namespace="/manage" extends="struts-jeeshop-manage">
         <action name="user" class="userActionManage">
             <result name="input" type="redirect">/manage/admin.jsp</result>
-            <result name="success" type="redirect">/manage/main.jsp</result>
+            <result name="success" type="freemarker" >/manage/main.ftl</result>
             <result name="toList">/manage/system/user/userList.jsp</result>
             <result name="toAdd">/manage/system/user/editUser.jsp</result>
             <result name="toEdit">/manage/system/user/editUser.jsp</result>

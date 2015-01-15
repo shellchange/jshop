@@ -1,0 +1,19 @@
+<#import "/resource/common_html_meat.ftl" as html />
+<@html.htmlBase nobody=true>
+<#--<%-->
+		<#--Map<String,Object> map = ActionContext.getContext().getSession();-->
+		<#--User u = (User)map.get(ManageContainer.manage_session_user_info);-->
+		<#--if(u==null){-->
+			<#--out.println("u="+u);-->
+			<#--response.sendRedirect("user!loginOut.action");-->
+			<#--return;-->
+		<#--}-->
+		<#--//out.print(u.getNickname()+"("+u.getUsername()+")");-->
+	<#--%>-->
+	
+<frameset cols="210,*" >
+	<frame src="${basepath}/manage/system/left.jsp" name="leftFrame" noresize="noresize"/>
+<#--<%-- 	<frame src="${basepath}/manage/system/right.jsp" name="rightFrame" /> --%>-->
+	<frame src="${basepath}/manage/user!initManageIndex.action" name="rightFrame" />
+</frameset>
+</@html.htmlBase>

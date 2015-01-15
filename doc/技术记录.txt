@@ -1,0 +1,9 @@
+1. struts2集成freemarker
+(1) struts2默认通过FreemarkerManager对freemarker进行管理，可以通过struts.xml中的配置struts.freemarker.manager.classname进行修改
+(2) FreemarkerManager中会读取classpath:/freemarker.properties文件作为全局freemarker配置
+(3) freemarker自定义函数
+(3.1) 扩展TemplateMethodModelEx创建新的函数，如CurrentUserGetter用于获取当前登录用户
+(3.2) 在自行扩展的FreemarkerManager#init()中追加
+config.setSharedVariable("currentUser", new CurrentUserGetter());
+(3.3) 使用时，直接调用
+${currentUser().username}
