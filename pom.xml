@@ -8,7 +8,7 @@
 	<repositories>
 		<!--<repository>-->
 			<!--<id>nexus</id>-->
-			<!--<url>http://192.168.160.187:8081/nexus/content/groups/public</url>-->
+			<!--<url>http://localhost:8081/nexus/content/groups/public</url>-->
 		<!--</repository>-->
 
 	</repositories>
@@ -31,7 +31,7 @@
 					<target>1.6</target>
 					<encoding>utf8</encoding>
 				</configuration>
-			</plugin>
+            </plugin>
 		</plugins>
 	</build>
 	<properties>
