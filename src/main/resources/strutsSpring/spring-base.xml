@@ -16,6 +16,7 @@
 	<bean id="baseDao" class="net.jeeshop.core.dao.BaseDao">
 		<property name="sqlSessionFactory" ref="sessionFactory"></property>
 	</bean>
+    <bean id="forwardAction" class="net.jeeshop.web.action.ForwardAction" scope="prototype"/>
 
 	<!-- 以下是系统的核心，包括：用户、角色、权限、资源 等等模块 -->
 

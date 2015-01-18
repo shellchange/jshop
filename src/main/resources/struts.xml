@@ -73,6 +73,12 @@
 		</global-exception-mappings>
 	</package>
 
+    <package name="forward" namespace="/" extends="struts-default">
+        <action name="forward" class="forwardAction">
+            <result name="freemarker" type="freemarker">${p}.ftl</result>
+            <result name="forward">${p}.jsp</result>
+        </action>
+    </package>
 	<include file="strutsSpring/manage/struts_system.xml" />
 	<include file="strutsSpring/manage/struts_services.xml" />
 	<include file="strutsSpring/front/struts_services.xml" />

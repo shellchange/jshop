@@ -238,4 +238,8 @@ public class SystemManager {
 		
 		return SystemManager.indexLeftProduct;
 	}
+
+    public OrdersReport getOrdersReport() {
+        return ordersReport;
+    }
 }

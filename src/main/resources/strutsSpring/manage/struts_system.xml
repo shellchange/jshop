@@ -14,7 +14,7 @@
             <result name="toChangePwd">/manage/system/user/toChangePwd.jsp</result>
             <result name="changePwd">/manage/system/user/changePwd.jsp</result>
             <result name="show">/manage/system/user/show.jsp</result>
-            <result name="initManageIndex">/manage/system/right.jsp</result>
+            <result name="initManageIndex" type="freemarker">/manage/system/right.ftl</result>
         </action>
     </package>
     
