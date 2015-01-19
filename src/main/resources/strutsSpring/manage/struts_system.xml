@@ -20,9 +20,9 @@
     
     <package name="role" namespace="/manage" extends="struts-jeeshop-manage">
         <action name="role" class="roleActionManage">
-            <result name="toList">/manage/system/role/roleList.jsp</result>
-            <result name="toEdit">/manage/system/role/editRole.jsp</result>
-            <result name="toAdd">/manage/system/role/editRole.jsp</result>
+            <result name="toList" type="freemarker">/manage/system/role/roleList.ftl</result>
+            <result name="toEdit" type="freemarker">/manage/system/role/editRole.ftl</result>
+            <result name="toAdd" type="freemarker">/manage/system/role/editRole.ftl</result>
         </action>
     </package>
     

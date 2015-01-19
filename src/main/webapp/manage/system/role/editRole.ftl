@@ -1,30 +1,10 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
-<!DOCTYPE html>
-<html>
-<head>
-<%@ include file="/resource/common_html_meat.jsp"%>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resource/bootstrap/css/bootstrap.min.css"  type="text/css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resource/bootstrap/css/docs.css"  type="text/css">
-
-<script type="text/javascript" src="<%=request.getContextPath() %>/resource/js/jquery-1.4.2.min.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/resource/js/jquery.blockUI.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/resource/bootstrap/js/bootstrap.min.js"></script>
-
-<%-- <%@ include file="/manage/system/common.jsp"%> --%>
-
-
-<%-- <link rel="stylesheet" href="<%=request.getContextPath()%>/resource/artDialog4.1.5/skins/chrome.css"> --%>
-<%-- <script type="text/javascript" src="<%=request.getContextPath()%>/resource/artDialog4.1.5/artDialog.js"></script> --%>
-<%-- <script type="text/javascript" src="<%=request.getContextPath()%>/resource/artDialog5.0/source/iframeTools.source.js"></script> --%>
-	
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resource/zTree3.1/css/zTreeStyle/zTreeStyle.css" type="text/css">
-<script type="text/javascript" src="<%=request.getContextPath() %>/resource/zTree3.1/js/jquery.ztree.all-3.1.min.js"></script>
+<#import "/resource/common_html_meat.ftl" as html/>
+<@html.htmlBase>
 
 <SCRIPT type="text/javascript">
 	$(function(){
  		$("#add").add("#update").click(function(){
- 			art.dialog.open('<%=request.getContextPath()%>/menu!toEdit.action',
+ 			art.dialog.open('${basepath}/menu!toEdit.action',
  					{title: '个人信息',width:500, height:350,lock:true});	 			
  		});
 	});
@@ -55,7 +35,7 @@
 			//加载菜单树
 			function loadMenusTree(id){
 				$.ajax({
-					url:"<%=request.getContextPath()%>/manage/menu!getMenusByPid.action?pid=0",
+					url:"${basepath}/manage/menu!getMenusByPid.action?pid=0",
 					type:"post",
 					data:{id:id},
 					dataType:"text",
@@ -98,7 +78,7 @@
 				}
 				
 				$.ajax({
-					url:"<%=request.getContextPath()%>/manage/role!save.action",
+					url:"${basepath}/manage/role!save.action",
 					type : "post",
 					data : {
 						privileges : ids,
@@ -181,12 +161,10 @@
 			}
 		}
 </SCRIPT>
-</head>
 
-<body>
-	<s:form action="role" name="form1" theme="simple">
+	<form action="${basepath}/manage/role!save.action" name="form1" id="form1">
 		<input id="insertOrUpdate" type="hidden"
-			value='<s:property value="role.insertOrUpdate"/>' />
+			value='${role.insertOrUpdate}' />
 		
 				<table class="table table-bordered" style="width: 500px;margin: auto;">
 					<tr>
@@ -196,34 +174,42 @@
 					</tr>
 					<tr style="display: none;">
 						<th>id</th>
-						<td><s:hidden name="role.id" id="id" /></td>
+						<td><input type="hidden" name="role.id" id="id" value="${role.id!""}"/></td>
 					</tr>
 					<tr>
 						<th style="background-color: #dff0d8;text-align: center;">角色名称</th>
-						<td style="text-align: left;"><s:if test="role.id==null">
-								<s:textfield name="role.role_name" id="role_name"
-									readonly="false" />
-							</s:if> <s:else>
-								<s:textfield name="role.role_name" id="role_name" />
-							</s:else></td>
+						<td style="text-align: left;"><#if !role.id??>
+								<input type="text" name="role.role_name" id="role_name"
+									value="${role.role_name!""}" />
+							 <#else>
+                                 <input type="text" value="${role.role_name}" name="role.role_name" id="role_name" />
+							</#if></td>
 					</tr>
 					<tr>
 						<th style="background-color: #dff0d8;text-align: center;">角色描述</th>
-						<td style="text-align: left;"><s:textfield
+						<td style="text-align: left;"> <input type="text" value="${role.role_desc!""}"
 								name="role.role_desc" id="role_desc" /></td>
 					</tr>
 					<tr>
 						<th style="background-color: #dff0d8;text-align: center;">数据库权限</th>
 						<td style="text-align: left;">
-							<s:select list="#{'select':'select','select,insert':'select,insert','select,insert,update':'select,insert,update','select,insert,update,delete':'select,insert,update,delete'}" 
-							name="role.role_dbPrivilege" id="role_dbPrivilege"/>
+                            <select name="role.role_dbPrivilege" id="role_dbPrivilege">
+                                <#assign map_dbPrivilege ={'select':'select','select,insert':'select,insert','select,insert,update':'select,insert,update','select,insert,update,delete':'select,insert,update,delete'}/>
+                                <#list map_dbPrivilege?keys as item>
+                                    <option value="${item}" <#if role.role_dbPrivilege?? && role.role_dbPrivilege==item>selected="selected" </#if>>${map_dbPrivilege[item]}</option>
+                                </#list>
+                            </select>
 						</td>
 					</tr>
 					<tr>
 						<th style="background-color: #dff0d8;text-align: center;">状态</th>
 						<td style="text-align: left;" >
-							<s:select list="#{'y':'启用','n':'禁用'}" id="status" name="e.status"  cssClass="input-small" 
-								listKey="key" listValue="value"  />
+                            <select name="role.status" id="status" class="input-small">
+                                <#assign y_n ={'y':'启用','n':'禁用'}/>
+                                <#list y_n?keys as item>
+                                    <option value="${item}" <#if role.status?? && role.status==item>selected="selected" </#if>>${y_n[item]}</option>
+                                </#list>
+                                </select>
 						</td>
 					</tr>
 					<tr>
@@ -240,17 +226,14 @@
 					</tr>
 					<tr>
 						<td style="text-align: center;" colspan="2">
-							<s:submit id="saveRoleBtn" method="save" value="保存" cssClass="btn btn-primary"/>
-<%-- 							<s:a method="save" cssClass="btn btn-success" id="saveRoleBtn"> --%>
+                            <input type="submit" class="btn btn-primary" value="保存" id="saveRoleBtn">
+							<#--<s:submit id="saveRoleBtn" method="save" value="保存" cssClass="btn btn-primary"/>-->
 <!-- 								<i class="icon-ok icon-white"></i> 保存 -->
-<%-- 							</s:a> --%>
 <!-- 							<button method="user!update.action" class="btn btn-success" id="saveRoleBtn"> -->
 <!-- 								<i class="icon-ok icon-white"></i> 保存 -->
 <!-- 							</button> -->
-<%-- 							<s:submit method="back" value="返回" cssClass="btn btn-inverse"/> --%>
 						</td>
 					</tr>
 				</table>
-	</s:form>
-</body>
-</html>
+	</form>
+</@html.htmlBase>
