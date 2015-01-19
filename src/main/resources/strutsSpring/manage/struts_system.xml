@@ -8,12 +8,12 @@
         <action name="user" class="userActionManage">
             <result name="input" type="redirect">/manage/admin.jsp</result>
             <result name="success" type="freemarker" >/manage/main.ftl</result>
-            <result name="toList">/manage/system/user/userList.jsp</result>
-            <result name="toAdd">/manage/system/user/editUser.jsp</result>
-            <result name="toEdit">/manage/system/user/editUser.jsp</result>
-            <result name="toChangePwd">/manage/system/user/toChangePwd.jsp</result>
-            <result name="changePwd">/manage/system/user/changePwd.jsp</result>
-            <result name="show">/manage/system/user/show.jsp</result>
+            <result name="toList" type="freemarker">/manage/system/user/userList.ftl</result>
+            <result name="toAdd" type="freemarker">/manage/system/user/editUser.ftl</result>
+            <result name="toEdit" type="freemarker">/manage/system/user/editUser.ftl</result>
+            <result name="toChangePwd" type="freemarker">/manage/system/user/toChangePwd.ftl</result>
+            <result name="changePwd" type="freemarker">/manage/system/user/changePwd.ftl</result>
+            <result name="show" type="freemarker">/manage/system/user/show.ftl</result>
             <result name="initManageIndex" type="freemarker">/manage/system/right.ftl</result>
         </action>
     </package>

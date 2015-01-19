@@ -7,3 +7,17 @@
 config.setSharedVariable("currentUser", new CurrentUserGetter());
 (3.3) 使用时，直接调用
 ${currentUser().username}
+
+2. freemarker中使用taglib
+(1) 首先在web.xml中增加
+    <servlet>
+        <servlet-name>JspSupportServlet</servlet-name>
+        <servlet-class>
+            org.apache.struts2.views.JspSupportServlet
+        </servlet-class>
+        <!--配置JspSupportServlet自启动-->
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+(2) 在ftl文件中，使用：
+<#assign pg = JspTaglibs["/WEB-INF/jsp/pager-taglib.tld"]/>
+这里的JspTagLibs只能是项目中可以找到的tld文件，不能是http://jsptags.com/tags/navigation/pager形式的URL

@@ -40,6 +40,7 @@
     <link rel="stylesheet" href="${basepath}/resource/bootstrap/css/bootstrap.min.css"  type="text/css">
     <link rel="stylesheet" href="${basepath}/resource/css/base.css"  type="text/css">
     <link rel="stylesheet" href="${basepath}/resource/jquery-jquery-ui/themes/base/jquery.ui.all.css">
+    <link rel="stylesheet" href="${basepath}/resource/validator-0.7.0/jquery.validator.css" />
 
 <#--<script type="text/javascript" src="${basepath}/resource/js/jquery-1.4.2.min.js"></script>-->
     <script type="text/javascript" src="${basepath}/resource/js/jquery-1.9.1.min.js"></script>
@@ -53,6 +54,11 @@
     <script src="${basepath}/resource/jquery-jquery-ui/ui/jquery.ui.core.js"></script>
     <script src="${basepath}/resource/jquery-jquery-ui/ui/jquery.ui.widget.js"></script>
     <script src="${basepath}/resource/jquery-jquery-ui/ui/jquery.ui.tabs.js"></script>
+    <!-- jquery validator -->
+
+    <script type="text/javascript" src="${basepath}/resource/validator-0.7.0/jquery.validator.js"></script>
+    <script type="text/javascript" src="${basepath}/resource/validator-0.7.0/local/zh_CN.js"></script>
+
 
 </head>
     <#if nobody>

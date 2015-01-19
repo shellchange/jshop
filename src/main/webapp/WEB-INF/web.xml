@@ -46,7 +46,15 @@
               <param-value>DEBUG</param-value>
        </init-param>
 	</filter>
-	
+    <servlet>
+        <servlet-name>JspSupportServlet</servlet-name>
+        <servlet-class>
+            org.apache.struts2.views.JspSupportServlet
+        </servlet-class>
+        <!--配置JspSupportServlet自启动-->
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
 	<servlet>
 		<servlet-name>ValidateImage</servlet-name>
 		<servlet-class>net.jeeshop.core.servlet.ValidateImage</servlet-class>
