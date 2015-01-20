@@ -24,12 +24,12 @@ function deleteSelect(){
 				<tr  >
 					<td>
     <#if checkPrivilege("role!selectList.action")>
-							<a href="${basepath}/manage/role!selectList.action" cssClass="btn btn-primary">
+							<a href="${basepath}/manage/role!selectList.action" class="btn btn-primary">
 								<i class="icon-search icon-white"></i> 查询
 							</a>
         </#if>
                         <#if checkPrivilege("role!insert.action")>
-							<a href="${basepath}/manage/role!toAdd.action" cssClass="btn btn-success">
+							<a href="${basepath}/manage/role!toAdd.action" class="btn btn-success">
 								<i class="icon-plus-sign icon-white"></i> 添加
 							</a>
                         </#if>

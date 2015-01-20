@@ -48,7 +48,7 @@
 				<td><#if item.id!=1><input type="checkbox" name="ids" value="${item.id}"/></#if></td>
 				<td  style="display: none;">&nbsp;${item.id!""}</td>
 				<td>&nbsp;${item.username!""}</td>
-				<td>&nbsp;${item.nickName!""}</td>
+				<td>&nbsp;${item.nickname!""}</td>
 				<td>&nbsp;${item.createtime!""}</td>
 				<td>&nbsp;${item.role_name}</td>
 				<td>

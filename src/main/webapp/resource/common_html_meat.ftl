@@ -60,6 +60,7 @@
     <script type="text/javascript" src="${basepath}/resource/validator-0.7.0/jquery.validator.js"></script>
     <script type="text/javascript" src="${basepath}/resource/validator-0.7.0/local/zh_CN.js"></script>
 
+    <script type="text/javascript" src="${basepath}/resource/My97DatePicker/WdatePicker.js"></script>
 
 </head>
     <#if nobody>

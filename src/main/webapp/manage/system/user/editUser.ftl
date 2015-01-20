@@ -46,7 +46,7 @@
 			<tr>
 				<th class="td_right">昵称</th>
 				<td style="text-align: left;">
-				<input name="e.nickname" value="${e.nickname!""}" id="nickname"  data-rule="昵称:required;nickname;length[2~20];remote[user!unique.action]"/>
+				<input type="text" name="e.nickname" value="${e.nickname!""}" id="nickname"  data-rule="昵称:required;nickname;length[2~20];remote[user!unique.action]"/>
 					</td>
 			</tr>
 

@@ -154,10 +154,10 @@
 	<!-- 键值对 -->
 	<package name="keyvalue" namespace="/manage" extends="struts-jeeshop-manage">
 		<action name="keyvalue" class="keyvalueActionManage">
-			<result name="toList">/manage/keyvalue/keyvalueList.jsp</result>
+			<result name="toList" type="freemarker">/manage/keyvalue/keyvalueList.ftl</result>
 			<result name="selectAllList" type="redirect">keyvalue!selectList.action</result>
-			<result name="toAdd">/manage/keyvalue/keyvalueEdit.jsp</result>
-			<result name="toEdit">/manage/keyvalue/keyvalueEdit.jsp</result>
+			<result name="toAdd" type="freemarker">/manage/keyvalue/keyvalueEdit.ftl</result>
+			<result name="toEdit" type="freemarker">/manage/keyvalue/keyvalueEdit.ftl</result>
 		</action>
 	</package>
 	
