@@ -21,3 +21,11 @@ ${currentUser().username}
 (2) 在ftl文件中，使用：
 <#assign pg = JspTaglibs["/WEB-INF/jsp/pager-taglib.tld"]/>
 这里的JspTagLibs只能是项目中可以找到的tld文件，不能是http://jsptags.com/tags/navigation/pager形式的URL
+
+3. freemarker中的map迭代
+    <#assign y_n = {'y':'启用','n':'禁用'}>
+    <select id="unit" name="e.openResponsive"></select>
+    <#list y_n?keys as key>
+        <option value="${key}" <#if e.openResponsive?? && e.openResponsive==key>selected="selected" </#if>>${y_n[key]}</option>
+    </#list>
+    </select>

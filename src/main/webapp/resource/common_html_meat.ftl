@@ -62,6 +62,10 @@
 
     <script type="text/javascript" src="${basepath}/resource/My97DatePicker/WdatePicker.js"></script>
 
+    <link rel="stylesheet" href="${basepath}/resource/kindeditor-4.1.7/themes/default/default.css" />
+    <script charset="utf-8" src="${basepath}/resource/kindeditor-4.1.7/kindeditor-min.js"></script>
+    <script charset="utf-8" src="${basepath}/resource/kindeditor-4.1.7/lang/zh_CN.js"></script>
+
 </head>
     <#if nobody>
         <#nested />

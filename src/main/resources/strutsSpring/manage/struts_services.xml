@@ -137,7 +137,7 @@
 	<!-- 系统设置-->
 	<package name="systemSetting" namespace="/manage" extends="struts-jeeshop-manage">
 		<action name="systemSetting" class="systemSettingActionManage">
-			<result name="toEdit">/manage/systemSetting/systemSettingEdit.jsp</result>
+			<result name="toEdit" type="freemarker">/manage/systemSetting/systemSettingEdit.ftl</result>
 		</action>
 	</package>
 	
