@@ -116,7 +116,7 @@
 	<!-- 系统日志管理-->
 	<package name="systemlog" namespace="/manage" extends="struts-jeeshop-manage">
 		<action name="systemlog" class="systemlogActionManage">
-			<result name="toList">/manage/systemlog/systemlogList.jsp</result>
+			<result name="toList" type="freemarker">/manage/systemlog/systemlogList.ftl</result>
 			<result name="toAdd">/manage/systemlog/systemlogEdit.jsp</result>
 			<result name="toEdit">/manage/systemlog/systemlogEdit.jsp</result>
 			<result name="systemlogListAndDetail">/manage/systemlog/systemlogListAndDetail.jsp</result>
