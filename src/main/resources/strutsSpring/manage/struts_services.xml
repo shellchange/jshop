@@ -34,9 +34,9 @@
 	<!-- 会员等级 -->
 	<package name="accountRank" namespace="/manage" extends="struts-jeeshop-manage">
 		<action name="accountRank" class="accountRankActionManage">
-			<result name="toList">/manage/accountRank/accountRankList.jsp</result>
-			<result name="toEdit">/manage/accountRank/accountRankEdit.jsp</result>
-			<result name="toAdd">/manage/accountRank/accountRankEdit.jsp</result>
+			<result name="toList" type="freemarker">/manage/accountRank/accountRankList.ftl</result>
+			<result name="toEdit" type="freemarker">/manage/accountRank/accountRankEdit.ftl</result>
+			<result name="toAdd" type="freemarker">/manage/accountRank/accountRankEdit.ftl</result>
 		</action>
 	</package>
 	
