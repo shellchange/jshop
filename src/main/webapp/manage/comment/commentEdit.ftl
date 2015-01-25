@@ -1,14 +1,6 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
-<!DOCTYPE html>
-<html>
-<head>
-<%@ include file="/resource/common_html_meat.jsp"%>
-<%@ include file="/manage/system/common.jsp"%>
-</head>
-
-<body>
-	<s:form action="comment" namespace="/manage" theme="simple" name="form" id="form">
+<#import "/resource/common_html_meat.ftl" as html>
+<@html.htmlBase>
+	<form action="${basepath}/manage/comment.action" theme="simple" name="form" id="form">
 		<table id="result_table" class="table table-bordered" style="width: 95%;margin: auto;">
 			<tr style="background-color: #dff0d8">
 				<td colspan="2" style="background-color: #dff0d8;text-align: center;">
@@ -17,34 +9,30 @@
 			</tr>
 			<tr style="display: none;">
 				<td>id</td>
-				<td><s:hidden name="e.id" label="id" /></td>
+				<td><input type="hidden" value="${e.id!""}" name="e.id" label="id" /></td>
 			</tr>
 			<tr>
 				<td style="text-align: right;">评论内容</td>
-				<td style="text-align: left;"><s:property value="e.content"/></td>
+				<td style="text-align: left;">${e.content!""}</td>
 			</tr>
 			<tr>
 				<td style="text-align: right;">回复内容</td>
 				<td style="text-align: left;">
-					<s:textarea name="e.reply" id="reply" style="width:100%;height:400px;visibility:hidden;" 
-					data-rule="回复内容:required;reply;length[5~3000];"></s:textarea>
+					<textarea name="e.reply" id="reply" style="width:100%;height:400px;visibility:hidden;"
+					data-rule="回复内容:required;reply;length[5~3000];">${e.reply!""}</textarea>
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2" style="text-align: center;">
-<%-- 					<s:submit method="updateReply" value="回复" cssClass="btn btn-primary"/> --%>
+<#--<%-- 					<s:submit method="updateReply" value="回复" cssClass="btn btn-primary"/> --%>-->
 					<button method="comment!updateReply.action" class="btn btn-success">
 						<i class="icon-ok icon-white"></i> 提交回复
 					</button>
-<%-- 					<s:submit method="back" value="返回" cssClass="btn btn-inverse"/> --%>
+<#--<%-- 					<s:submit method="back" value="返回" cssClass="btn btn-inverse"/> --%>-->
 				</td>
 			</tr>
 		</table>
-	</s:form>
-	<%@ include file="/resource/common_html_validator.jsp"%>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/resource/kindeditor-4.1.7/themes/default/default.css" />
-<script charset="utf-8" src="<%=request.getContextPath() %>/resource/kindeditor-4.1.7/kindeditor-min.js"></script>
-<script charset="utf-8" src="<%=request.getContextPath() %>/resource/kindeditor-4.1.7/lang/zh_CN.js"></script>
+	</form>
 <script>
 	var editor;
 	KindEditor.ready(function(K) {
@@ -85,5 +73,4 @@
 	});
 
 </script>
-</body>
-</html>
+</@html.htmlBase>

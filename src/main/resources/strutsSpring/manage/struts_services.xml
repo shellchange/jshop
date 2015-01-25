@@ -144,10 +144,10 @@
 	<!-- 评论 -->
 	<package name="comment" namespace="/manage" extends="struts-jeeshop-manage">
 		<action name="comment" class="commentActionManage">
-			<result name="toList">/manage/comment/commentList.jsp</result>
+			<result name="toList" type="freemarker">/manage/comment/commentList.ftl</result>
 			<result name="selectAllList" type="redirect">comment!selectList.action</result>
-			<result name="toAdd">/manage/comment/commentEdit.jsp</result>
-			<result name="toEdit">/manage/comment/commentEdit.jsp</result>
+			<result name="toAdd" type="freemarker">/manage/comment/commentEdit.ftl</result>
+			<result name="toEdit" type="freemarker">/manage/comment/commentEdit.ftl</result>
 		</action>
 	</package>
 	
