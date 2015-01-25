@@ -1,17 +1,5 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
-<!DOCTYPE html>
-<html>
-<head>
-<%@ include file="/resource/common_html_meat.jsp"%>
-<%@ include file="/manage/system/common.jsp"%>	
-<%-- <link rel="stylesheet" href="<%=request.getContextPath() %>/resource/artDialog4.1.5/skins/chrome.css"> --%>
-<%-- <script type="text/javascript" src="<%=request.getContextPath() %>/resource/artDialog4.1.5/artDialog.js"></script> --%>
-<%-- <script type="text/javascript" src="<%=request.getContextPath() %>/resource/artDialog5.0/source/iframeTools.source.js"></script> --%>
-
-<link rel="stylesheet" href="<%=request.getContextPath() %>/resource/zTree3.1/css/zTreeStyle/zTreeStyle.css" type="text/css">
-<script type="text/javascript" src="<%=request.getContextPath() %>/resource/zTree3.1/js/jquery.ztree.all-3.1.min.js"></script>
-	
+<#import "/resource/common_html_meat.ftl" as html/>
+<@html.htmlBase>
 	<SCRIPT type="text/javascript">
 		<!--
 		$(function(){
@@ -89,10 +77,10 @@
 		});
 		//-->
 	</SCRIPT>
-</head>
-
-<body style="text-align: center;">
-<s:form action="menu" name="form1" namespace="/manage" theme="simple">
+<style>
+	body{text-align:center;}
+</style>
+<form action="${basepath}/manage/menu.action" name="form1" theme="simple">
 <div id="contians_div" style="text-align: right; border: 0px solid red; margin: auto;">
 			<div id="context_div" style="margin-top: 20px;">
 			
@@ -106,38 +94,43 @@
 		<tr style="display: none;">
 			<td>id</td>
 			<td>
-				<input id="input_menu_id" readonly="readonly" value='<s:property value="menu.id"/>'/>
+				<inputid="input_menu_id" readonly="readonly" value='${menu.id!""}'/>
 			</td>
 		</tr>
 		<tr style="display: none;">
 			<td>pid</td>
 			<td>
-				<input id="input_menu_pid" readonly="readonly" value='<s:property value="menu.pid"/>'/>
+				<input id="input_menu_pid" readonly="readonly" value='${menu.pid!""}'/>
 			</td>
 		</tr>
 		<tr>
 			<th>名称</th>
 			<td style="text-align: left;">
-				<input id="input_menu_name" size="60" value='<s:property value="menu.name"/>'/>
+				<input type="text"  id="input_menu_name" size="60" value='${menu.name!""}'/>
 			</td>
 		</tr>
 		<tr>
 			<th>url</th>
 			<td style="text-align: left;">
-				<input id="input_menu_url" size="80" value='<s:property value="menu.url"/>'/>
+				<input type="text"  id="input_menu_url" size="80" value='${menu.url!""}' style="width: 360px"/>
 			</td>
 		</tr>
 		<tr>
 			<th>类型</th>
 			<td style="text-align: left;">
-				<s:select list="#{'':'--请选择--','module':'模块','page':'页面','button':'按钮'}" id="input_menu_type" name="menu.type" 
-				 cssClass="input-medium" listKey="key" listValue="value"  />
+
+				<#assign y_n = {'':'--请选择--','module':'模块','page':'页面','button':'按钮'}>
+                <select id="input_menu_type" name="menu.type" class="input-medium">
+					<#list y_n?keys as key>
+                        <option value="${key}" <#if menu.type?? && menu.type==key>selected="selected" </#if>>${y_n[key]}</option>
+					</#list>
+                </select>
 			</td>
 		</tr>
 		<tr>
 			<th>顺序</th>
 			<td style="text-align: left;">
-				<input id="input_menu_orderNum" value='<s:property value="menu.orderNum"/>'/>
+				<input type="text"  id="input_menu_orderNum" value='${menu.orderNum!""}'/>
 				(菜单顺序从1开始，小的显示在前面)
 			</td>
 		</tr>
@@ -158,25 +151,25 @@
 		<tr style="display: none;">
 			<td>id</td>
 			<td>
-				<input id="input_new_menu_id" readonly="readonly"/>
+				<input type="text"  id="input_new_menu_id" readonly="readonly"/>
 			</td>
 		</tr>
 		<tr style="display: none;">
 			<td>pid</td>
 			<td>
-				<input id="input_new_menu_pid" readonly="readonly"/>
+				<input type="text"  id="input_new_menu_pid" readonly="readonly"/>
 			</td>
 		</tr>
 		<tr>
 			<th>名称</th>
 			<td style="text-align: left;">
-				<input id="input_new_menu_name" size="60" />
+				<input type="text"  id="input_new_menu_name" size="60" />
 			</td>
 		</tr>
 		<tr>
 			<th>url</th>
 			<td style="text-align: left;">
-				<input id="input_new_menu_url" size="80"/>
+				<input type="text"  id="input_new_menu_url" size="80" style="width: 360px"/>
 			</td>
 		</tr>
 		<tr>
@@ -193,17 +186,15 @@
 		<tr>
 			<th>顺序</th>
 			<td style="text-align: left;">
-				<input id="input_new_menu_level"/>(菜单顺序从1开始，小的显示在前面)
+				<input type="text"  id="input_new_menu_level"/>(菜单顺序从1开始，小的显示在前面)
 			</td>
 		</tr>
 		<tr>
 			<td style="text-align: center;" colspan="2">
 				<input type="button" id="add" value="修改或添加" class="btn btn-primary"/>
-<%-- 				<s:submit method="selectList" value="返回" cssClass="btn btn-inverse"/> --%>
 			</td>
 		</tr>
 	</table>
 </div></div>
-</s:form>
-</body>
-</html>
+</form>
+</@html.htmlBase>

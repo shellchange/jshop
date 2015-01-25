@@ -28,9 +28,9 @@
     
     <package name="menu" namespace="/manage" extends="struts-jeeshop-manage">
         <action name="menu" class="menuActionManage">
-            <result name="toList">/manage/system/menu/menuList.jsp</result>
-            <result name="toEdit">/manage/system/menu/editMenu.jsp</result>
-            <result name="addOrUpdate">/manage/system/menu/addOrUpdate.jsp</result>
+            <result name="toList" type="freemarker">/manage/system/menu/menuList.ftl</result>
+            <result name="toEdit" type="freemarker">/manage/system/menu/editMenu.ftl</result>
+            <result name="addOrUpdate" type="freemarker">/manage/system/menu/addOrUpdate.ftl</result>
         </action>
     </package>
     

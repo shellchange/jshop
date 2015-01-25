@@ -1,32 +1,18 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
-<!DOCTYPE html>
-<html>
-<head>
-<%@ include file="/resource/common_html_meat.jsp"%>
-<%@ include file="/manage/system/common.jsp"%>	
-<%-- <link rel="stylesheet" href="<%=request.getContextPath() %>/resource/artDialog4.1.5/skins/chrome.css"> --%>
-<%-- <script type="text/javascript" src="<%=request.getContextPath() %>/resource/artDialog4.1.5/artDialog.js"></script> --%>
-<%-- <script type="text/javascript" src="<%=request.getContextPath() %>/resource/artDialog5.0/source/iframeTools.source.js"></script> --%>
+<#import "/resource/common_html_meat.ftl" as html/>
+<@html.htmlBase>
 <SCRIPT type="text/javascript">
 	<!--
 	$(function(){
  		$("#add").add("#update").click(function(){
- 			art.dialog.open('<%=request.getContextPath() %>/menu!toEdit.action',
+ 			art.dialog.open('${basepath}/menu!toEdit.action',
  					{title: '个人信息',width:500, height:350,lock:true});
  		});
 	});
 	//-->
 </SCRIPT>
-	
-<link rel="stylesheet" href="<%=request.getContextPath() %>/resource/zTree3.1/css/zTreeStyle/zTreeStyle.css" type="text/css">
-</head>
-
-<body>
 <form action="" name="form1" style="display: none;">
-	<s:hidden name="id" id="dfsfsf"></s:hidden>
+    <input type="hidden" value="${id!""}" name="id" id="dfsfsf">
 </form>
-
 
 <table class="table table-bordered" >
 	<tr class="warning">
@@ -44,7 +30,7 @@
 		<td>
 			<div style="min-width: 200px;">
 				<div id="loadImg" style="text-align: center;">
-					<img alt="菜单加载中......" src="<%=request.getContextPath() %>/resource/images/loader.gif">资源加载中...
+					<img alt="菜单加载中......" src="${basepath}/resource/images/loader.gif">资源加载中...
 				</div>			
 				<ul id="treeDemo2" style="display: none;" class="ztree"></ul>
 			</div>
@@ -57,8 +43,6 @@
 	</tr>
 </table>
 
-<script type="text/javascript" src="<%=request.getContextPath() %>/resource/js/jquery-1.4.2.min.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/resource/zTree3.1/js/jquery.ztree.all-3.1.min.js"></script>
 <SCRIPT type="text/javascript">
 $(function(){
 var setting = {
@@ -66,21 +50,30 @@ var setting = {
 			enable: true,
 			dblClickExpand: false
 		},callback: {
-			onClick: onClick,
-			onMouseDown: onMouseDown
+			onClick: function(e,treeId, treeNode) {
+                var zTree = $.fn.zTree.getZTreeObj("treeDemo2");
+                zTree.expandNode(treeNode);
+            },
+			onMouseDown: function (event, treeId, treeNode) {
+                var url = "menu!toAddOrUpdate.action?id="+treeNode.id;
+                if(true){
+                    $("#iframeMenuEdit").attr("src",url);
+                    return;
+                }
+                //alert(url);
+                $("#dfsfsf").val(treeNode.id);
+                document.form1.action = url;
+                document.form1.submit();
+            }
 		}
 };
-function onClick(e,treeId, treeNode) {
-	var zTree = $.fn.zTree.getZTreeObj("treeDemo2");
-	zTree.expandNode(treeNode);
-}
 
 loadMenusTree();
 
 //加载菜单树
 function loadMenusTree(){
 	$.ajax({
-		url:"<%=request.getContextPath() %>/manage/menu!getMenusByPid.action?pid=0",
+		url:"${basepath}/manage/menu!getMenusByPid.action?pid=0",
 					type:"post",
 					dataType:"text",
 					success:function(data, textStatus){
@@ -97,18 +90,7 @@ function loadMenusTree(){
 			}
 			
 			//点击菜单项
-			function onMouseDown(event, treeId, treeNode) {
-				var url = "menu!toAddOrUpdate.action?id="+treeNode.id;
-				
-				if(true){
-					$("#iframeMenuEdit").attr("src",url);
-					return;
-				}
-				//alert(url);
-				$("#dfsfsf").val(treeNode.id);
-				document.form1.action = url;
-				document.form1.submit();
-			}
+
 			
 			//删除菜单
 			$("#deleteMenus").click(function(){
@@ -129,7 +111,7 @@ function loadMenusTree(){
 				}
 				
 				$.ajax({
-					url:"<%=request.getContextPath() %>/manage/menu!delete.action",
+					url:"${basepath}/manage/menu!delete.action",
 					type:"post",
 					data:{ids:ids,deleteParent:$("#deleteParent").attr("checked")?"1":"-1"},
 					dataType:"text",
@@ -186,5 +168,4 @@ function loadMenusTree(){
 			$("#expandOrCollapseAllBtn").bind("click", {type:"expandOrCollapse"}, expandNode);
 		});
 </SCRIPT>
-</body>
-</html>
+</@html.htmlBase>
