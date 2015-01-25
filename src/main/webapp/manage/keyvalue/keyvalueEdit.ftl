@@ -21,15 +21,15 @@
 				</tr>
 				<tr>
 					<td colspan="2" style="text-align: center;">
-							<#if e.id??>
-                                <button method="keyvalue!update.action" class="btn btn-success" >
-                                    <i class="icon-ok icon-white"></i> 保存
-                                </button>
-								<#else>
-                                    <button method="keyvalue!insert.action" class="btn btn-success" >
-                                        <i class="icon-ok icon-white"></i> 新增
-                                    </button>
-							</#if>
+						<#if e.id??>
+							<button method="keyvalue!update.action" class="btn btn-success" >
+								<i class="icon-ok icon-white"></i> 保存
+							</button>
+							<#else>
+								<button method="keyvalue!insert.action" class="btn btn-success" >
+									<i class="icon-ok icon-white"></i> 新增
+								</button>
+						</#if>
 					</td>
 				</tr>
 			</table>

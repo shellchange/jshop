@@ -227,9 +227,9 @@
 	<!-- 物流管理 -->
 	<package name="express" namespace="/manage" extends="struts-jeeshop-manage">
 		<action name="express" class="expressActionManage">
-			<result name="toList">/manage/express/expressList.jsp</result>
-			<result name="toAdd">/manage/express/expressEdit.jsp</result>
-			<result name="toEdit">/manage/express/expressEdit.jsp</result>
+			<result name="toList" type="freemarker">/manage/express/expressList.ftl</result>
+			<result name="toAdd" type="freemarker">/manage/express/expressEdit.ftl</result>
+			<result name="toEdit" type="freemarker">/manage/express/expressEdit.ftl</result>
 		</action>
 	</package>
 	
