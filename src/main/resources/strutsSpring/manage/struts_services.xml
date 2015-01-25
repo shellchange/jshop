@@ -281,9 +281,9 @@
 	<!-- 活动促销管理 -->
 	<package name="activity" namespace="/manage" extends="struts-jeeshop-manage">
 		<action name="activity" class="activityActionManage">
-			<result name="toList">/manage/activity/activityList.jsp</result>
-			<result name="toAdd">/manage/activity/activityEdit.jsp</result>
-			<result name="toEdit">/manage/activity/activityEdit.jsp</result>
+			<result name="toList" type="freemarker">/manage/activity/activityList.ftl</result>
+			<result name="toAdd" type="freemarker">/manage/activity/activityEdit.ftl</result>
+			<result name="toEdit" type="freemarker">/manage/activity/activityEdit.ftl</result>
 		</action>
 	</package>
 	
