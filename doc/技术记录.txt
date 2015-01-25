@@ -23,9 +23,12 @@ ${currentUser().username}
 这里的JspTagLibs只能是项目中可以找到的tld文件，不能是http://jsptags.com/tags/navigation/pager形式的URL
 
 3. freemarker中的map迭代
-    <#assign y_n = {'y':'启用','n':'禁用'}>
-    <select id="unit" name="e.openResponsive">
-    <#list y_n?keys as key>
-        <option value="${key}" <#if e.openResponsive?? && e.openResponsive==key>selected="selected" </#if>>${y_n[key]}</option>
-    </#list>
+    <#assign map = {'y':'启用','n':'禁用'}>
+    <select id="unit" name="e.openResponsive" class="input-medium">
+        <#list map?keys as key>
+            <option value="${key}" <#if e.openResponsive?? && e.openResponsive==key>selected="selected" </#if>>${map[key]}</option>
+        </#list>
     </select>
+
+4. 在linux环境下，默认mysql的表名是区分大小写的，如果需要不区分大小写，需要在[mysqld]中追加配置：
+lower_case_table_names=1

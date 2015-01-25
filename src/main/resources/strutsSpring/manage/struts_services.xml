@@ -48,10 +48,10 @@
 			<result name="regeistSuccess" type="redirect">/regeist_success.jsp</result>
 			<result name="loginOut">/toIndex.jsp</result>
 			<result name="regFaild">/regeistFalid.jsp</result>
-			<result name="toList">/manage/account/accountList.jsp</result>
-			<result name="toEdit">/manage/account/accountEdit.jsp</result>
-			<result name="freeze">/manage/account/freeze.jsp</result>
-			<result name="show">/manage/account/show.jsp</result>
+			<result name="toList" type="freemarker">/manage/account/accountList.ftl</result>
+			<result name="toEdit" type="freemarker">/manage/account/accountEdit.ftl</result>
+			<result name="freeze" type="freemarker">/manage/account/freeze.ftl</result>
+			<result name="show" type="freemarker">/manage/account/show.ftl</result>
 		</action>
 	</package>
 	
