@@ -5,7 +5,7 @@
 		$(function(){
 			
 	 		//$("#add").add("#update").click(function(){
-	 			//art.dialog.open('<%=request.getContextPath() %>/menu!toEdit.action',
+	 			//art.dialog.open('${basepath}/menu!toEdit.action',
 	 				//	{title: '个人信息',width:500, height:350,lock:true});	 			
 	 			//art.dialog.load('./ajaxContent/login.html', false);
 	 			//art.dialog.open('', {title: '提示'});
@@ -37,7 +37,7 @@
 	 			var n_type = $("#input_new_menu_type").val();
 	 			
 	 			$.ajax({
-					url:"<%=request.getContextPath() %>/manage/menu!addOrUpdate.action",
+					url:"${basepath}/manage/menu!addOrUpdate.action",
 					type:"post",
 					data:{
 						updateP:2,//-1不修改父菜单，1修改

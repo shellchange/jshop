@@ -126,11 +126,11 @@
 	<!-- 区域管理-->
 	<package name="area" namespace="/manage" extends="struts-jeeshop-manage">
 		<action name="area" class="areaActionManage">
-			<result name="toList">/manage/area/areaList.jsp</result>
-			<result name="toAdd">/manage/area/areaEdit.jsp</result>
-			<result name="toEdit">/manage/area/areaEdit.jsp</result>
-			<result name="areaTree">/manage/area/areaTree.jsp</result>
-			<result name="addOrUpdate">/manage/area/addOrUpdate.jsp</result>
+			<result name="toList" type="freemarker">/manage/area/areaList.ftl</result>
+			<result name="toAdd" type="freemarker">/manage/area/areaEdit.ftl</result>
+			<result name="toEdit" type="freemarker">/manage/area/areaEdit.ftl</result>
+			<result name="areaTree" type="freemarker">/manage/area/areaTree.ftl</result>
+			<result name="addOrUpdate" type="freemarker">/manage/area/addOrUpdate.ftl</result>
 		</action>
 	</package>
 	
