@@ -34,4 +34,5 @@ ${currentUser().username}
 lower_case_table_names=1
 
 5. idea中使用正则查找替换功能，使<s:property name="name"/>形式的内容替换为${name!""}
-查找：<s:property value="(.+?)" />，替换为:\\${item.$1!""}
+查找：<s:property value="(.+?)"\s?/>，替换为:\\${item.$1!""}
+查找：<s:textfield (.*?) name="(.+?)",替换为：<input type="text"  value="\\${$2!""}" name="$2" $1

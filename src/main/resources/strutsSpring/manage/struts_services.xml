@@ -95,10 +95,10 @@
 	<!-- 订单 -->
 	<package name="order" namespace="/manage" extends="struts-jeeshop-manage">
 		<action name="order" class="orderActionManage">
-			<result name="toList">/manage/order/orderList.jsp</result>
-			<result name="toAdd">/manage/order/orderEdit.jsp</result>
-			<result name="toEdit">/manage/order/orderEdit.jsp</result>
-			<result name="toPrint">/manage/order/orderPrint.jsp</result>
+			<result name="toList" type="freemarker">/manage/order/orderList.ftl</result>
+			<result name="toAdd" type="freemarker">/manage/order/orderEdit.ftl</result>
+			<result name="toEdit" type="freemarker">/manage/order/orderEdit.ftl</result>
+			<result name="toPrint" type="freemarker">/manage/order/orderPrint.ftl</result>
 			<result name="toSendProduct">/manage/order/sendProduct.jsp</result>
 			<result name="selectOrdership">/manage/order/updateOrdership.jsp</result>
 		</action>
