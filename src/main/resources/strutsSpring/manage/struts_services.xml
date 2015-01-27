@@ -192,27 +192,27 @@
 	<!-- 支付方式管理 -->
 	<package name="pay" namespace="/manage" extends="struts-jeeshop-manage">
 		<action name="pay" class="payActionManage">
-			<result name="toList">/manage/pay/payList.jsp</result>
-			<result name="toAdd">/manage/pay/payEdit.jsp</result>
-			<result name="toEdit">/manage/pay/payEdit.jsp</result>
+			<result name="toList" type="freemarker">/manage/pay/payList.ftl</result>
+			<result name="toAdd" type="freemarker">/manage/pay/payEdit.ftl</result>
+			<result name="toEdit" type="freemarker">/manage/pay/payEdit.ftl</result>
 		</action>
 	</package>
 	
 	<!-- 存储方式管理 -->
 	<package name="oss" namespace="/manage" extends="struts-jeeshop-manage">
 		<action name="oss" class="ossActionManage">
-			<result name="toList">/manage/oss/ossList.jsp</result>
-			<result name="toAdd">/manage/oss/ossEdit.jsp</result>
-			<result name="toEdit">/manage/oss/ossEdit.jsp</result>
+			<result name="toList" type="freemarker">/manage/oss/ossList.ftl</result>
+			<result name="toAdd" type="freemarker">/manage/oss/ossEdit.ftl</result>
+			<result name="toEdit" type="freemarker">/manage/oss/ossEdit.ftl</result>
 		</action>
 	</package>
 	
 	<!-- 评论方式管理 -->
 	<package name="commentType" namespace="/manage" extends="struts-jeeshop-manage">
 		<action name="commentType" class="commentTypeActionManage">
-			<result name="toList">/manage/commentType/commentTypeList.jsp</result>
-			<result name="toAdd">/manage/commentType/commentTypeEdit.jsp</result>
-			<result name="toEdit">/manage/commentType/commentTypeEdit.jsp</result>
+			<result name="toList" type="freemarker">/manage/commentType/commentTypeList.ftl</result>
+			<result name="toAdd" type="freemarker">/manage/commentType/commentTypeEdit.ftl</result>
+			<result name="toEdit" type="freemarker">/manage/commentType/commentTypeEdit.ftl</result>
 		</action>
 	</package>
 	
