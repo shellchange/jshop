@@ -164,9 +164,9 @@
 	<!-- 产品属性 -->
 	<package name="attribute" namespace="/manage" extends="struts-jeeshop-manage">
 		<action name="attribute" class="attributeActionManage">
-			<result name="toList">/manage/attribute/attributeList.jsp</result>
-			<result name="toAdd">/manage/attribute/attributeEdit.jsp</result>
-			<result name="toEdit">/manage/attribute/attributeEdit.jsp</result>
+			<result name="toList" type="freemarker">/manage/attribute/attributeList.ftl</result>
+			<result name="toAdd" type="freemarker">/manage/attribute/attributeEdit.ftl</result>
+			<result name="toEdit" type="freemarker">/manage/attribute/attributeEdit.ftl</result>
 		</action>
 	</package>
 	
