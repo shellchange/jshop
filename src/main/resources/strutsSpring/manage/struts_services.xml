@@ -245,9 +245,9 @@
 	<!-- 商品到货通知 -->
 	<package name="emailNotifyProduct" namespace="/manage" extends="struts-jeeshop-manage">
 		<action name="emailNotifyProduct" class="emailNotifyProductActionManage">
-			<result name="toList">/manage/emailNotifyProduct/emailNotifyProductList.jsp</result>
-			<result name="toAdd">/manage/emailNotifyProduct/emailNotifyProductEdit.jsp</result>
-			<result name="toEdit">/manage/emailNotifyProduct/emailNotifyProductEdit.jsp</result>
+			<result name="toList" type="freemarker">/manage/emailNotifyProduct/emailNotifyProductList.ftl</result>
+			<!--<result name="toAdd">/manage/emailNotifyProduct/emailNotifyProductEdit.jsp</result>-->
+			<!--<result name="toEdit">/manage/emailNotifyProduct/emailNotifyProductEdit.jsp</result>-->
 		</action>
 	</package>
 	
