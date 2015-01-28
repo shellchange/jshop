@@ -290,10 +290,10 @@
 	<!-- 商品赠品管理 -->
 	<package name="gift" namespace="/manage" extends="struts-jeeshop-manage">
 		<action name="gift" class="giftActionManage">
-			<result name="toList">/manage/gift/giftList.jsp</result>
-			<result name="toAdd">/manage/gift/giftEdit.jsp</result>
-			<result name="toEdit">/manage/gift/giftEdit.jsp</result>
-			<result name="show">/manage/gift/show.jsp</result>
+			<result name="toList" type="freemarker">/manage/gift/giftList.ftl</result>
+			<result name="toAdd" type="freemarker">/manage/gift/giftEdit.ftl</result>
+			<result name="toEdit" type="freemarker">/manage/gift/giftEdit.ftl</result>
+			<result name="show" type="freemarker">/manage/gift/show.ftl</result>
 		</action>
 	</package>
 	

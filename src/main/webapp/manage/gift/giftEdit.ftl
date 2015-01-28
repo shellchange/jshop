@@ -1,11 +1,5 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
-<!DOCTYPE html>
-<html>
-<head>
-<%@ include file="/resource/common_html_meat.jsp"%>
-<%@ include file="/manage/system/common.jsp"%>
-<%@ include file="/resource/common_html_validator.jsp"%>
+<#import "/resource/common_html_meat.ftl" as html>
+<@html.htmlBase>
 <style>
 #insertOrUpdateMsg{
 border: 0px solid #aaa;margin: 0px;position: fixed;top: 0;width: 100%;
@@ -16,34 +10,27 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 	background-position: -288px 0;
 }
 </style>
-</head>
-
-<body>
 	<div class="navbar navbar-inverse" >
 		<div id="insertOrUpdateMsg">
-			<s:property value="#session.insertOrUpdateMsg"/>
-			<%request.getSession().setAttribute("insertOrUpdateMsg", "");//列表页面进行编辑文章的时候,需要清空信息 %>
+			${session.insertOrUpdateMsg!""}
 		</div>
 	</div>
 	
-	<s:form action="gift" namespace="/manage" theme="simple" name="form" id="form" >
-<%-- 		<s:hidden name="type"/> --%>
-		<s:hidden name="e.type"/>
-		<input type="hidden" value="<s:property value="e.catalogID"/>" id="catalogID"/>
+	<form action="gift" namespace="/manage" theme="simple" name="form" id="form" >
+		<input type="hidden" value="${e.type!""}" name="e.type"/>
+		<input type="hidden" value="${e.catalogID!""}" id="catalogID"/>
 		<table class="table table-bordered">
 			<tr>
 				<td colspan="2" style="text-align: center;">
-					<s:if test="e.id=='' or e.id==null">
-						<button method="gift!insert.action" class="btn btn-success">
-							<i class="icon-ok icon-white"></i> 新增
-						</button>
-						
-					</s:if> 
-					<s:else>
-						<button method="gift!update.action" class="btn btn-success">
-							<i class="icon-ok icon-white"></i> 保存
-						</button>
-					</s:else>
+					<#if e.id??>
+                        <button method="gift!update.action" class="btn btn-success">
+                            <i class="icon-ok icon-white"></i> 保存
+                        </button>
+					<#else>
+                        <button method="gift!insert.action" class="btn btn-success">
+                            <i class="icon-ok icon-white"></i> 新增
+                        </button>
+					</#if>
 				</td>
 			</tr>
 			<tr style="background-color: #dff0d8">
@@ -53,66 +40,67 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 			</tr>
 			<tr style="display: none;">
 				<td>id</td>
-				<td><s:hidden name="e.id" label="id" /></td>
+				<td><input type="hidden" value="${e.id!""}" name="e.id" label="id" /></td>
 			</tr>
 			<tr>
 				<td style="text-align: right;width: 80px;">赠品名称</td>
-				<td style="text-align: left;"><s:textfield name="e.giftName" style="width: 80%;" id="giftName" 
+				<td style="text-align: left;"><input type="text"  value="${e.giftName!""}" name="e.giftName"  style="width: 80%;" id="giftName"
 				data-rule="赠品名称:required;giftName;length[1~100];"/></td>
 			</tr>
 			<tr>
 				<td style="text-align: right;width: 80px;">赠品价值</td>
-				<td style="text-align: left;"><s:textfield name="e.giftPrice" id="giftPrice" 
+				<td style="text-align: left;"><input type="text"  value="${e.giftPrice!""}" name="e.giftPrice"  id="giftPrice"
 				data-rule="赠品价格:required;giftPrice;length[1~100];"/></td>
 			</tr>
 			<tr>
 				<td style="text-align: right;width: 80px;">状态</td>
 				<td style="text-align: left;">
-					<s:select name="e.status" id="status" list="#{'up':'已上架','down':'已下架'}"></s:select>
+					<#assign map = {'up':'已上架','down':'已下架'}>
+                    <select id="status" name="e.status" class="input-medium" style="width:100px;">
+						<#list map?keys as key>
+                            <option value="${key}" <#if e.status?? && e.status==key>selected="selected" </#if>>${map[key]}</option>
+						</#list>
+                    </select>
 				</td>
 			</tr>
 			<tr>
 				<td style="text-align: right;">主图</td>   
 				<td style="text-align: left;" colspan="3">
 					<input type="button" name="filemanager" value="浏览图片" class="btn btn-success"/>
-					<s:textfield type="text" id="picture" name="e.picture" ccc="imagesInput" style="width: 600px;" 
+					<input type="text"  value="${e.picture!""}" name="e.picture" type="text" id="picture" ccc="imagesInput" style="width: 600px;"
 					data-rule="小图;required;picture;"/>
-					<s:if test="e.picture!=null">
-						<a target="_blank" href="<%=SystemManager.systemSetting.getImageRootPath()%><s:property value="e.picture" />">
-							<img style="max-width: 50px;max-height: 50px;" alt="" src="<%=SystemManager.systemSetting.getImageRootPath()%><s:property value="e.picture" />">
+					<#if e.picture??>
+						<a target="_blank" href="${systemSetting().imageRootPath}/${e.picture!""}">
+							<img style="max-width: 50px;max-height: 50px;" alt="" src="${systemSetting().imageRootPath}/${e.picture!""}">
 						</a>
-					</s:if>
+					</#if>
 				</td>
 			</tr>
 			
-			<s:if test="e.createAccount!=null">
+			<#if e.createAccount??>
 				<tr>
 					<td style="text-align: right;">添加</td>
 					<td style="text-align: left;">
-						添加人：<s:property value="e.createAccount"/><br>
-						添加时间：<s:property value="e.createtime"/><br>
+						添加人：${e.createAccount!""}<br>
+						添加时间：${e.createtime!""}<br>
 					</td>
 				</tr>
-			</s:if>
+			</#if>
 			
-			<s:if test="e.updateAccount!=null">
+			<#if e.updateAccount??>
 				<tr>
 					<td style="text-align: right;">最后修改</td>
 					<td style="text-align: left;">
-						修改人：<s:property value="e.updateAccount"/><br>
-						修改时间：<s:property value="e.updatetime"/><br>
+						修改人：${e.updateAccount!""}<br>
+						修改时间：${e.updatetime!""}<br>
 					</td>
 				</tr>
-			</s:if>
+			</#if>
 		</table>
-	</s:form>
+	</form>
 	
-	<span id="pifeSpan" class="input-group-addon" style="display:none"><%=SystemManager.systemSetting.getImageRootPath()%></span>
+	<span id="pifeSpan" class="input-group-addon" style="display:none">${systemSetting().imageRootPath}</span>
 	
-	<link rel="stylesheet" href="<%=request.getContextPath() %>/resource/kindeditor-4.1.7/themes/default/default.css" />
-	<script charset="utf-8" src="<%=request.getContextPath() %>/resource/kindeditor-4.1.7/kindeditor-min.js"></script>
-	<script charset="utf-8" src="<%=request.getContextPath() %>/resource/kindeditor-4.1.7/lang/zh_CN.js"></script>
-
 <script type="text/javascript">
 	
 	$(function() {
@@ -170,5 +158,4 @@ function clearRootImagePath(picInput){
 
 </script>
 
-</body>
-</html>
+	</@html.htmlBase>
