@@ -39,7 +39,7 @@
     <link rel="stylesheet" href="${basepath}/resource/zTree3.5/css/zTreeStyle/zTreeStyle.css" type="text/css">
     <link rel="stylesheet" href="${basepath}/resource/bootstrap/css/bootstrap.min.css"  type="text/css">
     <link rel="stylesheet" href="${basepath}/resource/css/base.css"  type="text/css">
-    <link rel="stylesheet" href="${basepath}/resource/bootstrap/css/docs.css"  type="text/css">
+    <link rel="stylesheet" href="${basepath}/resource/bootstrap3.0.0/css/docs.css"  type="text/css">
     <link rel="stylesheet" href="${basepath}/resource/jquery-jquery-ui/themes/base/jquery.ui.all.css">
     <link rel="stylesheet" href="${basepath}/resource/validator-0.7.0/jquery.validator.css" />
 

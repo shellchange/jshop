@@ -58,10 +58,10 @@
 	<!-- 分类管理 -->
 	<package name="catalog" namespace="/manage" extends="struts-jeeshop-manage">
 		<action name="catalog" class="catalogActionManage">
-			<result name="toList">/manage/catalog/catalogList.jsp</result>
+			<result name="toList" type="freemarker">/manage/catalog/catalogList.ftl</result>
 			<result name="selectAllList" type="redirect">catalog!selectList.action?e.type=${e.type}</result>
-			<result name="toAdd">/manage/catalog/catalogEdit.jsp</result>
-			<result name="toEdit">/manage/catalog/catalogEdit.jsp</result>
+			<result name="toAdd" type="freemarker">/manage/catalog/catalogEdit.ftl</result>
+			<result name="toEdit" type="freemarker">/manage/catalog/catalogEdit.ftl</result>
 		</action>
 	</package>
 	

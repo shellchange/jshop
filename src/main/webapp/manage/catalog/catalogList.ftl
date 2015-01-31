@@ -1,13 +1,5 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
-<%@ page session="false"%>
-<%@ taglib uri="http://jsptags.com/tags/navigation/pager" prefix="pg"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
-<html>
-<head>
-<%@ include file="/resource/common_html_meat.jsp"%>
-<%@ include file="/manage/system/common.jsp"%>
+<#import "/resource/common_html_meat.ftl" as html/>
+<@html.htmlBase>
 <script type="text/javascript">
 	$(function() {
 
@@ -76,25 +68,20 @@
 		_form.submit();
 	}
 </script>
-</head>
-
-<body>
-	<s:form action="catalog" name="form" id="form" namespace="/manage" method="post" theme="simple">
-		<s:hidden name="e.type" id="_type" />
+	<form action="${basepath}/manage/catalog.action" name="form" id="form" method="post" theme="simple">
+		<input type="hidden" value="${e.type!""}" name="e.type" id="_type" />
 		<table class="table table-bordered table-condensed table-hover">
 			<tr>
 				<td colspan="16">
-<%-- 					<s:submit method="selectList" value="查询" cssClass="btn btn-primary" /> --%>
-					
-					<s:a method="selectList" cssClass="btn btn-primary">
+
+					<a href="catalog!selectList.action" class="btn btn-primary">
 						<i class="icon-search icon-white"></i> 查询
-					</s:a>
+					</a>
 						
-<%-- 					<s:submit method="toAdd" value="添加" cssClass="btn btn-success" /> --%>
-					
-					<s:a method="toAdd" cssClass="btn btn-success">
+
+					<a href="catalog!toAdd.action" class="btn btn-success">
 						<i class="icon-plus-sign icon-white"></i> 添加
-					</s:a>
+					</a>
 						
 <!-- 					<input type="button" onclick="editSelect();" value="编辑" class="btn btn-warning" /> -->
 
@@ -104,9 +91,7 @@
 					
 <!-- 					<input type="button" onclick="deleteSelect();" value="删除" class="btn btn-danger" /> -->
 
-<%-- 					<s:a method="deletes" cssClass="btn btn-danger" onclick="deleteSelect();"> --%>
 <!-- 						<i class="icon-remove-sign icon-white"></i> 删除 -->
-<%-- 					</s:a> --%>
 					<button method="catalog!deletes.action" class="btn btn-danger" onclick="return deleteSelect();">
 						<i class="icon-remove-sign icon-white"></i> 删除
 					</button>
@@ -114,19 +99,19 @@
 				</td>
 			</tr>
 		</table>
-	</s:form>
+	</form>
 
 	<div class="alert alert-info" style="margin-bottom: 2px;">友情提示：商品目录一般分为两层，大类别、小类别。商品目录编码必须唯一。</div>
 	<table id="treegrid" title="商品类别目录" class="easyui-treegrid" style="min-width:800px;min-height:250px"
 			data-options="
-				url: '<%=request.getContextPath() %>/manage/catalog/catalog!getRootWithTreegrid.action?e.type=<s:property value="e.type"/>',
-				method: 'get',
+				url: '${basepath}/manage/catalog/catalog!getRootWithTreegrid.action?e.type=${e.type!""}',
+				method: 'post',
 				rownumbers: true,
 				idField: 'id',
 				treeField: 'name',
-				onClickRow:function(row){
-					//alert(row.id);
-				}
+				<#--onClickRow:function(row){-->
+					<#--//alert(row.id);-->
+				<#--}-->
 			">
 		<thead>
 			<tr>
@@ -135,19 +120,16 @@
 				<th data-options="field:'order1'" nowrap="nowrap">顺序</th>
 				<th data-options="field:'code'" nowrap="nowrap">编码</th>
 				<th data-options="field:'showInNavStr'" nowrap="nowrap">是否在导航条显示</th>
-				<s:if test="e.type.equals(\"a\")">
-				</s:if>
-				<s:else>
+				<#if e.type??&& e.type=="a">
+				<#else>
 					<th data-options="field:'productNum'" nowrap="nowrap" align="right">商品数量</th>
-				</s:else>
+				</#if>
 			</tr>
 		</thead>
 	</table>
 	
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resource/jquery-easyui-1.3.4/themes/default/easyui.css">
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resource/jquery-easyui-1.3.4/themes/icon.css">
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resource/jquery-easyui-1.3.4/demo/demo.css">
-<%-- <script type="text/javascript" src="<%=request.getContextPath() %>/resource/jquery-easyui-1.3.4/jquery.min.js"></script> --%>
-<script type="text/javascript" src="<%=request.getContextPath() %>/resource/jquery-easyui-1.3.4/jquery.easyui.min.js"></script>
-</body>
-</html>
+<link rel="stylesheet" type="text/css" href="${basepath}/resource/jquery-easyui-1.3.4/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="${basepath}/resource/jquery-easyui-1.3.4/themes/icon.css">
+<#--<link rel="stylesheet" type="text/css" href="${basepath}/resource/jquery-easyui-1.3.4/demo/demo.css">-->
+<script type="text/javascript" src="${basepath}/resource/jquery-easyui-1.3.4/jquery.easyui.min.js"></script>
+</@html.htmlBase>
