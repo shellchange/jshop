@@ -25,9 +25,9 @@
 	<!-- 友情链接 -->
 	<package name="navigation" namespace="/manage" extends="struts-jeeshop-manage">
 		<action name="navigation" class="navigationActionManage">
-			<result name="toList">/manage/navigation/navigationList.jsp</result>
-			<result name="toEdit">/manage/navigation/navigationEdit.jsp</result>
-			<result name="toAdd">/manage/navigation/navigationEdit.jsp</result>
+			<result name="toList" type="freemarker">/manage/navigation/navigationList.ftl</result>
+			<result name="toEdit" type="freemarker">/manage/navigation/navigationEdit.ftl</result>
+			<result name="toAdd" type="freemarker">/manage/navigation/navigationEdit.ftl</result>
 		</action>
 	</package>
 	
