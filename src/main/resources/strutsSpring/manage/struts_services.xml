@@ -7,9 +7,9 @@
 	<!-- 滚动图片维护 -->
 	<package name="indexImg" namespace="/manage" extends="struts-jeeshop-manage">
 		<action name="indexImg" class="indexImgActionManage">
-			<result name="toList">/manage/indexImg/indexImgList.jsp</result>
-			<result name="toEdit">/manage/indexImg/indexImgEdit.jsp</result>
-			<result name="toAdd">/manage/indexImg/indexImgEdit.jsp</result>
+			<result name="toList" type="freemarker">/manage/indexImg/indexImgList.ftl</result>
+			<result name="toEdit" type="freemarker">/manage/indexImg/indexImgEdit.ftl</result>
+			<result name="toAdd" type="freemarker">/manage/indexImg/indexImgEdit.ftl</result>
 		</action>
 	</package>
 	
