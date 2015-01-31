@@ -16,9 +16,9 @@
 	<!-- 门户新闻 -->
 	<package name="news" namespace="/manage" extends="struts-jeeshop-manage">
 		<action name="news" class="newsActionManage">
-			<result name="toList">/manage/news/newsList.jsp</result>
-			<result name="toEdit">/manage/news/newsEdit.jsp</result>
-			<result name="toAdd">/manage/news/newsEdit.jsp</result>
+			<result name="toList" type="freemarker">/manage/news/newsList.ftl</result>
+			<result name="toEdit" type="freemarker">/manage/news/newsEdit.ftl</result>
+			<result name="toAdd" type="freemarker">/manage/news/newsEdit.ftl</result>
 		</action>
 	</package>
 	

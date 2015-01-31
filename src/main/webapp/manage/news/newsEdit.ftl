@@ -1,11 +1,5 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
-<!DOCTYPE html>
-<html>
-<head>
-<%@ include file="/resource/common_html_meat.jsp"%>
-<%@ include file="/manage/system/common.jsp"%>
-<%@ include file="/resource/common_html_validator.jsp"%>
+<#import "/resource/common_html_meat.ftl" as html/>
+<@html.htmlBase>
 <style>
 #insertOrUpdateMsg{
 border: 0px solid #aaa;margin: 0px;position: fixed;top: 0;width: 100%;
@@ -16,64 +10,49 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 	background-position: -288px 0;
 }
 </style>
-</head>
-
-<body>
 	<div class="navbar navbar-inverse" >
 		<div id="insertOrUpdateMsg">
-			<s:property value="#session.insertOrUpdateMsg"/>
-			<%request.getSession().setAttribute("insertOrUpdateMsg", "");//列表页面进行编辑文章的时候,需要清空信息 %>
+			${insertOrUpdateMsg!""}
 		</div>
 	</div>
 	
-	<s:form action="news" namespace="/manage" theme="simple" name="form" id="form" >
-<%-- 		<s:hidden name="type"/> --%>
-		<s:hidden name="e.type"/>
-		<input type="hidden" value="<s:property value="e.catalogID"/>" id="catalogID"/>
+	<form action="${basepath}/manage/news.action" namespace="/manage" theme="simple" name="form" id="form" >
+		<input type="hidden" value="${e.type!""}" name="e.type"/>
+		<input type="hidden" value="${e.catalogID!""}/>" id="catalogID"/>
 		<table class="table table-bordered">
 			<tr>
 				<td colspan="2" style="text-align: center;">
-					<s:if test="e.id=='' or e.id==null">
-<%-- 						<s:submit method="insert" value="新增" cssClass="btn btn-primary"/> --%>
+					<#if e.id??>
+                        文章ID：<span class="badge badge-success">${e.id!""}</span>
+                        <button method="news!update.action" class="btn btn-success">
+                            <i class="icon-ok icon-white"></i> 保存
+                        </button>
+
+
+                        <#if e.status??&&e.status=="y">
+                        <a action="news" href="news!down.action?e.id=${e.id}" class="btn btn-warning" onclick="return confirm(\"确定不显示此文章吗?\");">
+                        <i class="icon-arrow-down icon-white"></i> 不显示</a>
+                        <#else>
+                            <a action="news" href="news!up.action?e.id=${e.id}" class="btn btn-warning" onclick="return confirm(\"确定显示此文章吗?\");">
+                            <i class="icon-arrow-up icon-white"></i> 显示</a>
+                        </#if>
+
+                        <#if e.type??&&e.type=="notice">
+                        <a class="btn btn-info" target="_blank" href="${systemSetting().www}/news/${e.id!""}.html">
+                        <i class="icon-eye-open icon-white"></i> 查看</a>
+                        <#elseif e.type??&&e.type=="help">
+                        <a class="btn btn-info" target="_blank" href="${systemSetting().www}/help/${e.code!""}.html">
+                        <i class="icon-eye-open icon-white"></i> 查看</a>
+                        </#if>
+                        <a target="_blank" href="${systemSetting().www}/freemarker!create.action?method=staticNewsByID&id=${e.id!""}" class="btn btn-warning">
+                        <i class="icon-refresh icon-white"></i> 静态化</a>
+
 						
-						<button method="news!insert.action" class="btn btn-success">
-							<i class="icon-ok icon-white"></i> 新增
-						</button>
-						
-					</s:if> 
-					<s:else>
-						文章ID：<span class="badge badge-success"><s:property value="e.id"/></span>
-<%-- 						<s:submit action="news" method="update" value="保存" cssClass="btn btn-primary btnCCC" onclick="doSubmitFunc(this)"/> --%>
-						<button method="news!update.action" class="btn btn-success">
-							<i class="icon-ok icon-white"></i> 保存
-						</button>
-						
-				
-						<s:if test="e.status.equals(\"y\")">
-<%-- 							<s:submit method="down" value="不显示" cssClass="btn btn-warning" onclick="return confirm(\"确定不显示此文章吗?\");"/> --%>
-							<s:a action="news" method="down" cssClass="btn btn-warning" onclick="return confirm(\"确定不显示此文章吗?\");">
-							<s:param name="e.id" value="e.id"/>
-							<i class="icon-arrow-down icon-white"></i> 不显示</s:a>
-						</s:if>
-						<s:else>
-<%-- 							<s:submit method="up" value="显示" cssClass="btn btn-warning" onclick="return confirm(\"确定显示此文章吗?\");"/> --%>
-							<s:a action="news" method="up" cssClass="btn btn-warning" onclick="return confirm(\"确定显示此文章吗?\");">
-							<s:param name="e.id" value="e.id"/>
-							<i class="icon-arrow-up icon-white"></i> 显示</s:a>
-						</s:else>
-						
-						<s:if test="e.type.equals(\"notice\")">
-							<a class="btn btn-info" target="_blank" href="<%=SystemManager.systemSetting.getWww()%>/news/<s:property value="e.id"/>.html">
-							<i class="icon-eye-open icon-white"></i> 查看</a>
-						</s:if>
-						<s:elseif test="e.type.equals(\"help\")">
-							<a class="btn btn-info" target="_blank" href="<%=SystemManager.systemSetting.getWww()%>/help/<s:property value="e.code"/>.html">
-							<i class="icon-eye-open icon-white"></i> 查看</a>
-						</s:elseif>
-						<a target="_blank" href="<%=SystemManager.systemSetting.getWww()%>/freemarker!create.action?method=staticNewsByID&id=<s:property value="e.id"/>" class="btn btn-warning">
-						<i class="icon-refresh icon-white"></i> 静态化</a>
-						
-					</s:else>
+					<#else>
+                        <button method="news!insert.action" class="btn btn-success">
+                            <i class="icon-ok icon-white"></i> 新增
+                        </button>
+					</#if>
 				</td>
 			</tr>
 			<tr style="background-color: #dff0d8">
@@ -83,50 +62,47 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 			</tr>
 			<tr style="display: none;">
 				<td>id</td>
-				<td><s:hidden name="e.id" label="id" /></td>
+				<td><input type="hidden" value="${e.id!""}" name="e.id" label="id" /></td>
 			</tr>
-			<s:if test="e.type.equals(\"help\")">
+			<#if e.type??&&e.type=="help">
 				<tr>
 					<td style="text-align: right;">类别</td>
 					<td>
-						<%
-						application.setAttribute("catalogs", SystemManager.catalogsArticle);
-						%>
 						<select onchange="catalogChange(this)" name="e.catalogID" id="catalogSelect" data-rule="类别:required;catalogSelect;">
 							<option></option>
-							<s:iterator value="#application.catalogs">
-								<option pid="0" value="<s:property value="id"/>"><font color='red'><s:property value="name"/></font></option>
-							</s:iterator>
+                            <#list catalogsArticle as item>
+								<option pid="0" <#if item.id==e.catalogID>selected="selected" </#if> value="${item.id!""}"><font color='red'>${item.name!""}</font></option>
+							</#list>
 						</select>
 					</td>
 				</tr>
 				<tr>
 					<td style="text-align: right;">文章code</td>
-					<td style="text-align: left;"><s:textfield name="e.code" data-rule="文章编码:required;code;length[1~25];remote[news!unique.action]" 
+					<td style="text-align: left;"><input type="text"  value="${e.code!""}" name="e.code"  data-rule="文章编码:required;code;length[1~25];remote[news!unique.action]"
 							id="code" /><br>
 						(例如：[新手帮助]的编码为xsbz，或者输入别的字符，但是必须唯一，最好不要使用中文。)		
 					</td>
 				</tr>
 				<tr>
 					<td style="text-align: right;">顺序</td>
-					<td style="text-align: left;"><s:textfield name="e.order1" data-rule="顺序:integer;order1;length[1~5];" 
+					<td style="text-align: left;"><input type="text"  value="${e.order1!""}" name="e.order1"  data-rule="顺序:integer;order1;length[1~5];"
 							id="order1" /></td>
 				</tr>
-			</s:if>
+			</#if>
 			<tr>
 				<td style="text-align: right;width: 80px;">标题</td>
-				<td style="text-align: left;"><s:textfield name="e.title" style="width: 80%;" id="title" 
+				<td style="text-align: left;"><input type="text" value="${e.title!""}" name="e.title" style="width: 80%;" id="title"
 				data-rule="标题:required;title;length[1~45];"/></td>
 			</tr>
 			<tr>
 				<td style="text-align: right;">内容</td>
 				<td style="text-align: left;">
-					<s:textarea name="e.content" style="width:100%;height:400px;visibility:hidden;" id="content"
-					data-rule="内容:required;content;"></s:textarea>
+					<textarea name="e.content" style="width:100%;height:400px;visibility:hidden;" id="content"
+					data-rule="内容:required;content;">${e.content!""}</textarea>
 				</td>
 			</tr>
 		</table>
-	</s:form>
+	</form>
 <script type="text/javascript">
 	$(function() {
 		//$("#title").focus();
@@ -216,9 +192,6 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 	}
 </script>
 
-<link rel="stylesheet" href="<%=request.getContextPath() %>/resource/kindeditor-4.1.7/themes/default/default.css" />
-<script charset="utf-8" src="<%=request.getContextPath() %>/resource/kindeditor-4.1.7/kindeditor-min.js"></script>
-<script charset="utf-8" src="<%=request.getContextPath() %>/resource/kindeditor-4.1.7/lang/zh_CN.js"></script>
 <script>
 	var editor;
 	KindEditor.ready(function(K) {
@@ -254,5 +227,4 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 		});
 	});
 </script>
-</body>
-</html>
+</@html.htmlBase>

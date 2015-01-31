@@ -10,6 +10,7 @@ import java.util.List;
 import net.jeeshop.core.BaseAction;
 import net.jeeshop.core.ManageContainer;
 import net.jeeshop.core.dao.page.PagerModel;
+import net.jeeshop.core.front.SystemManager;
 import net.jeeshop.core.system.bean.User;
 import net.jeeshop.services.manage.catalog.CatalogService;
 import net.jeeshop.services.manage.indexImg.IndexImgService;
@@ -148,6 +149,7 @@ public class NewsAction extends BaseAction<News> {
 	}
 	
 	private String toEdit0() throws Exception {
+        getRequest().setAttribute("catalogsArticle", SystemManager.catalogsArticle);
 		return super.toEdit();
 	}
 	
@@ -337,6 +339,7 @@ public class NewsAction extends BaseAction<News> {
 	@Override
 	protected void selectListAfter() {
 		pager.setPagerUrl("news!selectList.action");
+        getRequest().setAttribute("catalogsArticle", SystemManager.catalogsArticle);
 	}
 	
 	
