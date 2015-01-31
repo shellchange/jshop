@@ -173,9 +173,9 @@
 	<!-- 广告管理 -->
 	<package name="advert" namespace="/manage" extends="struts-jeeshop-manage">
 		<action name="advert" class="advertActionManage">
-			<result name="toList">/manage/advert/advertList.jsp</result>
-			<result name="toAdd">/manage/advert/advertEdit.jsp</result>
-			<result name="toEdit">/manage/advert/advertEdit.jsp</result>
+			<result name="toList" type="freemarker">/manage/advert/advertList.ftl</result>
+			<result name="toAdd" type="freemarker">/manage/advert/advertEdit.ftl</result>
+			<result name="toEdit" type="freemarker">/manage/advert/advertEdit.ftl</result>
 		</action>
 	</package>
 	
