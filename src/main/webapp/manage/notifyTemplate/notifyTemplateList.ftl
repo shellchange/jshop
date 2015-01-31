@@ -1,24 +1,11 @@
-<%@page import="net.jeeshop.core.ManageContainer"%>
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
-<%@ page session="false"%>
-<%@ taglib uri="http://jsptags.com/tags/navigation/pager" prefix="pg"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
-<html>
-<head>
-<%@ include file="/resource/common_html_meat.jsp"%>
-<%@ include file="/manage/system/common.jsp"%>
-<%@ include file="/resource/common_html_validator.jsp"%>
-</head>
-
-<body>
-	<s:form action="notifyTemplate!update.action" namespace="/manage" method="post" theme="simple">
-		<s:if test="e.templateCheckError!=null">
+<#import "/resource/common_html_meat.ftl" as html>
+<@html.htmlBase>
+	<form action="${basepath}/manage/notifyTemplate!update.action" method="post" theme="simple">
+		<#if e.templateCheckError??>
 			<div class="alert alert-danger">
-				<s:property value="e.templateCheckError"/>
+				${e.templateCheckError!""}
 			</div>
-		</s:if>
+		</#if>
 		<table class="table table-bordered">
 			<tr style="background-color: #dff0d8">
 				<td colspan="2" style="background-color: #dff0d8;text-align: center;">
@@ -28,39 +15,35 @@
 			<tr>
 				<td style="text-align: right;width: 80px;" nowrap="nowrap" >选择模板</td>
 				<td style="text-align: left;">
-					<s:select list="notifyTemplateList" id="code" name="e.code"  onchange="changeTemplate()" data-rule="模板:required;code;" 
-					headerKey="" headerValue=""
-						listKey="code" listValue="name"  />
+
+                    <select id="code" name="e.code" class="input-medium"  data-rule="模板:required;code;"onchange="changeTemplate()"  >
+                        <option value=""></option>
+                        <#list notifyTemplateList as item>
+                            <option value="${item.code}" <#if e.code?? && e.code==item.code>selected="selected" </#if>>${item.name}</option>
+                        </#list>
+                    </select>
 			</tr>
 			<tr>
 				<td style="text-align: right;" nowrap="nowrap">参数解释</td>
 				<td style="text-align: left;">
-					<div id="remarkDiv"><s:property value="e.remark"/></div>
+					<div id="remarkDiv">${e.remark!""}</div>
 				</td>
 			</tr>
 			<tr>
 				<td style="text-align: right;" nowrap="nowrap">模板内容</td>
 				<td style="text-align: left;">
-					<s:textarea name="e.template" id="template" style="width:100%;height:400px;visibility:hidden;" data-rule="模板内容:required;template;"></s:textarea>
+					<textarea name="e.template" id="template" style="width:100%;height:400px;visibility:hidden;" data-rule="模板内容:required;template;">${e.template!""}</textarea>
 			</tr>
 			<tr>
 				<td colspan="28" style="text-align: center;">
-<!-- 					<input type="button" onclick="updateTemplate()" value="保存" class="btn btn-primary"/> -->
-<%-- 					<s:submit value="保存" cssClass="btn btn-primary"/> --%>
-<%-- 					<s:a cssClass="btn btn-success"> --%>
-<!-- 						<i class="icon-ok icon-white"></i> 保存 -->
-<%-- 					</s:a> --%>
 					<button method="notifyTemplate!update.action" class="btn btn-success">
 						<i class="icon-ok icon-white"></i> 保存
 					</button>
 				</td>
 			</tr>
 		</table>
-	</s:form>
+	</form>
 
-<link rel="stylesheet" href="<%=request.getContextPath() %>/resource/kindeditor-4.1.7/themes/default/default.css" />
-<script charset="utf-8" src="<%=request.getContextPath() %>/resource/kindeditor-4.1.7/kindeditor-min.js"></script>
-<script charset="utf-8" src="<%=request.getContextPath() %>/resource/kindeditor-4.1.7/lang/zh_CN.js"></script>
 <script>
 	var editor;
 	KindEditor.ready(function(K) {
@@ -104,7 +87,7 @@
 		if(_code==''){
 			return;
 		}
-		var _url = "<%=SystemManager.systemSetting.getManageHttp()%>/manage/notifyTemplate!selectTemplateByCode.action?e.code="+_code;
+		var _url = "${systemSetting().manageHttp}/manage/notifyTemplate!selectTemplateByCode.action?e.code="+_code;
 		console.log("_url="+_url);
 		$.ajax({
 		  type: 'POST',
@@ -129,7 +112,7 @@
 			return;
 		}
 		var formData=$("form").serialize();
-		var _url = "<%=SystemManager.systemSetting.getManageHttp()%>/manage/notifyTemplate!updateTemplate.action";
+		var _url = "${systemSetting().manageHttp}/manage/notifyTemplate!updateTemplate.action";
 		console.log("_url="+_url);
 		$.ajax({
 		  type: 'POST',
@@ -150,5 +133,4 @@
 		});
 	}
 </script>
-</body>
-</html>
+</@html.htmlBase>

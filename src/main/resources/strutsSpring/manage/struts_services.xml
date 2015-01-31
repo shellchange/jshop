@@ -254,9 +254,9 @@
 	<!-- 通知模板 -->
 	<package name="notifyTemplate" namespace="/manage" extends="struts-jeeshop-manage">
 		<action name="notifyTemplate" class="notifyTemplateActionManage">
-			<result name="toList">/manage/notifyTemplate/notifyTemplateList.jsp</result>
+			<result name="toList" type="freemarker">/manage/notifyTemplate/notifyTemplateList.ftl</result>
 <!-- 			<result name="toAdd">/manage/notifyTemplate/notifyTemplateEdit.jsp</result> -->
-			<result name="toEdit">/manage/notifyTemplate/notifyTemplateEdit.jsp</result>
+			<!--<result name="toEdit">/manage/notifyTemplate/notifyTemplateEdit.jsp</result>-->
 		</action>
 	</package>
 	
