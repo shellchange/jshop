@@ -49,7 +49,7 @@
 			<result name="loginOut">/toIndex.jsp</result>
 			<result name="regFaild">/regeistFalid.jsp</result>
 			<result name="toList" type="freemarker">/manage/account/accountList.ftl</result>
-			<result name="toEdit" type="freemarker">/manage/account/accountEdit.ftl</result>
+			<!--<result name="toEdit" type="freemarker">/manage/account/accountEdit.ftl</result>-->
 			<result name="freeze" type="freemarker">/manage/account/freeze.ftl</result>
 			<result name="show" type="freemarker">/manage/account/show.ftl</result>
 		</action>
@@ -86,9 +86,9 @@
 	<!-- 商品信息 -->
 	<package name="product" namespace="/manage" extends="struts-jeeshop-manage">
 		<action name="product" class="productActionManage">
-			<result name="toList">/manage/product/productList.jsp</result>
-			<result name="toAdd">/manage/product/productEdit.jsp</result>
-			<result name="toEdit">/manage/product/productEdit.jsp</result>
+			<result name="toList" type="freemarker">/manage/product/productList.ftl</result>
+			<result name="toAdd" type="freemarker">/manage/product/productEdit.ftl</result>
+			<result name="toEdit" type="freemarker">/manage/product/productEdit.ftl</result>
 		</action>
 	</package>
 	
@@ -126,9 +126,9 @@
 	<!-- 区域管理-->
 	<package name="area" namespace="/manage" extends="struts-jeeshop-manage">
 		<action name="area" class="areaActionManage">
-			<result name="toList" type="freemarker">/manage/area/areaList.ftl</result>
-			<result name="toAdd" type="freemarker">/manage/area/areaEdit.ftl</result>
-			<result name="toEdit" type="freemarker">/manage/area/areaEdit.ftl</result>
+			<!--<result name="toList" type="freemarker">/manage/area/areaList.ftl</result>-->
+			<!--<result name="toAdd" type="freemarker">/manage/area/areaEdit.ftl</result>-->
+			<!--<result name="toEdit" type="freemarker">/manage/area/areaEdit.ftl</result>-->
 			<result name="areaTree" type="freemarker">/manage/area/areaTree.ftl</result>
 			<result name="addOrUpdate" type="freemarker">/manage/area/addOrUpdate.ftl</result>
 		</action>
@@ -216,7 +216,7 @@
 		</action>
 	</package>
 	
-	<!-- 评论方式管理 -->
+	<!-- 报表统计 -->
 	<package name="report" namespace="/manage" extends="struts-jeeshop-manage">
 		<action name="report" class="reportActionManage">
 			<result name="orderSales">/manage/report/orderSales.jsp</result>
