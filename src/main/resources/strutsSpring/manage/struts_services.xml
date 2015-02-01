@@ -263,9 +263,9 @@
 	<!-- 邮件管理 -->
 	<package name="email" namespace="/manage" extends="struts-jeeshop-manage">
 		<action name="email" class="emailActionManage">
-			<result name="toList">/manage/email/emailList.jsp</result>
-			<result name="toAdd">/manage/email/emailEdit.jsp</result>
-			<result name="toEdit">/manage/email/emailEdit.jsp</result>
+			<result name="toList" type="freemarker">/manage/email/emailList.ftl</result>
+			<!--<result name="toAdd">/manage/email/emailEdit.jsp</result>-->
+			<!--<result name="toEdit">/manage/email/emailEdit.jsp</result>-->
 		</action>
 	</package>
 	
@@ -300,9 +300,9 @@
 	<!-- 热门查询管理 -->
 	<package name="hotquery" namespace="/manage" extends="struts-jeeshop-manage">
 		<action name="hotquery" class="hotqueryActionManage">
-			<result name="toList">/manage/hotquery/hotqueryList.jsp</result>
-			<result name="toAdd">/manage/hotquery/hotqueryEdit.jsp</result>
-			<result name="toEdit">/manage/hotquery/hotqueryEdit.jsp</result>
+			<result name="toList" type="freemarker">/manage/hotquery/hotqueryList.ftl</result>
+			<result name="toAdd" type="freemarker">/manage/hotquery/hotqueryEdit.ftl</result>
+			<result name="toEdit" type="freemarker">/manage/hotquery/hotqueryEdit.ftl</result>
 		</action>
 	</package>
 	
