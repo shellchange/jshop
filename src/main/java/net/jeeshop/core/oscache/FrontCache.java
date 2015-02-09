@@ -49,8 +49,8 @@ import net.jeeshop.services.front.pay.bean.Pay;
 import net.jeeshop.services.front.product.ProductService;
 import net.jeeshop.services.front.product.bean.Product;
 import net.jeeshop.services.front.product.bean.ProductStockInfo;
-import net.jeeshop.services.front.systemSetting.SystemSettingService;
-import net.jeeshop.services.front.systemSetting.bean.SystemSetting;
+import net.jeeshop.services.manage.systemSetting.SystemSettingService;
+import net.jeeshop.services.manage.systemSetting.bean.SystemSetting;
 import net.jeeshop.services.manage.accountRank.AccountRankService;
 import net.jeeshop.services.manage.accountRank.bean.AccountRank;
 import net.jeeshop.services.manage.activity.ActivityService;
@@ -72,13 +72,13 @@ import com.alibaba.fastjson.TypeReference;
 
 /**
  * 缓存管理器。 后台项目可以通过接口程序通知该类重新加载部分或全部的缓存
- * 
+ *
  * @author huangf
- * 
+ *
  */
 public class FrontCache {
 	private static final Logger logger = LoggerFactory.getLogger(FrontCache.class);
-	
+
 	/**
 	 * manage后台
 	 */
@@ -101,13 +101,13 @@ public class FrontCache {
 	private AccountRankService accountRankService;
 	private ActivityService activityService;
 	private HotqueryService hotqueryService;
-	
+
 	/**
 	 * front前台
 	 */
 	private ProductService productService;
 
-	
+
 	public HotqueryService getHotqueryService() {
 		return hotqueryService;
 	}
@@ -155,7 +155,7 @@ public class FrontCache {
 	public void setAreaService(AreaService areaService) {
 		this.areaService = areaService;
 	}
-	
+
 	public void setPayService(PayService payService) {
 		this.payService = payService;
 	}
@@ -213,7 +213,7 @@ public class FrontCache {
 		if(SystemManager.systemSetting==null){
 			throw new NullPointerException("未设置本地环境变量，请管理员在后台进行设置");
 		}
-		
+
 		//从环境变量中分解出图集来。
 		if(StringUtils.isNotBlank(SystemManager.systemSetting.getImages())){
 			String[] images = SystemManager.systemSetting.getImages().split(ManageContainer.product_images_spider);
@@ -222,12 +222,12 @@ public class FrontCache {
 			}else{
 				SystemManager.systemSetting.getImagesList().clear();
 			}
-			
+
 			for(int i=0;i<images.length;i++){
 				SystemManager.systemSetting.getImagesList().add(images[i]);
 			}
 		}
-		
+
 		//分解信任登陆
 //		if(StringUtils.isNotBlank(SystemManager.systemSetting.getBelieveLoginConfig())){
 ////			SystemManager.systemSetting.setBelieveLoginInfo(JSON.parseObject(SystemManager.systemSetting.getBelieveLoginConfig(), BelieveLoginInfo.class));
@@ -238,7 +238,7 @@ public class FrontCache {
 	 * 加载插件配置
 	 */
 	public void loadPlugConfig() {
-		
+
 		/**
 		 * 加载支付宝配置
 		 */
@@ -246,12 +246,12 @@ public class FrontCache {
 		pay.setCode(Pay.pay_code_alipayescow);
 		pay = payService.selectOne(pay);
 		SystemManager.alipayConfig = pay.getSeller();
-		
+
 		AlipayConfig.partner = pay.getPartner();
 		AlipayConfig.key = pay.getKey1();
-		
+
 //		logger.error("SystemManager.alipayConfig="+SystemManager.alipayConfig);
-		
+
 		/**
 		 * 加载评论配置
 		 */
@@ -268,14 +268,14 @@ public class FrontCache {
 	public void loadAttributeList() {
 		List<Attribute> attrs = attributeService.selectList(new Attribute());
 		SystemManager.attrs = attrs;
-		
+
 		/**
 		 * 转换成map的形式存储
 		 */
 		if(attrs!=null && attrs.size()>0){
 			Map<String, Integer> map = new HashMap<String, Integer>();
 			SystemManager.attrsMap.clear();
-			
+
 			for(int i=0;i<attrs.size();i++){
 				Attribute mainAttr = attrs.get(i);
 				if(mainAttr.getPid()==0){
@@ -295,7 +295,7 @@ public class FrontCache {
 						entry.getValue().setCatalogID(map.get(id));
 					}
 				}
-				
+
 //				logger.error("SystemManager.attrsMap="+SystemManager.attrsMap);
 //				logger.error("SystemManager.attrsMap(63) = "+SystemManager.attrsMap.get("63"));
 			}
@@ -313,7 +313,7 @@ public class FrontCache {
 		if(newCatalogs!=null && newCatalogs.size()>0){
 			for(int i=0;i<newCatalogs.size();i++){
 				Catalog item = newCatalogs.get(i);
-				
+
 				//加载此目录下的所有文章列表
 				News news = new News();
 				news.setCatalogID(item.getId());
@@ -323,7 +323,7 @@ public class FrontCache {
 		}
 		SystemManager.newCatalogs = newCatalogs;
 	}
-	
+
 	/**
 	 * 加载文章列表
 	 */
@@ -349,12 +349,12 @@ public class FrontCache {
 			if(StringUtils.isBlank(catalogID)){
 				throw new NullPointerException();
 			}
-			
+
 			Catalog catalog = SystemManager.catalogsMap.get(catalogID);
 			if(catalog==null){
 				throw new NullPointerException();
 			}
-			
+
 			if(catalog.getPid().equals("0")){
 				if(catalog.getChildren()==null){
 					logger.error(">>主类别catalog.getChildren()=0");
@@ -365,14 +365,14 @@ public class FrontCache {
 				return catalog.getChildren();
 			}else{
 				//子类别
-				
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
+
 	public static String getPid(String catalogID){
 		if(StringUtils.isBlank(catalogID)){
 			throw new NullPointerException();
@@ -388,10 +388,10 @@ public class FrontCache {
 			return catalog.getId();
 		}
 	}
-	
+
 	/**
 	 * 根据商品目录ID加载属性列表
-	 * 
+	 *
 	 * @param catalogID
 	 */
 	public static List<Attribute> loadAttrByCatalogID(int catalogID) {
@@ -435,24 +435,24 @@ public class FrontCache {
 //		c.setType("p");
 //		c.setPid("0");
 //		List<Catalog> catalogs = catalogService.loadRoot(c);
-//		
+//
 //		System.out.println("result:" + catalogs);
-//		
+//
 //		SystemManager.catalogs = catalogs;
-		
+
 //		loadCatalogs2();
-		
+
 		loadCatalogs2("p",SystemManager.catalogs);
 		loadCatalogs2("a",SystemManager.catalogsArticle);
-		
+
 		logger.error("SystemManager.catalogs="+SystemManager.catalogs.size());
 		logger.error("SystemManager.catalogsArticle="+SystemManager.catalogsArticle.size());
-		
+
 		SystemManager.catalogsMap.clear();
 		SystemManager.catalogsCodeMap.clear();
 		putToMap(SystemManager.catalogs,loadProduct);
 	}
-	
+
 	/**
 	 * 将商品目录结构转化为map的形式。
 	 * @param catalogs
@@ -462,34 +462,34 @@ public class FrontCache {
 		if(catalogs==null || catalogs.size()==0){
 			return;
 		}
-		
+
 		for(int i=0;i<catalogs.size();i++){
 			Catalog item = catalogs.get(i);
-			
+
 			if(loadProduct){
 				//超级菜单里面的推荐商品
 				loadsuperMenuProducts(item);
-				
+
 				//加载每个目录下的热门推荐商品列表
 				loadHotProductByCatalog(item);
 			}
-			
+
 			SystemManager.catalogsMap.put(item.getId(),item);
-			
+
 			if(SystemManager.catalogsCodeMap.get(item.getCode())!=null){
 				logger.error("item.code = " + item.getCode());
 				throw new Exception("错误：商品类别code重复!");
 			}
-			
+
 			SystemManager.catalogsCodeMap.put(item.getCode(),item);
 			if(item.getChildren()!=null && item.getChildren().size()>0){
-				
+
 				//递归调用
 				putToMap(item.getChildren(),loadProduct);
 			}
 		}
 	}
-	
+
 	/**
 	 * 加载超级菜单的位置显示的热门推荐商品列表
 	 * @param item
@@ -499,7 +499,7 @@ public class FrontCache {
 			//子目录则不加载任何数据
 			return;
 		}
-		
+
 		if(item.getChildren()==null || item.getChildren().size()==0){
 			return;
 		}
@@ -507,12 +507,12 @@ public class FrontCache {
 		for(int j=0;j<item.getChildren().size();j++){
 			ids.add(item.getChildren().get(j).getId());
 		}
-		
+
 		Product product = new Product();
 		product.setTop(3);//显示的最大个数
 		product.setProductIds(ids);//目录集合
 		List<Product> superMenuProducts = productService.loadHotProductShowInSuperMenu(product);
-		
+
 //		if(superMenuProducts==null || superMenuProducts.size()==0){
 //			logger.error("superMenuProducts = 0" + ",catalogCode = " + item.getCode());
 //		}else{
@@ -522,7 +522,7 @@ public class FrontCache {
 			item.setSuperMenuProducts(superMenuProducts);
 		}
 	}
-	
+
 	/**
 	 * 加载每个目录下的热门推荐商品列表（包括子目录）
 	 * @param item
@@ -531,10 +531,10 @@ public class FrontCache {
 		if(item.getPid().equals("0") && (item.getChildren()==null || item.getChildren().size()==0)){
 			return;
 		}
-		
+
 		Product p = new Product();
 		p.setTop(FrontContainer.default_page_left_product_size);
-		
+
 		if(item.getPid().equals("0")){
 			List<Integer> ids = new LinkedList<Integer>();
 			for(int j=0;j<item.getChildren().size();j++){
@@ -545,13 +545,13 @@ public class FrontCache {
 			p.setCatalogID(item.getId());
 		}
 		List<Product> hotProducts = productService.selectPageLeftHotProducts(p);
-		
+
 		if(hotProducts==null || hotProducts.size()==0){
 			logger.error("loadHotProductByCatalog.hotProducts = 0" + ",catalogCode = " + item.getCode());
 		}else{
 			logger.error("loadHotProductByCatalog.hotProducts = " + hotProducts.size()  + ",catalogCode = " + item.getCode());
 		}
-		
+
 		if(hotProducts!=null && hotProducts.size()>0){
 			item.setHotProducts(hotProducts);
 		}
@@ -578,12 +578,12 @@ public class FrontCache {
 					if(item.getShowInNav().equals(Catalog.catalog_showInNav_y)){
 						item.setShowInNavStr("是");
 					}
-					
+
 					map.put(item.getId(), item);
 					it.remove();
 				}
 			}
-			
+
 			for(Iterator<Catalog> it = catalogsList.iterator();it.hasNext();){
 				Catalog item = it.next();
 				if(StringUtils.isNotBlank(item.getPid())){
@@ -598,7 +598,7 @@ public class FrontCache {
 					it.remove();
 				}
 			}
-			
+
 			if(catalogs==null){
 				catalogs = new LinkedList<Catalog>();
 			}else{
@@ -608,7 +608,7 @@ public class FrontCache {
 			for(Iterator<Entry<String, Catalog>> it = map.entrySet().iterator();it.hasNext();){
 				catalogs.add(it.next().getValue());
 			}
-			
+
 			//对主类别和子类别进行排序
 			Collections.sort(catalogs, new Comparator<Catalog>() {
 				public int compare(Catalog o1, Catalog o2) {
@@ -620,7 +620,7 @@ public class FrontCache {
 					return 0;
 				}
 			});
-			
+
 			for(int i=0;i<catalogs.size();i++){
 				if(catalogs.get(i).getChildren()==null){
 					continue;
@@ -638,7 +638,7 @@ public class FrontCache {
 			}
 		}
 	}
-	
+
 	/**
 	 * 加载门户滚动图片列表
 	 */
@@ -735,7 +735,7 @@ public class FrontCache {
 		}
 		return productService.selectList(p);
 	}
-	
+
 	/**
 	 * 加载系统通知
 	 */
@@ -744,7 +744,7 @@ public class FrontCache {
 //		notice.setOffset(0);
 //		notice.setPageSize(7);
 //		SystemManager.noticeList = noticeService.selectList(notice);
-		
+
 		News news = new News();
 		news.setOffset(0);
 		news.setPageSize(7);
@@ -762,7 +762,7 @@ public class FrontCache {
 			}else{
 				SystemManager.productStockMap.clear();
 			}
-			
+
 			if(list!=null && list.size()>0){
 				for(int i=0;i<list.size();i++){
 					ProductStockInfo p = list.get(i);
@@ -779,7 +779,7 @@ public class FrontCache {
 		if(StringUtils.isNotBlank(productID)){
 			throw new NullPointerException("商品ID不能为空！");
 		}
-		
+
 		Product p = new Product();
 		p.setId(productID);
 		List<ProductStockInfo> list = productService.selectStockList(p);
@@ -789,14 +789,14 @@ public class FrontCache {
 			}
 		}
 	}
-	
+
 	/**
 	 * 加载物流列表
 	 */
 	private void loadExpress(){
 		List<Express> expressList = expressService.selectList(new Express());
 		if(SystemManager.expressMap==null){
-			SystemManager.expressMap = new HashMap<String, Express>(); 
+			SystemManager.expressMap = new HashMap<String, Express>();
 		}else{
 			SystemManager.expressMap.clear();
 		}
@@ -816,7 +816,7 @@ public class FrontCache {
 		advert.setStatus(Advert.advert_status_y);
 		List<Advert> advertList = advertService.selectList(advert);
 		if(SystemManager.advertMap==null){
-			SystemManager.advertMap = new HashMap<String, Advert>(); 
+			SystemManager.advertMap = new HashMap<String, Advert>();
 		}else{
 			SystemManager.advertMap.clear();
 		}
@@ -827,7 +827,7 @@ public class FrontCache {
 			}
 		}
 	}
-	
+
 	/**
 	 * 加载热门搜索列表
 	 */
@@ -848,7 +848,7 @@ public class FrontCache {
 //			SystemManager.hotSearchProductList = productService.selectHotSearch(p);
 //		}
 //	}
-	
+
 	/**
 	 * 读取本地区域数据
 	 */
@@ -861,15 +861,15 @@ public class FrontCache {
 			logger.error(file.getAbsolutePath());
 			List<String> list = FileUtils.readLines(file, "utf-8");
 			logger.error("list.size()="+list.size());
-			
+
 			SystemManager.areaMap = JSON.parseObject(list.get(0),new TypeReference<Map<String,Area>>(){});
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		logger.error("readJsonArea time = " + (System.currentTimeMillis() - start));
 	}
-	
+
 	/**
 	 * 加载邮件模板列表
 	 */
@@ -897,14 +897,14 @@ public class FrontCache {
 			}
 		}
 	}
-	
+
 	/**
-	 * 加载热卖商品列表，此数据将会在门户的超级菜单上显示出来。 
+	 * 加载热卖商品列表，此数据将会在门户的超级菜单上显示出来。
 	 */
 //	private void loadHotProductShowInSuperMenu(){
 //		for(int i=0;i<SystemManager.catalogs.size();i++){
 //			Catalog item = SystemManager.catalogs.get(i);
-//			
+//
 //			if(item.getChildren()==null || item.getChildren().size()==0){
 //				continue;
 //			}
@@ -912,13 +912,13 @@ public class FrontCache {
 //			for(int j=0;j<item.getChildren().size();j++){
 //				ids.add(item.getChildren().get(j).getId());
 //			}
-//			
+//
 //			Product product = new Product();
 //			product.setTop(3);//显示的最大个数
 ////			product.setCatalogID(item.getId());
 //			product.setProductIds(ids);
 //			List<Product> superMenuProducts = productService.loadHotProductShowInSuperMenu(product);
-//			
+//
 //			if(superMenuProducts==null || superMenuProducts.size()==0){
 //				logger.error("superMenuProducts = 0");
 //			}else{
@@ -929,7 +929,7 @@ public class FrontCache {
 //			}
 //		}
 //	}
-	
+
 	/**
 	 * 加载首页左侧的商品列表，此位置的商品从全局加载
 	 */
@@ -938,7 +938,7 @@ public class FrontCache {
 		p.setTop(FrontContainer.default_page_left_product_size);
 		SystemManager.indexLeftProduct = productService.selectPageLeftHotProducts(p);
 	}
-	
+
 	/**
 	 * 加载促销活动的商品
 	 */
@@ -959,7 +959,7 @@ public class FrontCache {
 					logger.error(" p = " + p.getId());
 					continue;
 				}
-				
+
 				if(activity.getActivityType().equals(Activity.activity_activityType_c)){
 					if(activity.getDiscountType().equals(Activity.activity_discountType_r)){
 						addProductByDiscountType(p,activity);
@@ -972,7 +972,7 @@ public class FrontCache {
 			}
 		}
 	}
-	
+
 	//根据此商品的优惠类型,进行分组
 	private void addProductByDiscountType(Product p,Activity activity) {
 		List<Product> valueList = SystemManager.activityProductMap.get(activity.getDiscountType());
@@ -980,7 +980,7 @@ public class FrontCache {
 			valueList = new LinkedList<Product>();
 			SystemManager.activityProductMap.put(activity.getDiscountType(), valueList);
 		}
-		
+
 		//复制活动的属性过来
 		p.setFinalPrice(String.valueOf(p.caclFinalPrice()));
 		p.setExpire(activity.isExpire());
@@ -989,7 +989,7 @@ public class FrontCache {
 		p.setMaxSellCount(activity.getMaxSellCount());
 		valueList.add(p);
 	}
-	
+
 	/**
 	 * 加载积分商城商品列表
 	 */
@@ -998,11 +998,11 @@ public class FrontCache {
 		if(SystemManager.activityMap.size()==0){
 			return;
 		}
-		
+
 		List<String> productIds = new LinkedList<String>();
 		for(Iterator<Entry<String, Activity>> it = SystemManager.activityMap.entrySet().iterator();it.hasNext();){
 			Entry<String, Activity> entry = it.next();
-			if(entry.getValue().getActivityType().equals(Activity.activity_activityType_j) && 
+			if(entry.getValue().getActivityType().equals(Activity.activity_activityType_j) &&
 					StringUtils.isNotBlank(entry.getValue().getProductID())){
 				String[] arr = entry.getValue().getProductID().split("\\|");
 				for(int i=0;i<arr.length;i++){
@@ -1015,7 +1015,7 @@ public class FrontCache {
 			Product queryProduct = new Product();
 			queryProduct.setProductIds(productIds);
 			SystemManager.activityScoreProductList = productService.selectActivityProductList(queryProduct);
-			
+
 			//从活动中拷贝属性过去
 			for(int i=0;i<SystemManager.activityScoreProductList.size();i++){
 				Product p = SystemManager.activityScoreProductList.get(i);
@@ -1024,7 +1024,7 @@ public class FrontCache {
 					logger.error(" p = " + p.getId());
 					continue;
 				}
-				
+
 				if(!activity.getActivityType().equals(Activity.activity_activityType_c)){
 					p.setExchangeScore(activity.getExchangeScore());
 					p.setExpire(activity.isExpire());
@@ -1043,11 +1043,11 @@ public class FrontCache {
 		if(SystemManager.activityMap.size()==0){
 			return;
 		}
-		
+
 		List<String> productIds = new LinkedList<String>();
 		for(Iterator<Entry<String, Activity>> it = SystemManager.activityMap.entrySet().iterator();it.hasNext();){
 			Entry<String, Activity> entry = it.next();
-			if(entry.getValue().getActivityType().equals(Activity.activity_activityType_t) && 
+			if(entry.getValue().getActivityType().equals(Activity.activity_activityType_t) &&
 					StringUtils.isNotBlank(entry.getValue().getProductID())){
 				String[] arr = entry.getValue().getProductID().split("\\|");
 				for(int i=0;i<arr.length;i++){
@@ -1060,7 +1060,7 @@ public class FrontCache {
 			Product queryProduct = new Product();
 			queryProduct.setProductIds(productIds);
 			SystemManager.activityTuanProductList = productService.selectActivityProductList(queryProduct);
-			
+
 			//从活动中拷贝属性过去
 			for(int i=0;i<SystemManager.activityTuanProductList.size();i++){
 				Product p = SystemManager.activityTuanProductList.get(i);
@@ -1069,7 +1069,7 @@ public class FrontCache {
 					logger.error(" p = " + p.getId());
 					continue;
 				}
-				
+
 				if(activity.getActivityType().equals(Activity.activity_activityType_t)){
 					p.setExchangeScore(activity.getExchangeScore());
 					p.setExpire(activity.isExpire());
@@ -1083,7 +1083,7 @@ public class FrontCache {
 			}
 		}
 	}
-	
+
 	/**
 	 * 加载所有的活动列表
 	 */
@@ -1093,34 +1093,34 @@ public class FrontCache {
 		if(list!=null){
 			for(int i=0;i<list.size();i++){
 				Activity activity = list.get(i);
-				
+
 				activity.setExpire(activity.checkActivity());
-				
+
 				if(!activity.isExpire()){
 					//计算活动多久结束，是否已结束
-					activity.setActivityEndDateTime(DateTimeUtil.getActivityEndDateTimeString(activity.getEndDate()));					
+					activity.setActivityEndDateTime(DateTimeUtil.getActivityEndDateTimeString(activity.getEndDate()));
 				}
-				
+
 				//折扣类型 ，则进行折扣计算
 				if(activity.getDiscountType().equals(Activity.activity_discountType_d)){
 					activity.setDiscountFormat(String.valueOf(Double.valueOf(activity.getDiscount()) / 10D));
 				}
-				
+
 				SystemManager.activityMap.put(activity.getId(), activity);
 			}
 		}
 	}
-	
+
 	/**
 	 * 加载热门查询列表
 	 */
 	public void loadHotquery(){
 		SystemManager.hotqueryList = hotqueryService.selectList(new Hotquery());
 	}
-	
+
 	/**
 	 * 加载全部的缓存数据
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public void loadAllCache() throws Exception {
 		logger.error("loadAllCache...");
@@ -1136,25 +1136,25 @@ public class FrontCache {
 //		loadArea();
 		loadExpress();
 		loadAdvertList();
-		
+
 		loadNewCatalogs();
 		loadNews();
-		
+
 //		loadHotProducts();
 //		loadNewProducts();
 //		loadSaleProducts();
 //		loadSuijiProducts();
 		loadProductsShowInIndex();
 		loadNotices();
-		
+
 		loadProductStock();
 		loadAccountRank();
 //		loadHotSearch();
-		
+
 		readJsonArea();
 		loadNotifyTemplate();
-		
-		
+
+
 		//加载所有的活动列表
 		loadActivityMap();
 		//加载促销活动的商品
@@ -1163,7 +1163,7 @@ public class FrontCache {
 		loadActivityScoreProductList();
 		//加载团购活动的商品列表
 		loadActivityTuanProductList();
-		
+
 		logger.error("前台缓存加载完毕!");
 	}
 

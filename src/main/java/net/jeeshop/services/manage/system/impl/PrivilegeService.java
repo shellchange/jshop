@@ -8,6 +8,9 @@ import net.jeeshop.core.dao.page.PagerModel;
 import net.jeeshop.core.system.bean.Menu;
 import net.jeeshop.core.system.bean.Privilege;
 import net.jeeshop.core.system.bean.Role;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 
 /**
@@ -16,7 +19,9 @@ import net.jeeshop.core.system.bean.Role;
  * @author huangf
  * 
  */
+@Service
 public class PrivilegeService implements Services<Privilege> {
+    @Resource
 	private BaseDao dao;
 
 	public void setDao(BaseDao dao) {

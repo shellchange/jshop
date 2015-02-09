@@ -1,10 +1,9 @@
 package net.jeeshop.core.oscache;
 
-import java.util.List;
-
+import com.alibaba.fastjson.JSON;
 import net.jeeshop.core.TaskManager;
 import net.jeeshop.core.front.SystemManager;
-import net.jeeshop.services.front.area.AreaService;
+import net.jeeshop.services.manage.area.AreaService;
 import net.jeeshop.services.manage.comment.CommentService;
 import net.jeeshop.services.manage.order.OrderService;
 import net.jeeshop.services.manage.order.bean.OrdersReport;
@@ -14,12 +13,12 @@ import net.jeeshop.services.manage.oss.bean.Oss;
 import net.jeeshop.services.manage.product.ProductService;
 import net.jeeshop.services.manage.task.TaskService;
 import net.jeeshop.services.manage.task.bean.Task;
-
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.alibaba.fastjson.JSON;
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 缓存管理器。 后台项目可以通过接口程序通知该类重新加载部分或全部的缓存
@@ -33,12 +32,19 @@ public class ManageCache {
 	/**
 	 * manage后台
 	 */
+    @Resource(name = "orderServiceManage")
 	private OrderService orderService;
+    @Resource(name = "productServiceManage")
 	private ProductService productService;
+    @Resource(name = "commentServiceManage")
 	private CommentService commentService;
+    @Resource(name = "areaServiceManage")
 	private AreaService areaService;
+    @Resource(name = "taskServiceManage")
 	private TaskService taskService;
+    @Resource(name = "ossServiceManage")
 	private OssService ossService;
+    private CacheInitiator cacheInitiator;
 	
 	public void setOssService(OssService ossService) {
 		this.ossService = ossService;
@@ -76,7 +82,15 @@ public class ManageCache {
 		this.commentService = commentService;
 	}
 
-	/**
+    public CacheInitiator getCacheInitiator() {
+        return cacheInitiator;
+    }
+
+    public void setCacheInitiator(CacheInitiator cacheInitiator) {
+        this.cacheInitiator = cacheInitiator;
+    }
+
+    /**
 	 * 加载订单报表
 	 */
 	public void loadOrdersReport(){
@@ -199,6 +213,7 @@ public class ManageCache {
 //		readJsonArea();
 		loadTask();
 		loadOSS();
+        cacheInitiator.loadSystemSetting();
 		logger.error("后台缓存加载完毕!");
 	}
 

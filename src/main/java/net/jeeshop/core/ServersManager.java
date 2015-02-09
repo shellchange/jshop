@@ -8,17 +8,15 @@ import net.jeeshop.services.manage.account.bean.Account;
 import org.apache.commons.lang.StringUtils;
 
 
-public class ServersManager<E extends PagerModel> implements Services<E>{
+public abstract class ServersManager<E extends PagerModel, DAO extends  DaoManager<E>> implements Services<E>{
 
-	private DaoManager<E> dao;
+	protected DAO dao;
 
-	public DaoManager<E> getDao() {
+	public DAO getDao() {
 		return dao;
 	}
 
-	public void setDao(DaoManager<E> dao) {
-		this.dao = dao;
-	}
+	public abstract void setDao(DAO dao);
 
 	/**
 	 * 添加

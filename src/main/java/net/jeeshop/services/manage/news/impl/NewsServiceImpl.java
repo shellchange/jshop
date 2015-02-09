@@ -10,28 +10,27 @@ import net.jeeshop.core.ServersManager;
 import net.jeeshop.services.manage.news.NewsService;
 import net.jeeshop.services.manage.news.bean.News;
 import net.jeeshop.services.manage.news.dao.NewsDao;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 
 /**
  * @author huangf
  */
-public class NewsServiceImpl extends ServersManager<News> implements
+@Service("newsServiceManage")
+public class NewsServiceImpl extends ServersManager<News, NewsDao> implements
 		NewsService {
-	private NewsDao newsDao;
-	
-	public NewsDao getNewsDao() {
-		return newsDao;
-	}
-
-	public void setNewsDao(NewsDao newsDao) {
-		this.newsDao = newsDao;
-	}
-
+    @Resource(name = "newsDaoManage")
+    @Override
+    public void setDao(NewsDao newsDao) {
+        this.dao = newsDao;
+    }
 	/**
 	 * @param e
 	 */
 	public List<News> selecIndexNews(News e) {
-		return newsDao.selecIndexNews(e);
+		return dao.selecIndexNews(e);
 	}
 
 	@Override
@@ -44,19 +43,19 @@ public class NewsServiceImpl extends ServersManager<News> implements
 			News news = new News();
 			news.setId(ids[i]);
 			news.setStatus(status);
-			newsDao.sync(news);
+			dao.sync(news);
 		}
 //		throw new NullPointerException();
 	}
 
 	@Override
 	public void updateDownOrUp(News news) {
-		newsDao.updateDownOrUp(news);
+		dao.updateDownOrUp(news);
 	}
 
 	@Override
 	public int selectCount(News news) {
-		return newsDao.selectCount(news);
+		return dao.selectCount(news);
 	}
 
 }

@@ -10,27 +10,27 @@ import net.jeeshop.core.ServersManager;
 import net.jeeshop.services.manage.indexImg.IndexImgService;
 import net.jeeshop.services.manage.indexImg.bean.IndexImg;
 import net.jeeshop.services.manage.indexImg.dao.IndexImgDao;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 
 /**
  * @author huangf
  */
-public class IndexImgServiceImpl extends ServersManager<IndexImg> implements
+@Service("indexImgServiceManage")
+public class IndexImgServiceImpl extends ServersManager<IndexImg, IndexImgDao> implements
 		IndexImgService {
 
-	private IndexImgDao indexImgDao;
-
-	public IndexImgDao getIndexImgDao() {
-		return indexImgDao;
-	}
-
-	public void setIndexImgDao(IndexImgDao indexImgDao) {
-		this.indexImgDao = indexImgDao;
-	}
+    @Resource(name = "indexImgDaoManage")
+    @Override
+    public void setDao(IndexImgDao indexImgDao) {
+        this.dao = indexImgDao;
+    }
 
 	@Override
 	public List<IndexImg> getImgsShowToIndex(int i) {
-		return indexImgDao.getImgsShowToIndex(i);
+		return dao.getImgsShowToIndex(i);
 	}
 
 }

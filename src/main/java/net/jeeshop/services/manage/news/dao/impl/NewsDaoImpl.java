@@ -11,12 +11,17 @@ import net.jeeshop.core.dao.page.PagerModel;
 import net.jeeshop.services.manage.navigation.bean.Navigation;
 import net.jeeshop.services.manage.news.bean.News;
 import net.jeeshop.services.manage.news.dao.NewsDao;
+import org.springframework.stereotype.Repository;
+
+import javax.annotation.Resource;
 
 
 /**
  * @author huangf
  */
+@Repository("newsDaoManage")
 public class NewsDaoImpl implements NewsDao {
+    @Resource
 	private BaseDao dao;
 
 	public void setDao(BaseDao dao) {

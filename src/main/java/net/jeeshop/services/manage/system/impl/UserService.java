@@ -6,6 +6,10 @@ import net.jeeshop.core.dao.BaseDao;
 import net.jeeshop.core.dao.page.PagerModel;
 import net.jeeshop.core.system.bean.User;
 import net.jeeshop.services.manage.system.UserInteface;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 
 /**
@@ -14,7 +18,9 @@ import net.jeeshop.services.manage.system.UserInteface;
  * @author huangf
  * 
  */
+@Service
 public class UserService implements UserInteface {
+    @Resource
 	private BaseDao dao;
 
 	public void setDao(BaseDao dao) {
@@ -51,12 +57,10 @@ public class UserService implements UserInteface {
 	}
 
 	public int delete(User e) {
-		// TODO Auto-generated method stub
 		return dao.delete("user.delete", e);
 	}
 
 	public int update(User e) {
-		// TODO Auto-generated method stub
 		return dao.update("user.update", e);
 	}
 
@@ -72,7 +76,6 @@ public class UserService implements UserInteface {
 
 	@Override
 	public User selectById(String id) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	

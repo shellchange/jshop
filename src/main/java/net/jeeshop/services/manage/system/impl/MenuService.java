@@ -14,6 +14,9 @@ import net.jeeshop.core.system.bean.Menu;
 import net.jeeshop.core.system.bean.MenuItem;
 import net.jeeshop.core.system.bean.MenuType;
 import net.jeeshop.core.system.bean.User;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 
 /**
@@ -22,7 +25,9 @@ import net.jeeshop.core.system.bean.User;
  * @author huangf
  * 
  */
+@Service
 public class MenuService implements Services<Menu> {
+    @Resource
 	private BaseDao dao;
 
 	public void setDao(BaseDao dao) {

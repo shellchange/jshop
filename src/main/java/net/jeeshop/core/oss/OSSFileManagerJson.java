@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.jeeshop.core.front.SystemManager;
-import net.jeeshop.services.front.systemSetting.bean.SystemSetting;
+import net.jeeshop.services.manage.systemSetting.bean.SystemSetting;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;

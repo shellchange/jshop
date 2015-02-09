@@ -106,14 +106,14 @@
 	</aop:config>
 	
 	<!-- base -->
-	<import resource="strutsSpring/spring-base.xml"/>
-	
-	<!-- spring-services -->
-	<import resource="strutsSpring/manage/spring-services.xml"/>
-	<import resource="strutsSpring/front/spring-services.xml"/>
-	<import resource="strutsSpring/manage/spring-services-task.xml"/>
+	<!--<import resource="spring-base.xml"/>-->
+	<!---->
+	<!--&lt;!&ndash; spring-services &ndash;&gt;-->
+	<!--<import resource="manage/spring-services.xml"/>-->
+	<!--<import resource="front/spring-services.xml"/>-->
+	<!--<import resource="manage/spring-services-task.xml"/>-->
 
-	<!-- spring-struts -->
-	<import resource="strutsSpring/manage/spring-struts.xml"/>
-	<import resource="strutsSpring/front/spring_struts.xml"/>
+	<!--&lt;!&ndash; spring-struts &ndash;&gt;-->
+	<!--<import resource="../strutsSpring/manage/spring-struts.xml"/>-->
+	<!--<import resource="../strutsSpring/front/spring_struts.xml"/>-->
 </beans>

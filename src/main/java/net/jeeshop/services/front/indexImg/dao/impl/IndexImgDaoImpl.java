@@ -11,12 +11,17 @@ import net.jeeshop.core.dao.page.PagerModel;
 import net.jeeshop.services.front.comment.bean.Comment;
 import net.jeeshop.services.front.indexImg.bean.IndexImg;
 import net.jeeshop.services.front.indexImg.dao.IndexImgDao;
+import org.springframework.stereotype.Repository;
+
+import javax.annotation.Resource;
 
 
 /**
  * @author huangf
  */
+@Repository("indexImgDaoFront")
 public class IndexImgDaoImpl implements IndexImgDao {
+    @Resource
 	private BaseDao dao;
 
 	public void setDao(BaseDao dao) {

@@ -8,13 +8,19 @@ import net.jeeshop.core.dao.page.PagerModel;
 import net.jeeshop.core.system.bean.Privilege;
 import net.jeeshop.core.system.bean.Role;
 import net.jeeshop.core.system.bean.User;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 
 /**
  * @author huangf 角色业务逻辑实现类
  */
+@Service
 public class RoleService implements Services<Role> {
+    @Resource
 	private BaseDao dao;
+    @Resource
 	private PrivilegeService privilegeService;
 
 	public void setDao(BaseDao dao) {

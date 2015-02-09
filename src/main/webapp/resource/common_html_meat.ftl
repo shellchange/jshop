@@ -4,7 +4,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <#assign non_responsive2>y</#assign>
-    <#assign responsive>${session.getAttribute("responsive")!""}</#assign>
+    <#assign responsive>${Session["responsive"]!""}</#assign>
     <#if responsive == "y">
         <#assign non_responsive2>n</#assign>
     <#elseif systemSetting().openResponsive == "n">

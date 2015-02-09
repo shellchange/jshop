@@ -10,6 +10,7 @@ import org.apache.ibatis.exceptions.IbatisException;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 
 /**
@@ -17,6 +18,7 @@ import org.slf4j.LoggerFactory;
  * @author huangf
  *
  */
+@Repository
 public class BaseDao extends SqlSessionDaoSupport {
 
 	protected static final org.slf4j.Logger log = LoggerFactory.getLogger(BaseDao.class);

@@ -22,7 +22,7 @@ import net.jeeshop.services.front.news.bean.News;
 import net.jeeshop.services.front.notifyTemplate.bean.NotifyTemplate;
 import net.jeeshop.services.front.product.bean.Product;
 import net.jeeshop.services.front.product.bean.ProductStockInfo;
-import net.jeeshop.services.front.systemSetting.bean.SystemSetting;
+import net.jeeshop.services.manage.systemSetting.bean.SystemSetting;
 import net.jeeshop.services.manage.accountRank.bean.AccountRank;
 import net.jeeshop.services.manage.activity.bean.Activity;
 import net.jeeshop.services.manage.hotquery.bean.Hotquery;

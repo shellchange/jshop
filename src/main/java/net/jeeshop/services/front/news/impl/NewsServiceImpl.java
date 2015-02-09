@@ -11,34 +11,34 @@ import net.jeeshop.core.dao.page.PagerModel;
 import net.jeeshop.services.front.news.NewsService;
 import net.jeeshop.services.front.news.bean.News;
 import net.jeeshop.services.front.news.dao.NewsDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 
 /**
  * @author huangf
  */
-public class NewsServiceImpl extends ServersManager<News> implements
+@Service
+public class NewsServiceImpl extends ServersManager<News, NewsDao> implements
 		NewsService {
-	private NewsDao newsDao;
-	
-	public NewsDao getNewsDao() {
-		return newsDao;
-	}
-
-	public void setNewsDao(NewsDao newsDao) {
-		this.newsDao = newsDao;
-	}
-
+    @Autowired
+    @Override
+    public void setDao(NewsDao newsDao) {
+        this.dao = newsDao;
+    }
 	/**
 	 * @param e
 	 */
 	public List<News> selecIndexNews(News e) {
-		return newsDao.selecIndexNews(e);
+		return dao.selecIndexNews(e);
 	}
 
 	@Override
 	public List<String> selectAllMd5() {
 		// TODO Auto-generated method stub
-		return newsDao.selectAllMd5();
+		return dao.selectAllMd5();
 	}
 
 	@Override
@@ -70,12 +70,12 @@ public class NewsServiceImpl extends ServersManager<News> implements
 
 	@Override
 	public List<News> selectNoticeList(News news) {
-		return newsDao.selectNoticeList(news);
+		return dao.selectNoticeList(news);
 	}
 
 	@Override
 	public News selectSimpleOne(News news) {
-		return newsDao.selectSimpleOne(news);
+		return dao.selectSimpleOne(news);
 	}
 
 }
