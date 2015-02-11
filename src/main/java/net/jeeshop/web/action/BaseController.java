@@ -70,7 +70,7 @@ public abstract class BaseController<E extends PagerModel> {
                 / pager.getPageSize());
 
         selectListAfter(pager);
-
+        request.setAttribute("pager", pager);
         return page_toList;
     }
 

@@ -5,7 +5,7 @@
 		<tr>
 			<td style="text-align: right;">状态</td>
 			<td style="text-align: left;" >
-                <select name="e.status" id="status" class="input-small">
+                <select name="status" id="status" class="input-small">
                     <option value="">全部</option>
                     <option value="y">启用</option>
                     <option value="n">禁用</option>
@@ -14,13 +14,13 @@
 		</tr>
 		<tr>
 			<td colspan="11">
-            <#if checkPrivilege("user!insert.action") >
-					<button method="user!selectList.action" class="btn btn-primary" onclick="selectList(this)">
+            <#if checkPrivilege("/manage/user/insert") >
+					<button method="selectList" class="btn btn-primary" onclick="selectList(this)">
 						<i class="icon-search icon-white"></i> 查询
 					</button>
              </#if>
-				<#if checkPrivilege("user!insert.action") >
-                <a href="${basepath}/manage/user!toAdd.action" class="btn btn-success"><i class="icon-plus-sign icon-white"></i> 添加</a>
+				<#if checkPrivilege("/manage/user/insert") >
+                <a href="${basepath}/manage//user/toAdd" class="btn btn-success"><i class="icon-plus-sign icon-white"></i> 添加</a>
 				</#if>
 
 				<div style="float: right;vertical-align: middle;bottom: 0px;top: 10px;">
@@ -59,8 +59,8 @@
                     </#if>
 				</td>
 				<td>
-                    <#if checkPrivilege("user!edit.action")>
-                        <a href="${basepath}/manage/user!toEdit.action?e.id=${item.id}">编辑</a>
+                    <#if checkPrivilege("/manage//user/edit")>
+                        <a href="${basepath}/manage//user/toEdit?id=${item.id}">编辑</a>
                     </#if>
 				</td>
 			</tr>
