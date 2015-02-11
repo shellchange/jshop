@@ -2,47 +2,34 @@ package net.jeeshop.web.action.manage.system;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
-import java.util.logging.Logger;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import net.jeeshop.core.BaseAction;
-import net.jeeshop.core.FrontContainer;
 import net.jeeshop.core.ManageContainer;
 import net.jeeshop.core.Services;
 import net.jeeshop.core.dao.page.PagerModel;
-import net.jeeshop.core.exception.NotThisMethod;
 import net.jeeshop.core.oscache.ManageCache;
 import net.jeeshop.core.system.bean.User;
 import net.jeeshop.core.util.AddressUtils;
 import net.jeeshop.core.util.MD5;
-import net.jeeshop.services.front.account.bean.Account;
 import net.jeeshop.services.manage.system.impl.RoleService;
 import net.jeeshop.services.manage.system.impl.UserService;
 import net.jeeshop.services.manage.systemlog.SystemlogService;
 import net.jeeshop.services.manage.systemlog.bean.Systemlog;
 
 import net.jeeshop.web.action.BaseController;
+import net.jeeshop.web.util.LoginUserHolder;
 import net.jeeshop.web.util.RequestHolder;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 
-import com.opensymphony.xwork2.Action;
-import com.opensymphony.xwork2.ModelDriven;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.util.WebUtils;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 后台用户管理
@@ -58,7 +45,7 @@ public class UserAction extends BaseController<User> {
 	private static final long serialVersionUID = 1L;
 
     private static final String page_input = "/manage/system/index";
-    private static final String page_success = "/manage/main";
+    private static final String page_home = "/manage/main";
     private static final String page_toList = "/manage/system/user/userList";
     private static final String page_toAdd = "/manage/system/user/editUser";
     private static final String page_toEdit = "/manage/system/user/editUser";
@@ -119,17 +106,21 @@ public class UserAction extends BaseController<User> {
 //
 //		super.initPageSelect();
 //	}
+    @RequestMapping(value = "login", method = RequestMethod.GET)
+    public String login(@ModelAttribute("e") User e){
+        return page_input;
+    }
 
 	/**
 	 * 后台登录
 	 * @return
 	 * @throws Exception
 	 */
-    @RequestMapping("login")
+    @RequestMapping(value = "login", method = RequestMethod.POST)
 	public String login(HttpSession session, @ModelAttribute("errorMsg") String errorMsg,@ModelAttribute("e") User e) throws Exception {
 
 		if (session.getAttribute(ManageContainer.manage_session_user_info) != null) {
-			return "redirect:" + page_success;
+			return "redirect:/manage/user/home";
 		}
 		
 		errorMsg = "<font color='red'>帐号或密码错误!</font>";
@@ -177,8 +168,15 @@ public class UserAction extends BaseController<User> {
             ex.printStackTrace();
 		}
 		
-		return page_success;
+		return "redirect:/manage/user/home";
 	}
+    @RequestMapping("home")
+    public String home(){
+        if(LoginUserHolder.getLoginUser() == null){
+            return "redirect:/manage/user/login";
+        }
+        return page_home;
+    }
 	
 	private void loginLog(User u,String log) {
 		Systemlog systemlog = new Systemlog();
@@ -408,7 +406,7 @@ public class UserAction extends BaseController<User> {
 	}
 	@Override
 	protected void selectListAfter(PagerModel pager) {
-		pager.setPagerUrl("user!selectList.action");
+		pager.setPagerUrl("user/selectList");
 	}
 	
 	/**

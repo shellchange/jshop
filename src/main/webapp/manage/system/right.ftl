@@ -44,7 +44,7 @@ $(function() {
 					</li>
 					<li><a href="#tabs-2" style="font-size: 14px;">基本设置</a></li>
 					<li><a href="#tabs-3" style="font-size: 14px;">图片设置</a></li>
-<#--<%-- 					<li><a href="${basepath}/manage/systemlog!systemlogListAndDetail.action?init=y&type=2">更新日志</a></li> --%>-->
+<#--<%-- 					<li><a href="${basepath}/manage/systemlog/systemlogListAndDetail?init=y&type=2">更新日志</a></li> --%>-->
 <!-- 					<li><a href="#tabs-4">新增订单</a></li> -->
 <!-- 					<li><a href="#tabs-5">最近销售状况</a></li> -->
 <#--<%-- 					<li><a href="#tabs-6"><strong>系统使用帮助</strong></a></li> --%>-->
@@ -55,12 +55,12 @@ $(function() {
 					</div>
 					<table class="table table-bordered">
 						<tr>
-							<td>未付款订单数：<a href="${systemSetting().manageHttp}/manage/order!selectList.action?init=y&paystatus=n&status=init">${systemManager().ordersReport.getNotPayCount()}</a></td>
-							<td>已付款，但未审核订单数：<a class="Afont22" style="color: #f50;" href="${systemSetting().manageHttp}/manage/order!selectList.action?init=y&paystatus=y&status=init">${systemManager().ordersReport.getPayButNotPassCount()}</a></td>
+							<td>未付款订单数：<a href="${systemSetting().manageHttp}/manage/order/selectList?init=y&paystatus=n&status=init">${systemManager().ordersReport.getNotPayCount()}</a></td>
+							<td>已付款，但未审核订单数：<a class="Afont22" style="color: #f50;" href="${systemSetting().manageHttp}/manage/order/selectList?init=y&paystatus=y&status=init">${systemManager().ordersReport.getPayButNotPassCount()}</a></td>
 						</tr>
 						<tr>
-							<td>已取消订单数：<a href="${systemSetting().manageHttp}/manage/order!selectList.action?init=y&status=cancel">${systemManager().ordersReport.getCancelCount() }</a></td>
-							<td>等待发货订单数：<a class="Afont22" style="color: #f50;" href="${systemSetting().manageHttp}/manage/order!selectList.action?init=y&paystatus=y&status=pass">${systemManager().ordersReport.getWaitSendGoodsCount()}</a></td>
+							<td>已取消订单数：<a href="${systemSetting().manageHttp}/manage/order/selectList?init=y&status=cancel">${systemManager().ordersReport.getCancelCount() }</a></td>
+							<td>等待发货订单数：<a class="Afont22" style="color: #f50;" href="${systemSetting().manageHttp}/manage/order/selectList?init=y&paystatus=y&status=pass">${systemManager().ordersReport.getWaitSendGoodsCount()}</a></td>
 						</tr>
 					</table>
 					
@@ -70,12 +70,12 @@ $(function() {
 					<table class="table table-bordered">
 						<tr>
 							<td>【卖家需立即处理】退款协议等待卖家确认中：
-								<a href="${systemSetting().manageHttp}/manage/order!selectList.action?init=y&refundStatus=WAIT_SELLER_AGREE">${systemManager().ordersReport.getWAIT_SELLER_AGREE() }</a>
+								<a href="${systemSetting().manageHttp}/manage/order/selectList?init=y&refundStatus=WAIT_SELLER_AGREE">${systemManager().ordersReport.getWAIT_SELLER_AGREE() }</a>
 							</td>
 						</tr>
 						<tr>
 							<td>【卖家需立即处理】等待卖家收货：
-								<a href="${systemSetting().manageHttp}/manage/order!selectList.action?init=y&refundStatus=WAIT_SELLER_CONFIRM_GOODS">${systemManager().ordersReport.getWAIT_SELLER_CONFIRM_GOODS() }</a>
+								<a href="${systemSetting().manageHttp}/manage/order/selectList?init=y&refundStatus=WAIT_SELLER_CONFIRM_GOODS">${systemManager().ordersReport.getWAIT_SELLER_CONFIRM_GOODS() }</a>
 							</td>
 						</tr>
 						
@@ -86,12 +86,12 @@ $(function() {
 						
 						<tr>
 							<td>【等待买家处理完】卖家不同意协议，等待买家修改：
-								<a href="${systemSetting().manageHttp}/manage/order!selectList.action?init=y&refundStatus=SELLER_REFUSE_BUYER">${systemManager().ordersReport.getSELLER_REFUSE_BUYER() }</a>
+								<a href="${systemSetting().manageHttp}/manage/order/selectList?init=y&refundStatus=SELLER_REFUSE_BUYER">${systemManager().ordersReport.getSELLER_REFUSE_BUYER() }</a>
 							</td>
 						</tr>
 						<tr>
 							<td>【等待买家处理完】退款协议达成，等待买家退货：
-								<a href="${systemSetting().manageHttp}/manage/order!selectList.action?init=y&refundStatus=WAIT_BUYER_RETURN_GOODS">${systemManager().ordersReport.getWAIT_BUYER_RETURN_GOODS() }</a>
+								<a href="${systemSetting().manageHttp}/manage/order/selectList?init=y&refundStatus=WAIT_BUYER_RETURN_GOODS">${systemManager().ordersReport.getWAIT_BUYER_RETURN_GOODS() }</a>
 							</td>
 						</tr>
 					</table>
@@ -101,8 +101,8 @@ $(function() {
 					</div>
 					<table class="table table-bordered">
 						<tr>
-							<td>缺货商品数：<a href="${systemSetting().manageHttp}/manage/product!selectList.action?init=y&selectOutOfStockProduct=true">${systemManager().ordersReport.getOutOfStockProductCount()}</a></td>
-							<td>未回复的吐槽评论数：<a href="${systemSetting().manageHttp}/manage/comment!selectList.action?init=y&selectCommentFromIndex=true">${systemManager().ordersReport.getNotReplyCommentCount()}</a></td>
+							<td>缺货商品数：<a href="${systemSetting().manageHttp}/manage/product/selectList?init=y&selectOutOfStockProduct=true">${systemManager().ordersReport.getOutOfStockProductCount()}</a></td>
+							<td>未回复的吐槽评论数：<a href="${systemSetting().manageHttp}/manage/comment/selectList?init=y&selectCommentFromIndex=true">${systemManager().ordersReport.getNotReplyCommentCount()}</a></td>
 						</tr>
 					</table>
 				</div>

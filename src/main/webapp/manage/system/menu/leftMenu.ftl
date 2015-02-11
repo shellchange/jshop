@@ -35,6 +35,8 @@
                         console && console.log("_url : " + treeNode._url);
                         if(treeNode.url && treeNode.url.match("^../")){
                             treeNode.url = "${basepath}/manage/" + treeNode.url.substring(3);
+                        } else if(treeNode.url){
+                            treeNode.url = "${basepath}/"+treeNode.url;
                         }
                         console.log("url : " + treeNode.url);
                         $.fn.zTree.getZTreeObj(treeId).updateNode(treeNode);
@@ -49,7 +51,7 @@
 	}
 	var key;
 	$.ajax({
-		url:"${basepath}/manage/menu!selectJsonMenu.action",
+		url:"${basepath}/manage/menu/selectJsonMenu",
 		type:"post",
 		dataType:"text",
 		success:function(data, textStatus){

@@ -14,6 +14,6 @@
 <frameset cols="210,*" >
 	<frame src="${basepath}/forward.action?p=/manage/system/left" name="leftFrame" noresize="noresize"/>
 <#--<%-- 	<frame src="${basepath}/manage/system/right.jsp" name="rightFrame" /> --%>-->
-	<frame src="${basepath}/manage/user!initManageIndex.action" name="rightFrame" />
+	<frame src="${basepath}/manage/user/initManageIndex" name="rightFrame" />
 </frameset>
 </@html.htmlBase>

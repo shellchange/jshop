@@ -76,7 +76,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan="2" style="text-align: center;">${systemSetting.version}
+						<td colspan="2" style="text-align: center;">${systemSetting().version}
 						</td>
 					</tr>
 				</table>

@@ -3,7 +3,7 @@
     <script type="text/javascript">
     	//注销
     	function a(){
-    		window.parent.location.href = "${basepath}/manage/system/user!loginOut.action";
+    		window.parent.location.href = "${basepath}/manage/user/loginOut";
     	}
     </script>
 <style>

@@ -8,6 +8,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import net.jeeshop.core.dao.page.PagerModel;
+import net.jeeshop.web.action.BaseController;
+import net.jeeshop.web.util.LoginUserHolder;
+import net.jeeshop.web.util.RequestHolder;
+import org.omg.CORBA.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,6 +27,15 @@ import net.jeeshop.core.system.bean.User;
 import net.jeeshop.services.manage.system.impl.MenuService;
 import net.jeeshop.services.manage.system.impl.PrivilegeService;
 import net.sf.json.JSONArray;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -29,37 +43,51 @@ import net.sf.json.JSONArray;
  * @author Administrator
  *
  */
-public class MenuAction extends BaseAction<Menu> {
+@Controller
+@RequestMapping("/manage/menu/")
+public class MenuAction extends BaseController<Menu> {
 	private static final long serialVersionUID = 1L;
+    @Autowired
 	private MenuService menuService;
+    @Autowired
 	private PrivilegeService privilegeService;
-	private static final String str = "../";
-	private Menu menu = new Menu();
+//	private static final String str = "../";
 	private static final Logger log = LoggerFactory.getLogger(MenuAction.class);
-	
-	public PrivilegeService getPrivilegeService() {
+    private static final String page_toList = "/manage/system/menu/menuList";
+    private static final String page_toEdit = "/manage/system/menu/editMenu";
+    private static final String page_addOrUpdate = "/manage/system/menu/addOrUpdate";
+
+
+    public PrivilegeService getPrivilegeService() {
 		return privilegeService;
 	}
 
 	public void setPrivilegeService(PrivilegeService privilegeService) {
 		this.privilegeService = privilegeService;
 	}
-	@Override
-	protected void selectListAfter() {
-		pager.setPagerUrl("menu!selectList.action");
+
+    @Override
+    public Services<Menu> getService() {
+        return menuService;
+    }
+
+    @Override
+	protected void selectListAfter(PagerModel pager) {
+		pager.setPagerUrl("menu/selectList");
 	}
 	/**
 	 * 转到 添加/修改菜单 页面
 	 * @return
 	 * @throws Exception
 	 */
-	public String toAddOrUpdate() throws Exception{
+    @RequestMapping("toAddOrUpdate")
+	public String toAddOrUpdate(@ModelAttribute("e") Menu menu) throws Exception{
 //		System.out.println(menu!=null?menu.getId():"null");
 		menu.clear();
 //		System.out.println("==="+getRequest().getParameter("id"));
-		menu.setId(getRequest().getParameter("id"));
+//		menu.setId(getRequest().getParameter("id"));
 		menu = menuService.selectOne(menu);
-		return "addOrUpdate";
+		return page_addOrUpdate;
 //		return toList;
 	}
 	/**
@@ -68,21 +96,23 @@ public class MenuAction extends BaseAction<Menu> {
 	 * @return
 	 * @throws Exception
 	 */
-	public String addOrUpdate() throws Exception{
+    @RequestMapping("addOrUpdate")
+    @ResponseBody
+	public String addOrUpdate(HttpServletRequest request) throws Exception{
 		//选中菜单的信息
-		String updateP = getRequest().getParameter("updateP");
-		String id = getRequest().getParameter("id");
-		String name = getRequest().getParameter("name");
-		String orderNum = getRequest().getParameter("orderNum");
-		String type = getRequest().getParameter("type");
+		String updateP = request.getParameter("updateP");
+		String id = request.getParameter("id");
+		String name = request.getParameter("name");
+		String orderNum = request.getParameter("orderNum");
+		String type = request.getParameter("type");
 		
 		//要添加的子菜单
-		String url = getRequest().getParameter("url");
-		String n_name = getRequest().getParameter("n_name");
-		String n_url = getRequest().getParameter("n_url");
-		String parentOrChild = getRequest().getParameter("parentOrChild");
-		String n_orderNum = getRequest().getParameter("n_orderNum");
-		String n_type = getRequest().getParameter("n_type");
+		String url = request.getParameter("url");
+		String n_name = request.getParameter("n_name");
+		String n_url = request.getParameter("n_url");
+		String parentOrChild = request.getParameter("parentOrChild");
+		String n_orderNum = request.getParameter("n_orderNum");
+		String n_type = request.getParameter("n_type");
 		
 		Menu itemMenu = null;
 		if(n_name!=null && !n_name.trim().equals("")){
@@ -121,20 +151,21 @@ public class MenuAction extends BaseAction<Menu> {
 		
 		menuService.addOrUpdate(updateP,m, itemMenu);
 		
-		getResponse().getWriter().print("ok");
-		return null;
+		return "ok";
 	}
 	
 	//加载指定角色的全部菜单
-	public String selectJsonMenu() throws Exception {
-		Object menusJson = getSession().getAttribute(ManageContainer.resource_menus);
+    @RequestMapping("selectJsonMenu")
+    @ResponseBody
+	public String selectJsonMenu(HttpSession session) throws Exception {
+		Object menusJson = session.getAttribute(ManageContainer.resource_menus);
 		if(menusJson!=null){
-			getResponse().getWriter().write(menusJson.toString());
+			return menusJson.toString();
 		}else{
-			User u = (User) getSession().getAttribute(ManageContainer.manage_session_user_info);
+			User u = LoginUserHolder.getLoginUser();
 			List<MenuItem> root = loadMenus(u,"0",null);
-			
-			getSession().setAttribute(ManageContainer.resource_menus, writeMenus(root));
+			String jsonMenus = writeMenus(root);
+			session.setAttribute(ManageContainer.resource_menus, jsonMenus);
 			
 			//找出用户具有的功能，并且存放到session中，以方便后期的功能权限检查
 //			if(root!=null){
@@ -144,9 +175,8 @@ public class MenuAction extends BaseAction<Menu> {
 //				}
 ////				getSession().setAttribute(ManageContainer.user_resource_menus_button,null);
 //			}
+            return jsonMenus;
 		}
-		
-		return null;
 	}
 	
 	/**
@@ -154,10 +184,11 @@ public class MenuAction extends BaseAction<Menu> {
 	 */
 	private void addUserResourceMenusButton(String button){
 		log.debug("addUserResourceMenusButton.button="+button);
-		Map<String,String> buttons = (Map<String, String>) getSession().getAttribute(ManageContainer.user_resource_menus_button);
+        HttpSession session = RequestHolder.getSession();
+		Map<String,String> buttons = (Map<String, String>) session.getAttribute(ManageContainer.user_resource_menus_button);
 		if(buttons==null){
 			buttons = new HashMap<String, String>();//TreeMap<String, String>();
-			getSession().setAttribute(ManageContainer.user_resource_menus_button,buttons);
+            session.setAttribute(ManageContainer.user_resource_menus_button, buttons);
 		}
 		buttons.put(button, button);
 	}
@@ -168,11 +199,13 @@ public class MenuAction extends BaseAction<Menu> {
 	 * @return
 	 * @throws Exception
 	 */
-	public void getMenusByPid() throws Exception {
-		String pid = getRequest().getParameter("pid");
+    @RequestMapping("getMenuByPid")
+    @ResponseBody
+	public String getMenusByPid(HttpServletRequest request) throws Exception {
+		String pid = request.getParameter("pid");
 		if(pid==null || pid.trim().equals(""))
 			pid = "0";
-		String id = getRequest().getParameter("id");
+		String id = request.getParameter("id");
 		List<MenuItem> menus = menuService.loadMenus(null, pid, "#");
 		
 		// 加载全部的菜单
@@ -188,7 +221,7 @@ public class MenuAction extends BaseAction<Menu> {
 				eeee(p, menus);
 			}
 		}
-		writeMenus(menus);
+		return writeMenus(menus);
 	}
 	
 	/**
@@ -215,7 +248,7 @@ public class MenuAction extends BaseAction<Menu> {
 //		System.out.println(json.toString());
 		String jsonStr = json.toString();
 		try {
-			getResponse().getWriter().write(jsonStr);
+			return jsonStr;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -299,10 +332,10 @@ public class MenuAction extends BaseAction<Menu> {
 			addItem.setMenuType(entry);
 			String url0 = null;
 			if(url!=null){
-				addItem.setUrl(str+url);
+				addItem.setUrl(url);
 				url0 = url;
 			}else{
-				addItem.setUrl(str+entry.getUrl());
+				addItem.setUrl(entry.getUrl());
 				url0 = entry.getUrl();
 			}
 //			System.out.println("entry.getType()="+entry.getType()+",MenuType.button="+MenuType.button);
@@ -324,7 +357,8 @@ public class MenuAction extends BaseAction<Menu> {
 		}
 	}
 
-	public String save() throws Exception {
+    @RequestMapping(value = "save", method = RequestMethod.POST)
+	public String save(@ModelAttribute("e") Menu menu) throws Exception {
 		if (menu.getId() == null || menu.getId().equals("")) {
 			if (menu.getUrl() == null) {
 				menu.setUrl("");
@@ -333,7 +367,7 @@ public class MenuAction extends BaseAction<Menu> {
 		} else {
 			menuService.update(menu);
 		}
-		return selectList();
+		return selectList(RequestHolder.getRequest(), menu);
 	}
 
 	/**
@@ -341,17 +375,18 @@ public class MenuAction extends BaseAction<Menu> {
 	 * @return
 	 * @throws Exception
 	 */
-	public String delete() throws Exception {
+    @RequestMapping(value = "delete", method = RequestMethod.POST)
+    @ResponseBody
+	public String delete(HttpServletRequest request) throws Exception {
 		
-		String ids = getRequest().getParameter("ids");
+		String ids = request.getParameter("ids");
 		if(ids==null || ids.trim().equals(""))
 				throw new Exception("删除菜单异常！");
 		
-		this.menuService.deletes(ids,getRequest().getParameter("deleteParent"));
+		this.menuService.deletes(ids,request.getParameter("deleteParent"));
 		
 		//删除成功返回1
-		getResponse().getWriter().println("1");
-		return null;
+		return "1";
 	}
 
 	public MenuService getMenuService() {
@@ -360,34 +395,6 @@ public class MenuAction extends BaseAction<Menu> {
 
 	public void setMenuService(MenuService menuService) {
 		this.menuService = menuService;
-	}
-
-	public Menu getMenu() {
-		return menu;
-	}
-
-	public void setMenu(Menu menu) {
-		this.menu = menu;
-	}
-
-	@Override
-	public Menu getE() {
-		// TODO Auto-generated method stub
-		return this.menu;
-	}
-
-	@Override
-	public Services<Menu> getServer() {
-		// TODO Auto-generated method stub
-		return this.menuService;
-	}
-
-	@Override
-	public void prepare() throws Exception {
-		// TODO Auto-generated method stub
-		if(menu==null){
-			menu = new Menu();
-		}
 	}
 
 	@Override
