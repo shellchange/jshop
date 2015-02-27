@@ -2,10 +2,13 @@ package net.jeeshop.web.action;
 
 import net.jeeshop.core.Services;
 import net.jeeshop.core.dao.page.PagerModel;
+import net.jeeshop.core.system.bean.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,6 +20,8 @@ public abstract class BaseController<E extends PagerModel> {
 
     protected Logger logger = LoggerFactory.getLogger(getClass());
     protected String page_toList = null;
+    protected String page_toEdit = null;
+    protected String page_toAdd = null;
 //    @ModelAttribute("e")
     public E model(){
         return null;
@@ -74,6 +79,22 @@ public abstract class BaseController<E extends PagerModel> {
         return page_toList;
     }
 
+    @RequestMapping("toEdit")
+    public String toEdit(@ModelAttribute("e") E e, ModelMap model) throws Exception {
+        e = getService().selectOne(e);
+//		if(e==null || StringUtils.isBlank(e.getId())){
+//			throw new NullPointerException("");
+//		}
+        model.addAttribute("e", e);
+        return page_toEdit;
+    }
+
+    @RequestMapping("toAdd")
+    public String toAdd(@ModelAttribute("e") E e, ModelMap model) throws Exception {
+        e.clear();
+        return page_toAdd;
+    }
+
     /**
      * 子类必须要实现的方法当分页查询后.
      * 解决了用户先点击新增按钮转到新增页面,然后点击返回按钮返回后,再点分页控件出错的BUG.
@@ -121,7 +142,7 @@ public abstract class BaseController<E extends PagerModel> {
      * @return
      * @throws Exception
      */
-    @RequestMapping("update")
+    @RequestMapping(value = "update", method = RequestMethod.POST)
     public String update(HttpServletRequest request, @ModelAttribute("e") E e) throws Exception {
 //		User user = (User) getSession().getAttribute(Global.USER_INFO);
 //		if(user==null){

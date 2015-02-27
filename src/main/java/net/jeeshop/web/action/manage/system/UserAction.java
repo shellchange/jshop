@@ -54,7 +54,9 @@ public class UserAction extends BaseController<User> {
     private static final String page_show = "/manage/system/user/show";
     private static final String page_initManageIndex = "/manage/system/right";
     public UserAction() {
+        super.page_toEdit = page_toEdit;
         super.page_toList = page_toList;
+        super.page_toAdd = page_toAdd;
     }
     @Autowired
 	private UserService userService;
@@ -283,14 +285,16 @@ public class UserAction extends BaseController<User> {
      */
     @RequestMapping("loginOut")
 	public String loginOut(@ModelAttribute("e") User e) throws Exception {
-		User u = (User) RequestHolder.getSession().getAttribute(ManageContainer.manage_session_user_info);
-		if(u!=null && StringUtils.isNotBlank(u.getUsername())){
-			loginLog(u,"loginOut");
-		}
-
-        RequestHolder.getSession().setAttribute(ManageContainer.manage_session_user_info,null);
-        RequestHolder.getSession().setAttribute(ManageContainer.resource_menus,null);
-        RequestHolder.getSession().setAttribute(ManageContainer.user_resource_menus_button,null);
+        HttpSession session = RequestHolder.getSession();
+        if(session != null) {
+            User u = LoginUserHolder.getLoginUser();
+            if(u!=null && StringUtils.isNotBlank(u.getUsername())){
+                loginLog(u,"loginOut");
+            }
+            session.setAttribute(ManageContainer.manage_session_user_info, null);
+            session.setAttribute(ManageContainer.resource_menus, null);
+            session.setAttribute(ManageContainer.user_resource_menus_button, null);
+        }
 		e.clear();
 		return page_input;
 	}
@@ -406,7 +410,7 @@ public class UserAction extends BaseController<User> {
 	}
 	@Override
 	protected void selectListAfter(PagerModel pager) {
-		pager.setPagerUrl("user/selectList");
+		pager.setPagerUrl("selectList");
 	}
 	
 	/**

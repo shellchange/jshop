@@ -199,7 +199,7 @@ public class MenuAction extends BaseController<Menu> {
 	 * @return
 	 * @throws Exception
 	 */
-    @RequestMapping("getMenuByPid")
+    @RequestMapping("getMenusByPid")
     @ResponseBody
 	public String getMenusByPid(HttpServletRequest request) throws Exception {
 		String pid = request.getParameter("pid");

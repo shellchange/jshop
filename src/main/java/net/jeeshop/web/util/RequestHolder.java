@@ -27,4 +27,8 @@ public class RequestHolder {
     public static HttpSession getSession(){
         return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getSession(false);
     }
+
+    public static HttpSession getSession(boolean create){
+        return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getSession(create);
+    }
 }

@@ -19,17 +19,17 @@ function deleteSelect(){
 }
 </script>
 
-<form action="${basepath}/manage/role.action"  method="post">
+<form action="${basepath}/manage/role"  method="post">
 			<table class="table table-bordered">
 				<tr  >
 					<td>
-    <#if checkPrivilege("role!selectList.action")>
-							<a href="${basepath}/manage/role!selectList.action" class="btn btn-primary">
+    <#if checkPrivilege("role/selectList")>
+							<a href="${basepath}/manage/role/selectList" class="btn btn-primary">
 								<i class="icon-search icon-white"></i> 查询
 							</a>
         </#if>
-                        <#if checkPrivilege("role!insert.action")>
-							<a href="${basepath}/manage/role!toAdd.action" class="btn btn-success">
+                        <#if checkPrivilege("role/insert")>
+							<a href="${basepath}/manage/role/toAdd" class="btn btn-success">
 								<i class="icon-plus-sign icon-white"></i> 添加
 							</a>
                         </#if>
@@ -73,7 +73,7 @@ function deleteSelect(){
 						<td>
 							<!-- 系统角色只能是超级管理员编辑 -->
                             <#if currentUser().username == "admin">
-								<a href="${basepath}/manage/role!toEdit.action?id=${item.id}">编辑</a>
+								<a href="${basepath}/manage/role/toEdit?id=${item.id}">编辑</a>
                             </#if>
 						</td>
 					</tr>

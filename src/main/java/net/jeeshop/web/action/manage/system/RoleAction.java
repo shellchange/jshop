@@ -1,28 +1,40 @@
 package net.jeeshop.web.action.manage.system;
 
-import net.jeeshop.core.BaseAction;
 import net.jeeshop.core.ManageContainer;
 import net.jeeshop.core.Services;
+import net.jeeshop.core.dao.page.PagerModel;
 import net.jeeshop.core.exception.NotThisMethod;
 import net.jeeshop.core.system.bean.Role;
 import net.jeeshop.core.system.bean.User;
 import net.jeeshop.services.manage.system.impl.MenuService;
 import net.jeeshop.services.manage.system.impl.RoleService;
-
+import net.jeeshop.web.action.BaseController;
+import net.jeeshop.web.util.LoginUserHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.aliyun.common.comm.ServiceClient.Request;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 角色action
  * @author huangf
+ * @author dylan
  *
  */
-public class RoleAction extends BaseAction<Role> {
+@Controller
+@RequestMapping("/manage/role")
+public class RoleAction extends BaseController<Role> {
 	private static final long serialVersionUID = 1L;
 	private static final Logger logger = LoggerFactory.getLogger(RoleAction.class);
+    @Autowired
 	private RoleService roleService;
+    @Autowired
 	private MenuService menuService;
 
 	public void setRoleService(RoleService roleService) {
@@ -33,34 +45,37 @@ public class RoleAction extends BaseAction<Role> {
 		this.menuService = menuService;
 	}
 
-	private Role role = new Role();
-
+    public RoleAction() {
+        super.page_toList = "/manage/system/role/roleList";
+        super.page_toEdit = "/manage/system/role/editRole";
+        super.page_toAdd = "/manage/system/role/editRole";
+    }
 	/**
 	 * 添加角色
 	 * @return
 	 * @throws Exception
 	 */
-	public String save() throws Exception {
-		Role r = new Role();
-		r.setRole_name(getRequest().getParameter("roleName"));
-		r.setId(getRequest().getParameter("id"));
-		r.setRole_desc(getRequest().getParameter("roleDesc"));
-		r.setRole_dbPrivilege(getRequest().getParameter("role_dbPrivilege"));
-		r.setPrivileges(getRequest().getParameter("privileges"));
-		r.setStatus(getRequest().getParameter("status"));
-		if(r.getRole_name()==null || r.getRole_name().trim().equals("")){
-			getResponse().getWriter().print("0");
-			return null;
+    @RequestMapping(value = "save", method = RequestMethod.POST)
+    @ResponseBody
+	public String save(HttpServletRequest request, Role role) throws Exception {
+		role.setRole_name(request.getParameter("roleName"));
+        role.setId(request.getParameter("id"));
+        role.setRole_desc(request.getParameter("roleDesc"));
+        role.setRole_dbPrivilege(request.getParameter("role_dbPrivilege"));
+        role.setPrivileges(request.getParameter("privileges"));
+        role.setStatus(request.getParameter("status"));
+		if(role.getRole_name()==null || role.getRole_name().trim().equals("")){
+			return "0";
 		}else{
-			roleService.editRole(r,getRequest().getParameter("insertOrUpdate"));
+			roleService.editRole(role, request.getParameter("insertOrUpdate"));
 		}
 		
-		getResponse().getWriter().write("1");
-		return null;
+		return "1";
 	}
 	
 	@Override
-	public String deletes() throws Exception {
+    @RequestMapping(value = "deletes", method = RequestMethod.POST)
+	public String deletes(HttpServletRequest request, String[] ids, @ModelAttribute("e") Role e) throws Exception {
 		throw new NotThisMethod(ManageContainer.not_this_method);
 	}
 
@@ -83,48 +98,11 @@ public class RoleAction extends BaseAction<Role> {
 ////		return selectList();
 //	}
 
-	// getter setter
-	public Role getRole() {
-		return role;
-	}
 
-	public void setRole(Role role) {
-		this.role = role;
-	}
 
 	@Override
-	public Role getE() {
-		// TODO Auto-generated method stub
-		return this.role;
-	}
-
-	@Override
-	public Services<Role> getServer() {
-		// TODO Auto-generated method stub
+	public Services<Role> getService() {
 		return this.roleService;
-	}
-
-	@Override
-	public void prepare() throws Exception {
-		// TODO Auto-generated method stub
-		String id = getRequest().getParameter("id");
-		if (id==null || id.trim().equals("")){
-			role.clear();
-			role.setInsertOrUpdate("1");
-		}
-		else{
-			role.clear();
-			role.setId(id);
-			role = roleService.selectOne(role);
-			if (role == null) {
-				role = new Role();
-			}
-			role.setInsertOrUpdate("2");
-		}
-		
-		if(e==null){
-			e = new Role();
-		}
 	}
 
 	@Override
@@ -132,19 +110,20 @@ public class RoleAction extends BaseAction<Role> {
 		e.clear();
 	}
 	@Override
-	protected void selectListAfter() {
-		pager.setPagerUrl("role!selectList.action");
+	protected void selectListAfter(PagerModel pager) {
+		pager.setPagerUrl("selectList");
 	}
 	
 	/**
 	 * 只能是admin才具有编辑其他用户权限的功能
 	 */
 	@Override
-	public String update() throws Exception {
-		User user = (User)getRequest().getSession().getAttribute(ManageContainer.manage_session_user_info);
+    @RequestMapping(value = "update", method = RequestMethod.POST)
+	public String update(HttpServletRequest request, @ModelAttribute("e") Role role) throws Exception {
+        User user = LoginUserHolder.getLoginUser();
 		if(!user.getUsername().equals("admin")){
 			throw new NullPointerException(ManageContainer.RoleAction_update_error);
 		}
-		return super.update();
+		return super.update(request, role);
 	}
 }

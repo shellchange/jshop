@@ -4,7 +4,7 @@
 <SCRIPT type="text/javascript">
 	$(function(){
  		$("#add").add("#update").click(function(){
- 			art.dialog.open('${basepath}/menu!toEdit.action',
+ 			art.dialog.open('${basepath}/manage/menu/toEdit',
  					{title: '个人信息',width:500, height:350,lock:true});	 			
  		});
 	});
@@ -35,7 +35,7 @@
 			//加载菜单树
 			function loadMenusTree(id){
 				$.ajax({
-					url:"${basepath}/manage/menu!getMenusByPid.action?pid=0",
+					url:"${basepath}/manage/menu/getMenusByPid?pid=0",
 					type:"post",
 					data:{id:id},
 					dataType:"text",
@@ -78,7 +78,7 @@
 				}
 				
 				$.ajax({
-					url:"${basepath}/manage/role!save.action",
+					url:"${basepath}/manage/role/save",
 					type : "post",
 					data : {
 						privileges : ids,
@@ -162,9 +162,9 @@
 		}
 </SCRIPT>
 
-	<form action="${basepath}/manage/role!save.action" name="form1" id="form1">
+	<form action="${basepath}/manage/role/save" method="post" name="form1" id="form1">
 		<input id="insertOrUpdate" type="hidden"
-			value='${role.insertOrUpdate}' />
+			value='${e.id???string("2", "1")}' />
 		
 				<table class="table table-bordered" style="width: 500px;margin: auto;">
 					<tr>
@@ -174,29 +174,29 @@
 					</tr>
 					<tr style="display: none;">
 						<th>id</th>
-						<td><input type="hidden" name="role.id" id="id" value="${role.id!""}"/></td>
+						<td><input type="hidden" name="id" id="id" value="${e.id!""}"/></td>
 					</tr>
 					<tr>
 						<th style="background-color: #dff0d8;text-align: center;">角色名称</th>
-						<td style="text-align: left;"><#if !role.id??>
-								<input type="text" name="role.role_name" id="role_name"
-									value="${role.role_name!""}" />
+						<td style="text-align: left;"><#if !e.id??>
+								<input type="text" name="role_name" id="role_name"
+									value="${e.role_name!""}" />
 							 <#else>
-                                 <input type="text" value="${role.role_name}" name="role.role_name" id="role_name" />
+                                 <input type="text" value="${e.role_name}" name="role_name" id="role_name" />
 							</#if></td>
 					</tr>
 					<tr>
 						<th style="background-color: #dff0d8;text-align: center;">角色描述</th>
-						<td style="text-align: left;"> <input type="text" value="${role.role_desc!""}"
-								name="role.role_desc" id="role_desc" /></td>
+						<td style="text-align: left;"> <input type="text" value="${e.role_desc!""}"
+								name="role_desc" id="role_desc" /></td>
 					</tr>
 					<tr>
 						<th style="background-color: #dff0d8;text-align: center;">数据库权限</th>
 						<td style="text-align: left;">
-                            <select name="role.role_dbPrivilege" id="role_dbPrivilege">
+                            <select name="role_dbPrivilege" id="role_dbPrivilege">
                                 <#assign map_dbPrivilege ={'select':'select','select,insert':'select,insert','select,insert,update':'select,insert,update','select,insert,update,delete':'select,insert,update,delete'}/>
                                 <#list map_dbPrivilege?keys as item>
-                                    <option value="${item}" <#if role.role_dbPrivilege?? && role.role_dbPrivilege==item>selected="selected" </#if>>${map_dbPrivilege[item]}</option>
+                                    <option value="${item}" <#if e.role_dbPrivilege?? && e.role_dbPrivilege==item>selected="selected" </#if>>${map_dbPrivilege[item]}</option>
                                 </#list>
                             </select>
 						</td>
@@ -204,10 +204,10 @@
 					<tr>
 						<th style="background-color: #dff0d8;text-align: center;">状态</th>
 						<td style="text-align: left;" >
-                            <select name="role.status" id="status" class="input-small">
+                            <select name="status" id="status" class="input-small">
                                 <#assign y_n ={'y':'启用','n':'禁用'}/>
                                 <#list y_n?keys as item>
-                                    <option value="${item}" <#if role.status?? && role.status==item>selected="selected" </#if>>${y_n[item]}</option>
+                                    <option value="${item}" <#if e.status?? && e.status==item>selected="selected" </#if>>${y_n[item]}</option>
                                 </#list>
                                 </select>
 						</td>

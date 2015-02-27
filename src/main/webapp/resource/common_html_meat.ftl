@@ -23,7 +23,7 @@
         var login = false;
         var currentUser = "";
             <#if checkLogin>
-                top.location = "${basepath}/manage/system/user!loginOut.action";
+                top.location = "${basepath}/manage/user/loginOut";
             </#if>
         </#if>
     </script>
