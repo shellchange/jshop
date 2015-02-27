@@ -4,7 +4,7 @@
 	<!--
 	$(function(){
  		$("#add").add("#update").click(function(){
- 			art.dialog.open('${basepath}/menu!toEdit.action',
+ 			art.dialog.open('${basepath}/manage/menu/toEdit',
  					{title: '个人信息',width:500, height:350,lock:true});
  		});
 	});
@@ -55,7 +55,7 @@ var setting = {
                 zTree.expandNode(treeNode);
             },
 			onMouseDown: function (event, treeId, treeNode) {
-                var url = "menu!toAddOrUpdate.action?id="+treeNode.id;
+                var url = "toAddOrUpdate?id="+treeNode.id;
                 if(true){
                     $("#iframeMenuEdit").attr("src",url);
                     return;
@@ -73,7 +73,7 @@ loadMenusTree();
 //加载菜单树
 function loadMenusTree(){
 	$.ajax({
-		url:"${basepath}/manage/menu!getMenusByPid.action?pid=0",
+		url:"${basepath}/manage/menu/getMenusByPid?pid=0",
 					type:"post",
 					dataType:"text",
 					success:function(data, textStatus){
@@ -111,7 +111,7 @@ function loadMenusTree(){
 				}
 				
 				$.ajax({
-					url:"${basepath}/manage/menu!delete.action",
+					url:"${basepath}/manage/menu/delete",
 					type:"post",
 					data:{ids:ids,deleteParent:$("#deleteParent").attr("checked")?"1":"-1"},
 					dataType:"text",

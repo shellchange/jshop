@@ -37,7 +37,7 @@
 	 			var n_type = $("#input_new_menu_type").val();
 	 			
 	 			$.ajax({
-					url:"${basepath}/manage/menu!addOrUpdate.action",
+					url:"${basepath}/manage/menu/addOrUpdate",
 					type:"post",
 					data:{
 						updateP:2,//-1不修改父菜单，1修改
@@ -80,7 +80,7 @@
 <style>
 	body{text-align:center;}
 </style>
-<form action="${basepath}/manage/menu.action" name="form1" theme="simple">
+<form action="${basepath}/manage/menu" name="form1" method="post" theme="simple">
 <div id="contians_div" style="text-align: right; border: 0px solid red; margin: auto;">
 			<div id="context_div" style="margin-top: 20px;">
 			
@@ -94,25 +94,25 @@
 		<tr style="display: none;">
 			<td>id</td>
 			<td>
-				<inputid="input_menu_id" readonly="readonly" value='${menu.id!""}'/>
+				<inputid="input_menu_id" readonly="readonly" value='${e.id!""}'/>
 			</td>
 		</tr>
 		<tr style="display: none;">
 			<td>pid</td>
 			<td>
-				<input id="input_menu_pid" readonly="readonly" value='${menu.pid!""}'/>
+				<input id="input_menu_pid" readonly="readonly" value='${e.pid!""}'/>
 			</td>
 		</tr>
 		<tr>
 			<th>名称</th>
 			<td style="text-align: left;">
-				<input type="text"  id="input_menu_name" size="60" value='${menu.name!""}'/>
+				<input type="text"  id="input_menu_name" size="60" value='${e.name!""}'/>
 			</td>
 		</tr>
 		<tr>
 			<th>url</th>
 			<td style="text-align: left;">
-				<input type="text"  id="input_menu_url" size="80" value='${menu.url!""}' style="width: 360px"/>
+				<input type="text"  id="input_menu_url" size="80" value='${e.url!""}' style="width: 360px"/>
 			</td>
 		</tr>
 		<tr>
@@ -120,9 +120,9 @@
 			<td style="text-align: left;">
 
 				<#assign y_n = {'':'--请选择--','module':'模块','page':'页面','button':'按钮'}>
-                <select id="input_menu_type" name="menu.type" class="input-medium">
+                <select id="input_menu_type" name="type" class="input-medium">
 					<#list y_n?keys as key>
-                        <option value="${key}" <#if menu.type?? && menu.type==key>selected="selected" </#if>>${y_n[key]}</option>
+                        <option value="${key}" <#if e.type?? && e.type==key>selected="selected" </#if>>${y_n[key]}</option>
 					</#list>
                 </select>
 			</td>
@@ -130,7 +130,7 @@
 		<tr>
 			<th>顺序</th>
 			<td style="text-align: left;">
-				<input type="text"  id="input_menu_orderNum" value='${menu.orderNum!""}'/>
+				<input type="text"  id="input_menu_orderNum" value='${e.orderNum!""}'/>
 				(菜单顺序从1开始，小的显示在前面)
 			</td>
 		</tr>

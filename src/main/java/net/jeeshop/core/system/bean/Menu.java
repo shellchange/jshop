@@ -8,7 +8,6 @@ import net.jeeshop.core.dao.page.PagerModel;
  *
  */
 public class Menu extends PagerModel {
-	private String id;
 	private String pid;
 	private String url;
 	private String name;
@@ -21,14 +20,6 @@ public class Menu extends PagerModel {
 
 	public void setOrderNum(int orderNum) {
 		this.orderNum = orderNum;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public String getPid() {
@@ -56,7 +47,7 @@ public class Menu extends PagerModel {
 	}
 
 	public void clear() {
-		id = null;
+		this.setId(null);
 		pid = null;
 		url = null;
 		name = null;
@@ -75,7 +66,7 @@ public class Menu extends PagerModel {
 
 	@Override
 	public String toString() {
-		return "[id:" + id + ",pid:" + pid + "]";
+		return "[id:" + getId() + ",pid:" + pid + "]";
 	}
 
 }

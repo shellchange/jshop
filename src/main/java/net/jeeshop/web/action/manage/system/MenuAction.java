@@ -29,6 +29,7 @@ import net.jeeshop.services.manage.system.impl.PrivilegeService;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -57,7 +58,11 @@ public class MenuAction extends BaseController<Menu> {
     private static final String page_toEdit = "/manage/system/menu/editMenu";
     private static final String page_addOrUpdate = "/manage/system/menu/addOrUpdate";
 
-
+    private MenuAction() {
+        super.page_toList = page_toList;
+        super.page_toEdit = page_toEdit;
+        super.page_toAdd = page_toEdit;
+    }
     public PrivilegeService getPrivilegeService() {
 		return privilegeService;
 	}
@@ -73,7 +78,7 @@ public class MenuAction extends BaseController<Menu> {
 
     @Override
 	protected void selectListAfter(PagerModel pager) {
-		pager.setPagerUrl("menu/selectList");
+		pager.setPagerUrl("selectList");
 	}
 	/**
 	 * 转到 添加/修改菜单 页面
@@ -81,12 +86,12 @@ public class MenuAction extends BaseController<Menu> {
 	 * @throws Exception
 	 */
     @RequestMapping("toAddOrUpdate")
-	public String toAddOrUpdate(@ModelAttribute("e") Menu menu) throws Exception{
+	public String toAddOrUpdate(@ModelAttribute("e") Menu menu, ModelMap model) throws Exception{
 //		System.out.println(menu!=null?menu.getId():"null");
-		menu.clear();
 //		System.out.println("==="+getRequest().getParameter("id"));
 //		menu.setId(getRequest().getParameter("id"));
 		menu = menuService.selectOne(menu);
+        model.addAttribute("e", menu);
 		return page_addOrUpdate;
 //		return toList;
 	}
@@ -96,7 +101,7 @@ public class MenuAction extends BaseController<Menu> {
 	 * @return
 	 * @throws Exception
 	 */
-    @RequestMapping("addOrUpdate")
+    @RequestMapping(value = "addOrUpdate", method = RequestMethod.POST)
     @ResponseBody
 	public String addOrUpdate(HttpServletRequest request) throws Exception{
 		//选中菜单的信息

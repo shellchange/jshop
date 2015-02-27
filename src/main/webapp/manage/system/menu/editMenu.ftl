@@ -3,26 +3,26 @@
 <div style="text-align: center; border: 0px solid #999;margin: auto;">
 	<div style="text-align: center; border: 0px solid #999;
 		margin: auto;margin-top: 150px;">
-		<form action="${basepath}/manage/menu.action" theme="simple">
+		<form action="${basepath}/manage/menu" theme="simple" method="post">
 				<table>
 					<tr style="display: none;">
 						<th>id</th>
-						<td><input type="hidden" value="${menu.rid!""}" name="menu.rid"/></td>
+						<td><input type="hidden" value="${e.rid!""}" name="rid"/></td>
 					</tr>
 					<tr style="display: none;">
 						<th>pid</th>
-						<td><input type="hidden" value="${menu.pid!""}"  name="menu.pid"/></td>
+						<td><input type="hidden" value="${e.pid!""}"  name="pid"/></td>
 					</tr>
 					<tr>
 						<th>url</th>
 						<td>
-							<input type="text" value="${menu.url!""}" name="menu.url" readonly="false"/>
+							<input type="text" value="${e.url!""}" name="url" readonly="false"/>
 						</td>
 					</tr>
 					<tr>
 						<th>name</th>
 						<td>
-                            <input type="text" value="${menu.name!""}" name="menu.name" readonly="false"/>
+                            <input type="text" value="${e.name!""}" name="name" readonly="false"/>
 						</td>
 					</tr>
 					<tr><td></td>
