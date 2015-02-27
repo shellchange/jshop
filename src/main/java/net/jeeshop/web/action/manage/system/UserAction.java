@@ -417,6 +417,7 @@ public class UserAction extends BaseController<User> {
         model.addAttribute("roleList", roleService.selectList(null));
 
 		e = getService().selectOne(e);
+        model.addAttribute("e", e);
 //		if(getRequest().getParameter("id")==null){
 //			e.clear();
 //		}else{

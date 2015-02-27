@@ -39,3 +39,4 @@ lower_case_table_names=1
 查找：<result\sname="(.*?)"\stype="freemarker"\s?>(.*?)\.ftl</result>
 替换为：private static final String page_$1 = "$2";
 查找： /(.*?)\!(.*?)\.action 替换为: /$1/$2
+查找：name="e\.(.+?)" 替换为: name="$1"

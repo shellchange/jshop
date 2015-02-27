@@ -21,7 +21,7 @@
 
 <#--<%-- formAction=<s:property value="#formAction"/><br> --%>-->
 <#--<%-- formAction2=<s:property value="#request.formAction"/><br> --%>-->
-<form action="${basepath}/manage/user.action" id="form">
+<form action="${basepath}/manage/user" id="form" method="post">
 	<#--<s:form action="user!" namespace="/" theme="simple" id="form">-->
 		<table class="table table-bordered">
 			<tr>
@@ -31,13 +31,13 @@
 			</tr>
 			<tr style="display:none;">
 				<th>id</th>
-				<td><input type="hidden" name="e.id" value="${e.id!""}"></td>
+				<td><input type="hidden" name="id" value="${e.id!""}"></td>
 			</tr>
 			<tr>
 				<th class="td_right">帐号</th>
 				<td style="text-align: left;">
                     <#if insertAction>
-                        <input type="text" name="e.username" id="username"  data-rule="帐号:required;username;length[4~20];remote[user!unique.action]">
+                        <input type="text" name="username" id="username"  data-rule="帐号:required;username;length[4~20];remote[unique]">
                     <#else >
                         ${e.username}
                     </#if>
@@ -46,13 +46,13 @@
 			<tr>
 				<th class="td_right">昵称</th>
 				<td style="text-align: left;">
-				<input type="text" name="e.nickname" value="${e.nickname!""}" id="nickname"  data-rule="昵称:required;nickname;length[2~20];remote[user!unique.action]"/>
+				<input type="text" name="nickname" value="${e.nickname!""}" id="nickname"  data-rule="昵称:required;nickname;length[2~20];remote[unique]"/>
 					</td>
 			</tr>
 
                 <tr>
                     <th class="td_right">密码</th>
-                    <td style="text-align: left;"><input type="password" name="e.password" data-rule="密码:password;length[6~20];"
+                    <td style="text-align: left;"><input type="password" name="password" data-rule="密码:password;length[6~20];"
                                                               id="password" />
 
             <#if !insertAction> <br>(不输入表示不修改密码)</#if>
@@ -60,7 +60,7 @@
                 </tr>
                 <tr>
                     <th class="td_right">确认密码</th>
-                    <td style="text-align: left;"><input type="password" name="e.newpassword2" data-rule="确认密码:match(e.password)"
+                    <td style="text-align: left;"><input type="password" name="newpassword2" data-rule="确认密码:match(password)"
                                                               id="newpassword2" />
                     </td>
                 </tr>
@@ -79,7 +79,7 @@
 				<tr>
 					<th class="td_right">状态</th>
 					<td style="text-align: left;" >
-                        <select class="input-small" id="status" name="e.status" >
+                        <select class="input-small" id="status" name="status" >
                             <option value="y" <#if e.status?? && e.status == "y">selected="selected" </#if>>启用</option>
                             <option value="n"<#if e.status?? && e.status == "n">selected="selected" </#if>>禁用</option>
                         </select>
@@ -89,11 +89,11 @@
 			<tr >
 				<td colspan="2" style="text-align: center;">
 					<#if insertAction>
-						<button method="user!insert.action" class="btn btn-success">
+						<button method="user/insert" class="btn btn-success">
 							<i class="icon-ok icon-white"></i> 新增
 						</button>
                         <#else >
-						<button method="user!update.action" class="btn btn-success">
+						<button method="user/update" class="btn btn-success">
 							<i class="icon-ok icon-white"></i> 保存
 						</button>
                     </#if>
