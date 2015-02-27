@@ -30,9 +30,9 @@ public class SystemListener implements ServletContextListener {
 			SystemManager.getInstance();
 
 			WebApplicationContext app = WebApplicationContextUtils.getWebApplicationContext(arg0.getServletContext());
-//			FrontCache frontCache = (FrontCache) app.getBean("frontCache");
+			FrontCache frontCache = (FrontCache) app.getBean("frontCache");
 			ManageCache manageCache = (ManageCache) app.getBean("manageCache");
-//			frontCache.loadAllCache();
+			frontCache.loadAllCache();
 			manageCache.loadAllCache();
 			
 //			TaskManager taskManager = (TaskManager) app.getBean("taskManager");

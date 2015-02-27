@@ -1,16 +1,5 @@
 <#import "/resource/common_html_meat.ftl" as html>
 <@html.htmlBase>
-<SCRIPT type="text/javascript">
-	<!--
-	$(function(){
- 		$("#add").add("#update").click(function(){
- 			art.dialog.open('${basepath}/menu!toEdit.action',
- 					{title: '个人信息',width:500, height:350,lock:true});
- 		});
-	});
-	//-->
-</SCRIPT>
-	
 <form action="" name="form1" style="display: none;">
 	<input type="hidden" value="${id!""}" name="id" id="dfsfsf"></s:hidden>
 </form>
@@ -23,7 +12,7 @@
 				<font color="red">在父菜单下的所有子菜单全部勾选的情况下，是否级联删除父菜单：<input type="checkbox" id="deleteParent"></font><br>
 				提示：点击菜单项，此处则能编辑该菜单项或增加顶级菜单或子菜单项。<br> 
 				<input type="button" id="deleteMenus" value="删除选择的菜单" class="btn btn-danger"/>
-				<a id="initAreaTree" href="${basepath}/manage/area!initAreaTree.action" class="btn btn-danger" onclick="return initAreaTreeFunc();">初始化省市区数据</a>
+				<a id="initAreaTree" href="${basepath}/manage/area/initAreaTree" class="btn btn-danger" onclick="return initAreaTreeFunc();">初始化省市区数据</a>
 				<font color="red">(默认只删除叶子菜单)</font>
 				[<a id="expandOrCollapseAllBtn" href="#" title="展开/折叠全部区域" onclick="return false;">展开/折叠</a>]
 			</div>
@@ -62,7 +51,7 @@ var setting = {
                 zTree.expandNode(treeNode);
             },
 			onMouseDown:function(event, treeId, treeNode) {
-                        var url = "area!toAddOrUpdate.action?id="+treeNode.id;
+                        var url = "toAddOrUpdate?id="+treeNode.id;
                         console.log("url="+url+",treeId="+treeId+",treeNode="+treeNode);
                         if(true){
                             $("#iframeMenuEdit").attr("src",url);
@@ -80,7 +69,7 @@ loadMenusTree();
 //加载菜单树
 function loadMenusTree(){
 	$.ajax({
-		url:"${basepath}/manage/area!getAreaTree.action?pid=0",
+		url:"${basepath}/manage/area/getAreaTree?pid=0",
 					type:"post",
 					dataType:"text",
 					success:function(data, textStatus){
@@ -115,7 +104,7 @@ function loadMenusTree(){
 				}
 				
 				$.ajax({
-					url:"${basepath}/manage/area!delete.action",
+					url:"${basepath}/manage/area/delete",
 					type:"post",
 					data:{ids:ids,deleteParent:$("#deleteParent").attr("checked")?"1":"-1"},
 					dataType:"text",

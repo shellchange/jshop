@@ -69,6 +69,7 @@ import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * 缓存管理器。 后台项目可以通过接口程序通知该类重新加载部分或全部的缓存
@@ -82,29 +83,48 @@ public class FrontCache {
 	/**
 	 * manage后台
 	 */
+    @Autowired
 	private KeyvalueService keyvalueService;
+    @Autowired
 	private SystemSettingService systemSettingService;
+    @Autowired
 	private NewsService newsService;
+    @Autowired
 	private CatalogService catalogService;
+    @Autowired
 	private IndexImgService indexImgService;
+    @Autowired
 	private NavigationService navigationService;
+    @Autowired
 	private AttributeService attributeService;
+    @Autowired
 	private PayService payService;
+    @Autowired
 	private CommentTypeService commentTypeService;
+    @Autowired
 	private AreaService areaService;
+    @Autowired
 	private ExpressService expressService;
+    @Autowired
 	private AdvertService advertService;
+    @Autowired
 	private NotifyTemplateService notifyTemplateService;
+    @Autowired
 //	private OssService ossService;
 	private OrderService orderService;
+    @Autowired
 	private CommentService commentService;
+    @Autowired
 	private AccountRankService accountRankService;
+    @Autowired
 	private ActivityService activityService;
+    @Autowired
 	private HotqueryService hotqueryService;
 
 	/**
 	 * front前台
 	 */
+    @Autowired
 	private ProductService productService;
 
 

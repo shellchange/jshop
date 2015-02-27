@@ -8,7 +8,6 @@
 
 
     <context:component-scan base-package="net.jeeshop.web.action" />
-    <import resource="classpath*:strutsSpring/manage/spring-struts.xml"/>
     <!--<import resource="classpath*:strutsSpring/front/spring_struts.xml"/>-->
     <!-- 配置自定义转换服务器 -->
     <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">

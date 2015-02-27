@@ -41,7 +41,7 @@
 	 			}
 	 			
 	 			$.ajax({
-					url:"${basepath}/manage/area!doAddOrUpdate.action",
+					url:"${basepath}/manage/area/doAddOrUpdate",
 					type:"post",
 					data:{
 						//父菜单信息
