@@ -29,27 +29,27 @@
 	margin-right: 10px;
 }
 </style>
-	<form action="${basepath}/manage/keyvalue.action" method="post">
+	<form action="${basepath}/manage/keyvalue" method="post">
 				<table class="table table-bordered">
 					<tr>
 						<td style="text-align: right;">键</td>
 						<td style="text-align: left;">
-							<input type="text" name="e.key1" id="e.key1" value="${e.key1!""}">
+							<input type="text" name="key1" id="e.key1" value="${e.key1!""}">
 						</td>
 						<td style="text-align: right;">值</td>
 						<td style="text-align: left;">
-                            <input type="text" name="e.value" id="e.value" value="${e.value!""}">
+                            <input type="text" name="value" id="e.value" value="${e.value!""}">
 						</td>
 					</tr>
 					<tr>
 						<td colspan="6">
-							<button method="keyvalue!selectList.action" class="btn btn-primary" onclick="selectList(this)">
+							<button method="selectList" class="btn btn-primary" onclick="selectList(this)">
 								<i class="icon-search icon-white"></i> 查询
 							</button>
-							<a href="${basepath}/manage/keyvalue!toAdd.action" class="btn btn-success">
+							<a href="${basepath}/manage/keyvalue/toAdd" class="btn btn-success">
 								<i class="icon-plus-sign icon-white"></i> 添加
                             </a>
-							<button method="keyvalue!deletes.action" class="btn btn-danger" onclick="return submitIDs(this,'确定删除选择的记录?');">
+							<button method="deletes" class="btn btn-danger" onclick="return submitIDs(this,'确定删除选择的记录?');">
 								<i class="icon-remove-sign icon-white"></i> 删除
 							</button>
 							
@@ -75,7 +75,7 @@
 							<td style="display: none;">&nbsp;${item.id}</td>
 							<td>&nbsp;${item.key1!""}</td>
 							<td>&nbsp;${item.value!""}</td>
-							<td><a href="keyvalue!toEdit.action?e.id=${item.id}">编辑</a></td>
+							<td><a href="toEdit?id=${item.id}">编辑</a></td>
 						</tr>
 					</#list>
 					<tr>

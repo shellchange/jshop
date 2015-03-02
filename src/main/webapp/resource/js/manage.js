@@ -1,3 +1,8 @@
+//common
+String.prototype.endsWith = function (pattern) {
+    var d = this.length - pattern.length;
+    return d >= 0 && this.lastIndexOf(pattern) === d;
+}
 /**
  * 后台脚本JS
  */
@@ -28,12 +33,14 @@ $(function(){
         var buttonMethod = form.buttonMethod;
 		console.log(buttonMethod);
 		var _formAction = $(form).attr("action");
-		var aa = _formAction.substring(0,_formAction.lastIndexOf("/")+1);
+		//var aa = _formAction.substring(0,_formAction.lastIndexOf("/")+1);
+        var aa = _formAction.endsWith("/")?_formAction : _formAction + "/";
 		console.log(aa);
 		
 		var lastFormAction = aa+buttonMethod;
 		console.log("lastFormAction="+lastFormAction);
 		$(form).attr("action",lastFormAction);
+        $(form).attr("method", "POST");
 		
 		console.log($(form).attr("action"));
 		

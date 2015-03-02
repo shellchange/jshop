@@ -32,20 +32,20 @@
 </head>
 
 <body style="font-size: 12px;">
-	<form action="${basepath}/manage/systemlog.action" method="post" theme="simple">
+	<form action="${basepath}/manage/systemlog" method="post" theme="simple">
 				<table class="table table-bordered">
 					<tr>
 						<td style="text-align: right;">是否异登陆</td>
 						<td style="text-align: left;">
 							<#assign y_n = {'':"全部",'y':'是','n':'否'}>
-                            <select id="diffAreaLogin" name="e.diffAreaLogin">
+                            <select id="diffAreaLogin" name="diffAreaLogin">
 							<#list y_n?keys as key>
                                 <option value="${key}" <#if e.diffAreaLogin?? && e.diffAreaLogin==key>selected="selected" </#if>>${y_n[key]}</option>
 							</#list>
                             </select>
 						</td>
 						<td>登陆账号</td>
-						<td><input type="text" value="${e.account!""}" class="input-medium search-query" name="e.account"/></td>
+						<td><input type="text" value="${e.account!""}" class="input-medium search-query" name="account"/></td>
 					</tr>
 				</table>
 				
@@ -54,7 +54,7 @@
 						<td colspan="16">
 <!-- 								<i class="icon-search icon-white"></i> 查询 -->
 
-							<button method="systemlog!selectList.action" class="btn btn-primary" onclick="selectList(this)">
+							<button method="selectList" class="btn btn-primary" onclick="selectList(this)">
 								<i class="icon-search icon-white"></i> 查询
 							</button>
 							

@@ -1,19 +1,19 @@
 <#import "/resource/common_html_meat.ftl" as html>
 <@html.htmlBase>
-	<form action="${basepath}/manage/express.action" method="post">
+	<form action="${basepath}/manage/express" method="post">
 		<table class="table table-bordered">
 			<tr>
 				<td colspan="8">
-					<button method="express!selectList.action" class="btn btn-primary" onclick="selectList(this)">
+					<button method="selectList" class="btn btn-primary" onclick="selectList(this)">
 						<i class="icon-search icon-white"></i> 查询
 					</button>
 					
-					<a href="${basepath}/manage/express!toAdd.action" class="btn btn-success">
+					<a href="${basepath}/manage/express/toAdd" class="btn btn-success">
 						<i class="icon-plus-sign icon-white"></i> 添加
 					</a>
 							
 <!-- 						<i class="icon-remove-sign icon-white"></i> 删除 -->
-					<button method="express!deletes.action" class="btn btn-danger" onclick="return submitIDs(this,'确定删除选择的记录?');">
+					<button method="deletes" class="btn btn-danger" onclick="return submitIDs(this,'确定删除选择的记录?');">
 						<i class="icon-remove-sign icon-white"></i> 删除
 					</button>
 							
@@ -42,7 +42,7 @@
 					<td nowrap="nowrap">&nbsp;${item.fee!""}</td>
 					<td nowrap="nowrap">&nbsp;${item.order1!""}</td>
 					<td nowrap="nowrap">
-						<a href="express!toEdit.action?e.id=${item.id!""}">编辑</a>
+						<a href="toEdit?id=${item.id!""}">编辑</a>
 					</td>
 				</tr></#list>
 			<tr>
