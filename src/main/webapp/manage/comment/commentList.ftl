@@ -1,35 +1,35 @@
 <#import "/resource/common_html_meat.ftl" as html>
 <@html.htmlBase>
-	<form action="${basepath}/manage/comment.action" method="post" theme="simple">
+	<form action="${basepath}/manage/comment" method="post" theme="simple">
 				<table class="table table-bordered">
 					<tr>
 						<#--<!-- -->
 						<#--<td style="text-align: right;">评论等级</td>-->
 						<#--<td style="text-align: left;">-->
-							<#--<s:select list="#{0:'好评',1:'中评',2:'差评'}" id="star" name="e.star"  class="input-medium" -->
+							<#--<s:select list="#{0:'好评',1:'中评',2:'差评'}" id="star" name="star"  class="input-medium" -->
 								<#--headerKey="" headerValue=""-->
 								<#--listKey="key" listValue="value"  />-->
 						<#--</td>-->
 						 <#--&ndash;&gt;-->
 						<td style="text-align: right;">商品编号</td>
 						<td style="text-align: left;">
-							<input type="text" value="${e.productID!""}" name="e.productID" class="input-medium" />
+							<input type="text" value="${e.productID!""}" name="productID" class="input-medium" />
 						</td>
 						
 						<td style="text-align: right;">会员账号</td>
 						<td style="text-align: left;">
-                            <input type="text" value="${e.account!""}" name="e.account" class="input-medium" />
+                            <input type="text" value="${e.account!""}" name="account" class="input-medium" />
 						</td>
 						
 						<td style="text-align: right;">订单编号</td>
 						<td style="text-align: left;">
-                            <input type="text" value="${e.orderID!""}" name="e.orderID" class="input-medium" />
+                            <input type="text" value="${e.orderID!""}" name="orderID" class="input-medium" />
 						</td>
 						
 						<td style="text-align: right;">是否显示</td>
 						<td style="text-align: left;">
 							<#assign map = {'':'','y':'是','n':'否'}>
-                            <select id="status" name="e.status" class="input-medium">
+                            <select id="status" name="status" class="input-medium">
 								<#list map?keys as key>
                                     <option value="${key}" <#if e.status?? && e.status==key>selected="selected" </#if>>${map[key]}</option>
 								</#list>
@@ -44,14 +44,14 @@
 <#--<%-- 							<s:a method="selectList" class="btn btn-primary"> --%>-->
 <!-- 								<i class="icon-search icon-white"></i> 查询 -->
 <#--<%-- 							</s:a> --%>-->
-							<button method="comment!selectList.action" class="btn btn-primary" onclick="selectList(this)">
+							<button method="selectList" class="btn btn-primary" onclick="selectList(this)">
 								<i class="icon-search icon-white"></i> 查询
 							</button>
 								
-							<button method="comment!updateStatusY.action" class="btn btn-warning" onclick="return submitIDs(this,'确定显示指定的记录吗？');">
+							<button method="updateStatusY" class="btn btn-warning" onclick="return submitIDs(this,'确定显示指定的记录吗？');">
 								<i class="icon-arrow-up icon-white"></i> 显示
 							</button>
-							<button method="comment!updateStatusN.action" class="btn btn-warning" onclick="return submitIDs(this,'确定不显示指定的记录吗？');">
+							<button method="updateStatusN" class="btn btn-warning" onclick="return submitIDs(this,'确定不显示指定的记录吗？');">
 								<i class="icon-arrow-down icon-white"></i> 不显示
 							</button>
 								
@@ -85,11 +85,11 @@
 								<a target="_blank" href="${systemSetting().www}/product/${item.productID!""}.html">${item.productID!""}</a>
 							</td>
 							<td>
-								<a target="_blank" href="account!show.action?account=${item.account!""}">${item.account!""}
+								<a target="_blank" href="${basepath}/manage/account/show?account=${item.account!""}">${item.account!""}
 								</a>
 							</td>
 							<td>&nbsp;
-								<a target="_blank" href="order!toEdit.action?e.type=show&e.id=${item.orderID!""}">${item.orderID!""}</a>
+								<a target="_blank" href="${basepath}/manage/order/toEdit?type=show&id=${item.orderID!""}">${item.orderID!""}</a>
 							</td>
 							<td width="500px">&nbsp;
 								${item.content!""}<br>
@@ -109,9 +109,9 @@
 							</td>
 							<td nowrap="nowrap">
 								<#if item.reply??>
-                                    <a href="comment!toEdit.action?e.id=${item.id!""}&update=y">修改回复</a>
+                                    <a href="toEdit?id=${item.id!""}&update=y">修改回复</a>
 								<#else>
-                                    <a href="comment!toEdit.action?e.id=${item.id!""}">回复</a>
+                                    <a href="toEdit?id=${item.id!""}">回复</a>
 								</#if>
 							</td>
 						</tr>

@@ -1,11 +1,11 @@
 <#import "/resource/common_html_meat.ftl" as html>
 <@html.htmlBase>
-	<form action="${basepath}/manage/accountRank.action" method="post" theme="simple">
+	<form action="${basepath}/manage/accountRank" method="post" theme="simple">
 		<table class="table table-bordered">
 			<tr>
 				<td colspan="8">
 <#--<%-- 					<s:submit method="selectList" value="查询" cssClass="btn btn-primary"/> --%>-->
-					<a href="accountRank!selectList.action" class="btn btn-primary">
+					<a href="selectList" class="btn btn-primary">
 						<i class="icon-search icon-white"></i> 查询
 					</a>
 <#--<%-- 					<s:submit method="toAdd" value="添加" cssClass="btn btn-success" /> --%>-->
@@ -34,7 +34,7 @@
 					<td nowrap="nowrap">&nbsp;${item.name!""}</td>
 					<td nowrap="nowrap">&nbsp;${item.minScore!""}~${item.maxScore!""}</td>
 					<td nowrap="nowrap">
-						<a href="accountRank!toEdit.action?e.id=${item.id}">编辑</a>
+						<a href="toEdit?id=${item.id}">编辑</a>
 					</td>
 				</tr>
 			</#list>

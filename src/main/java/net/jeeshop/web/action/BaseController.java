@@ -39,7 +39,7 @@ public abstract class BaseController<E extends PagerModel> {
     /**
      * 初始化查询的时候，会清除所有的查询参数(所以在e中的)，但可以设置不在e中的参数，然后在此方法中进行e.setXxx(参数)的方式进行保留。
      */
-    protected void setParamWhenInitQuery() {
+    protected void setParamWhenInitQuery(E e) {
         //BaseAction 的子类如有初始化页面的时候进行相关查询 ，则可以实现此方法。
     }
 
@@ -56,7 +56,7 @@ public abstract class BaseController<E extends PagerModel> {
          */
         this.initPageSelect();
 
-        setParamWhenInitQuery();
+        setParamWhenInitQuery(e);
 
         int offset = 0;//分页偏移量
         if (request.getParameter("pager.offset") != null) {

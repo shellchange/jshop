@@ -1,6 +1,6 @@
 <#import "/resource/common_html_meat.ftl" as html>
 <@html.htmlBase>
-	<form action="${basepath}/manage/comment.action" theme="simple" name="form" id="form">
+	<form action="${basepath}/manage/comment" theme="simple" name="form" id="form">
 		<table id="result_table" class="table table-bordered" style="width: 95%;margin: auto;">
 			<tr style="background-color: #dff0d8">
 				<td colspan="2" style="background-color: #dff0d8;text-align: center;">
@@ -9,7 +9,7 @@
 			</tr>
 			<tr style="display: none;">
 				<td>id</td>
-				<td><input type="hidden" value="${e.id!""}" name="e.id" label="id" /></td>
+				<td><input type="hidden" value="${e.id!""}" name="id" label="id" /></td>
 			</tr>
 			<tr>
 				<td style="text-align: right;">评论内容</td>
@@ -18,14 +18,14 @@
 			<tr>
 				<td style="text-align: right;">回复内容</td>
 				<td style="text-align: left;">
-					<textarea name="e.reply" id="reply" style="width:100%;height:400px;visibility:hidden;"
+					<textarea name="reply" id="reply" style="width:100%;height:400px;visibility:hidden;"
 					data-rule="回复内容:required;reply;length[5~3000];">${e.reply!""}</textarea>
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2" style="text-align: center;">
 <#--<%-- 					<s:submit method="updateReply" value="回复" cssClass="btn btn-primary"/> --%>-->
-					<button method="comment!updateReply.action" class="btn btn-success">
+					<button method="updateReply" class="btn btn-success">
 						<i class="icon-ok icon-white"></i> 提交回复
 					</button>
 <#--<%-- 					<s:submit method="back" value="返回" cssClass="btn btn-inverse"/> --%>-->
@@ -36,7 +36,7 @@
 <script>
 	var editor;
 	KindEditor.ready(function(K) {
-		editor = K.create('textarea[name="e.reply"]', {
+		editor = K.create('textarea[name="reply"]', {
 			allowFileManager : true
 		});
 		K('input[name=getHtml]').click(function(e) {

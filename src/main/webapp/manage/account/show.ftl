@@ -1,6 +1,6 @@
 <#import "/resource/common_html_meat.ftl" as html>
 <@html.htmlBase>
-<form action="${basepath}/manage/account.action" theme="simple" id="form">
+<form action="${basepath}/manage/account" theme="simple" id="form">
 
 <div id="tabs">
 	<ul>
@@ -13,7 +13,7 @@
 		<table class="table table-bordered">
 					<tr style="display: none;">
 						<td>id</td>
-						<td><input type="hidden" value="${e.id!""}" name="e.id" label="id" id="id"/></td>
+						<td><input type="hidden" value="${e.id!""}" name="id" label="id" id="id"/></td>
 					</tr>
 					<tr>
 						<td style="text-align: right;">会员类型</td>

@@ -1,6 +1,6 @@
 <#import "/resource/common_html_meat.ftl" as html>
 <@html.htmlBase>
-<form action="${basepath}/manage/account!updateFreeze.action" theme="simple" id="form">
+<form action="${basepath}/manage/account" theme="simple" id="form">
 	<table class="table table-bordered">
 			<tr>
 				<td colspan="2" style="background-color: #dff0d8;text-align: center;">
@@ -9,21 +9,21 @@
 			</tr>
 			<tr style="display: none;">
 				<td>id</td>
-				<td><input type="hidden" value="${e.id!""}" name="e.id" label="id" id="id"/></td>
+				<td><input type="hidden" value="${e.id!""}" name="id" label="id" id="id"/></td>
 			</tr>
 			<tr>
 				<td style="text-align: right;">昵称</td>
-				<td style="text-align: left;"><input type="text" value="${e.nickname!""}" name="e.nickname"/></td>
+				<td style="text-align: left;"><input type="text" value="${e.nickname!""}" name="nickname"/></td>
 			</tr>
 			<tr>
 				<td style="text-align: right;">账号</td>   
-				<td style="text-align: left;"><input type="text" value="${e.account!""}" name="e.account"/></td>
+				<td style="text-align: left;"><input type="text" value="${e.account!""}" name="account"/></td>
 			</tr>
 			<tr>
 				<td style="text-align: right;">是否冻结</td>
 				<td style="text-align: left;">
 					<#assign map = {'y':'是','n':'否'}>
-                    <select id="freeze" name="e.freeze" class="input-medium">
+                    <select id="freeze" name="freeze" class="input-medium">
 						<#list map?keys as key>
                             <option value="${key}" <#if e.freeze?? && e.freeze==key>selected="selected" </#if>>${map[key]}</option>
 						</#list>
@@ -35,11 +35,11 @@
 					冻结时间范围
 				</td>
 				<td>
-					<input id="d4311" class="Wdate search-query input-small" type="text" name="e.freezeStartdate"
+					<input id="d4311" class="Wdate search-query input-small" type="text" name="freezeStartdate"
 					value="${e.freezeStartdate!""}"
 					onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4312\')||\'2020-10-01\'}'})"/>
 					~ 
-					<input id="d4312" class="Wdate search-query input-small" type="text" name="e.freezeEnddate" 
+					<input id="d4312" class="Wdate search-query input-small" type="text" name="freezeEnddate"
 					value="${e.freezeEnddate!""}"
 					onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d4311\')}',maxDate:'2020-10-01'})"/>
 					
