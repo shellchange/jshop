@@ -17,22 +17,48 @@ import net.jeeshop.services.manage.indexImg.IndexImgService;
 import net.jeeshop.services.manage.news.NewsService;
 import net.jeeshop.services.manage.news.bean.News;
 
+import net.jeeshop.web.action.BaseController;
+import net.jeeshop.web.util.LoginUserHolder;
+import net.jeeshop.web.util.RequestHolder;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 /**
  * 文章管理
  * @author huangf
+ * @author dylan
  * 
  */
-public class NewsAction extends BaseAction<News> {
+@Controller
+@RequestMapping("/manage/news/")
+public class NewsAction extends BaseController<News> {
 	private static final long serialVersionUID = 1L;
 	private static final Logger logger = LoggerFactory.getLogger(NewsAction.class);
+    private static final String page_toList = "/manage/news/newsList";
+    private static final String page_toEdit = "/manage/news/newsEdit";
+    private static final String page_toAdd = "/manage/news/newsEdit";
+    private NewsAction() {
+        super.page_toList = page_toList;
+        super.page_toAdd = page_toAdd;
+        super.page_toEdit = page_toEdit;
+    }
+    @Autowired
 	private NewsService newsService;
+    @Autowired
 	private IndexImgService indexImgService;
+    @Autowired
 	private CatalogService catalogService;
+
 //	private String type;//文章类型。通知：notice；帮助：help
 	
 	private List<News> news;// 门户新闻列表
@@ -53,7 +79,8 @@ public class NewsAction extends BaseAction<News> {
 		this.catalogService = catalogService;
 	}
 
-	public NewsService getNewsService() {
+    @Autowired
+	public NewsService getService() {
 		return newsService;
 	}
 
@@ -78,20 +105,6 @@ public class NewsAction extends BaseAction<News> {
 	}
 
 	@Override
-	public News getE() {
-		return this.e;
-	}
-
-	@Override
-	public void prepare() throws Exception {
-		if (this.e == null) {
-			this.e = new News();
-		}
-		super.initPageSelect();
-//		insertAfter(e);
-	}
-
-	@Override
 	public void insertAfter(News e) {
 		e.clear();
 		
@@ -104,39 +117,42 @@ public class NewsAction extends BaseAction<News> {
 	 * 新增或者修改后文章的状态要重新设置为未审核状态
 	 */
 	@Override
-	public String insert() throws Exception {
+    @RequestMapping(value = "insert", method = RequestMethod.POST)
+	public String insert(HttpServletRequest request, News e) throws Exception {
 		logger.error("NewsAction code = " + e.getCode());
-		User user = (User) getSession().getAttribute(ManageContainer.manage_session_user_info);
-		getE().setCreateAccount(user.getUsername());
-		getE().setStatus(News.news_status_n);//未审核
+		User user = LoginUserHolder.getLoginUser();
+		e.setCreateAccount(user.getUsername());
+		e.setStatus(News.news_status_n);//未审核
 		
-		getServer().insert(getE());
+		getService().insert(e);
 		
-		getSession().setAttribute("insertOrUpdateMsg", "添加成功！");
-		getResponse().sendRedirect(getEditUrl(e.getId()));
-		return null;
+//		getSession().setAttribute("insertOrUpdateMsg", "添加成功！");
+//		getResponse().sendRedirect(getEditUrl(e.getId()));
+		return "redirect:toEdit2?id="+e.getId();
 	}
 	
 	/**
 	 * 修改文章
 	 */
 	@Override
-	public String update() throws Exception {
+    @RequestMapping(value = "update", method = RequestMethod.POST)
+	public String update(HttpServletRequest request, News e) throws Exception {
 		logger.error("NewsAction code = ");
 		logger.error("NewsAction code = " + e.getCode()+",id="+e.getId());
 //		getE().setStatus(News.news_status_n);//未审核
 		
-		getServer().update(getE());
+		getService().update(e);
 		
-		getSession().setAttribute("insertOrUpdateMsg", "更新成功！");
-		getResponse().sendRedirect(getEditUrl(e.getId()));
-		return null;
+//		getSession().setAttribute("insertOrUpdateMsg", "更新成功！");
+//		getResponse().sendRedirect(getEditUrl(e.getId()));
+		return "redirect:toEdit2?id="+e.getId();
 	}
 	
 	//列表页面点击 编辑商品
-	public String toEdit() throws Exception {
-		getSession().setAttribute("insertOrUpdateMsg", "");
-		return toEdit0();
+    @RequestMapping(value = "toEdit")
+	public String toEdit(News e, ModelMap model) throws Exception {
+//		getSession().setAttribute("insertOrUpdateMsg", "");
+		return toEdit0(e, model);
 	}
 	
 	/**
@@ -144,13 +160,15 @@ public class NewsAction extends BaseAction<News> {
 	 * @return
 	 * @throws Exception
 	 */
-	public String toEdit2() throws Exception {
-		return toEdit0();
+    @RequestMapping(value = "toEdit2")
+	public String toEdit2(News e, ModelMap model) throws Exception {
+		return toEdit0(e, model);
 	}
-	
-	private String toEdit0() throws Exception {
-        getRequest().setAttribute("catalogsArticle", SystemManager.catalogsArticle);
-		return super.toEdit();
+
+    @RequestMapping(value = "toEdit0")
+	private String toEdit0(News e, ModelMap model) throws Exception {
+        model.addAttribute("catalogsArticle", SystemManager.catalogsArticle);
+		return super.toEdit(e, model);
 	}
 	
 //	/**
@@ -167,14 +185,14 @@ public class NewsAction extends BaseAction<News> {
 	/**
 	 * 设置为自己
 	 */
-	@Deprecated
-	private void settyMy() {
-		User user = (User) getSession().getAttribute(ManageContainer.manage_session_user_info);
-		if(!user.getRid().equals("1")){
-			//只针对非管理员,管理员可以看到所有的文章
-			getE().setCreateAccount(user.getUsername());
-		}
-	}
+//	@Deprecated
+//	private void settyMy() {
+//		User user = (User) getSession().getAttribute(ManageContainer.manage_session_user_info);
+//		if(!user.getRid().equals("1")){
+//			//只针对非管理员,管理员可以看到所有的文章
+//			getE().setCreateAccount(user.getUsername());
+//		}
+//	}
 
 	/**
 	 * 同步缓存内的新闻
@@ -182,9 +200,10 @@ public class NewsAction extends BaseAction<News> {
 	 * @return
 	 * @throws Exception
 	 */
-	public String updateStatusY() throws Exception {
-		newsService.updateStatus(getIds(),News.news_status_y);
-		return super.selectList();
+    @RequestMapping(value = "updateStatusY", method = RequestMethod.POST)
+	public String updateStatusY(String[] ids) throws Exception {
+		newsService.updateStatus(ids,News.news_status_y);
+		return super.selectList(RequestHolder.getRequest(), null);
 	}
 
 	/**
@@ -192,8 +211,9 @@ public class NewsAction extends BaseAction<News> {
 	 * @return
 	 * @throws Exception
 	 */
-	public String up() throws Exception {
-		return updateDownOrUp0(News.news_status_y);
+    @RequestMapping(value = "up", method = RequestMethod.POST)
+	public String up(News e) throws Exception {
+		return updateDownOrUp0(e, News.news_status_y);
 	}
 
 	/**
@@ -201,11 +221,12 @@ public class NewsAction extends BaseAction<News> {
 	 * @return
 	 * @throws Exception
 	 */
-	public String down() throws Exception {
-		return updateDownOrUp0(News.news_status_n);
+    @RequestMapping(value = "down", method = RequestMethod.POST)
+	public String down(News e) throws Exception {
+		return updateDownOrUp0(e, News.news_status_n);
 	}
 	
-	private String updateDownOrUp0(String status) throws Exception {
+	private String updateDownOrUp0(News e, String status) throws Exception {
 		if(StringUtils.isBlank(e.getId())){
 			throw new NullPointerException("参数不能为空！");
 		}
@@ -214,12 +235,7 @@ public class NewsAction extends BaseAction<News> {
 		news.setId(e.getId());
 		news.setStatus(status);
 		newsService.updateDownOrUp(news);
-		getResponse().sendRedirect(getEditUrl(e.getId()));
-		return null;
-	}
-	
-	private String getEditUrl(String id){
-		return "news!toEdit2.action?e.id="+id;
+		return "redirect:toEdit2?id="+e.getId();
 	}
 	
 	/**
@@ -227,26 +243,27 @@ public class NewsAction extends BaseAction<News> {
 	 * @return
 	 * @throws Exception
 	 */
-	public String updateStatusN() throws Exception {
-		newsService.updateStatus(getIds(),News.news_status_n);
-		return super.selectList();
+    @RequestMapping(value = "updateStatusN", method = RequestMethod.POST)
+	public String updateStatusN(String[] ids) throws Exception {
+		newsService.updateStatus(ids,News.news_status_n);
+		return super.selectList(RequestHolder.getRequest(), null);
 	}
 
-	@Override
-	public String selectList() throws Exception {
-//		logger.error("NewsAction.selectList.type="+type);
-		super.selectList();
-		return toList;
-	}
+//	@Override
+//	public String selectList() throws Exception {
+////		logger.error("NewsAction.selectList.type="+type);
+//		super.selectList();
+//		return toList;
+//	}
 	
-	@Override
-	protected void setParamWhenInitQuery() {
-		super.setParamWhenInitQuery();
-		String type = getRequest().getParameter("type");
-		if(StringUtils.isNotBlank(type)){
-			e.setType(type);
-		}
-	}
+//	@Override
+//	protected void setParamWhenInitQuery(News e) {
+//		super.setParamWhenInitQuery(e);
+//		String type = RequestHolder.getRequest().getParameter("type");
+//		if(StringUtils.isNotBlank(type)){
+//			e.setType(type);
+//		}
+//	}
 	
 	/**
 	 * 公共的分页方法
@@ -285,7 +302,9 @@ public class NewsAction extends BaseAction<News> {
 	 * @return
 	 * @throws IOException
 	 */
-	public String unique() throws IOException{
+    @RequestMapping(value = "unique")
+    @ResponseBody
+	public String unique(News e) throws IOException{
 		
 		logger.error("检查文章code的唯一性");
 		if(StringUtils.isBlank(e.getCode())){
@@ -299,66 +318,49 @@ public class NewsAction extends BaseAction<News> {
 //		}
 		
 		int c = newsService.selectCount(e);
-		getResponse().setCharacterEncoding("utf-8");
+//		getResponse().setCharacterEncoding("utf-8");
 		if(StringUtils.isBlank(e.getId())){
 			if(c==0){
-				getResponse().getWriter().write("{\"ok\":\"文章code可以使用!\"}");
+				return "{\"ok\":\"文章code可以使用!\"}";
 			}else{
-				getResponse().getWriter().write("{\"error\":\"文章code已经被占用!\"}");
+				return "{\"error\":\"文章code已经被占用!\"}";
 			}
 		}else{
 			News news = newsService.selectById(e.getId());
 			if(news.getCode().equals(e.getCode()) || c==0){
-				getResponse().getWriter().write("{\"ok\":\"文章code可以使用!\"}");
+				return "{\"ok\":\"文章code可以使用!\"}";
 			}else{
-				getResponse().getWriter().write("{\"error\":\"文章code已经被占用!\"}");
+				return "{\"error\":\"文章code已经被占用!\"}";
 			}
 		}
 		
-		return null;
+//		return null;
 	}
 
-	@Override
-	public String deletes() throws Exception {
-//		return super.deletes();
-		logger.error("1..type="+e.getType());
-		getServer().deletes(getIds());
-		logger.error("2..type="+e.getType());
-		return selectList();
-	}
+//	@Override
+//	public String deletes() throws Exception {
+////		return super.deletes();
+//		logger.error("1..type="+e.getType());
+//		getServer().deletes(getIds());
+//		logger.error("2..type="+e.getType());
+//		return selectList();
+//	}
 	
 	@Override
-	public String toAdd() throws Exception {
-		String type = getRequest().getParameter("type");
-		
+    @RequestMapping(value = "toAdd")
+	public String toAdd(News e, ModelMap model) throws Exception {
+		String type = e.getType();
 		e.clear();
 		e.setType(type);
-		return toAdd;
+        model.addAttribute("e", e);
+        model.addAttribute("catalogsArticle", SystemManager.catalogsArticle);
+		return page_toAdd;
 	}
 	
 	@Override
-	protected void selectListAfter() {
-		pager.setPagerUrl("news!selectList.action");
-        getRequest().setAttribute("catalogsArticle", SystemManager.catalogsArticle);
+	protected void selectListAfter(PagerModel pager) {
+		pager.setPagerUrl("selectList");
+        RequestHolder.getRequest().setAttribute("catalogsArticle", SystemManager.catalogsArticle);
 	}
 	
-	
-	@Override
-	public void addActionError(String anErrorMessage) {
-		super.addActionError(anErrorMessage);
-		
-		throw new RuntimeException("addActionError");
-	}
-	
-	@Override
-	public void addActionMessage(String aMessage) {
-		super.addActionMessage(aMessage);
-		throw new RuntimeException("addActionMessage");
-	}
-	
-	@Override
-	public void addFieldError(String fieldName, String errorMessage) {
-		super.addFieldError(fieldName, errorMessage);
-		throw new RuntimeException("addFieldError");
-	}
 }

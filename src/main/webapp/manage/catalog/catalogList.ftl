@@ -21,7 +21,7 @@
 			        opacity: .5, 
 			        color: '#fff' 
 			    }});
-				var _url = "catalog!deleteByID.action?id="+node.id;
+				var _url = "deleteByID?id="+node.id;
 				$.ajax({
 				  type: 'POST',
 				  url: _url,
@@ -32,7 +32,7 @@
 					  if(data){
 						  
 						var _form = $("#form");
-						_form.attr("action","catalog!selectList.action");
+						_form.attr("action","selectList");
 						_form.submit();
 							
 						  //alert("删除成功！");
@@ -62,24 +62,24 @@
 		}
 		//document.form1.action = "catalog!toEdit.action?e.id="+node.id;   
         //document.form1.submit();
-        var _url = "catalog!toEdit.action?e.id="+node.id;
+        var _url = "toEdit?id="+node.id;
         var _form = $("#form");
 		_form.attr("action",_url);
 		_form.submit();
 	}
 </script>
-	<form action="${basepath}/manage/catalog.action" name="form" id="form" method="post" theme="simple">
-		<input type="hidden" value="${e.type!""}" name="e.type" id="_type" />
+	<form action="${basepath}/manage/catalog" name="form" id="form" method="post" theme="simple">
+		<input type="hidden" value="${e.type!""}" name="type" id="_type" />
 		<table class="table table-bordered table-condensed table-hover">
 			<tr>
 				<td colspan="16">
 
-					<a href="catalog!selectList.action" class="btn btn-primary">
+					<a href="selectList" class="btn btn-primary">
 						<i class="icon-search icon-white"></i> 查询
 					</a>
 						
 
-					<a href="catalog!toAdd.action" class="btn btn-success">
+					<a href="toAdd?type=${e.type!"a"}" class="btn btn-success">
 						<i class="icon-plus-sign icon-white"></i> 添加
 					</a>
 						
@@ -92,7 +92,7 @@
 <!-- 					<input type="button" onclick="deleteSelect();" value="删除" class="btn btn-danger" /> -->
 
 <!-- 						<i class="icon-remove-sign icon-white"></i> 删除 -->
-					<button method="catalog!deletes.action" class="btn btn-danger" onclick="return deleteSelect();">
+					<button method="deletes" class="btn btn-danger" onclick="return deleteSelect();">
 						<i class="icon-remove-sign icon-white"></i> 删除
 					</button>
 					
@@ -104,7 +104,7 @@
 	<div class="alert alert-info" style="margin-bottom: 2px;">友情提示：商品目录一般分为两层，大类别、小类别。商品目录编码必须唯一。</div>
 	<table id="treegrid" title="商品类别目录" class="easyui-treegrid" style="min-width:800px;min-height:250px"
 			data-options="
-				url: '${basepath}/manage/catalog/catalog!getRootWithTreegrid.action?e.type=${e.type!""}',
+				url: '${basepath}/manage/catalog/getRootWithTreegrid?type=${e.type!""}',
 				method: 'post',
 				rownumbers: true,
 				idField: 'id',

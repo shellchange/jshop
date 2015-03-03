@@ -24,10 +24,10 @@
 		}
 	}
 </script>
-	<form action="${basepath}/manage/catalog.action" theme="simple" id="form" name="form">
+	<form action="${basepath}/manage/catalog" theme="simple" id="form" name="form">
 		<input id="catalogID" value="${e.pid!""}" style="display: none;"/>
 		<input id="catalogID_currentID" value="${e.id!""}" style="display: none;"/>
-		<input type="hidden" value="${e.type!""}" name="e.type" id="type"/>
+		<input type="hidden" value="${e.type!""}" name="type" id="type"/>
 		
 		<table class="table table-bordered" style="width: 95%;margin: auto;">
 			<tr style="background-color: #dff0d8">
@@ -43,12 +43,12 @@
 			</tr>
 			<tr style="display: none;">
 				<td>id</td>
-				<td><input type="hidden" value="${e.id!""}" name="e.id" label="id" /></td>
+				<td><input type="hidden" value="${e.id!""}" name="id" label="id" /></td>
 			</tr>
 				<tr>
 				<td style="text-align: right;">大类</td>
 				<td style="text-align: left;">
-					<select onchange="catalogChange(this)" name="e.pid" id="catalogSelect">
+					<select onchange="catalogChange(this)" name="pid" id="catalogSelect">
 						<option></option>
                         <#list catalogs as item>
 							<option pid="0" value="${item.id!""}"><font color='red'>${item.name!""}</font></option>
@@ -63,19 +63,19 @@
 			</tr>
 			<tr>
 				<td style="text-align: right;">名称</td>
-				<td style="text-align: left;"><input type="text"  value="${e.name!""}" name="e.name"  id="name" data-rule="名称;required;name;" size="20" maxlength="20"
+				<td style="text-align: left;"><input type="text"  value="${e.name!""}" name="name"  id="name" data-rule="名称;required;name;" size="20" maxlength="20"
 						/></td>
 			</tr>
 			<tr>
 				<td style="text-align: right;">编码</td>
 				<td style="text-align: left;">
 <!-- 							<input type="button" onclick="getCode()" value="自动获取" class="btn btn-default"/> -->
-					<input type="text"  value="${e.code!""}" name="e.code"  data-rule="编码;required;code;length[1~45];remote[catalog!unique.action]" size="45" maxlength="45" id="code" /></td>
-<#--<%-- 						<td style="text-align: left;"><input type="text"  value="${e.code!""}" name="e.code"  data-rule="编码;required;code;" size="20" maxlength="20" id="code" /></td> --%>-->
+					<input type="text"  value="${e.code!""}" name="code"  data-rule="编码;required;code;length[1~45];remote[unique]" size="45" maxlength="45" id="code" /></td>
+<#--<%-- 						<td style="text-align: left;"><input type="text"  value="${e.code!""}" name="code"  data-rule="编码;required;code;" size="20" maxlength="20" id="code" /></td> --%>-->
 			</tr>
 			<tr>
 				<td style="text-align: right;">顺序</td>
-				<td style="text-align: left;"><input type="text"  value="${e.order1!""}" name="e.order1"  data-rule="顺序;required;integer;order1;" size="20" maxlength="20"
+				<td style="text-align: left;"><input type="text"  value="${e.order1!""}" name="order1"  data-rule="顺序;required;integer;order1;" size="20" maxlength="20"
 						id="order1" /></td>
 			</tr>
 			
@@ -84,7 +84,7 @@
 					<td style="text-align: right;">是否在导航条显示</td>
 					<td style="text-align: left;">
                         <#assign map = {'n':'否','y':'是'}>
-                        <select id="showInNav" name="e.showInNav" class="input-medium">
+                        <select id="showInNav" name="showInNav" class="input-medium">
                             <#list map?keys as key>
                                 <option value="${key}" <#if e.showInNav?? && e.showInNav==key>selected="selected" </#if>>${map[key]}</option>
                             </#list>
@@ -95,13 +95,13 @@
 			<tr>
 				<td colspan="2" style="text-align: center;">
                     <#if e.id??>
-						<button method="catalog!insert.action" class="btn btn-success">
-							<i class="icon-ok icon-white"></i> 新增
-						</button>
+                        <button method="update" class="btn btn-success">
+                            <i class="icon-ok icon-white"></i> 保存
+                        </button>
 					<#else>
-						<button method="catalog!update.action" class="btn btn-success">
-							<i class="icon-ok icon-white"></i> 保存
-						</button>
+                        <button method="insert" class="btn btn-success">
+                            <i class="icon-ok icon-white"></i> 新增
+                        </button>
 					</#if>
 				</td>
 			</tr>
@@ -137,11 +137,11 @@ function catalogChange(obj){
 function getCode(){
 	var _name = $("#name").val();
 	//var _url = "catalog!autoCode.action?e.name="+_name;
-	var _url = "catalog!autoCode.action";
+	var _url = "autoCode";
 	$.ajax({
 	  type: 'POST',
 	  url: _url,
-	  data: {"e.name":_name},
+	  data: {"name":_name},
 	  dataType:"text",
 	  //async:false,
 	  success: function(data){
