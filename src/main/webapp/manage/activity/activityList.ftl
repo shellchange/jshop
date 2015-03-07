@@ -1,17 +1,17 @@
 <#import "/resource/common_html_meat.ftl" as html>
 <@html.htmlBase>
-	<form action="${basepath}/manage/activity"  method="post" theme="simple">
+	<form action="${basepath}/manage/activity"  method="post" theme="simple"
 		<table class="table table-bordered">
 			<tr>
 				<td>活动ID</td>
-				<td><input type="text" value="${e.id!""}" class="input-small search-query" name="e.id"/></td>
+				<td><input type="text" value="${e.id!""}" class="input-small search-query" name="id"/></td>
 <!-- 				<td>商品ID</td> -->
-<#--<%-- 				<td><s:textfield cssClass="input-small search-query" name="e.id"/></td> --%>-->
+<#--<%-- 				<td><s:textfield cssClass="input-small search-query" name="id"/></td> --%>-->
 				<td style="text-align: right;">活动类型</td>
 				<td style="text-align: left;">
 
 					<#assign map = {'':'全部','c':'促销活动','j':'积分兑换','t':'团购活动'}>
-                    <select id="activityType" name="e.activityType"  class="input-small" >
+                    <select id="activityType" name="activityType"  class="input-small" >
 						<#list map?keys as key>
                             <option value="${key}" <#if e.activityType?? && e.activityType==key>selected="selected" </#if>>${map[key]}</option>
 						</#list>
@@ -20,7 +20,7 @@
 				<td style="text-align: right;">优惠方式</td>
 				<td style="text-align: left;">
 					<#assign map = {'':'','r':'减免','d':'折扣','s':'双倍积分'}>
-                    <select id="discountType" name="e.discountType"  class="input-small" >
+                    <select id="discountType" name="discountType"  class="input-small" >
 						<#list map?keys as key>
                             <option value="${key}" <#if e.discountType?? && e.discountType==key>selected="selected" </#if>>${map[key]}</option>
 						</#list>
@@ -29,7 +29,7 @@
 				<td>状态</td>
 				<td>
 					<#assign map = {'':'','y':'显示','n':'不显示'}>
-                    <select id="status" name="e.status"  style="width:100px;" >
+                    <select id="status" name="status"  style="width:100px;" >
 						<#list map?keys as key>
                             <option value="${key}" <#if e.status?? && e.status==key>selected="selected" </#if>>${map[key]}</option>
 						</#list>
@@ -37,13 +37,13 @@
 			</tr>
 			<tr>
 				<td colspan="18">
-					<button method="activity!selectList.action" class="btn btn-primary" onclick="selectList(this)">
+					<button method="selectList" class="btn btn-primary" onclick="selectList(this)">
 						<i class="icon-search icon-white"></i> 查询
 					</button>
-					<a method="activity!toAdd.action" class="btn btn-success">
+					<a method="toAdd" class="btn btn-success">
 						<i class="icon-plus-sign icon-white"></i> 添加
 					</a>
-					<button method="activity!deletes.action" class="btn btn-danger" onclick="return submitIDs(this,'确定删除选择的记录?');">
+					<button method="deletes" class="btn btn-danger" onclick="return submitIDs(this,'确定删除选择的记录?');">
 						<i class="icon-remove-sign icon-white"></i> 删除
 					</button>
 					
@@ -124,7 +124,7 @@
 						</#if>
 					</td>
 					<td nowrap="nowrap">
-						<a href="activity!toEdit.action?e.id=${item.id!""}">编辑</a>
+						<a href="toEdit?id=${item.id!""}">编辑</a>
 					</td>
 				</tr>
 			</#list>
