@@ -40,3 +40,19 @@ lower_case_table_names=1
 替换为：private static final String page_$1 = "$2";
 查找： /(.*?)\!(.*?)\.action 替换为: /$1/$2
 查找：name="e\.(.+?)" 替换为: name="$1"
+
+6. maven启动时，出现com.sun.image.codec.jpeg找不到的问题解决：
+该包放在jre/lib/rt.jar中，默认的javac无法读取到该包，所以需要增加参数-XDignore.symbol.file=true，在maven的pom文件中配置如下：
+
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <version>2.3.2</version>
+    <configuration>
+        <source>1.6</source>
+        <target>1.6</target>
+        <encoding>utf8</encoding>
+        <compilerArgument>-XDignore.symbol.file=true -Xlint</compilerArgument>
+        <testCompilerArgument>-XDignore.symbol.file=true -Xlint</testCompilerArgument>
+    </configuration>
+</plugin>
