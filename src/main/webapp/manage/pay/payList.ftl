@@ -1,10 +1,10 @@
 <#import "/resource/common_html_meat.ftl" as html>
 <@html.htmlBase>
-	<form action="${basepath}/manage/pay.action" method="post" theme="simple">
+	<form action="${basepath}/manage/pay" method="post" theme="simple">
 		<table class="table table-bordered">
 			<tr>
 				<td colspan="6">
-					<button method="pay!selectList.action" class="btn btn-primary" onclick="selectList(this)">
+					<button method="selectList" class="btn btn-primary" onclick="selectList(this)">
 						<i class="icon-search icon-white"></i> 查询
 					</button>
 <#--<%-- 					<s:submit method="toAdd" value="添加" cssClass="btn btn-success" /> --%>-->
@@ -43,7 +43,7 @@
 							<img src="${basepath}/resource/images/action_delete.gif">
 						</#if>
 					</td>
-					<td><a href="pay!toEdit.action?e.id=${item.id}">编辑</a></td>
+					<td><a href="toEdit?id=${item.id}">编辑</a></td>
 				</tr>
 			</#list>
 

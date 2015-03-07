@@ -9,7 +9,7 @@
 			if(!confirm("确定设置该选项为系统默认的评论插件吗?")){
 				return ;
 			}
-			var _url = "commentType!updateDefaultCommentType.action?e.id="+$(this).attr("_id");
+			var _url = "updateDefaultCommentType?id="+$(this).attr("_id");
 			$.ajax({
 			  type: 'POST',
 			  url: _url,
@@ -17,7 +17,8 @@
 			  success: function(data){
 				    alert("设置默认评论插件成功！");
 				    
-				    document.form1.submit();
+//				    document.form1.submit();
+				  $("#btnQuery").click();
 			  },
 			  dataType: "text",
 			  error:function(){
@@ -27,12 +28,12 @@
 		});
 	});
 </script>
-	<form action="${basepath}/manage/commentType!selectList.action?init=y" method="post" theme="simple" name="form1">
+	<form action="${basepath}/manage/commentType" method="post" theme="simple" name="form1">
 		<table class="table table-bordered">
 			<tr>
 				<td colspan="6">
 <#--<%-- 					<s:submit method="selectList" value="查询" cssClass="btn btn-primary" /> --%>-->
-					<a method="selectList" class="btn btn-primary">
+					<a id="btnQuery" method="selectList" class="btn btn-primary" onclick="selectList(this)">
 						<i class="icon-search icon-white"></i> 查询
 					</a>
 <#--<%-- 					<s:submit method="toAdd" value="添加" cssClass="btn btn-success" />  --%>-->

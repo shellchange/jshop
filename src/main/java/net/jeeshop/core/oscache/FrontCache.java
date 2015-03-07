@@ -265,10 +265,10 @@ public class FrontCache {
 		Pay pay = new Pay();
 		pay.setCode(Pay.pay_code_alipayescow);
 		pay = payService.selectOne(pay);
-		SystemManager.alipayConfig = pay.getSeller();
+//		SystemManager.alipayConfig = pay.getSeller();
 
-		AlipayConfig.partner = pay.getPartner();
-		AlipayConfig.key = pay.getKey1();
+//		AlipayConfig.partner = pay.getPartner();
+//		AlipayConfig.key = pay.getKey1();
 
 //		logger.error("SystemManager.alipayConfig="+SystemManager.alipayConfig);
 
