@@ -29,21 +29,21 @@
 	margin-right: 10px;
 }
 </style>
-	<form action="${basepath}/manage/hotquery.action" namespace="/manage" method="post" theme="simple" id="form" name="form">
-		<input type="hidden" value="${e.type!""}" name="e.type"/>
+	<form action="${basepath}/manage/hotquery" namespace="/manage" method="post" theme="simple" id="form" name="form">
+		<input type="hidden" value="${e.type!""}" name="type"/>
 		<input type="hidden" value="${e.catalogID!""}" id="catalogID"/>
 		<table class="table table-bordered">
 			<tr>
 				<td colspan="16">
-					<button method="hotquery!selectList.action" class="btn btn-primary" onclick="selectList(this)">
+					<button method="selectList" class="btn btn-primary" onclick="selectList(this)">
 						<i class="icon-search icon-white"></i> 查询
 					</button>
 						
-					<a href="hotquery!toAdd.action?type=${e.type!""}" class="btn btn-success">
+					<a href="toAdd?type=${e.type!""}" class="btn btn-success">
 						<i class="icon-plus-sign icon-white"></i> 添加
 					</a>
 						
-					<button method="hotquery!deletes.action" class="btn btn-danger" onclick="return submitIDs(this,'确定删除选择的记录?');">
+					<button method="deletes" class="btn btn-danger" onclick="return submitIDs(this,'确定删除选择的记录?');">
 						<i class="icon-remove-sign icon-white"></i> 删除
 					</button>
 						
@@ -68,11 +68,11 @@
 						value="${item.id!""}" /></td>
 					<td >${item.id!""}</td>
 					<td class="aCss">
-					  <a href="hotquery!toEdit.action?e.id=${item.id!""}" >${item.key1!""}</a>
+					  <a href="toEdit?id=${item.id!""}" >${item.key1!""}</a>
 					</td>
 					<td>&nbsp;<a target="_blank" href="${item.url!""}">${item.url!""}</a></td>
 					<td>
-						<a href="hotquery!toEdit.action?e.id=${item.id!""}">编辑</a>
+						<a href="toEdit?id=${item.id!""}">编辑</a>
 					</td>
 				</tr>
             </#list>

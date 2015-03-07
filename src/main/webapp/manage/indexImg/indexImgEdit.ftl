@@ -1,6 +1,6 @@
 <#import "/resource/common_html_meat.ftl" as html>
 <@html.htmlBase>
-	<form action="${basepath}/manage/indexImg.action" theme="simple" enctype="multipart/form-data">
+	<form action="${basepath}/manage/indexImg" theme="simple" enctype="multipart/form-data">
 		<span id="pifeSpan" class="input-group-addon" style="display:none">${systemSetting().imageRootPath}</span>
 		<table class="table table-bordered">
 			<tr style="background-color: #dff0d8">
@@ -10,18 +10,18 @@
 			</tr>
 			<tr style="display: none;">
 				<th>id</th>
-				<td><input type="hidden" value="${e.id!""}" name="e.id" label="id" id="idd"/></td>
+				<td><input type="hidden" value="${e.id!""}" name="id" label="id" id="idd"/></td>
 			</tr>
 			<tr>
 				<th class="right">标题</th>
-				<td style="text-align: left;"><input type="text"  value="${e.title!""}" name="e.title"  data-rule="标题:required;title;length[1~45];"
+				<td style="text-align: left;"><input type="text"  value="${e.title!""}" name="title"  data-rule="标题:required;title;length[1~45];"
 						id="title" /></td>
 			</tr>
 			<tr>
 				<th>图片地址</th>
 				<td style="text-align: left;" colspan="3">
 					<input type="button" name="filemanager" value="浏览图片" class="btn btn-warning"/>
-					<input type="text"  value="${e.picture!""}" name="e.picture"  id="picture" ccc="imagesInput" style="width: 600px;" data-rule="图片地址:required;picture;" />
+					<input type="text"  value="${e.picture!""}" name="picture"  id="picture" ccc="imagesInput" style="width: 600px;" data-rule="图片地址:required;picture;" />
 					<#if e.picture??>
 						<a target="_blank" href="${systemSetting().imageRootPath}/..${e.picture!""}">
 							<img style="max-width: 50px;max-height: 50px;" alt="" src="${systemSetting().imageRootPath}/..${e.picture!""}">
@@ -32,27 +32,27 @@
 			<tr>
 				<th>广告链接</th>
 				<td style="text-align: left;">
-					<input type="text"  value="${e.link!""}" name="e.link"  id="link" />
+					<input type="text"  value="${e.link!""}" name="link"  id="link" />
 				</td>
 			</tr>
 			<tr>
 				<th>排序</th>
-				<td style="text-align: left;"><input type="text"  value="${e.order1!""}" name="e.order1"  data-rule="排序:integer;order1;length[1~5];"
+				<td style="text-align: left;"><input type="text"  value="${e.order1!""}" name="order1"  data-rule="排序:integer;order1;length[1~5];"
 						id="order1" /></td>
 			</tr>
 			<tr>
 				<th>描述</th>
-				<td style="text-align: left;"><input type="text"  value="${e.desc1!""}" name="e.desc1"  data-rule="排序:desc1;length[1~100];"
+				<td style="text-align: left;"><input type="text"  value="${e.desc1!""}" name="desc1"  data-rule="排序:desc1;length[1~100];"
 						id="desc1" /></td>
 			</tr>
 			<tr>
 				<td colspan="2" style="text-align: center;">
 					<#if e.id??>
-                        <button method="indexImg!update.action" class="btn btn-success">
+                        <button method="update" class="btn btn-success">
                             <i class="icon-ok icon-white"></i> 保存
                         </button>
 					<#else>
-                        <button method="indexImg!insert.action" class="btn btn-success">
+                        <button method="insert" class="btn btn-success">
                             <i class="icon-ok icon-white"></i> 新增
                         </button>
 					</#if>

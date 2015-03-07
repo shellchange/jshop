@@ -1,18 +1,18 @@
 <#import "/resource/common_html_meat.ftl" as html>
 <@html.htmlBase>
-	<form action="${basepath}/manage/navigation.action" method="post" theme="simple">
+	<form action="${basepath}/manage/navigation" method="post" theme="simple">
 		<table class="table table-bordered">
 			<tr>
 				<td colspan="6">
-					<button method="navigation!selectList.action" class="btn btn-primary" onclick="selectList(this)">
+					<button method="selectList" class="btn btn-primary" onclick="selectList(this)">
 						<i class="icon-search icon-white"></i> 查询
 					</button>
 					
-					<a href="navigation!toAdd.action" class="btn btn-success">
+					<a href="toAdd" class="btn btn-success">
 						<i class="icon-plus-sign icon-white"></i> 添加
 					</a>
 					
-					<button method="navigation!deletes.action" class="btn btn-danger" onclick="return submitIDs(this,'确定删除选择的记录?');">
+					<button method="deletes" class="btn btn-danger" onclick="return submitIDs(this,'确定删除选择的记录?');">
 						<i class="icon-remove-sign icon-white"></i> 删除
 					</button>
 					
@@ -45,7 +45,7 @@
 					<td>&nbsp;${item.target!""}</td>
 					<td>&nbsp;${item.position!""}</td>
 					<td>&nbsp;${item.order1!""}</td>
-					<td><a href="navigation!toEdit.action?e.id=${item.id}">编辑</a></td>
+					<td><a href="toEdit?id=${item.id}">编辑</a></td>
 				</tr>
             </#list>
 

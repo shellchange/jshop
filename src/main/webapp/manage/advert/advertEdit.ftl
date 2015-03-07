@@ -16,16 +16,16 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 	</div>
 </div>
 	
-<form action="${basepath}/manage/advert.action" theme="simple" name="form1">
+<form action="${basepath}/manage/advert" theme="simple" name="form1">
 			<table class="table table-bordered" style="width: 95%;margin: auto;">
 				<tr>
 					<td colspan="2" style="text-align: center;">
 						<#if e.id??>
-                            <button method="advert!update.action" class="btn btn-success">
+                            <button method="update" class="btn btn-success">
                                 <i class="icon-ok icon-white"></i> 保存
                             </button>
 						<#else>
-                            <button method="advert!insert.action" class="btn btn-success">
+                            <button method="insert" class="btn btn-success">
                                 <i class="icon-ok icon-white"></i> 新增
                             </button>
 						</#if>
@@ -37,14 +37,14 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 				</tr>
 				<tr style="display: none;">
 					<td>id</td>
-					<td><input type="hidden" value="${e.id!""}" name="e.id" label="id" /></td>
+					<td><input type="hidden" value="${e.id!""}" name="id" label="id" /></td>
 				</tr>
 				<tr>
 					<td style="text-align: right;">类型</td>
 					<td style="text-align: left;">
 
                         <#assign map = {'index_top':'index_top','index_right_top':'index_right_top','index_right_bottom':'index_right_bottom','newslist_right_top':'newslist_right_top','newslist_right_bottom':'newslist_right_bottom','flashlist_right_top':'flashlist_right_top','flashlist_right_bottom':'flashlist_right_bottom'}>
-                        <select id="code" name="e.code" class="input-medium">
+                        <select id="code" name="code" class="input-medium">
                             <#list map?keys as key>
                                 <option value="${key}" <#if e.code?? && e.code==key>selected="selected" </#if>>${map[key]}</option>
                             </#list>
@@ -53,12 +53,12 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 				</tr>
 				<tr>
 					<td style="text-align: right;">标题</td>
-					<td style="text-align: left;"><input type="text"  value="${e.title!""}" name="e.title"  data-rule="标题:required;title;length[1~45];"
+					<td style="text-align: left;"><input type="text"  value="${e.title!""}" name="title"  data-rule="标题:required;title;length[1~45];"
 							id="title" /></td>
 				</tr>
 				<tr>
 					<td style="text-align: right;">备注</td>
-					<td style="text-align: left;"><input type="text"  value="${e.remark!""}" name="e.remark"
+					<td style="text-align: left;"><input type="text"  value="${e.remark!""}" name="remark"
 							id="remark" /></td>
 				</tr>
 				<tr>
@@ -66,7 +66,7 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 					<td style="text-align: left;">
 
                         <#assign map = {'y':'启用','n':'禁用'}>
-                        <select id="status" name="e.status" class="input-medium">
+                        <select id="status" name="status" class="input-medium">
                             <#list map?keys as key>
                                 <option value="${key}" <#if e.status?? && e.status==key>selected="selected" </#if>>${map[key]}</option>
                             </#list>
@@ -77,7 +77,7 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 					<td style="text-align: right;">是否优先使用图集</td>
 					<td style="text-align: left;">
                         <#assign map = {'y':'优先','n':'不优先'}>
-                        <select id="useImagesRandom" name="e.useImagesRandom" class="input-medium">
+                        <select id="useImagesRandom" name="useImagesRandom" class="input-medium">
                             <#list map?keys as key>
                                 <option value="${key}" <#if e.useImagesRandom?? && e.useImagesRandom==key>selected="selected" </#if>>${map[key]}</option>
                             </#list>
@@ -87,11 +87,11 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 				<tr>
 					<td style="text-align: right;">日期时间范围</td>
 					<td style="text-align: left;">
-							<input id="d4311" class="Wdate search-query" type="text" name="e.startdate"
+							<input id="d4311" class="Wdate search-query" type="text" name="startdate"
 							value="${e.startdate!""}"
 							onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4312\')||\'2020-10-01\'}'})"/>
 							~ 
-							<input id="d4312" class="Wdate search-query" type="text" name="e.enddate" 
+							<input id="d4312" class="Wdate search-query" type="text" name="enddate"
 							value="${e.enddate!""}"
 							onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d4311\')}',maxDate:'2020-10-01'})"/>
 					</td>
@@ -99,7 +99,7 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 				<tr>
 					<td style="text-align: right;">内容</td>
 					<td style="text-align: left;">
-						<textarea name="e.html" style="width:100%;height:300px;visibility:hidden;" data-rule="内容:required;content;">${e.html!""}</textarea>
+						<textarea name="html" style="width:100%;height:300px;visibility:hidden;" data-rule="内容:required;content;">${e.html!""}</textarea>
 					</td>
 				</tr>
 			</table>
@@ -118,7 +118,7 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 	
 	var editor;
 	KindEditor.ready(function(K) {
-		editor = K.create('textarea[name="e.html"]', {
+		editor = K.create('textarea[name="html"]', {
 			allowFileManager : true
 		});
 		K('input[name=getHtml]').click(function(e) {

@@ -1,16 +1,16 @@
 <#import "/resource/common_html_meat.ftl" as html>
 <@html.htmlBase>
-	<form action="${basepath}/manage/email!selectList.action" method="post" theme="simple">
+	<form action="${basepath}/manage/email" method="post" theme="simple">
 		<table class="table table-bordered">
 			<tr>
 				<td style="text-align: right;" nowrap="nowrap">账号</td>
-				<td style="text-align: left;"><input type="text"  value="${e.account!""}" name="e.account"  class="search-query input-small"
+				<td style="text-align: left;"><input type="text"  value="${e.account!""}" name="account"  class="search-query input-small"
 						id="account" /></td>
 				<td style="text-align: right;" nowrap="nowrap">发送状态</td>
 				<td style="text-align: left;">
 
                     <#assign map = {'':'','y':'发送成功','n':'发送失败'}>
-                    <select id="sendStatus" name="e.sendStatus" class="input-medium">
+                    <select id="sendStatus" name="sendStatus" class="input-medium">
                         <#list map?keys as key>
                             <option value="${key}" <#if e.sendStatus?? && e.sendStatus==key>selected="selected" </#if>>${map[key]}</option>
                         </#list>
@@ -19,7 +19,7 @@
 			</tr>
 			<tr>
 				<td colspan="28">
-					<button method="email!selectList.action" class="btn btn-primary" onclick="selectList(this)">
+					<button method="selectList" class="btn btn-primary" onclick="selectList(this)">
 						<i class="icon-search icon-white"></i> 查询
 					</button>
 					
@@ -46,7 +46,7 @@
 					<td><input type="checkbox" name="ids"
 						value="${item.id!""}" /></td>
 					<td nowrap="nowrap">&nbsp;
-						<a target="_blank" href="account!show.action?account=${item.account}">${item.account!""}
+						<a target="_blank" href="${basepath}/manage/account/show?account=${item.account}">${item.account!""}
 						</a>
 					</td>
 					<td nowrap="nowrap">&nbsp;

@@ -8,41 +8,48 @@ import java.io.File;
 import java.io.IOException;
 
 import net.jeeshop.core.BaseAction;
+import net.jeeshop.core.Services;
+import net.jeeshop.core.dao.page.PagerModel;
+import net.jeeshop.services.manage.indexImg.IndexImgService;
 import net.jeeshop.services.manage.indexImg.bean.IndexImg;
 
+import net.jeeshop.web.action.BaseController;
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 滚动图片
  * 
  * @author huangf
+ * @author dylan
  * 
  */
-public class IndexImgAction extends BaseAction<IndexImg> {
+@Controller
+@RequestMapping("/manage/indexImg/")
+public class IndexImgAction extends BaseController<IndexImg> {
 	private static final long serialVersionUID = 1L;
-	private File image;
-
-	public File getImage() {
-		return image;
+	private static final String page_toList = "/manage/indexImg/indexImgList";
+	private static final String page_toEdit = "/manage/indexImg/indexImgEdit";
+	private static final String page_toAdd = "/manage/indexImg/indexImgEdit";
+	private IndexImgAction() {
+		super.page_toList = page_toList;
+		super.page_toAdd = page_toAdd;
+		super.page_toEdit = page_toEdit;
 	}
-
-	public void setImage(File image) {
-		this.image = image;
-	}
+	@Autowired
+	private IndexImgService imgService;
 
 	@Override
-	public IndexImg getE() {
-		return this.e;
-	}
-
-	@Override
-	public void prepare() throws Exception {
-		if (this.e == null) {
-			this.e = new IndexImg();
-		}
+	public Services<IndexImg> getService() {
+		return imgService;
 	}
 
 	@Override
@@ -51,41 +58,27 @@ public class IndexImgAction extends BaseAction<IndexImg> {
 	}
 
 	@Override
-	public String selectList() throws Exception {
-		super.selectList();
-		return toList;
+	protected void selectListAfter(PagerModel pager) {
+		pager.setPagerUrl("selectList");
 	}
-	@Override
-	protected void selectListAfter() {
-		pager.setPagerUrl("indexImg!selectList.action");
-	}
-	@Override
-	public String insert() throws Exception {
-//		uploadImage();
-		return super.insert();
-	}
-	
-	@Override
-	public String update() throws Exception {
-//		uploadImage();
-		return super.update();
-	}
-	
+
 	//上传文件
 	@Deprecated
-	private void uploadImage() throws IOException{
+	private void uploadImage(MultipartFile image, IndexImg e) throws IOException{
 		if(image==null){
 			return;
 		}
 		String imageName = String.valueOf(System.currentTimeMillis()) + ".jpg";
 		String realpath = ServletActionContext.getServletContext().getRealPath("/indexImg/");
 		// D:\apache-tomcat-6.0.18\webapps\struts2_upload\images
-		System.out.println("realpath: " + realpath);
+		logger.info("realpath: " + realpath);
 		if (image != null) {
 			File savefile = new File(new File(realpath), imageName);
-			if (!savefile.getParentFile().exists())
+			if (!savefile.getParentFile().exists()) {
 				savefile.getParentFile().mkdirs();
-			FileUtils.copyFile(image, savefile);
+			}
+			image.transferTo(savefile);
+//			FileUtils.copyFile(image, savefile);
 			ActionContext.getContext().put("message", "文件上传成功");
 		}
 //		SystemInfo sInfo = SystemSingle.getInstance().getSystemInfo();
@@ -100,8 +93,9 @@ public class IndexImgAction extends BaseAction<IndexImg> {
 	 * @return
 	 * @throws Exception 
 	 */
-	public String syncCache() throws Exception{
+	@RequestMapping("syncCache")
+	public String syncCache(HttpServletRequest request, IndexImg img) throws Exception{
 //		SystemSingle.getInstance().sync(Container.imgList);
-		return super.selectList();
+		return super.selectList(request, img);
 	}
 }

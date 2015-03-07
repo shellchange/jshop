@@ -22,11 +22,6 @@ public abstract class BaseController<E extends PagerModel> {
     protected String page_toList = null;
     protected String page_toEdit = null;
     protected String page_toAdd = null;
-//    @ModelAttribute("e")
-    public E model(){
-        return null;
-    }
-
     public abstract Services<E> getService();
 
     /**
@@ -101,6 +96,7 @@ public abstract class BaseController<E extends PagerModel> {
      * 原因是分页查询后未将pageUrl重新设置为正确的URL所致
      */
     protected void selectListAfter(PagerModel pager) {
+        pager.setPagerUrl("selectList");
     }
 
     /**
@@ -120,7 +116,7 @@ public abstract class BaseController<E extends PagerModel> {
      * @return
      * @throws Exception
      */
-    @RequestMapping("deletes")
+    @RequestMapping(value = "deletes", method = RequestMethod.POST)
     public String deletes(HttpServletRequest request, String[] ids, @ModelAttribute("e") E e) throws Exception {
 //		User user = (User) getSession().getAttribute(Global.USER_INFO);
 //		if(user==null){
@@ -165,8 +161,8 @@ public abstract class BaseController<E extends PagerModel> {
      *
      * @param e
      */
-    public void insertAfter(E e){
-
+    protected void insertAfter(E e){
+        e.clear();
     }
 
     /**
@@ -175,7 +171,7 @@ public abstract class BaseController<E extends PagerModel> {
      * @return
      * @throws Exception
      */
-    @RequestMapping("insert")
+    @RequestMapping(value = "insert",method = RequestMethod.POST)
     public String insert(HttpServletRequest request, @ModelAttribute("e") E e) throws Exception {
 //		User user = (User) getSession().getAttribute(Global.USER_INFO);
 //		if(user==null){

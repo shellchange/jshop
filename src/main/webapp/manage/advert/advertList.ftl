@@ -10,15 +10,15 @@
 	font-size: 12px;
 }
 </style>
-	<form action="${basepath}/manage/advert.action" method="post" theme="simple">
+	<form action="${basepath}/manage/advert" method="post" theme="simple">
 				<table class="table table-bordered">
 					<tr>
 						<td>广告标题</td>
-						<td><input type="text"  value="${e.title!""}" name="e.title" class="input-medium search-query" /></td>
+						<td><input type="text"  value="${e.title!""}" name="title" class="input-medium search-query" /></td>
 						<td>类型</td>
 						<td>
                             <#assign map = {'index_top':'index_top','index_right_top':'index_right_top','index_right_bottom':'index_right_bottom','newslist_right_top':'newslist_right_top','newslist_right_bottom':'newslist_right_bottom','flashlist_right_top':'flashlist_right_top','flashlist_right_bottom':'flashlist_right_bottom'}>
-                            <select id="code" name="e.code" class="input-medium">
+                            <select id="code" name="code" class="input-medium">
                                 <#list map?keys as key>
                                     <option value="${key}" <#if e.code?? && e.code==key>selected="selected" </#if>>${map[key]}</option>
                                 </#list>
@@ -27,11 +27,11 @@
 						<!-- 
 						<td>时间范围</td>
 						<td>
-							<input id="d4311" class="Wdate search-query input-small" type="text" name="e.createtime"
+							<input id="d4311" class="Wdate search-query input-small" type="text" name="createtime"
 							value="<s:property value="e.createtime" />"
 							onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4312\')||\'2020-10-01\'}'})"/>
 							~ 
-							<input id="d4312" class="Wdate search-query input-small" type="text" name="e.createtimeEnd" 
+							<input id="d4312" class="Wdate search-query input-small" type="text" name="createtimeEnd"
 							value="<s:property value="e.createtimeEnd" />"
 							onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d4311\')}',maxDate:'2020-10-01'})"/>
 						</td>
@@ -39,15 +39,15 @@
 					</tr>
 					<tr>
 						<td colspan="16">
-							<button method="advert!selectList.action" class="btn btn-primary" onclick="selectList(this)">
+							<button method="selectList" class="btn btn-primary" onclick="selectList(this)">
 								<i class="icon-search icon-white"></i> 查询
 							</button>
 						
-							<a href="advert!toAdd.action" class="btn btn-success">
+							<a href="toAdd" class="btn btn-success">
 								<i class="icon-plus-sign icon-white"></i> 添加
 							</a>
 						
-							<button method="advert!deletes.action" class="btn btn-danger" onclick="return submitIDs(this,'确定删除选择的记录?');">
+							<button method="deletes" class="btn btn-danger" onclick="return submitIDs(this,'确定删除选择的记录?');">
 								<i class="icon-remove-sign icon-white"></i> 删除
 							</button>
 							
@@ -93,7 +93,7 @@
 									<img alt="不显示" src="${basepath}/resource/images/action_delete.gif">
 								</#if>
 							</td>
-							<td ><a href="advert!toEdit.action?e.id=${item.id}">编辑</a></td>
+							<td ><a href="toEdit?id=${item.id}">编辑</a></td>
 						</tr>
                     </#list>
 

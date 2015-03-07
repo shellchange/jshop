@@ -1,6 +1,6 @@
 <#import "/resource/common_html_meat.ftl" as html>
 <@html.htmlBase>
-	<form action="${basepath}/manage/notifyTemplate!update.action" method="post" theme="simple">
+	<form action="${basepath}/manage/notifyTemplate" method="post" theme="simple">
 		<#if e.templateCheckError??>
 			<div class="alert alert-danger">
 				${e.templateCheckError!""}
@@ -16,7 +16,7 @@
 				<td style="text-align: right;width: 80px;" nowrap="nowrap" >选择模板</td>
 				<td style="text-align: left;">
 
-                    <select id="code" name="e.code" class="input-medium"  data-rule="模板:required;code;"onchange="changeTemplate()"  >
+                    <select id="code" name="code" class="input-medium"  data-rule="模板:required;code;"onchange="changeTemplate()"  >
                         <option value=""></option>
                         <#list notifyTemplateList as item>
                             <option value="${item.code}" <#if e.code?? && e.code==item.code>selected="selected" </#if>>${item.name}</option>
@@ -32,11 +32,11 @@
 			<tr>
 				<td style="text-align: right;" nowrap="nowrap">模板内容</td>
 				<td style="text-align: left;">
-					<textarea name="e.template" id="template" style="width:100%;height:400px;visibility:hidden;" data-rule="模板内容:required;template;">${e.template!""}</textarea>
+					<textarea name="template" id="template" style="width:100%;height:400px;visibility:hidden;" data-rule="模板内容:required;template;">${e.template!""}</textarea>
 			</tr>
 			<tr>
 				<td colspan="28" style="text-align: center;">
-					<button method="notifyTemplate!update.action" class="btn btn-success">
+					<button method="update" class="btn btn-success">
 						<i class="icon-ok icon-white"></i> 保存
 					</button>
 				</td>
@@ -47,7 +47,7 @@
 <script>
 	var editor;
 	KindEditor.ready(function(K) {
-		editor = K.create('textarea[name="e.template"]', {
+		editor = K.create('textarea[name="template"]', {
 			allowFileManager : true
 		});
 		K('input[name=getHtml]').click(function(e) {
@@ -87,7 +87,7 @@
 		if(_code==''){
 			return;
 		}
-		var _url = "${systemSetting().manageHttp}/manage/notifyTemplate!selectTemplateByCode.action?e.code="+_code;
+		var _url = "${basepath}/manage/notifyTemplate/selectTemplateByCode?code="+_code;
 		console.log("_url="+_url);
 		$.ajax({
 		  type: 'POST',
@@ -112,7 +112,7 @@
 			return;
 		}
 		var formData=$("form").serialize();
-		var _url = "${systemSetting().manageHttp}/manage/notifyTemplate!updateTemplate.action";
+		var _url = "${basepath}/manage/notifyTemplate/updateTemplate";
 		console.log("_url="+_url);
 		$.ajax({
 		  type: 'POST',

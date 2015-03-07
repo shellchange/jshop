@@ -1,18 +1,18 @@
 <#import "/resource/common_html_meat.ftl" as html>
 <@html.htmlBase>
-<form action="${basepath}/manage/indexImg.action" method="post" theme="simple">
+<form action="${basepath}/manage/indexImg" method="post" theme="simple">
 			<table class="table table-bordered">
 				<tr>
 					<td colspan="4">
-						<a href="indexImg!selectList.action" class="btn btn-primary">
+						<a href="selectList" class="btn btn-primary">
 							<i class="icon-search icon-white"></i> 查询
 						</a>
 					
-						<a href="indexImg!toAdd.action" class="btn btn-success">
+						<a href="toAdd" class="btn btn-success">
 							<i class="icon-plus-sign icon-white"></i> 添加
 						</a>
 					
-						<button method="indexImg!deletes.action" class="btn btn-danger" onclick="return submitIDs(this,'确定删除选择的记录?');">
+						<button method="deletes" class="btn btn-danger" onclick="return submitIDs(this,'确定删除选择的记录?');">
 							<i class="icon-remove-sign icon-white"></i> 删除
 						</button>
 					
@@ -52,7 +52,7 @@
 						</td>
 						<td>&nbsp;${item.order1!""}</td>
 						<td>
-							<a href="indexImg!toEdit.action?e.id=${item.id}">编辑</a>
+							<a href="toEdit?id=${item.id}">编辑</a>
 						</td>
 					</tr>
                 </#list>
