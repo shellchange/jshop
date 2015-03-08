@@ -57,15 +57,15 @@
 		return confirm("确定将选择的记录拉入新闻黑名单吗?");
 	}
 </script>
-	<form action="${basepath}/manage/order.action" method="post" theme="simple">
+	<form action="${basepath}/manage/order" method="post" theme="simple">
 		<table class="table table-bordered">
 			<tr>
 				<td>订单号</td>
-				<td><input type="text" value="${e.id!""}" name="e.id" class="search-query input-small"/></td>
+				<td><input type="text" value="${e.id!""}" name="id" class="search-query input-small"/></td>
 				<td>订单状态</td>
 				<td>
 					<#assign map = {'':'','init':'未审核','pass':'已审核','send':'已发货','sign':'已签收','cancel':'已取消','file':'已归档'}>
-                    <select id="status" name="e.status" class="search-query input-medium">
+                    <select id="status" name="status" class="search-query input-medium">
 						<#list map?keys as key>
                             <option value="${key}" <#if e.status?? && e.status==key>selected="selected" </#if>>${map[key]}</option>
 						</#list>
@@ -73,20 +73,20 @@
 				<td>支付状态</td>
 				<td>
 					<#assign map = {'':'','n':'未支付','y':'完全支付'}>
-                    <select id="paystatus" name="e.paystatus" class="search-query input-medium">
+                    <select id="paystatus" name="paystatus" class="search-query input-medium">
 						<#list map?keys as key>
                             <option value="${key}" <#if e.paystatus?? && e.paystatus==key>selected="selected" </#if>>${map[key]}</option>
 						</#list>
                     </select>
 					</td>
 				<td>用户账号</td>
-				<td><input type="text"  value="${e.account!""}" name="e.account" class="search-query input-small"/></td>
+				<td><input type="text"  value="${e.account!""}" name="account" class="search-query input-small"/></td>
 				<td>时间范围</td>
-				<td><input id="d4311" class="Wdate search-query input-small" type="text" name="e.startDate"
+				<td><input id="d4311" class="Wdate search-query input-small" type="text" name="startDate"
 					value="${e.startDate!""}"
 					onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4312\')||\'2020-10-01\'}'})"/>
 					~ 
-					<input id="d4312" class="Wdate search-query input-small" type="text" name="e.endDate" 
+					<input id="d4312" class="Wdate search-query input-small" type="text" name="endDate"
 					value="${e.endDate!""}"
 					onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d4311\')}',maxDate:'2020-10-01'})"/>
 				</td>
@@ -95,7 +95,7 @@
 				<td>退款状态</td>
 				<td colspan="21">
 					<#assign map = {'':'','WAIT_SELLER_AGREE':'等待卖家同意退款','WAIT_BUYER_RETURN_GOODS':'卖家同意退款，等待买家退货','WAIT_SELLER_CONFIRM_GOODS':'买家已退货，等待卖家收到退货','REFUND_SUCCESS':'退款成功，交易关闭'}>
-                    <select id="refundStatus" name="e.refundStatus" class="search-query input-medium">
+                    <select id="refundStatus" name="refundStatus" class="search-query input-medium">
 						<#list map?keys as key>
                             <option value="${key}" <#if e.refundStatus?? && e.refundStatus==key>selected="selected" </#if>>${map[key]}</option>
 						</#list>
@@ -107,7 +107,7 @@
 <#--<%-- 						<s:a method="selectList" cssClass="btn btn-primary"> --%>-->
 <#--<!-- 							<i class="icon-search icon-white"></i> 查询 &ndash;&gt;-->
 <#--<%-- 						</s:a> --%>-->
-						<button method="order!selectList.action" class="btn btn-primary" onclick="selectList(this)">
+						<button method="selectList" class="btn btn-primary" onclick="selectList(this)">
 							<i class="icon-search icon-white"></i> 查询
 						</button>
 <#--<%-- 					<s:submit action="order"  method="importXls" value="导出" cssClass="btn btn-success" />  --%>-->
@@ -147,7 +147,7 @@
 					<td>${item.ptotal!""}</td>
 					<td>${item.fee!""}</td>
 					<td align="center">${item.quantity!""}</td>
-					<td><a target="_blank" href="account!show.action?account=${item.account!""}">${item.account!""}</a></td>
+					<td><a target="_blank" href="${basepath}/manage/account/show?account=${item.account!""}">${item.account!""}</a></td>
 <#--<%-- 					<td>${item.rebate!""}</td> --%>-->
 					<td>${item.createdate!""}</td>
 					<td>${item.statusStr!""}
@@ -166,8 +166,8 @@
 							<img src="${basepath}/resource/images/action_add.gif">
 						</#if>
 					</td>
-					<td><a target="_blank" href="order!toEdit.action?e.id=${item.id}">编辑</a>|
-					<a target="_blank" href="order!toPrint.action?e.id=${item.id}">打印</a>
+					<td><a target="_blank" href="toEdit?id=${item.id}">编辑</a>|
+					<a target="_blank" href="toPrint?id=${item.id}">打印</a>
 					</td>
 				</tr>
 			</#list>

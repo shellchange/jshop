@@ -5,124 +5,124 @@
 	font-weight: 700;font-size: 16px;color: #f50;
 }
 </style>
-<form action="${basepath}/manage/order.action" method="post" theme="simple" name="form1">
-	<input type="hidden" value="${e.id!""}" name="e.id"/>
-<#--<%-- 	<s:hidden name="e.type"/> --%>-->
+<form action="${basepath}/manage/order" method="post" theme="simple" name="form1">
+	<input type="hidden" value="${e.id!""}" name="id"/>
+<#--<%-- 	<s:hidden name="type"/> --%>-->
 <#--<%-- 	<s:if test="e.type.equals('update')"> --%>-->
 		<div id="buttons" style="text-align: center;border-bottom: 1px solid #ccc;padding: 5px;">
 		<div id="updateMsg"><font color='red'>${e.updateMsg!""}</font></div>
 			
 			<#if e.paystatus??&&e.paystatus=="y">
 				<#if e.status??&&e.status=="init">
-					<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=pass" onclick="return onSubmit(this);"
+					<a href="updateOrderStatus?id=${e.id!""}&e.status=pass" onclick="return onSubmit(this);"
 						value="已审核" class="btn btn-primary">${i18n().get("order_status_pass")!""}</a>
-					<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=send" onclick="return onSubmit(this);"
+					<a href="updateOrderStatus?id=${e.id!""}&e.status=send" onclick="return onSubmit(this);"
 						value="已发货" class="btn" disabled="disabled"><@i18n.message key="order_status_send"/></a>
-					<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=sign" onclick="return onSubmit(this);"
+					<a href="updateOrderStatus?id=${e.id!""}&e.status=sign" onclick="return onSubmit(this);"
 						value="已签收" class="btn" disabled="disabled"><@i18n.message key="order_status_sign"/></a>
-					<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=file" onclick="return onSubmit(this);"
+					<a href="updateOrderStatus?id=${e.id!""}&e.status=file" onclick="return onSubmit(this);"
 						value="已归档" class="btn" disabled="disabled"><@i18n.message key="order_status_file"/></a>
 					
 					<input type="button" id="addPayBtn" onclick="return addPayFunc(this);" value="添加支付记录" class="btn btn-warning"/>
 					<input type="button" id="updatePayMoneryBtn" onclick="return updatePayMoneryFunc(this);" value="修改订单总金额" class="btn btn-warning"/>
-					<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=cancel" onclick="return onSubmit(this);" value="取消订单" class="btn btn-danger"><@i18n.message key="order_status_cancel"/></a>
+					<a href="updateOrderStatus?id=${e.id!""}&e.status=cancel" onclick="return onSubmit(this);" value="取消订单" class="btn btn-danger"><@i18n.message key="order_status_cancel"/></a>
 				<#elseif e.status??&&e.status=="pass">
-					<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=pass" onclick="return onSubmit(this);"
+					<a href="updateOrderStatus?id=${e.id!""}&e.status=pass" onclick="return onSubmit(this);"
 						value="已审核" class="btn" disabled="disabled"><@i18n.message key="order_status_pass"/></a>
-					<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=send" onclick="return onSubmit(this);"
+					<a href="updateOrderStatus?id=${e.id!""}&e.status=send" onclick="return onSubmit(this);"
 						value="已发货" class="btn btn-primary"><@i18n.message key="order_status_send"/></a>
-					<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=sign" onclick="return onSubmit(this);"
+					<a href="updateOrderStatus?id=${e.id!""}&e.status=sign" onclick="return onSubmit(this);"
 						value="已签收" class="btn" disabled="disabled"><@i18n.message key="order_status_sign"/></a>
-					<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=file" onclick="return onSubmit(this);"
+					<a href="updateOrderStatus?id=${e.id!""}&e.status=file" onclick="return onSubmit(this);"
 						value="已归档" class="btn" disabled="disabled"><@i18n.message key="order_status_file"/></a>
 					
 					<input type="button" id="addPayBtn" onclick="return addPayFunc(this);" value="添加支付记录" class="btn btn-warning" disabled="disabled"/>
 					<input type="button" id="updatePayMoneryBtn" onclick="return updatePayMoneryFunc(this);" value="修改订单总金额" class="btn btn-warning" disabled="disabled"/>
-					<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=cancel" onclick="return onSubmit(this);" value="取消订单" class="btn btn-danger"><@i18n.message key="order_status_cancel"/></a>
+					<a href="updateOrderStatus?id=${e.id!""}&e.status=cancel" onclick="return onSubmit(this);" value="取消订单" class="btn btn-danger"><@i18n.message key="order_status_cancel"/></a>
 				<#elseif  e.status??&&e.status=="send">
-					<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=pass" onclick="return onSubmit(this);"
+					<a href="updateOrderStatus?id=${e.id!""}&e.status=pass" onclick="return onSubmit(this);"
 						value="已审核" class="btn" disabled="disabled"><@i18n.message key="order_status_pass"/></a>
-					<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=send" onclick="return onSubmit(this);"
+					<a href="updateOrderStatus?id=${e.id!""}&e.status=send" onclick="return onSubmit(this);"
 						value="已发货" class="btn" disabled="disabled"><@i18n.message key="order_status_send"/></a>
-					<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=sign" onclick="return onSubmit(this);"
+					<a href="updateOrderStatus?id=${e.id!""}&e.status=sign" onclick="return onSubmit(this);"
 						value="已签收" class="btn" disabled="disabled"><@i18n.message key="order_status_sign"/></a>
-					<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=file" onclick="return onSubmit(this);"
+					<a href="updateOrderStatus?id=${e.id!""}&e.status=file" onclick="return onSubmit(this);"
 						value="已归档" class="btn" disabled="disabled"><@i18n.message key="order_status_file"/></a>
 					
 					<input type="button" id="addPayBtn" onclick="return addPayFunc(this);" value="添加支付记录" class="btn btn-warning" disabled="disabled"/>
 					<input type="button" id="updatePayMoneryBtn" onclick="return updatePayMoneryFunc(this);" value="修改订单总金额" class="btn btn-warning" disabled="disabled"/>
-					<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=cancel" onclick="return onSubmit(this);" disabled="disabled"
+					<a href="updateOrderStatus?id=${e.id!""}&e.status=cancel" onclick="return onSubmit(this);" disabled="disabled"
 						value="取消订单" class="btn btn-danger"><@i18n.message key="order_status_cancel"/></a>
 				<#elseif  e.status??&&e.status=="sign">
-					<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=pass" onclick="return onSubmit(this);"
+					<a href="updateOrderStatus?id=${e.id!""}&e.status=pass" onclick="return onSubmit(this);"
 						value="已审核" class="btn" disabled="disabled"><@i18n.message key="order_status_pass"/></a>
-					<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=send" onclick="return onSubmit(this);"
+					<a href="updateOrderStatus?id=${e.id!""}&e.status=send" onclick="return onSubmit(this);"
 						value="已发货" class="btn" disabled="disabled"><@i18n.message key="order_status_send"/></a>
-					<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=sign" onclick="return onSubmit(this);"
+					<a href="updateOrderStatus?id=${e.id!""}&e.status=sign" onclick="return onSubmit(this);"
 						value="已签收" class="btn" disabled="disabled"><@i18n.message key="order_status_sign"/></a>
-					<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=file" onclick="return onSubmit(this);"
+					<a href="updateOrderStatus?id=${e.id!""}&e.status=file" onclick="return onSubmit(this);"
 						value="已归档" class="btn btn-primary"><@i18n.message key="order_status_file"/></a>
 					
 					<input type="button" id="addPayBtn" onclick="return addPayFunc(this);" value="添加支付记录" class="btn btn-warning" disabled="disabled"/>
 					<input type="button" id="updatePayMoneryBtn" onclick="return updatePayMoneryFunc(this);" value="修改订单总金额" class="btn btn-warning" disabled="disabled"/>
-					<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=cancel" onclick="return onSubmit(this);" disabled="disabled"
+					<a href="updateOrderStatus?id=${e.id!""}&e.status=cancel" onclick="return onSubmit(this);" disabled="disabled"
 						value="取消订单" class="btn btn-danger"><@i18n.message key="order_status_cancel"/></a>
 				<#elseif e.status??&&e.status=="cancel">
-					<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=pass" onclick="return onSubmit(this);"
+					<a href="updateOrderStatus?id=${e.id!""}&e.status=pass" onclick="return onSubmit(this);"
 						value="已审核" class="btn" disabled="disabled"><@i18n.message key="order_status_pass"/></a>
-					<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=send" onclick="return onSubmit(this);"
+					<a href="updateOrderStatus?id=${e.id!""}&e.status=send" onclick="return onSubmit(this);"
 						value="已发货" class="btn" disabled="disabled"><@i18n.message key="order_status_send"/></a>
-					<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=sign" onclick="return onSubmit(this);"
+					<a href="updateOrderStatus?id=${e.id!""}&e.status=sign" onclick="return onSubmit(this);"
 						value="已签收" class="btn" disabled="disabled"><@i18n.message key="order_status_sign"/></a>
-					<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=file" onclick="return onSubmit(this);"
+					<a href="updateOrderStatus?id=${e.id!""}&e.status=file" onclick="return onSubmit(this);"
 						value="已归档" class="btn btn-primary" disabled="disabled"><@i18n.message key="order_status_file"/></a>
 					
 					<input type="button" id="addPayBtn" onclick="return addPayFunc(this);" value="添加支付记录" class="btn btn-warning" disabled="disabled"/>
 					<input type="button" id="updatePayMoneryBtn" onclick="return updatePayMoneryFunc(this);" value="修改订单总金额" class="btn btn-warning" disabled="disabled"/>
-					<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=cancel" onclick="return onSubmit(this);" disabled="disabled"
+					<a href="updateOrderStatus?id=${e.id!""}&e.status=cancel" onclick="return onSubmit(this);" disabled="disabled"
 						value="取消订单" class="btn btn-danger"><@i18n.message key="order_status_cancel"/></a>
 				<#elseif e.status??&&e.status=="file">
-					<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=pass" onclick="return onSubmit(this);"
+					<a href="updateOrderStatus?id=${e.id!""}&e.status=pass" onclick="return onSubmit(this);"
 						value="已审核" class="btn" disabled="disabled"><@i18n.message key="order_status_pass"/></a>
-					<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=send" onclick="return onSubmit(this);"
+					<a href="updateOrderStatus?id=${e.id!""}&e.status=send" onclick="return onSubmit(this);"
 						value="已发货" class="btn" disabled="disabled"><@i18n.message key="order_status_send"/></a>
-					<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=sign" onclick="return onSubmit(this);"
+					<a href="updateOrderStatus?id=${e.id!""}&e.status=sign" onclick="return onSubmit(this);"
 						value="已签收" class="btn" disabled="disabled"><@i18n.message key="order_status_sign"/></a>
-					<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=file" onclick="return onSubmit(this);"
+					<a href="updateOrderStatus?id=${e.id!""}&e.status=file" onclick="return onSubmit(this);"
 						value="已归档" class="btn" disabled="disabled"><@i18n.message key="order_status_file"/></a>
 					
 					<input type="button" id="addPayBtn" onclick="return addPayFunc(this);" value="添加支付记录" class="btn btn-warning" disabled="disabled"/>
 					<input type="button" id="updatePayMoneryBtn" onclick="return updatePayMoneryFunc(this);" value="修改订单总金额" class="btn btn-warning" disabled="disabled"/>
-					<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=cancel" onclick="return onSubmit(this);" disabled="disabled"
+					<a href="updateOrderStatus?id=${e.id!""}&e.status=cancel" onclick="return onSubmit(this);" disabled="disabled"
 						value="取消订单" class="btn btn-danger"><@i18n.message key="order_status_cancel"/></a>
 			</#if>
 			<#elseif e.status??&&e.status=="cancel">
-				<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=pass" onclick="return onSubmit(this);"
+				<a href="updateOrderStatus?id=${e.id!""}&e.status=pass" onclick="return onSubmit(this);"
 					value="已审核" class="btn" disabled="disabled"><@i18n.message key="order_status_pass"/></a>
-				<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=send" onclick="return onSubmit(this);"
+				<a href="updateOrderStatus?id=${e.id!""}&e.status=send" onclick="return onSubmit(this);"
 					value="已发货" class="btn" disabled="disabled"><@i18n.message key="order_status_send"/></a>
-				<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=sign" onclick="return onSubmit(this);"
+				<a href="updateOrderStatus?id=${e.id!""}&e.status=sign" onclick="return onSubmit(this);"
 					value="已签收" class="btn" disabled="disabled"><@i18n.message key="order_status_sign"/></a>
-				<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=file" onclick="return onSubmit(this);"
+				<a href="updateOrderStatus?id=${e.id!""}&e.status=file" onclick="return onSubmit(this);"
 					value="已归档" class="btn" disabled="disabled"><@i18n.message key="order_status_file"/></a>
 				
 				<input type="button" id="addPayBtn" onclick="return addPayFunc(this);" value="添加支付记录" class="btn btn-warning" disabled="disabled"/>
 				<input type="button" id="updatePayMoneryBtn" onclick="return updatePayMoneryFunc(this);" value="修改订单总金额" class="btn btn-warning" disabled="disabled"/>
-				<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=cancel" onclick="return onSubmit(this);" disabled="disabled"
+				<a href="updateOrderStatus?id=${e.id!""}&e.status=cancel" onclick="return onSubmit(this);" disabled="disabled"
 						value="取消订单" class="btn btn-danger"><@i18n.message key="order_status_cancel"/></a>
 			<#else>
-				<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=pass" onclick="return onSubmit(this);"
+				<a href="updateOrderStatus?id=${e.id!""}&e.status=pass" onclick="return onSubmit(this);"
 					value="已审核" class="btn" disabled="disabled"><@i18n.message key="order_status_pass"/></a>
-				<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=send" onclick="return onSubmit(this);"
+				<a href="updateOrderStatus?id=${e.id!""}&e.status=send" onclick="return onSubmit(this);"
 					value="已发货" class="btn" disabled="disabled"><@i18n.message key="order_status_send"/></a>
-				<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=sign" onclick="return onSubmit(this);"
+				<a href="updateOrderStatus?id=${e.id!""}&e.status=sign" onclick="return onSubmit(this);"
 					value="已签收" class="btn" disabled="disabled"><@i18n.message key="order_status_sign"/></a>
-				<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=file" onclick="return onSubmit(this);"
+				<a href="updateOrderStatus?id=${e.id!""}&e.status=file" onclick="return onSubmit(this);"
 					value="已归档" class="btn" disabled="disabled"><@i18n.message key="order_status_file"/></a>
 				
 				<input type="button" id="addPayBtn" onclick="return addPayFunc(this);" value="添加支付记录" class="btn btn-warning"/>
 				<input type="button" id="updatePayMoneryBtn" onclick="return updatePayMoneryFunc(this);" value="修改订单总金额" class="btn btn-warning"/>
-				<a href="order!updateOrderStatus.action?e.id=${e.id!""}&e.status=cancel" onclick="return onSubmit(this);"
+				<a href="updateOrderStatus?id=${e.id!""}&e.status=cancel" onclick="return onSubmit(this);"
 						value="取消订单" class="btn btn-danger"><@i18n.message key="order_status_cancel"/></a>
 			</#if>
 		</div>
@@ -137,7 +137,7 @@
 			<tr>
 				<td>支付方式</td>
 				<td>
-					<select name="e.orderpay.paymethod">
+					<select name="orderpay.paymethod">
 						<option value="zfb">支付宝</option>
 					</select>
 				</td>
@@ -145,13 +145,13 @@
 			<tr>
 				<td>支付金额</td>
 				<td>
-					<input name="e.orderpay.payamount">
+					<input name="orderpay.payamount">
 				</td>
 			</tr>
 			<tr>
 				<td>备注</td>
 				<td>
-					<div class="controls"><input name="e.orderpay.remark" value="后台添加"></div>
+					<div class="controls"><input name="orderpay.remark" value="后台添加"></div>
 				</td>
 			</tr>
 			<tr>
@@ -173,13 +173,13 @@
 			<tr>
 				<td>支付金额</td>
 				<td>
-					<input name="e.amount">
+					<input name="amount">
 				</td>
 			</tr>
 			<tr>
 				<td>备注</td>
 				<td>
-					<div class="controls"><input name="e.updatePayMoneryRemark" placeholder="修改订单金额备注"></div>
+					<div class="controls"><input name="updatePayMoneryRemark" placeholder="修改订单金额备注"></div>
 				</td>
 			</tr>
 			<tr>
@@ -277,9 +277,9 @@
 						备注：${e.ordership.remark!""}<br>
 						
 						<#if e.status??&&e.status=="init">
-							<a class="btn" href="${systemSetting().manageHttp}/manage/order!selectOrdership.action?orderid=${e.id!""}">修改收货人配送信息</a>
+							<a class="btn" href="${basepath}/manage/order/selectOrdership?orderid=${e.id!""}">修改收货人配送信息</a>
 						<#else>
-							<a class="btn" href="${systemSetting().manageHttp}/manage/order!selectOrdership.action?orderid=${e.id!""}" disabled="disabled" onclick="javascript:return false;">修改收货人配送信息</a>
+							<a class="btn" href="${basepath}/manage/order/selectOrdership?orderid=${e.id!""}" disabled="disabled" onclick="javascript:return false;">修改收货人配送信息</a>
 						</#if>
 					</td>
 					<td style="width: 150px;">
@@ -354,7 +354,7 @@
 					<tr>
 						<td>&nbsp;${item_index+1}</td>
 						<td nowrap="nowrap">
-							<a target="_blank" style="text-decoration: underline;" href="product!toEdit.action?e.id=${item.productID!""}">
+							<a target="_blank" style="text-decoration: underline;" href="${basepath}/manage/product/toEdit?id=${item.productID!""}">
 								${item.productID!""}
 							</a>
 							<#if item.lowStocks?? && item.lowStocks=="y"><font color="red">【缺货】</font></#if>
@@ -362,7 +362,7 @@
 						<td><a target="_blank" style="text-decoration: underline;" href="${systemSetting().www}/product/${item.productID!""}.html">${item.productName!""}</a>
 							<br>
 							<#if item.giftID??>
-								<a target="_blank" style="text-decoration: underline;" href="gift!show.action?e.id=${item.giftID!""}">
+								<a target="_blank" style="text-decoration: underline;" href="${basepath}/manage/gift/show?id=${item.giftID!""}">
 									【查看赠品】
 								</a>
 							</#if>
@@ -393,9 +393,9 @@
 						<td>&nbsp;${item_index+1}</td>
 						<td nowrap="nowrap">&nbsp;
 							<#if item.accountType??&&item.accountType=="w">
-								<a target="_blank" href="account!show.action?account=${item.account!""}">${item.account!""}</a>
+								<a target="_blank" href="${basepath}/manage/account/show?account=${item.account!""}">${item.account!""}</a>
 							<#elseif item.accountType??&&item.accountType=="m">
-								<a target="_blank" href="user!show.action?account=${item.account!""}">${item.account!""}</a>
+								<a target="_blank" href="${basepath}/manage/user/show?account=${item.account!""}">${item.account!""}</a>
 							<#elseif item.accountType??&&item.accountType=="p">
 								第三方支付系统
 							<#else>
