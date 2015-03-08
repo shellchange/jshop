@@ -1,3 +1,7 @@
+#jshop
+JShop是jeeshop的分支版本，在技术选型上使用spring mvc替换strutus2，使用freemarker替换jsp；在代码管理上使用maven替换传统的项目结构。
+###jshop版权声明
+jshop是在jeeshop的基础上进行技术框架变更，以及业务功能完善，开源协议沿用jeeshop的LGPL协议，请大家在学习和试用时，遵循LGPL协议规范，并请尊重jeeshop原作者的劳动成果！
 #jeeshop
 
 简介：jeeshop是一套使用Java语言开发的独立网店系统，jeeshop致力于为个人或企业提供免费、好用的网店系统系统，该系统采用较为流行的J2EE框架 struts2+ myBatis+ spring 进行合理的组合开发,欢迎学习和试用。
