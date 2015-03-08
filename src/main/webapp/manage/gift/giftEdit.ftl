@@ -12,22 +12,22 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 </style>
 	<div class="navbar navbar-inverse" >
 		<div id="insertOrUpdateMsg">
-			${session.insertOrUpdateMsg!""}
+			<#--${session.insertOrUpdateMsg!""}-->
 		</div>
 	</div>
 	
-	<form action="gift" namespace="/manage" theme="simple" name="form" id="form" >
-		<input type="hidden" value="${e.type!""}" name="e.type"/>
+	<form action="${basepath}/manage/gift" namespace="/manage" theme="simple" name="form" id="form" >
+		<input type="hidden" value="${e.type!""}" name="type"/>
 		<input type="hidden" value="${e.catalogID!""}" id="catalogID"/>
 		<table class="table table-bordered">
 			<tr>
 				<td colspan="2" style="text-align: center;">
 					<#if e.id??>
-                        <button method="gift!update.action" class="btn btn-success">
+                        <button method="update" class="btn btn-success">
                             <i class="icon-ok icon-white"></i> 保存
                         </button>
 					<#else>
-                        <button method="gift!insert.action" class="btn btn-success">
+                        <button method="insert" class="btn btn-success">
                             <i class="icon-ok icon-white"></i> 新增
                         </button>
 					</#if>
@@ -40,23 +40,23 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 			</tr>
 			<tr style="display: none;">
 				<td>id</td>
-				<td><input type="hidden" value="${e.id!""}" name="e.id" label="id" /></td>
+				<td><input type="hidden" value="${e.id!""}" name="id" label="id" /></td>
 			</tr>
 			<tr>
 				<td style="text-align: right;width: 80px;">赠品名称</td>
-				<td style="text-align: left;"><input type="text"  value="${e.giftName!""}" name="e.giftName"  style="width: 80%;" id="giftName"
+				<td style="text-align: left;"><input type="text"  value="${e.giftName!""}" name="giftName"  style="width: 80%;" id="giftName"
 				data-rule="赠品名称:required;giftName;length[1~100];"/></td>
 			</tr>
 			<tr>
 				<td style="text-align: right;width: 80px;">赠品价值</td>
-				<td style="text-align: left;"><input type="text"  value="${e.giftPrice!""}" name="e.giftPrice"  id="giftPrice"
+				<td style="text-align: left;"><input type="text"  value="${e.giftPrice!""}" name="giftPrice"  id="giftPrice"
 				data-rule="赠品价格:required;giftPrice;length[1~100];"/></td>
 			</tr>
 			<tr>
 				<td style="text-align: right;width: 80px;">状态</td>
 				<td style="text-align: left;">
 					<#assign map = {'up':'已上架','down':'已下架'}>
-                    <select id="status" name="e.status" class="input-medium" style="width:100px;">
+                    <select id="status" name="status" class="input-medium" style="width:100px;">
 						<#list map?keys as key>
                             <option value="${key}" <#if e.status?? && e.status==key>selected="selected" </#if>>${map[key]}</option>
 						</#list>
@@ -67,7 +67,7 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 				<td style="text-align: right;">主图</td>   
 				<td style="text-align: left;" colspan="3">
 					<input type="button" name="filemanager" value="浏览图片" class="btn btn-success"/>
-					<input type="text"  value="${e.picture!""}" name="e.picture" type="text" id="picture" ccc="imagesInput" style="width: 600px;"
+					<input type="text"  value="${e.picture!""}" name="picture" type="text" id="picture" ccc="imagesInput" style="width: 600px;"
 					data-rule="小图;required;picture;"/>
 					<#if e.picture??>
 						<a target="_blank" href="${systemSetting().imageRootPath}/${e.picture!""}">

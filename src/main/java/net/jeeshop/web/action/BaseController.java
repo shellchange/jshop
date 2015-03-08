@@ -3,6 +3,7 @@ package net.jeeshop.web.action;
 import net.jeeshop.core.Services;
 import net.jeeshop.core.dao.page.PagerModel;
 import net.jeeshop.core.system.bean.User;
+import net.jeeshop.web.util.RequestHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ui.ModelMap;
@@ -106,8 +107,8 @@ public abstract class BaseController<E extends PagerModel> {
      * @throws Exception
      */
     @RequestMapping("back")
-    public String back(HttpServletRequest request, @ModelAttribute("e") E e) throws Exception {
-        return selectList(request, e);
+    public String back(@ModelAttribute("e") E e, ModelMap model) throws Exception {
+        return selectList(RequestHolder.getRequest(), e);
     }
 
     /**

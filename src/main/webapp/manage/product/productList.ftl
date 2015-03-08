@@ -11,17 +11,17 @@
 }
 </style>
 
-	<form action="${basepath}/manage/product.action" namespace="/manage" method="post" theme="simple">
+	<form action="${basepath}/manage/product" namespace="/manage" method="post" theme="simple">
 		<input type="hidden" value="${e.catalogID!""}" id="catalogID"/>
 		<table class="table table-bordered table-condensed">
 			<tr>
 				<td style="text-align: right;">商品编号</td>
-				<td style="text-align: left;"><input type="text"  value="${e.id!""}" name="e.id"  class="search-query input-small"
+				<td style="text-align: left;"><input type="text"  value="${e.id!""}" name="id"  class="search-query input-small"
 						id="id" /></td>
 				<td style="text-align: right;">状态</td>
 				<td style="text-align: left;">
                     <#assign map = {"0":'',"1":'新增',"2":'已上架',"3":'已下架'}>
-                    <select id="status" name="e.status" class="input-medium">
+                    <select id="status" name="status" class="input-medium">
                         <#list map?keys as key>
                             <option value="${key}" <#if e.status?? && e.status.toString()==key>selected="selected" </#if>>${map[key]}</option>
                         </#list>
@@ -31,7 +31,7 @@
 				</td>
 				<td>
 <!-- 							> -->
-					<select onchange="catalogChange(this)" name="e.catalogID" id="catalogSelect" class="input-medium">
+					<select onchange="catalogChange(this)" name="catalogID" id="catalogSelect" class="input-medium">
 						<option></option>
                         <#list catalogs as item>
 							<option pid="0" value="${item.id!""}"><font color='red'>${item.name!""}</font></option>
@@ -46,7 +46,7 @@
 				<td style="text-align: right;">新品</td>
 				<td style="text-align: left;">
                     <#assign map = {'':'','y':'是','n':'否'}>
-                    <select id="isnew" name="e.isnew" class="input-medium">
+                    <select id="isnew" name="isnew" class="input-medium">
                         <#list map?keys as key>
                             <option value="${key}" <#if e.isnew?? && e.isnew==key>selected="selected" </#if>>${map[key]}</option>
                         </#list>
@@ -54,7 +54,7 @@
 				<td style="text-align: right;">特价</td>
 				<td style="text-align: left;" >
                     <#assign map = {'':'','y':'是','n':'否'}>
-                    <select id="sale" name="e.sale" class="input-medium">
+                    <select id="sale" name="sale" class="input-medium">
                         <#list map?keys as key>
                             <option value="${key}" <#if e.sale?? && e.sale==key>selected="selected" </#if>>${map[key]}</option>
                         </#list>
@@ -62,15 +62,15 @@
 			</tr>
 			<tr>
 				<td style="text-align: right;">商品名称</td>
-				<td style="text-align: left;" ><input type="text"  value="${e.name!""}" name="e.name"  class="input-small"
+				<td style="text-align: left;" ><input type="text"  value="${e.name!""}" name="name"  class="input-small"
 						id="name" /></td>
 				<td style="text-align: right;">录入日期</td>
 				<td style="text-align: left;" colspan="9">
-					<input id="d4311" class="Wdate search-query input-small" type="text" name="e.startDate"
+					<input id="d4311" class="Wdate search-query input-small" type="text" name="startDate"
 					value="${e.startDate!""}"
 					onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d4312\')||\'2020-10-01\'}'})"/>
 					~ 
-					<input id="d4312" class="Wdate search-query input-small" type="text" name="e.endDate" 
+					<input id="d4312" class="Wdate search-query input-small" type="text" name="endDate"
 					value="${e.endDate!""}"
 					onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d4311\')}',maxDate:'2020-10-01'})"/>
 				</td>
@@ -78,33 +78,33 @@
 			</tr>
 			<tr>
 				<td colspan="20">
-                    <#if checkPrivilege("product!selectList.action")>
-						<button method="product!selectList.action" class="btn btn-primary" onclick="selectList(this)">
+                    <#if checkPrivilege("product/selectList")>
+						<button method="selectList" class="btn btn-primary" onclick="selectList(this)">
 							<i class="icon-search icon-white"></i> 查询
 						</button>
                     </#if>
 
-                     <#if checkPrivilege("product!toAdd.action")>
-						<a href="product!toAdd.action" class="btn btn-success">
+                     <#if checkPrivilege("product/toAdd")>
+						<a href="toAdd" class="btn btn-success">
 							<i class="icon-plus-sign icon-white"></i> 添加
 						</a>
                      </#if>
 
-                    <#if checkPrivilege("product!deletes.action")>
-						<button method="product!deletes.action" class="btn btn-danger" onclick="return submitIDs(this,'确定删除选择的记录?');">
+                    <#if checkPrivilege("product/deletes")>
+						<button method="deletes" class="btn btn-danger" onclick="return submitIDs(this,'确定删除选择的记录?');">
 							<i class="icon-remove-sign icon-white"></i> 删除
 						</button>
                     </#if>
 
-                    <#if checkPrivilege("product!updateUp.action")>
+                    <#if checkPrivilege("product/updateUp")>
 <!-- 							<i class="icon-arrow-up icon-white"></i> 上架 -->
-						<button method="product!updateUp.action" class="btn btn-warning" onclick="return submitIDs(this,'确定上架选择的记录?');">
+						<button method="updateUp" class="btn btn-warning" onclick="return submitIDs(this,'确定上架选择的记录?');">
 							<i class="icon-arrow-up icon-white"></i> 上架
 						</button>
                     </#if>
 
-                    <#if checkPrivilege("product!updateDown.action")>
-						<button method="product!updateDown.action" class="btn btn-warning" onclick="return submitIDs(this,'确定下架选择的记录?');">
+                    <#if checkPrivilege("product/updateDown")>
+						<button method="updateDown" class="btn btn-warning" onclick="return submitIDs(this,'确定下架选择的记录?');">
 							<i class="icon-arrow-down icon-white"></i> 下架
 						</button>
                     </#if>
@@ -144,7 +144,7 @@
 						<#if item.giftID??>
 							【赠品】
 						</#if>
-						<a class="product-name" title="${item.name}" href="product!toEdit.action?e.id=${item.id}">${item.name!""}</a>
+						<a class="product-name" title="${item.name}" href="toEdit?=${item.id}">${item.name!""}</a>
 					</td>
 					<td>&nbsp;${item.price!""}</td>
 					<td>&nbsp;${item.nowPrice!""}</td>
@@ -183,7 +183,7 @@
 							<img alt="已下架" src="${basepath}/resource/images/action_delete.gif">
 						</#if>
 					</td>
-					<td ><a href="product!toEdit.action?e.id=${item.id}">编辑</a>|
+					<td ><a href="toEdit?id=${item.id}">编辑</a>|
 					<a target="_blank" href="${systemSetting().www}/product/${item.id!""}.html">查看</a>
 					</td>
 				</tr>

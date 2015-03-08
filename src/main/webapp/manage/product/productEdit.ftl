@@ -6,7 +6,7 @@ border: 0px solid #aaa;margin: 0px;position: fixed;top: 0;width: 100%;
 background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18px;color: red;
 }
 </style>
-<form action="${basepath}/manage/product.action" id="form" name="form" namespace="/manage" theme="simple" enctype="multipart/form-data" method="post">
+<form action="${basepath}/manage/product" id="form" name="form" namespace="/manage" theme="simple" enctype="multipart/form-data" method="post">
 
 	<div class="navbar navbar-inverse" >
 		<div id="insertOrUpdateMsg">
@@ -25,31 +25,31 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
                 <#if e.activityID??>
                     活动ID：<span class="badge badge-success">${e.activityID!""}</span>
                 </#if>
-                <button method="product!update.action" class="btn btn-success">
+                <button method="update" class="btn btn-success">
                     <i class="icon-ok icon-white"></i> 保存
                 </button>
 
                 <#if e.status??&&e.status!=2>
-                    <a method="product!updateUpProduct.action?e.id=${e.id!""}" class="btn btn-warning" onclick="return confirm(\"确定上架商品吗?\");">
+                    <a method="updateUpProduct?id=${e.id!""}" class="btn btn-warning" onclick="return confirm(\"确定上架商品吗?\");">
                     <i class="icon-arrow-up icon-white"></i> 上架
                     </a>
                 <#else>
-                    <a method="product!updateDownProduct.action?e.id=${e.id!""}" class="btn btn-warning" onclick="return confirm(\"确定下架商品吗?\");">
+                    <a method="updateDownProduct?id=${e.id!""}" class="btn btn-warning" onclick="return confirm(\"确定下架商品吗?\");">
                     <i class="icon-arrow-down icon-white"></i> 下架
                     </a>
                 </#if>
 
                 <a class="btn btn-info" target="_blank" href="${systemSetting().www}/product/${e.id!""}.html">
                     <i class="icon-eye-open icon-white"></i> 查看</a>
-                <a target="_blank" href="${systemSetting().www}/freemarker!create.action?method=staticProductByID&id=${e.id!""}" class="btn btn-warning">
+                <a target="_blank" href="${basepath}/freemarker/create?method=staticProductByID&id=${e.id!""}" class="btn btn-warning">
                     <i class="icon-refresh icon-white"></i> 静态化</a>
             <#else>
-                <button method="product!insert.action" class="btn btn-success">
+                <button method="insert" class="btn btn-success">
                     <i class="icon-ok icon-white"></i> 新增
                 </button>
 			</#if>
 			
-<!-- 			<a href="product!selectList.action?init=y" class="btn btn-inverse">返回</a> -->
+<!-- 			<a href="selectList?init=y" class="btn btn-inverse">返回</a> -->
 		</div>
 		
 		<div id="tabs">
@@ -66,26 +66,26 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 				<table class="table table-condensed">
 							<tr style="display: none;">
 								<td>id</td>
-								<td><input type="hidden" value="${e.id!""}" name="e.id" label="id" id="id"/></td>
+								<td><input type="hidden" value="${e.id!""}" name="id" label="id" id="id"/></td>
 								<td>&nbsp;</td>
 								<td>&nbsp;</td>
 							</tr>
 							<tr>
 								<td style="text-align: right;">名称</td>
 								<td style="text-align: left;" colspan="3">
-									<input type="text"  value="${e.name!""}" name="e.name"  data-rule="商品名称;required;name;length[0~44];" size="44" maxlength="44" style="width: 80%;"
+									<input type="text"  value="${e.name!""}" name="name"  data-rule="商品名称;required;name;length[0~44];" size="44" maxlength="44" style="width: 80%;"
 										id="name" /></td>
 							</tr>
 							<tr>
 								<td style="text-align: right;">类别</td>
 								<td colspan="1">
 									<!-- 
-									<input id="combotree22" name="e.catalogID" value="${e.catalogID!""}"
-									class="easyui-combotree" data-options="url:'${basepath}/manage/catalog/catalog!getRootWithTreegrid.action?e.type=p',method:'get',required:false"
+									<input id="combotree22" name="catalogID" value="${e.catalogID!""}"
+									class="easyui-combotree" data-options="url:'${basepath}/manage/catalog/catalog/getRootWithTreegrid?type=p',method:'get',required:false"
 									></input>(请选择子类别)
 									 -->
 									
-									<select onchange="catalogChange(this)" name="e.catalogID" id="catalogSelect">
+									<select onchange="catalogChange(this)" name="catalogID" id="catalogSelect">
 										<option></option>
                                         <#list catalogs as item>
                                             <option pid="0" value="${item.id!""}"><font color='red'>${item.name!""}</font></option>
@@ -100,7 +100,7 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 								<td style="text-align: right;">单位</td>
 								<td colspan="1">
                                     <#assign map = {'item':'件'}>
-                                    <select id="unit" name="e.unit" class="input-medium">
+                                    <select id="unit" name="unit" class="input-medium">
                                         <#list map?keys as key>
                                             <option value="${key}" <#if e.unit?? && e.unit==key>selected="selected" </#if>>${map[key]}</option>
                                         </#list>
@@ -110,7 +110,7 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 							<tr>
 								<td style="text-align: right;">简介</td>   
 								<td style="text-align: left;" colspan="3">
-									<textarea name="e.introduce" rows="3" cols="600" style="width:800px;" id="introduce"
+									<textarea name="introduce" rows="3" cols="600" style="width:800px;" id="introduce"
 									data-rule="商品简介;required;introduce;length[4~500];">${e.introduce!""}</textarea>
 								</td>
 							</tr>
@@ -125,7 +125,7 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 								<td style="text-align: right;">主图</td>   
 								<td style="text-align: left;" colspan="3">
 									<input type="button" name="filemanager" value="浏览图片" class="btn btn-success"/>
-									<input type="text"  value="${e.picture!""}" name="e.picture" type="text" id="picture"  ccc="imagesInput" style="width: 600px;"
+									<input type="text"  value="${e.picture!""}" name="picture" type="text" id="picture"  ccc="imagesInput" style="width: 600px;"
 									data-rule="小图;required;maxPicture;"/>
 									<#if e.picture??>
 										<a target="_blank" href="${systemSetting().imageRootPath}${e.picture!""}">
@@ -136,25 +136,25 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 							</tr>
 							<tr>
 								<td style="text-align: right;">定价</td>
-								<td style="text-align: left;"><input type="text"  value="${e.price!""}" name="e.price"  data-rule="定价;required;price;" size="10" maxlength="10"
+								<td style="text-align: left;"><input type="text"  value="${e.price!""}" name="price"  data-rule="定价;required;price;" size="10" maxlength="10"
 										id="price" /></td>
 								<td style="text-align: right;">现价</td>
-								<td style="text-align: left;"><input type="text"  value="${e.nowPrice!""}" name="e.nowPrice"  data-rule="现价;required;nowPrice;" size="10" maxlength="10"
+								<td style="text-align: left;"><input type="text"  value="${e.nowPrice!""}" name="nowPrice"  data-rule="现价;required;nowPrice;" size="10" maxlength="10"
 										id="nowPrice" /></td>
 							</tr>
 							<tr>
 								<td style="text-align: right;">库存</td>
-								<td style="text-align: left;"><input type="text"  value="${e.stock!""}" name="e.stock"  data-rule="库存;required;integer;stock;"
+								<td style="text-align: left;"><input type="text"  value="${e.stock!""}" name="stock"  data-rule="库存;required;integer;stock;"
 										id="stock" /></td>
 								<td style="text-align: right;">销量</td>
-								<td style="text-align: left;"><input type="text"  value="${e.sellcount!""}" name="e.sellcount"  data-rule="销量;required;integer;sellcount;"
+								<td style="text-align: left;"><input type="text"  value="${e.sellcount!""}" name="sellcount"  data-rule="销量;required;integer;sellcount;"
 										id="sellcount" /></td>
 							</tr>
 							<tr>
 								<td style="text-align: right;">是否新品</td>
 								<td style="text-align: left;">
                                     <#assign map = {'n':'否','y':'是'}>
-                                    <select id="isnew" name="e.isnew" class="input-medium">
+                                    <select id="isnew" name="isnew" class="input-medium">
                                         <#list map?keys as key>
                                             <option value="${key}" <#if e.isnew?? && e.isnew==key>selected="selected" </#if>>${map[key]}</option>
                                         </#list>
@@ -163,7 +163,7 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 								<td style="text-align: right;">是否特价</td>
 								<td style="text-align: left;">
                                     <#assign map = {'n':'否','y':'是'}>
-                                    <select id="sale" name="e.sale" class="input-medium">
+                                    <select id="sale" name="sale" class="input-medium">
                                         <#list map?keys as key>
                                             <option value="${key}" <#if e.sale?? && e.sale==key>selected="selected" </#if>>${map[key]}</option>
                                         </#list>
@@ -174,25 +174,25 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 							<tr>
 								<td style="text-align: right;" nowrap="nowrap">送积分</td>
 								<td style="text-align: left;" colspan="3">
-									<input type="text"  value="${e.score!""}" name="e.score" type="text"  id="score" maxlength="20" data-rule="销量;required;integer;score;"/>
+									<input type="text"  value="${e.score!""}" name="score" type="text"  id="score" maxlength="20" data-rule="销量;required;integer;score;"/>
 								</td>
 							</tr>
 							<tr>
 								<td style="text-align: right;" nowrap="nowrap">页面标题</td>
 								<td style="text-align: left;" colspan="3">
-									<input type="text"  value="${e.title!""}" name="e.title" type="text"  maxlength="300" size="300" style="width: 80%;" />
+									<input type="text"  value="${e.title!""}" name="title" type="text"  maxlength="300" size="300" style="width: 80%;" />
 								</td>
 							</tr>
 							<tr>
 								<td style="text-align: right;" nowrap="nowrap">页面描述</td>
 								<td style="text-align: left;" colspan="3">
-									<input type="text"  value="${e.description!""}" name="e.description" type="text"  maxlength="300" size="300" style="width: 80%;" />
+									<input type="text"  value="${e.description!""}" name="description" type="text"  maxlength="300" size="300" style="width: 80%;" />
 								</td>
 							</tr>
 							<tr>
 								<td style="text-align: right;" nowrap="nowrap">页面关键字</td>
 								<td style="text-align: left;" colspan="3">
-									<input type="text"  value="${e.keywords!""}" name="e.keywords" type="text"  maxlength="300" size="300" style="width: 80%;" />
+									<input type="text"  value="${e.keywords!""}" name="keywords" type="text"  maxlength="300" size="300" style="width: 80%;" />
 								</td>
 							</tr>
 							<tr>
@@ -207,7 +207,7 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 						</table>
 			</div>
 			<div id="tabs-2">
-				<textarea data-rule="商品介绍;required;productHTML;" id="productHTML" name="e.productHTML" style="width:100%;height:500px;visibility:hidden;">${e.productHTML!""}</textarea>
+				<textarea data-rule="商品介绍;required;productHTML;" id="productHTML" name="productHTML" style="width:100%;height:500px;visibility:hidden;">${e.productHTML!""}</textarea>
 			</div>
 			<div id="tabs-3">
 				<div>
@@ -216,7 +216,7 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 						<tr>
 							<td colspan="11">
 								<input style="display: none;" onclick="addTrFunc();" value="添加" class="btn btn-warning" type="button"/>
-								<a href="product!deleteImageByImgPaths.action" onclick="return deleteImageByImgPaths();"
+								<a href="deleteImageByImgPaths" onclick="return deleteImageByImgPaths();"
 											class="btn btn-primary">删除</a>
 							</td>
 						</tr>
@@ -250,7 +250,7 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
                             <#list [1..10] as item>
 							<div>
 								<input type="button" name="filemanager" value="浏览图片" class="btn btn-warning"/>
-								<input type="text" ccc="imagesInput" name="e.images" style="width: 80%;" />
+								<input type="text" ccc="imagesInput" name="images" style="width: 80%;" />
 							</div>
                             </#list>
 						</td>
@@ -266,7 +266,7 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
                             <tr>
                                 <td nowrap="nowrap" style="text-align: right;">${attr.name!""}</td>
                                 <td>
-                                    <select id="attrSelectIds" name="e.attrSelectIds">
+                                    <select id="attrSelectIds" name="attrSelectIds">
                                         <option value="">--请选择--</option>
                                         <#list attr.attrList as item>
                                             <option value="${item.id!""}" <#if attr.selectedID.toString()==item.id>selected="selected" </#if>>${item.name!""}</option>
@@ -308,14 +308,14 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 					<#if e.specList??>
                         <#list e.specList as item>
 							<tr>
-								<th style="display: none;"><input type="hidden" value="${item.id!""}" name="e.specList[${item_index}].id"/></th>
-								<th><input type="text"  value="${e.specList[item_index].specSize!""}" name="e.specList[item_index].specSize"  class="search-query input-small"/></th>
-								<th><input type="text"  value="${e.specList[item_index].specColor!""}" name="e.specList[item_index].specColor"  class="search-query input-small"/></th>
-								<th><input type="text"  value="${e.specList[item_index].specStock!""}" name="e.specList[item_index].specStock"  class="search-query input-small"/></th>
-								<th><input type="text"  value="${e.specList[item_index].specPrice!""}" name="e.specList[item_index].specPrice"  class="search-query input-small"/></th>
+								<th style="display: none;"><input type="hidden" value="${item.id!""}" name="specList[${item_index}].id"/></th>
+								<th><input type="text"  value="${e.specList[item_index].specSize!""}" name="specList[item_index].specSize"  class="search-query input-small"/></th>
+								<th><input type="text"  value="${e.specList[item_index].specColor!""}" name="specList[item_index].specColor"  class="search-query input-small"/></th>
+								<th><input type="text"  value="${e.specList[item_index].specStock!""}" name="specList[item_index].specStock"  class="search-query input-small"/></th>
+								<th><input type="text"  value="${e.specList[item_index].specPrice!""}" name="specList[item_index].specPrice"  class="search-query input-small"/></th>
 								<th>
                                     <#assign map = {'n':'不显示','y':'显示'}>
-                                    <select id="e_spec_specStatus" name="e.specList[${item_index}].specStatus" class="search-query input-medium">
+                                    <select id="e_spec_specStatus" name="specList[${item_index}].specStatus" class="search-query input-medium">
                                         <#list map?keys as key>
                                             <option value="${key}" <#if item.specStatus?? && item.specStatus==key>selected="selected" </#if>>${map[key]}</option>
                                         </#list>
@@ -327,13 +327,13 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
                         <#list [1..5] as item>
 							<tr>
 								<th style="display: none;"><input type="hidden" value="${e.id!""}" name="id"/></th>
-								<th><input type="text" name="e.specList[${item_index}].specColor"  class="search-query input-small"/></th>
-								<th><input type="text" name="e.specList[${item_index}].specSize"  class="search-query input-small"/></th>
-								<th><input type="text" name="e.specList[${item_index}].specStock"  class="search-query input-small"/></th>
-								<th><input type="text" name="e.specList[${item_index}].specPrice"  class="search-query input-small"/></th>
+								<th><input type="text" name="specList[${item_index}].specColor"  class="search-query input-small"/></th>
+								<th><input type="text" name="specList[${item_index}].specSize"  class="search-query input-small"/></th>
+								<th><input type="text" name="specList[${item_index}].specStock"  class="search-query input-small"/></th>
+								<th><input type="text" name="specList[${item_index}].specPrice"  class="search-query input-small"/></th>
 								<th>
                                     <#assign map = {'n':'不显示','y':'显示'}>
-                                    <select id="e_spec_specStatus" name="e.specList[${item_index}].specStatus" class="search-query input-medium">
+                                    <select id="e_spec_specStatus" name="specList[${item_index}].specStatus" class="search-query input-medium">
                                         <#list map?keys as key>
                                             <option value="${key}">${map[key]}</option>
                                         </#list>
@@ -347,7 +347,7 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 			
 			<div id="tabs-7">
 				商品赠品:
-                    <select name="e.giftID">
+                    <select name="giftID">
                         <#if giftList??>
                             <#list giftList as item>
                                 <option></option>
@@ -427,9 +427,9 @@ function catalogChange(obj){
 		//alert($(obj).val());
 		if(_productID==''){
 			//alert(3);
-			document.form.action = "product!toAdd.action?chanageCatalog=true&catalog="+$(obj).val();
+			document.form.action = "toAdd?chanageCatalog=true&catalog="+$(obj).val();
 		}else{
-			document.form.action = "product!updateProductCatalog.action?e.id="+_productID+"&chanageCatalog=true&catalog="+$(obj).val();
+			document.form.action = "updateProductCatalog?id="+_productID+"&chanageCatalog=true&catalog="+$(obj).val();
 		}
 		document.form.submit();
 	}else{
@@ -441,7 +441,7 @@ function catalogChange(obj){
 <script>
 	var editor;
 	KindEditor.ready(function(K) {
-		editor = K.create('textarea[name="e.productHTML"]', {
+		editor = K.create('textarea[name="productHTML"]', {
 			allowFileManager : true
 		});
 		K('input[name=getHtml]').click(function(e) {
@@ -555,7 +555,7 @@ KindEditor.ready(function(K) {
 		}
 		
 		 $("#fileListDiv").html("");
-		var _url = "product!ajaxLoadImgList.action?id="+$("#id").val();
+		var _url = "ajaxLoadImgList?id="+$("#id").val();
 		$.ajax({
 		  type: 'POST',
 		  url: _url,
@@ -584,7 +584,7 @@ KindEditor.ready(function(K) {
 	
 	//产品图片设置为默认图片
 	function setProductImageToDefault(imageUrl){
-		var _url = "product!setProductImageToDefault.action?id="+$("#id").val()+"&imageUrl="+imageUrl;
+		var _url = "setProductImageToDefault?id="+$("#id").val()+"&imageUrl="+imageUrl;
 		$.ajax({
 		  type: 'POST',
 		  url: _url,
@@ -608,7 +608,7 @@ KindEditor.ready(function(K) {
 		if(!confirm("确定删除选择的记录?")){
 			return ;
 		}
-		var _url = "product!deleteImageByProductID.action?id="+$("#id").val()+"&imageUrl="+imageUrl;
+		var _url = "deleteImageByProductID?id="+$("#id").val()+"&imageUrl="+imageUrl;
 		$.ajax({
 		  type: 'POST',
 		  url: _url,

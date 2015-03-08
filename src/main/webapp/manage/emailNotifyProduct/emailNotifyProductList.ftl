@@ -1,19 +1,19 @@
 <#import "/resource/common_html_meat.ftl" as html>
 <@html.htmlBase>
-<form action="${basepath}/manage/emailNotifyProduct.action" namespace="/manage" method="post" theme="simple">
+<form action="${basepath}/manage/emailNotifyProduct" namespace="/manage" method="post" theme="simple">
 		<table class="table table-bordered">
 			<tr>
 				<td style="text-align: right;" nowrap="nowrap">账号</td>
-				<td style="text-align: left;"><input type="text"  value="${e.account!""}" name="e.account"  class="search-query input-small"
+				<td style="text-align: left;"><input type="text"  value="${e.account!""}" name="account"  class="search-query input-small"
 						id="account" /></td>
 				<td style="text-align: right;" nowrap="nowrap">接收到货的邮箱</td>
-				<td style="text-align: left;"><input type="text"  value="${e.receiveEmail!""}" name="e.receiveEmail"  class="input-small"
+				<td style="text-align: left;"><input type="text"  value="${e.receiveEmail!""}" name="receiveEmail"  class="input-small"
 						id="receiveEmail" /></td>
 				<td style="text-align: right;" nowrap="nowrap">是否已发送通知</td>
 				<td style="text-align: left;">
 
 					<#assign map = {'':'','y':'是','n':'否'}>
-                    <select id="status" name="e.status" class="input-medium">
+                    <select id="status" name="status" class="input-medium">
 						<#list map?keys as key>
                             <option value="${key}" <#if e.status?? && e.status==key>selected="selected" </#if>>${map[key]}</option>
 						</#list>
@@ -22,11 +22,11 @@
 			</tr>
 			<tr>
 				<td colspan="28">
-					<button method="emailNotifyProduct!selectList.action" class="btn btn-primary" onclick="selectList(this)">
+					<button method="selectList" class="btn btn-primary" onclick="selectList(this)">
 						<i class="icon-search icon-white"></i> 查询
 					</button>
 							
-					<button method="emailNotifyProduct!autoNotify.action" class="btn btn-success" onclick="submitNotValid2222(this)">
+					<button method="autoNotify" class="btn btn-success" onclick="submitNotValid2222(this)">
 						<i class="icon-ok icon-white"></i> 触发通知
 					</button>
 					
@@ -57,12 +57,12 @@
 					<td><input type="checkbox" name="ids"
 						value="${item.id!""}" /></td>
 					<td nowrap="nowrap">
-						<a target="_blank" href="account!show.action?account=${item.account!""}">${item.account!""}
+						<a target="_blank" href="${basepath}/manage/account/show?account=${item.account!""}">${item.account!""}
 						</a>
 					</td>
 					<td nowrap="nowrap">&nbsp;${item.receiveEmail!""}</td>
 					<td nowrap="nowrap">&nbsp;
-						<a href="${systemSetting().manageHttp}/manage/product!toEdit.action?e.id=${item.productID!""}.html" target="_blank">
+						<a href="${basepath}/manage/product/toEdit?id=${item.productID!""}" target="_blank">
 							${item.productID!""}
 						</a>
 					</td>

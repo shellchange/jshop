@@ -18,7 +18,7 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 			</tr>
 			<tr style="display: none;">
 				<td>id</td>
-				<td><input type="hidden" value="${e.id!""}" name="e.id" label="id" /></td>
+				<td><input type="hidden" value="${e.id!""}" name="id" label="id" /></td>
 			</tr>
 			<tr>
 				<td style="text-align: right;width: 80px;">赠品名称</td>

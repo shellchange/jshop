@@ -31,8 +31,8 @@
 	</div>
 	
 	<input type="hidden" value="${e.catalogID!""}" id="catalogID"/>
-	<form action="${basepath}/manage/attribute.action" theme="simple" id="form">
-		<input type="hidden" value="${e.pid!""}" name="e.pid" />
+	<form action="${basepath}/manage/attribute" theme="simple" id="form">
+		<input type="hidden" value="${e.pid!""}" name="pid" />
 		<table class="table table-bordered">
 			<tr style="background-color: #dff0d8">
 				<td colspan="2" style="background-color: #dff0d8;text-align: center;">
@@ -46,19 +46,19 @@
 			</tr>
 			<tr style="display: none;">
 				<td>id</td>
-				<td><input type="hidden" value="${e.id!""}" name="e.id" label="id" /></td>
+				<td><input type="hidden" value="${e.id!""}" name="id" label="id" /></td>
 			</tr>
 			<tr>
 				<td class="leftTD_css">分类目录</td>
 				<td style="text-align: left;">
 					<!-- 
-					<input id="cc" class="easyui-combotree" name="e.catalogID" value="${e.catalogID!""}"
-					data-options="url:'<%=request.getContextPath() %>/manage/catalog/catalog!getRootWithTreegrid.action?e.type=p',method:'get',required:false" 
+					<input id="cc" class="easyui-combotree" name="catalogID" value="${e.catalogID!""}"
+					data-options="url:'<%=request.getContextPath() %>/manage/catalog/catalog/getRootWithTreegrid?type=p',method:'get',required:false"
 					>
 				(注意：只能选择子目录。)
 					 -->
 				
-					<select onchange="catalogChange(this)" name="e.catalogID" id="catalogSelect" data-rule="required;select;">
+					<select onchange="catalogChange(this)" name="catalogID" id="catalogSelect" data-rule="required;select;">
 						<option></option>
 						<#list catalogs as item>
 							<option pid="0" value="${item.id!""}"><font color='red'>${item.name!""}</font></option>
@@ -74,12 +74,12 @@
 			</tr>
 			<tr>
 				<td class="leftTD_css">名称</td>
-				<td style="text-align: left;"><input type="text"  value="${e.name!""}" name="e.name"  data-rule="required;name;length[1~20];"
+				<td style="text-align: left;"><input type="text"  value="${e.name!""}" name="name"  data-rule="required;name;length[1~20];"
 						id="name" /></td>
 			</tr>
 			<tr>
 				<td class="leftTD_css">顺序</td>
-				<td style="text-align: left;"><input type="text"  value="${e.order1!""}" name="e.order1"
+				<td style="text-align: left;"><input type="text"  value="${e.order1!""}" name="order1"
 						id="order1" /></td>
 			</tr>
 			<tr style="background-color: #dff0d8">
@@ -88,11 +88,11 @@
 				</td>
 				<td style="text-align: center;">
 					<#if e.id??>
-                        <button method="attribute!insert.action" class="btn btn-success">
+                        <button method="insert" class="btn btn-success">
                             <i class="icon-ok icon-white"></i> 保存
                         </button>
 					<#else>
-                        <button method="attribute!insert.action" class="btn btn-success">
+                        <button method="insert" class="btn btn-success">
                             <i class="icon-ok icon-white"></i> 新增
                         </button>
 					</#if>
@@ -103,8 +103,8 @@
 			<tr id="cloneTR" style="display:none;">
 				<td class="leftTD_css">名称</td>
 				<td style="text-align: left;">
-					<input type="text"  value="${e.attrNames!""}" name="e.attrNames"  placeholder="请输入属性名称"/>
-					<span style="margin-left:150px;"></span> 显示顺序：<input type="text"  value="${e.order1List!""}" name="e.order1List" number="y" placeholder="请输入属性显示的顺序" value="0" size="5" maxlength="5"/>
+					<input type="text"  value="${e.attrNames!""}" name="attrNames"  placeholder="请输入属性名称"/>
+					<span style="margin-left:150px;"></span> 显示顺序：<input type="text"  value="${e.order1List!""}" name="order1List" number="y" placeholder="请输入属性显示的顺序" value="0" size="5" maxlength="5"/>
 				</td>
 			</tr>
 				
@@ -114,18 +114,18 @@
 						<tr class="pclass">
 							<td class="leftTD_css">名称</td>
 							<td style="text-align: left;">
-								<input type="text"  name="e.attrNames0"  id="attrNames0" value="${item.name!""}" data-rule="required;attrNames0;length[1~20];"/>
-								<input type="text"  name="e.idList0"  id="idList0" value="${item.id!""}" data-rule="required;idList0;length[1~20];" style="display:none;"/>
-								<span style="margin-left:150px;"></span> 显示顺序：<input type="text"  name="e.order1List0" number="y" id="order1List0" value="${item.order1!""}" size="5" maxlength="5" data-rule="required;integer;order1List0;length[1~5];"/>
+								<input type="text"  name="attrNames0"  id="attrNames0" value="${item.name!""}" data-rule="required;attrNames0;length[1~20];"/>
+								<input type="text"  name="idList0"  id="idList0" value="${item.id!""}" data-rule="required;idList0;length[1~20];" style="display:none;"/>
+								<span style="margin-left:150px;"></span> 显示顺序：<input type="text"  name="order1List0" number="y" id="order1List0" value="${item.order1!""}" size="5" maxlength="5" data-rule="required;integer;order1List0;length[1~5];"/>
 							</td>
 						</tr>
 					<#else>
 						<tr class="pclass">
 							<td class="leftTD_css">名称</td>
 							<td style="text-align: left;">
-								<input type="text"  name="e.attrNames"  value="${item.name!""}"/>
-								<input type="text"  name="e.idList"  value="${item.id!""}" style="display:none;"/>
-								<span style="margin-left:150px;"></span> 显示顺序：<input type="text"  name="e.order1List" number="y" id="order1List" value="${item.order1!""}" size="5" maxlength="5" data-rule="required;integer;order1List;length[1~5];"/>
+								<input type="text"  name="attrNames"  value="${item.name!""}"/>
+								<input type="text"  name="idList"  value="${item.id!""}" style="display:none;"/>
+								<span style="margin-left:150px;"></span> 显示顺序：<input type="text"  name="order1List" number="y" id="order1List" value="${item.order1!""}" size="5" maxlength="5" data-rule="required;integer;order1List;length[1~5];"/>
 							</td>
 						</tr>
 					</#if>
@@ -134,8 +134,8 @@
 				<tr class="pclass">
 					<td class="leftTD_css">名称</td>
 					<td style="text-align: left;">
-						<input type="text"  value="${e.attrNames0!""}" name="e.attrNames0"  id="attrNames0" data-rule="required;attrNames0;length[1~20];" placeholder="请输入属性名称"/>
-						<span style="margin-left:150px;"></span> 显示顺序：<input type="text"  value="${e.order1List0!""}" name="e.order1List0" number="y" id="order1List0" size="5" maxlength="5" data-rule="required;order1List0;integer;length[1~5];" placeholder="请输入属性显示的顺序"/>
+						<input type="text"  value="${e.attrNames0!""}" name="attrNames0"  id="attrNames0" data-rule="required;attrNames0;length[1~20];" placeholder="请输入属性名称"/>
+						<span style="margin-left:150px;"></span> 显示顺序：<input type="text"  value="${e.order1List0!""}" name="order1List0" number="y" id="order1List0" size="5" maxlength="5" data-rule="required;order1List0;integer;length[1~5];" placeholder="请输入属性显示的顺序"/>
 					</td>
 				</tr>
 			</#if>
