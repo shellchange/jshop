@@ -157,7 +157,7 @@ function changeStyle(){
 				<td style="text-align: right;width: 100px">是否启用响应式</td>
 				<td style="text-align: left;">
 					<#assign y_n = {'y':'启用','n':'禁用'}>
-					<select id="unit" name="openResponsive"></select>
+					<select id="unit" name="openResponsive">
 					<#list y_n?keys as key>
 					    <option value="${key}" <#if e.openResponsive?? && e.openResponsive==key>selected="selected" </#if>>${y_n[key]}</option>
 					</#list>
