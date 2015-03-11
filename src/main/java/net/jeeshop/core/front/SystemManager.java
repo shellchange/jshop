@@ -235,11 +235,46 @@ public class SystemManager {
 				return catalog.getHotProducts();
 			}
 		}
-		
 		return SystemManager.indexLeftProduct;
 	}
 
     public OrdersReport getOrdersReport() {
         return ordersReport;
     }
+
+	public List<Hotquery> getHotqueryList(){
+		return hotqueryList;
+	}
+
+	public List<Catalog> getCatalogs() {
+		return catalogs;
+	}
+
+	public List<Catalog> getNewCatalogs() {
+		return newCatalogs;
+	}
+
+	public List<Navigation> getNavigations() {
+		return navigations;
+	}
+
+	public List<IndexImg> getIndexImages() {
+		return indexImages;
+	}
+
+	public List<News> getNoticeList() {
+		return noticeList;
+	}
+
+	public List<Product> getHotProducts() {
+		return hotProducts;
+	}
+
+	public List<Product> getNewProducts() {
+		return newProducts;
+	}
+
+	public List<Product> getSaleProducts() {
+		return saleProducts;
+	}
 }
