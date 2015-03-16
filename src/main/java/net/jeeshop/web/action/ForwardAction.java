@@ -3,6 +3,7 @@ package net.jeeshop.web.action;
 /**
  * Created by dylan on 15-1-18.
  */
+@Deprecated
 public class ForwardAction {
     private String type = "ftl";
     private String p = "/common/404";

@@ -1,7 +1,7 @@
 <#import "/resource/common_html_front.ftl" as html/>
+<#import "/indexMenu.ftl" as menu/>
 <#import "/index_productList.ftl" as indexProduct/>
 <@html.htmlBase>
-<#include "/resource/common_css.ftl"/>
 <meta property="qc:admins" content="50702666757625530706654" />
 <meta property="wb:webmaster" content="28e244326adb6a77" />
 <style type="text/css">
@@ -35,7 +35,7 @@ function defaultProductImg(){
 	img.onerror=null; //控制不要一直跳动 
 }
 </script>
-	<#include "/indexMenu.ftl">
+	<@menu.menu/>
 	<div class="container" >
 		<div class="row">
 			<!-- 左侧导航栏、热卖商品、文章、事项 -->
@@ -66,8 +66,6 @@ function defaultProductImg(){
 			
 		</div>
 	</div>
-	<#include "/foot.ftl">
-	<#include "/index_superSlide_js.ftl">
 <script>
 $(function() {
 	//商品鼠标移动效果

@@ -1,13 +1,6 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
-<%@ page session="false"%>
-<%@ taglib uri="http://jsptags.com/tags/navigation/pager" prefix="pg"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
-<html>
-<head>
-<%@ include file="/resource/common_html_meat.jsp"%>
-<%@ include file="/resource/common_css.jsp"%>
+<#import "/resource/common_html_front.ftl" as html/>
+<#import "/indexMenu.ftl" as menu/>
+<@html.htmlBase>
 <style>
 	#advert img{
 		max-width: 364px;
@@ -18,43 +11,29 @@
 		text-decoration: none;
 	}
 </style>
-</head>
-
-<body>
-<input value="<%=SystemManager.systemSetting.getWww()%>" type="hidden" id="wwwInput"/>
-	<%request.getSession().setAttribute(FrontContainer.selectMenu,FrontContainer.not_select_menu); %>
-	<%@ include file="/indexMenu.jsp"%>
+<input value="${systemSetting().www}" type="hidden" id="wwwInput"/>
+	<@menu.menu/>
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-4" style="background-color:#fff;border:0px;">
 				<div id="advert" style="text-align: center;">
-					<%@ include file="/advert/advert_login_page.jsp"%>
+					<#include "/advert/advert_login_page.ftl"/>
 				</div>
 			</div>
 			
 			<div class="col-xs-8">
 				<caption>
-					<%
-					Object errorMsg = request.getSession().getAttribute(FrontContainer.login_errorMsg);
-					//out.println("errorMsg="+errorMsg);
-					if(errorMsg!=null){
-					%>
-					<!-- 
+					<!--
 					<div class="alert alert-info alert-dismissable" style="display: none;">
 					  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 					  <strong>登陆失败!</strong> 账号或密码错误！
 					</div>
 					 -->
-					
+					<#if errorMsg??>
 					<div class="bs-callout bs-callout-danger author" style="text-align: left;font-size: 14px;margin: 2px 0px;">
-						<strong>登陆失败!</strong> <%=errorMsg %>
+						<strong>登陆失败!</strong> ${errorMsg}
 					</div>
-					
-					<%}
-					request.setAttribute("errorMsg",null);
-					%>
-					
-					<%request.setAttribute("errorMsg",null); %>
+					</#if>
 				</caption>
 				
 				<div class="panel panel-success" style="width:500px;">
@@ -64,19 +43,18 @@
 		                </h3>
 		              </div>
 		              <div class="panel-body">
-	              		<s:form role="form" id="form" cssClass="form-horizontal" action="/user/doLogin.html" theme="simple">   
-						  <s:token/>
+	              		<form role="form" id="form" class="form-horizontal" action="${basepath}/account/doLogin" method="post" theme="simple">
 						  <div class="form-group">
 						    <label for="account" class="col-md-2 control-label">账号</label>
 						    <div class="col-md-6">
-							    <input  name="e.account" type="text" class="form-control" id="account" data-rule="账号:required;account;" placeholder="请输入账号" />
+							    <input  name="account" type="text" class="form-control" id="account" data-rule="账号:required;account;" placeholder="请输入账号" />
 						    </div>
 						  </div>
 						  
 						  <div class="form-group">
 						    <label for="password" class="col-md-2 control-label">密码</label>
 						    <div class="col-md-6">
-							    <input name="e.password" type="password" class="form-control" id="password" data-rule="密码:required;password;" placeholder="请输入密码" />
+							    <input name="password" type="password" class="form-control" id="password" data-rule="密码:required;password;" placeholder="请输入密码" />
 						    </div>
 						  </div>
 						  
@@ -85,24 +63,24 @@
 						      <button type="submit" class="btn btn-success btn-sm" value="登陆">
 						      	<span class="glyphicon glyphicon-ok"></span>&nbsp;登陆
 						      </button>
-						      <a href="<%=request.getContextPath() %>/user/forget.html">忘记密码？</a>
+						      <a href="${basepath}/account/forget">忘记密码？</a>
 						    </div>
 						  </div>
-						</s:form>
+						</form>
 		              </div>
 		              <div class="panel-footer" id="otherLogin">
-		              	<a href="<%=request.getContextPath() %>/user/qqLogin.html">
-		              		<img src="<%=SystemManager.systemSetting.getWww()%>/resource/images/qqLogin.png">
+		              	<a href="${basepath}/account/qqLogin">
+		              		<img src="${systemSetting().www}/resource/images/qqLogin.png">
 		              	</a>
-		              	<a  href="<%=request.getContextPath() %>/user/sinawb.html">
-		              		<img src="<%=SystemManager.systemSetting.getWww()%>/resource/images/sinawbLogin.png">
+		              	<a  href="${basepath}/account/sinawb">
+		              		<img src="${systemSetting().www}/resource/images/sinawbLogin.png">
 		              	</a>
-<%-- 		              	<span id="qqLoginBtn" title="使用QQ号登陆"></span> --%>
-<%-- 						<span id="wb_connect_btn" title="使用新浪微博号登陆"></span> --%>
+<#--<%-- 		              	<span id="qqLoginBtn" title="使用QQ号登陆"></span> --%>-->
+<#--<%-- 						<span id="wb_connect_btn" title="使用新浪微博号登陆"></span> --%>-->
 						<span>
-							<a href="alipayFastLogin.html" title="使用支付宝快捷登陆">
-	<%-- 							<img src="<%=SystemManager.systemSetting.getWww() %>/resource/images/alipay.gif" alt="支付宝快捷登陆"> --%>
-								<img src="<%=SystemManager.systemSetting.getWww() %>/resource/images/alipay_fastlogin.jpg" alt="支付宝快捷登陆">
+							<a href="alipayFastLogin" title="使用支付宝快捷登陆">
+	<#--<%-- 							<img src="${systemSetting().www}/resource/images/alipay.gif" alt="支付宝快捷登陆"> --%>-->
+								<img src="${systemSetting().www}/resource/images/alipay_fastlogin.jpg" alt="支付宝快捷登陆">
 							</a>
 						</span>
 						<span style="display:none">
@@ -114,12 +92,7 @@
 			</div>
 		</div>
 	</div>
-<%-- <script type="text/javascript" src="<%=request.getContextPath() %>/resource/js/jquery-1.4.2.min.js"></script> --%>
-<%@ include file="/foot.jsp"%>
-<%@ include file="/resource/common_html_validator.jsp"%>
 
-<%-- <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=3176592960" type="text/javascript" charset="utf-8"></script> --%>
-<%-- <script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" charset="utf-8" data-appid="101020775" data-callback="true"></script> --%>
 <script type="text/javascript">
 	(function(){
 		//if(QC.Login.check()){//如果已登录
@@ -164,7 +137,7 @@
 			);
 	}
 	function notifySession(status,openId,accessToken,nickname){
-		var _url = "<%=SystemManager.systemSetting.getWww()%>/user/qqCallbackNotifySession.html?status="+status+"&openId="+openId+"&accessToken="+accessToken+"&nickname="+nickname;
+		var _url = "${systemSetting().www}/account/qqCallbackNotifySession?status="+status+"&openId="+openId+"&accessToken="+accessToken+"&nickname="+nickname;
 		console.log("_url="+_url);
 		$.ajax({
 		  type: 'POST',
@@ -172,7 +145,7 @@
 		  data: {},
 		  success: function(data){
 			  console.log("notifySession.data="+data);
-			  window.location.href = "<%=SystemManager.systemSetting.getWww()%>";
+			  window.location.href = "${systemSetting().www}";
 		  },
 		  dataType: "text",
 		  error:function(er){
@@ -216,7 +189,7 @@ function showSinaWeiboButton(){
 	                console.log("logout,screen_name"+o.screen_name+"id="+o.id);
 	                //sinaWeiboLoginNotifySession("login",o.id,o.screen_name);
 	                
-	                var _url = "/user/sinaWeiboLoginNotifySession.html?status=login"+"&id="+o.id+"&nickname="+o.screen_name;
+	                var _url = "/account/sinaWeiboLoginNotifySession?status=login"+"&id="+o.id+"&nickname="+o.screen_name;
 					console.log("_url="+_url);
 					$.ajax({
 					  type: 'POST',
@@ -224,7 +197,7 @@ function showSinaWeiboButton(){
 					  data: {},
 					  success: function(data){
 						  console.log("success.sinaWeiboLoginNotifySession.data="+data);
-						  window.location.href = "<%=SystemManager.systemSetting.getWww()%>";
+						  window.location.href = "${systemSetting().www}";
 					  },
 					  dataType: "text",
 					  error:function(er){
@@ -242,7 +215,7 @@ function showSinaWeiboButton(){
 }
 
 function sinaWeiboLoginNotifySession(status,id,nickname){
-	var _url = "user/sinaWeiboLoginNotifySession.html?status="+status+"&id="+id+"&nickname="+nickname;
+	var _url = "user/sinaWeiboLoginNotifySession?status="+status+"&id="+id+"&nickname="+nickname;
 	console.log("_url="+_url);
 	$.ajax({
 	  type: 'POST',
@@ -250,7 +223,7 @@ function sinaWeiboLoginNotifySession(status,id,nickname){
 	  data: {},
 	  success: function(data){
 		  console.log("sinaWeiboLoginNotifySession.data="+data);
-		  window.location.href = "<%=SystemManager.systemSetting.getWww()%>";
+		  window.location.href = "${systemSetting().www}";
 	  },
 	  dataType: "text",
 	  error:function(er){
@@ -261,7 +234,4 @@ function sinaWeiboLoginNotifySession(status,id,nickname){
 </script>
 
 <!-- baidu登陆 
-<script src="<%=request.getContextPath() %>/resource/js/Baidu-Frontia-JS-1.0.0.js"></script>
-<script src="<%=request.getContextPath() %>/resource/js/baiduLogin.js"></script>-->
-</body>
-</html>
+</@html.htmlBase>

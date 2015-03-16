@@ -56,7 +56,7 @@
 
     <script type="text/javascript" src="${basepath}/resource/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="${basepath}/resource/js/jquery.blockUI.js"></script>
-    <script type="text/javascript" src="${basepath}/resource/js/manage.js"></script>
+    <#--<script type="text/javascript" src="${basepath}/resource/js/manage.js"></script>-->
 
     <#--<script src="${basepath}/resource/jquery-jquery-ui/jquery-1.5.1.js"></script>-->
     <#--<script src="${basepath}/resource/jquery-jquery-ui/ui/jquery.ui.core.js"></script>-->
@@ -76,12 +76,16 @@
     <script type="text/javascript" src="${basepath}/resource/js/superMenu/js/new.js"></script>
     <link href="${basepath}/resource/js/slideTab2/css/lanrenzhijia.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="${basepath}/resource/js/slideTab2/js/lanrenzhijia.js"></script>
+
+    <#include "/resource/common_css.ftl"/>
 </head>
     <#if nobody>
         <#nested />
     <#else >
     <body>
         <#nested />
+        <#include "/foot.ftl">
+        <#include "/index_superSlide_js.ftl">
     </body>
     </#if>
 </html>

@@ -1,3 +1,4 @@
+<#macro menu selectMenu="0">
 <#if systemSetting().isopen=="false">
     ${systemSetting().closeMsg!"系统关闭，请联系管理员"}
 </#if>
@@ -79,40 +80,40 @@ body{
 			</div>
 			<div class="col-xs-3" style="height: 100%;">
 		    	<div class="row" style="height: 100%;">
-					<#if currentUser()??>
+					<#if currentAccount()??>
 
                         <span id="myshopMenuPPP" style="display: inline-block;z-index: 9999;position: relative;;">
 		          			<!-- 会员中心的菜单 -->
 		          			<span style="margin-top: 0px;">
 							  <a data-toggle="dropdown" style="display: block;margin-top: 0px;">
                                   <span class="glyphicon glyphicon-user"></span>&nbsp;用户中心
-                                  (${currentUser().nickname})
+                                  (${currentAccount().nickname})
                                   <span class="caret" style="display: inline-block;"></span>
                               </a>
 							  <ul class="dropdown-menu" id="myshopMenu" role="menu" style="display: none;margin-top: 0px;">
-                                  <li><a href="${basepath}/user/user.html"><span class="glyphicon glyphicon-user"></span>&nbsp;个人资料</a></li>
-                                  <li><a href="${basepath}/user/topwd.html"><span class="glyphicon glyphicon-screenshot"></span>&nbsp;修改密码</a></li>
+                                  <li><a href="${basepath}/account/account"><span class="glyphicon glyphicon-user"></span>&nbsp;个人资料</a></li>
+                                  <li><a href="${basepath}/account/topwd"><span class="glyphicon glyphicon-screenshot"></span>&nbsp;修改密码</a></li>
                                   <li class="divider"></li>
-                                  <li><a href="${basepath}/user/orders.html"><span class="glyphicon glyphicon-th"></span>&nbsp;我的订单</a></li>
-                                  <li><a href="${basepath}/user/address.html"><span class="glyphicon glyphicon-send"></span>&nbsp;配送地址</a></li>
-                                  <li><a href="${basepath}/user/favorite.html"><span class="glyphicon glyphicon-tags"></span>&nbsp;收藏夹</a></li>
+                                  <li><a href="${basepath}/account/orders"><span class="glyphicon glyphicon-th"></span>&nbsp;我的订单</a></li>
+                                  <li><a href="${basepath}/account/address"><span class="glyphicon glyphicon-send"></span>&nbsp;配送地址</a></li>
+                                  <li><a href="${basepath}/account/favorite"><span class="glyphicon glyphicon-tags"></span>&nbsp;收藏夹</a></li>
                                   <li class="divider"></li>
-                                  <li><a href="${basepath}/user/exit.html"><span class="glyphicon glyphicon-pause"></span>&nbsp;退出系统</a></li>
+                                  <li><a href="${basepath}/account/exit"><span class="glyphicon glyphicon-pause"></span>&nbsp;退出系统</a></li>
                               </ul>
 							</span>
 		          		</span>
 		          		<span style="display: none;">
-							${currentUser().nickname!""}
-		          			(${currentUser().loginType!""})
+							${currentAccount().nickname!""}
+		          			(${currentAccount().loginType!""})
 		          		</span>
 					<#else >
                         <span class="col-xs-12" id="loginOrRegSpan" style="font-size: 14px;">
-		          			<a href="${basepath}/user/login.html">登陆</a>|<a href="${basepath}/user/register.html">注册</a>
+		          			<a href="${basepath}/account/login">登陆</a>|<a href="${basepath}/account/register">注册</a>
 		          		</span>
 					</#if>
 
 		          	<div style="vertical-align: middle;margin-top: 10px;font-size: 18px;z-index: 0;">
-		          		<span class="glyphicon glyphicon-earphone"></span>&nbsp;客服热线:${systemSetting().tel}
+		          		<span class="glyphicon glyphicon-earphone"></span>&nbsp;<#--客服热线:-->${systemSetting().tel}
 		          	</div>
 		    	</div>
 			</div>
@@ -125,11 +126,7 @@ body{
 <div class="navbar navbar-default" style="margin-bottom: 15px;z-index: 111">
       <div class="container">
         <div class="navbar-header col-xs-3" style="text-align: center;" id="navbar-header">
-				<#if selectMenu??>
-                    <a class="navbar-brand" href="${systemSetting().www}" style="font-weight: bold;margin-left: 5px;">全部商品分类</a>
-				<#else>
-                    <a class="navbar-brand" href="${systemSetting().www}" style="font-weight: bold;margin-left: 5px;">全部商品分类</a>
-				</#if>
+			  <a class="navbar-brand" href="${systemSetting().www}" style="font-weight: bold;margin-left: 5px;">全部商品分类</a>
 	          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
 	            <span class="icon-bar"></span>
 	            <span class="icon-bar"></span>
@@ -153,7 +150,7 @@ body{
 	          			          			<#--application.setAttribute("catalogs", catalogs);-->
 	          		<#--%>-->
 	          		<!-- 首页 -->
-						<#if selectMenu??&&selectMenu=="0">
+						<#if selectMenu=="0">
                             <li class="active"><a href="${systemSetting().www}"><b>首页</b></a></li>
 						<#else>
                             <li><a href="${systemSetting().www}"><b>首页</b></a></li>
@@ -161,7 +158,7 @@ body{
 					<!-- 类别作为菜单显示 -->
 						<#list systemManager().catalogs as item>
 						    <#if item.showInNav == "y">
-								<#if selectMenu?? && item.id == selectMenu>
+								<#if item.id == selectMenu>
 									<li class="active"><a href="${basepath}/catalog/${item.code}.html"><b>${item.name}</b></a></li>
 								<#else>
 									<li><a href="${basepath}/catalog/${item.code}.html"><b>${item.name}</b></a></li>
@@ -172,7 +169,7 @@ body{
 
 		          <ul class="nav navbar-nav navbar-right" style="display: block;">
 		          	<!-- 促销活动 -->
-		          	<#if selectMenu?? && selectMenu=="activity">
+		          	<#if selectMenu=="activity">
 						<li class="active"><a href="${basepath}/activity/activity.html" >
 						<span class="glyphicon glyphicon-time"></span>
 							<b>促销活动</b></a>
@@ -186,7 +183,7 @@ body{
 					</#if>
 					
 					<!-- 积分商城 -->
-		          	<#if selectMenu?? && selectMenu=="score">
+		          	<#if selectMenu=="score">
 						<li class="active"><a href="${basepath}/activity/score.html" >
 							<b>积分商城</b></a>
 						</li>
@@ -199,7 +196,7 @@ body{
 					
 					<!-- 团购活动 -->
 					<#if false>
-						<#if selectMenu?? && selectMenu=="tuan">
+						<#if selectMenu=="tuan">
 							<li class="active"><a href="${basepath}/activity/tuan.html" >
 								<b>团购活动</b></a>
 							</li>
@@ -215,6 +212,4 @@ body{
       </div>
     </div>
 
-
-
-
+</#macro>

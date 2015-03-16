@@ -57,6 +57,9 @@
                 <entry key="currentUser">
                     <bean class="net.jeeshop.core.freemarker.fn.CurrentUserGetter" />
                 </entry>
+                <entry key="currentAccount">
+                    <bean class="net.jeeshop.core.freemarker.fn.CurrentAccountGetter" />
+                </entry>
                 <entry key="checkPrivilege">
                     <bean class="net.jeeshop.core.freemarker.fn.PrivilegeChecker" />
                 </entry>
