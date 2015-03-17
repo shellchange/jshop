@@ -144,7 +144,7 @@ font-weight: 700;font-size: 16px;color: #f50;
 														<a target="_blank" href="${basepath}/order/rate?orderid=${item.id!""}" class="btn btn-danger btn-sm">我来评价</a><br>
 													</#if>
                                                 </#if>
-                                                <a target="_blank" href="${basepath}/order/orderInfo?id=${item.id!""}">订单详情</a>
+                                                <a target="_blank" href="${basepath}/order/${item.id!""}">订单详情</a>
                                                 <br>
 
                                                 <#if item.status?? && (item.status =="send" || item.status=="sign")>

@@ -43,7 +43,7 @@
 	</bean>
 	
 	<!-- 订单 -->
-	<bean id="ordersActionFront" class="net.jeeshop.web.action.front.orders.OrdersAction" scope="prototype">
+	<bean id="ordersActionFront" class="net.jeeshop.web.action.front.orders.OrderAction" scope="prototype">
 		<property name="server" ref="orderServiceFront"></property>
 		<property name="orderService" ref="orderServiceFront"></property>
 		<property name="orderdetailService" ref="orderdetailServiceFront"></property>
