@@ -30,9 +30,6 @@ public class FrontContainer {
 	/**
 	 * 登录的用户信息
 	 */
-	@Deprecated
-	public static String session_account_info = "session_account_info";
-	public static String login_errorMsg = "login_errorMsg";//登陆错误消息
 	public static String reset_password_email_timeout = "reset_password_email_timeout";//找回密码的链接已失效的标识符
 //	@Deprecated
 //	public static String show_user_option_error = "show_user_option_error";//显示用户操作错误信息，error.jsp页面会显示session中该key指定的错误信息，显示后会同时清除该错误信息。

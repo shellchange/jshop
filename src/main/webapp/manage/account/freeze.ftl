@@ -1,6 +1,6 @@
 <#import "/resource/common_html_meat.ftl" as html>
 <@html.htmlBase>
-<form action="${basepath}/manage/account" theme="simple" id="form">
+<form action="${basepath}/manage/account" method="post" theme="simple" id="form">
 	<table class="table table-bordered">
 			<tr>
 				<td colspan="2" style="background-color: #dff0d8;text-align: center;">
@@ -52,7 +52,7 @@
 <#--<%-- 					<s:a method="updateFreeze" cssClass="btn btn-success"> --%>-->
 <!-- 						<i class="icon-ok icon-white"></i> 保存 -->
 <#--<%-- 					</s:a> --%>-->
-					<button method="account!updateFreeze.action" class="btn btn-success" onclick="submitNotValid2222(this)">
+					<button method="updateFreeze" class="btn btn-success" onclick="submitNotValid2222(this)">
 						<i class="icon-ok icon-white"></i> 保存
 					</button>
 <#--<%-- 					<s:submit method="back" value="返回" cssClass="btn btn-inverse"/> --%>-->
