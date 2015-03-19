@@ -1,5 +1,6 @@
 package net.jeeshop.core.dao.page;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -14,7 +15,7 @@ import net.jeeshop.core.ManageContainer;
  */
 public class PagerModel implements ClearBean {
 	private int total; // 总数
-	private List list; // 分页集合列表
+	private List list = new ArrayList(); // 分页集合列表
 	private int pageSize = ManageContainer.PAGE_SIZE;// 每页显示记录数
 	private int offset; // 偏移量
 	private int pagerSize;// 总页数

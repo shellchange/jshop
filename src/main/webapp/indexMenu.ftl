@@ -44,7 +44,7 @@ body{
 				<!-- search查询输入框 -->
 <!-- 				style="padding: 0px;margin-left: 0px;" -->
 				<form class="form-inline" role="form" name="searchForm" id="searchForm" 
-					action="${basepath}/search.html">
+					action="${basepath}/search">
 						<#--<%-->
 							<#--String key = "";-->
 										<#--if(request.getAttribute("key")!=null && !StringUtils.isBlank(request.getAttribute("key").toString())){-->
@@ -60,7 +60,7 @@ body{
 								<button value="搜索" class="btn btn-primary btn-sm" onclick="search();">
 									<span class="glyphicon glyphicon-search"></span>&nbsp;搜索
 								</button>
-								<a class="btn btn-success btn-sm" href="${basepath}/cart/cart.html">
+								<a class="btn btn-success btn-sm" href="${basepath}/cart/cart">
 									<span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;购物车
 									<#if myCart?? && myCart.productList?? && myCart.productList.size() gt 0>
                                         <span class="badge badge-success">${session.myCart.productList.size()}</span>
@@ -159,9 +159,9 @@ body{
 						<#list systemManager().catalogs as item>
 						    <#if item.showInNav == "y">
 								<#if item.id == selectMenu>
-									<li class="active"><a href="${basepath}/catalog/${item.code}.html"><b>${item.name}</b></a></li>
+									<li class="active"><a href="${basepath}/catalog/${item.code}"><b>${item.name}</b></a></li>
 								<#else>
-									<li><a href="${basepath}/catalog/${item.code}.html"><b>${item.name}</b></a></li>
+									<li><a href="${basepath}/catalog/${item.code}"><b>${item.name}</b></a></li>
 								</#if>
 							</#if>
 						</#list>
@@ -170,13 +170,13 @@ body{
 		          <ul class="nav navbar-nav navbar-right" style="display: block;">
 		          	<!-- 促销活动 -->
 		          	<#if selectMenu=="activity">
-						<li class="active"><a href="${basepath}/activity/activity.html" >
+						<li class="active"><a href="${basepath}/activity/activity" >
 						<span class="glyphicon glyphicon-time"></span>
 							<b>促销活动</b></a>
 						</li>
 					<#else>
 						<li>
-							<a href="${basepath}/activity/activity.html" >
+							<a href="${basepath}/activity/activity" >
 							<span class="glyphicon glyphicon-time"></span>
 							<b>促销活动</b></a>
 						</li>
@@ -184,12 +184,12 @@ body{
 					
 					<!-- 积分商城 -->
 		          	<#if selectMenu=="score">
-						<li class="active"><a href="${basepath}/activity/score.html" >
+						<li class="active"><a href="${basepath}/activity/score" >
 							<b>积分商城</b></a>
 						</li>
 					<#else>
 						<li>
-							<a href="${basepath}/activity/score.html" >
+							<a href="${basepath}/activity/score" >
 							<b>积分商城</b></a>
 						</li>
 					</#if>
@@ -197,12 +197,12 @@ body{
 					<!-- 团购活动 -->
 					<#if false>
 						<#if selectMenu=="tuan">
-							<li class="active"><a href="${basepath}/activity/tuan.html" >
+							<li class="active"><a href="${basepath}/activity/tuan" >
 								<b>团购活动</b></a>
 							</li>
 						<#else>
 							<li>
-								<a href="${basepath}/activity/tuan.html" >
+								<a href="${basepath}/activity/tuan" >
 								<b>团购活动</b></a>
 							</li>
 						</#if>
