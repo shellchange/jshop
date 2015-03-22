@@ -4,7 +4,7 @@
 	<div class="row" class="col-xs-12" style="padding: 5px;">
 		<div class="alert alert-info" style="margin-bottom: 5px;margin-top: 5px;">
 			${title}
-			<a href="${basepath}/special/${queryType}" target="_blank">
+			<a href="${basepath}/special/${queryType}.html" target="_blank">
 				<span style="float:right">[更多]</span>
 			</a>
 		</div>
@@ -14,7 +14,7 @@
 			<div class="col-xs-3" style="padding: 5px;text-align: center;">
 				<div class="thumbnail" style="width: 100%; display: block;margin-bottom: 10px;">
 					<div style="height: 200px;border: 0px solid;">
-						<a href="${basepath}/product/${item.id}" target="_blank">
+						<a href="${basepath}/product/${item.id}.html" target="_blank">
 							
 							<img class="lazy err-product22" style="border: 0px;display: block;margin: auto;max-height: 100%;max-width: 100;"  
 							border="0" src="${systemSetting().defaultProductImg!""}"
@@ -24,7 +24,7 @@
 					<div style="height: 40px;">
 						<div class="col-xs-12 left_product">
 							<div class="row">
-								<a style="cursor: pointer;" href="${basepath}/product/${item.id}" target="_blank"
+								<a style="cursor: pointer;" href="${basepath}/product/${item.id}.html" target="_blank"
 								title="${item.name!""}">
 									${item.name!""}
 								</a>

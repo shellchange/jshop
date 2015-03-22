@@ -169,43 +169,22 @@ body{
 
 		          <ul class="nav navbar-nav navbar-right" style="display: block;">
 		          	<!-- 促销活动 -->
-		          	<#if selectMenu=="activity">
-						<li class="active"><a href="${basepath}/activity/activity" >
+					<li class="${(selectMenu=="activity")?string("active","")}">
+						<a href="${basepath}/activity/activity.html" >
 						<span class="glyphicon glyphicon-time"></span>
-							<b>促销活动</b></a>
-						</li>
-					<#else>
-						<li>
-							<a href="${basepath}/activity/activity" >
-							<span class="glyphicon glyphicon-time"></span>
-							<b>促销活动</b></a>
-						</li>
-					</#if>
-					
+						<b>促销活动</b></a>
+					</li>
+
 					<!-- 积分商城 -->
-		          	<#if selectMenu=="score">
-						<li class="active"><a href="${basepath}/activity/score" >
+						<li class="${(selectMenu=="score")?string("active","")}"><a href="${basepath}/activity/score.html" >
 							<b>积分商城</b></a>
 						</li>
-					<#else>
-						<li>
-							<a href="${basepath}/activity/score" >
-							<b>积分商城</b></a>
-						</li>
-					</#if>
-					
+
 					<!-- 团购活动 -->
 					<#if false>
-						<#if selectMenu=="tuan">
-							<li class="active"><a href="${basepath}/activity/tuan" >
-								<b>团购活动</b></a>
-							</li>
-						<#else>
-							<li>
-								<a href="${basepath}/activity/tuan" >
-								<b>团购活动</b></a>
-							</li>
-						</#if>
+						<li class="${(selectMenu=="tuan")?string("active","")}"><a href="${basepath}/activity/tuan.html" >
+							<b>团购活动</b></a>
+						</li>
 					</#if>
 		          </ul>
         </div>
