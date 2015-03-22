@@ -173,7 +173,7 @@ function addToCart(){
 	if(!checkStockFunc()){
 		return false;
 	}
-	var _url = "cart!addToCart.action?productID="+$("#productID").val()+"&buyCount="+$("#inputBuyNum").val()+"&buySpecID="+$("#specIdHidden").val();
+	var _url = basepath+"/cart/addToCart?productID="+$("#productID").val()+"&buyCount="+$("#inputBuyNum").val()+"&buySpecID="+$("#specIdHidden").val();
 	$.ajax({
 	  type: 'POST',
 	  url: _url,

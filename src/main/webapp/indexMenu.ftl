@@ -170,7 +170,7 @@ body{
 		          <ul class="nav navbar-nav navbar-right" style="display: block;">
 		          	<!-- 促销活动 -->
 					<li class="${(selectMenu=="activity")?string("active","")}">
-						<a href="${basepath}/activity/activity.html" >
+						<a href="${basepath}/activity.html" >
 						<span class="glyphicon glyphicon-time"></span>
 						<b>促销活动</b></a>
 					</li>
