@@ -8,7 +8,7 @@
        <div class="sidelist">
 			<span>
 				<h3>
-					<a href="${basepath}/catalog/${item.code}">${item.name}</a>
+					<a href="${basepath}/catalog/${item.code}.html">${item.name}</a>
 				</h3>
 			</span>
 			<div class="i-list">
@@ -16,7 +16,7 @@
 					<#if item.children??>
 						<#list item.children as sItem>
 						<li>
-		          			<a href="${basepath}/catalog/${sItem.code}">${sItem.name}</a>
+		          			<a href="${basepath}/catalog/${sItem.code}.html">${sItem.name}</a>
 						</li>
 						</#list>
 					</#if>
@@ -28,7 +28,7 @@
 						<div style="font-weight: bold;padding-top: 5px;padding-bottom: 5px;">推荐热卖：</div>
 						<#list item.superMenuProducts as pItem>
 							<div style="margin-top: 5px;">
-								&gt;<a title="${pItem.name}" target="_blank" href="${systemSetting().www}/product/${pItem.id}">
+								&gt;<a title="${pItem.name}" target="_blank" href="${basepath}/product/${pItem.id}.html">
 									${pItem.name}
 								</a>
 							</div>

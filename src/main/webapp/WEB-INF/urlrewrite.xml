@@ -48,7 +48,12 @@
     <!-- 根据目录ID加载产品列表信息 -->
     <rule>
         <from>/catalog/([0-9a-zA-Z]+).html</from>
-        <to last="true">/product!productList?catalogCode=$1</to>
+        <to last="true">/product/productList?catalogCode=$1</to>
+    </rule>
+    <!-- 根据产品属性ID加载产品列表信息 -->
+    <rule>
+        <from>/catalog/attr/([0-9]+).html</from>
+        <to last="true">/product/productList?attrID=$1</to>
     </rule>
 
     <!-- 加载热门、特价、最新的商品列表信息 -->
@@ -65,12 +70,6 @@
     <rule>
         <from>/activity.html</from>
         <to last="true">/product/activity/list</to>
-    </rule>
-
-    <!-- 根据产品属性ID加载产品列表信息 -->
-    <rule>
-        <from>/catalog/attr/([0-9]+).html</from>
-        <to last="true">/product/productListByAttrID?attributeID=$1</to>
     </rule>
 
     <!-- 新闻列表 -->

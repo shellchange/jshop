@@ -34,7 +34,7 @@
 							  <#if helpCode??&&helpCode=="index">
 							      <li class="active">帮助中心</li>
 							  <#else>
-							  	  <li><a href="${basepath}/help/index">帮助中心</a></li>
+							  	  <li><a href="${basepath}/help/index.html">帮助中心</a></li>
 								  <li class="active">${news.title!""}</li>
 							  </#if>
 							</ol>

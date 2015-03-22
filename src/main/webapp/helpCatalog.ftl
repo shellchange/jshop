@@ -10,7 +10,7 @@
 				<#if item.news??>
 				<#list item.news as item>
 					<div style="margin-left: 20px;">
-						<a href="${basepath}/help/${item.code!""}">${item.title!""}</a>
+						<a href="${basepath}/help/${item.code!""}.html">${item.title!""}</a>
 					</div>
 				</#list>
 				</#if>

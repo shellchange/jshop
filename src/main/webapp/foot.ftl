@@ -28,7 +28,7 @@
 						<#if item.news??>
 						    <#list item.news as item>
                                 <div class="row" style="line-height: 20px;">
-                                    <a href="${basepath}/help/${item.code}" target="_blank">
+                                    <a href="${basepath}/help/${item.code}.html" target="_blank">
                                     ${item.title!""}
                                     </a>
                                 </div>

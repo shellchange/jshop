@@ -43,15 +43,8 @@ body{
 			<div class="col-xs-6" style="border: 0px solid blue;padding-left:5px;">
 				<!-- search查询输入框 -->
 <!-- 				style="padding: 0px;margin-left: 0px;" -->
-				<form class="form-inline" role="form" name="searchForm" id="searchForm" 
-					action="${basepath}/search">
-						<#--<%-->
-							<#--String key = "";-->
-										<#--if(request.getAttribute("key")!=null && !StringUtils.isBlank(request.getAttribute("key").toString())){-->
-											<#--key = request.getAttribute("key").toString();-->
-										<#--}-->
-						<#--%>-->
-					${key!""}
+				<form class="form-inline" role="form" name="searchForm" id="searchForm" method="post"
+					action="${basepath}/search.html">
 					<div class="form-group btn-group">
 						<div class="input-group">
 							<input type="text" name="key" id="key" class="form-control input-sm" style="border: 2px solid red;border-right: 0px;" 
@@ -60,7 +53,7 @@ body{
 								<button value="搜索" class="btn btn-primary btn-sm" onclick="search();">
 									<span class="glyphicon glyphicon-search"></span>&nbsp;搜索
 								</button>
-								<a class="btn btn-success btn-sm" href="${basepath}/cart/cart">
+								<a class="btn btn-success btn-sm" href="${basepath}/cart/cart.html">
 									<span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;购物车
 									<#if myCart?? && myCart.productList?? && myCart.productList.size() gt 0>
                                         <span class="badge badge-success">${session.myCart.productList.size()}</span>
@@ -81,7 +74,6 @@ body{
 			<div class="col-xs-3" style="height: 100%;">
 		    	<div class="row" style="height: 100%;">
 					<#if currentAccount()??>
-
                         <span id="myshopMenuPPP" style="display: inline-block;z-index: 9999;position: relative;;">
 		          			<!-- 会员中心的菜单 -->
 		          			<span style="margin-top: 0px;">
@@ -158,11 +150,7 @@ body{
 					<!-- 类别作为菜单显示 -->
 						<#list systemManager().catalogs as item>
 						    <#if item.showInNav == "y">
-								<#if item.id == selectMenu>
-									<li class="active"><a href="${basepath}/catalog/${item.code}"><b>${item.name}</b></a></li>
-								<#else>
-									<li><a href="${basepath}/catalog/${item.code}"><b>${item.name}</b></a></li>
-								</#if>
+								<li class="${(item.id == selectMenu)?string("active","")}"><a href="${basepath}/catalog/${item.code}.html"><b>${item.name}</b></a></li>
 							</#if>
 						</#list>
 				</ul>

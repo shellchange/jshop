@@ -48,7 +48,7 @@ img{border: 0px;}
 							<#list pager.list as item>
 								<tr>
 									<td>
-										<a href="${basepath}/news/${item.id!""}" title="${item.title!""}">
+										<a href="${basepath}/news/${item.id!""}.html" title="${item.title!""}">
 											${item.title!""}
 										</a>
 									</td>
