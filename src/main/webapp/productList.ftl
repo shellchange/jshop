@@ -42,7 +42,7 @@ function defaultProductImg(){
 	img.onerror=null; //控制不要一直跳动 
 }
 </script>
-	<@menu.menu selectMenu=""/>
+	<@menu.menu selectMenu=mainCatalogCode/>
 
 	<div class="container">
 	
@@ -59,7 +59,7 @@ function defaultProductImg(){
 						<div style="border: 0px solid;text-align: left;">
 							<div>
 								<ol class="breadcrumb" style="margin-bottom: 0px;">
-								  <li>${e.mainCatalogName!""}</li>
+								  <li class="active"><a href="${basepath}/catalog/${mainCatalogCode}.html">${e.mainCatalogName!""}</a></li>
 								  <#if e.childrenCatalogName??>
 									  <li class="active"><a href="#">${e.childrenCatalogName!""}</a></li>
 								  </#if>
@@ -76,15 +76,9 @@ function defaultProductImg(){
 							<div>
 								<span style="margin:5px;font-weight: bold;">分类</span>
 								<#list catalogChildren as item>
-									<#if catalogCode?? && item.code==catalogCode>
-										<span class="label label-success" style="margin:5px;font-size:100%;">
-											<a href="${basepath}/catalog/${item.code!""}">${item.name!""}</a>
-										</span>
-									<#else>
-										<span class="label label-info2" style="margin:5px;font-size:100%;">
-											<a href="${basepath}/catalog/${item.code!""}">${item.name!""}</a>
-										</span>
-									</#if>
+									<span class="label ${(catalogCode?? && item.code==catalogCode)?string("label-success","label-info2")}" style="margin:5px;font-size:100%;">
+										<a href="${basepath}/catalog/${item.code!""}.html">${item.name!""}</a>
+									</span>
 								</#list>
 							</div>
 						</#if>
@@ -106,11 +100,11 @@ function defaultProductImg(){
 														<#list item.attrList as item>
 															<#if e.attrID??&&item.id==e.attrID>
 																<span class="label label-success attr_css">
-																		<a href="${basepath}/catalog/attr/${item.id!""}?orderBy=${item.orderBy!0}">${item.name!""}</a>
+																		<a href="${basepath}/catalog/attr/${item.id!""}.html?orderBy=${item.orderBy!0}">${item.name!""}</a>
 																</span>
 															<#else>
 																<span class="label label-info2 attr_css">
-																		<a href="${basepath}/catalog/attr/${item.id!""}?orderBy=${item.orderBy!0}">${item.name!""}</a>
+																		<a href="${basepath}/catalog/attr/${item.id!""}.html?orderBy=${item.orderBy!0}">${item.name!""}</a>
 																</span>
 															</#if>
 														</#list>
@@ -135,15 +129,15 @@ function defaultProductImg(){
 						<div class="col-xs-12">
 							<span class="attr_css" style="margin:5px;font-weight: bold;">排序</span>
 								<span class="label ${(e.orderBy??&&e.orderBy==1)?string('label-success','')} attr_css" style="margin:5px;">
-									<a href="${basepath}/catalog/${catalogCode!""}?orderBy=1&attrID=${e.attrID!""}">热门</a>
+									<a href="${basepath}/catalog/${catalogCode!""}.html?orderBy=1&attrID=${e.attrID!""}">热门</a>
 								</span>
 
 								<span class="label ${(e.orderBy??&&e.orderBy==2)?string('label-success','')}  attr_css" style="margin:5px;">
-									<a href="${basepath}/catalog/${catalogCode!""}?orderBy=2&attrID=${e.attrID!""}">价格</a>
+									<a href="${basepath}/catalog/${catalogCode!""}.html?orderBy=2&attrID=${e.attrID!""}">价格</a>
 								</span>
 
 								<span class="label ${(e.orderBy??&&e.orderBy==3)?string('label-success','')}  attr_css" style="margin:5px;">
-									<a href="${basepath}/catalog/${catalogCode!""}?orderBy=3&attrID=${e.attrID!""}">最新</a>
+									<a href="${basepath}/catalog/${catalogCode!""}.html?orderBy=3&attrID=${e.attrID!""}">最新</a>
 								</span>
 						</div>
 					</div>
@@ -159,7 +153,7 @@ function defaultProductImg(){
 						<div class="col-xs-3" style="padding: 5px;text-align: center;">
 							<div class="thumbnail" style="width: 100%; display: block;">
 								<div style="height: 200px;border: 0px solid;text-align: center;">
-									<a href="${basepath}/product/${item.id!""}" target="_blank">
+									<a href="${basepath}/product/${item.id!""}.html" target="_blank">
 										<img class="lazy" style="border: 0px;display: block;margin: auto;max-height: 100%;max-width: 100%;"  
 										border="0" src="${systemSetting().defaultProductImg!""}"
 										data-original="${systemSetting().imageRootPath}${item.picture!""}">
@@ -168,7 +162,7 @@ function defaultProductImg(){
 								<div style="height: 40px;text-align: center;">
 									<div class="col-xs-12 left_product">
 										<div class="row">
-											<a style="cursor: pointer;margin: auto;" href="${basepath}/product/${item.id!""}" target="_blank"
+											<a style="cursor: pointer;margin: auto;" href="${basepath}/product/${item.id!""}.html" target="_blank"
 											title="${item.name!""}">
 												${item.name!""}
 											</a>

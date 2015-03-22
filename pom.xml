@@ -61,7 +61,7 @@
 		<ezmorph.version>1.0.6</ezmorph.version>
 		<p6spy.version>1.3</p6spy.version>
 		<dom4j.version>1.6.1</dom4j.version>
-		<urlrewrite.version>2.5.2</urlrewrite.version>
+		<urlrewrite.version>4.0.4</urlrewrite.version>
 		<javamail.version>1.4</javamail.version>
 		<pinyin4j.version>2.5.0</pinyin4j.version>
 		<lucene.version>3.3.0</lucene.version>
@@ -306,7 +306,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.tuckey</groupId>
-			<artifactId>urlrewrite</artifactId>
+			<artifactId>urlrewritefilter</artifactId>
 			<version>${urlrewrite.version}</version>
 		</dependency>
 		<dependency>

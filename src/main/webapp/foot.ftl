@@ -94,15 +94,6 @@ $(function() {
 		//event:"mouseover"
 	});
 });
-
-//搜索商品
-function search(){
-	var _key = $.trim($("#key").val());
-	if(_key==''){
-		return false;
-	}
-	$("#searchForm").submit();
-}
 </script>
 
 

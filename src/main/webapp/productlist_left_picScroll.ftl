@@ -30,26 +30,28 @@
 			<div class="bd">
 				<ul class="picList">
 					<#assign _code>${catalogCode!""}</#assign>
-					<#list systemManager().getProductsByCatalogCode(_code) as item>
-						<li class="row col-xs-12">
-							<div class="pic"><a href="${basepath}/product/${item.id}" target="_blank">
-								<img border="0" style="margin: auto;" src="${systemSetting().imageRootPath}/${item.picture!""}" /></a>
-							</div>
-							<div class="left_title" style="text-align: center;">
-								<a href="http://www.SuperSlide2.com" target="_blank" style="margin: auto;text-align: center;" title="${item.name!""}">
-								${item.name!""}
-								</a>
-							</div>
-							<div class="left_title" style="text-align: center;">
-								<b style="font-weight: bold;color: #cc0000;">
-									￥${item.nowPrice!"0.00"}
-								</b>
-								<b style="text-decoration: line-through;font-weight: normal;font-size: 11px;color: #a5a5a5;margin-left: 20px;">
-									￥${item.price!"0.00"}
-								</b>
-							</div>
-						</li>
-					</#list>
+						<#if systemManager().getProductsByCatalogCode(_code)??>
+						<#list systemManager().getProductsByCatalogCode(_code) as item>
+							<li class="row col-xs-12">
+								<div class="pic"><a href="${basepath}/product/${item.id}" target="_blank">
+									<img border="0" style="margin: auto;" src="${systemSetting().imageRootPath}/${item.picture!""}" /></a>
+								</div>
+								<div class="left_title" style="text-align: center;">
+									<a href="http://www.SuperSlide2.com" target="_blank" style="margin: auto;text-align: center;" title="${item.name!""}">
+									${item.name!""}
+									</a>
+								</div>
+								<div class="left_title" style="text-align: center;">
+									<b style="font-weight: bold;color: #cc0000;">
+										￥${item.nowPrice!"0.00"}
+									</b>
+									<b style="text-decoration: line-through;font-weight: normal;font-size: 11px;color: #a5a5a5;margin-left: 20px;">
+										￥${item.price!"0.00"}
+									</b>
+								</div>
+							</li>
+						</#list>
+						</#if>
 				</ul>
 			</div>
 		</div>

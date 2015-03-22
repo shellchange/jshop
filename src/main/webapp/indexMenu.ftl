@@ -150,7 +150,7 @@ body{
 					<!-- 类别作为菜单显示 -->
 						<#list systemManager().catalogs as item>
 						    <#if item.showInNav == "y">
-								<li class="${(item.id == selectMenu)?string("active","")}"><a href="${basepath}/catalog/${item.code}.html"><b>${item.name}</b></a></li>
+								<li class="${(item.code == selectMenu)?string("active","")}"><a href="${basepath}/catalog/${item.code}.html"><b>${item.name}</b></a></li>
 							</#if>
 						</#list>
 				</ul>
@@ -178,5 +178,14 @@ body{
         </div>
       </div>
     </div>
-
+<script type="javascript">
+//搜索商品
+function search(){
+	var _key = $.trim($("#key").val());
+	if(_key==''){
+		return false;
+	}
+	$("#searchForm").submit();
+}
+</script>
 </#macro>
