@@ -32,7 +32,7 @@
 					<#assign _code>${catalogCode!""}</#assign>
 					<#list systemManager().getProductsByCatalogCode(_code) as item>
 						<li class="row col-xs-12">
-							<div class="pic"><a href="${basepath}/product/${item.id}.html" target="_blank">
+							<div class="pic"><a href="${basepath}/product/${item.id}" target="_blank">
 								<img border="0" style="margin: auto;" src="${systemSetting().imageRootPath}/${item.picture!""}" /></a>
 							</div>
 							<div class="left_title" style="text-align: center;">

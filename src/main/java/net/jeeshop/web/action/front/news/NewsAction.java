@@ -1,13 +1,22 @@
 package net.jeeshop.web.action.front.news;
 
-import net.jeeshop.core.BaseAction;
-import net.jeeshop.core.FrontContainer;
+import net.jeeshop.core.dao.page.PagerModel;
+import net.jeeshop.core.front.SystemManager;
+import net.jeeshop.services.front.catalog.bean.Catalog;
 import net.jeeshop.services.front.news.NewsService;
 import net.jeeshop.services.front.news.bean.News;
-
+import net.jeeshop.web.action.front.FrontBaseController;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * 文章管理
@@ -15,68 +24,37 @@ import org.slf4j.LoggerFactory;
  * @author huangf
  * 
  */
-public class NewsAction extends BaseAction<News> {
+@Controller("frontNewsAction")
+public class NewsAction extends FrontBaseController<News> {
 	private static final long serialVersionUID = 1L;
 	private static final Logger logger = LoggerFactory
 			.getLogger(NewsAction.class);
+	@Autowired
 	private NewsService newsService;
-	private String helpCode;
-	private News news;
-	
-	public News getNews() {
-		return news;
-	}
 
-	public void setNews(News news) {
-		this.news = news;
-	}
-
-	public String getHelpCode() {
-		return helpCode;
-	}
-
-	public void setHelpCode(String helpCode) {
-		this.helpCode = helpCode;
-	}
-
-	public NewsService getNewsService() {
+	@Override
+	public NewsService getService() {
 		return newsService;
 	}
 
-	public void setNewsService(NewsService newsService) {
-		this.newsService = newsService;
+	@ModelAttribute("newsCatalogs")
+	public List<Catalog> getNewsCatalogs(){
+		return SystemManager.newCatalogs;
 	}
-
-	@Override
-	public News getE() {
-		return this.e;
-	}
-
-	@Override
-	public void prepare() throws Exception {
-		if (this.e == null) {
-			this.e = new News();
-		}
-	}
-
-	@Override
-	public void insertAfter(News e) {
-	}
-
-	@Override
-	protected void selectListAfter() {
-		pager.setPagerUrl("news!selectList.action");
+	@RequestMapping("news/list")
+	public String newsList(ModelMap model, News e) throws Exception{
+		PagerModel pager = selectPageList(getService(), e);
+		pager.setPagerUrl("list");
+		model.addAttribute("pager", pager);
+		return "newsList";
 	}
 
 	/**
 	 * 获取新闻详情
 	 * @return
 	 */
-	public String newsInfo() throws Exception{
-		
-		super.setSelectMenu(FrontContainer.not_select_menu);//设置主菜单为不选中
-		
-		String id = getRequest().getParameter("id");
+	@RequestMapping("/news/{id}")
+	public String newsInfo(@PathVariable("id")String id, ModelMap model) throws Exception{
 		logger.error("NewsAction.newsInfo=== id="+id);
 		if(StringUtils.isBlank(id)){
 			throw new NullPointerException("id is null");
@@ -84,17 +62,15 @@ public class NewsAction extends BaseAction<News> {
 		
 //		e = newsService.selectById(id);
 		
-		News newsParam = new News();
-		newsParam.setId(id);
-		e =newsService.selectSimpleOne(newsParam);
-		if(e==null){
+		News news =newsService.selectById(id);
+		if(news==null){
 			throw new NullPointerException();
 		}
 		
-		String url = "/jsp/notices/"+e.getId()+".jsp";
+		String url = "/jsp/notices/"+news.getId()+".jsp";
 		logger.error("url = " + url);
-		getRequest().setAttribute("newsInfoUrl",url);
-		
+		model.addAttribute("newsInfoUrl", url);
+		model.addAttribute("news", news);
 		return "newsInfo";
 	}
 	
@@ -102,27 +78,26 @@ public class NewsAction extends BaseAction<News> {
 	 * 帮助中心
 	 * @return
 	 */
-	public String help() throws Exception {
+	@RequestMapping("help/{helpCode}")
+	public String help(@ModelAttribute("helpCode") @PathVariable("helpCode")String helpCode, ModelMap model) throws Exception {
 		
-		super.setSelectMenu(FrontContainer.not_select_menu);//设置主菜单为不选中
-		
-		logger.error("this.helpCode="+this.helpCode);
-		if(StringUtils.isBlank(this.helpCode)){
+		logger.error("this.helpCode="+helpCode);
+		if(StringUtils.isBlank(helpCode)){
 			throw new NullPointerException("helpCode参数不能为空");
-		}else if(this.helpCode.equals("index")){
+		}else if(helpCode.equals("index")){
 			return "help";
 		}else{
 			News newsParam = new News();
 			newsParam.setCode(helpCode);
-			news = newsService.selectSimpleOne(newsParam);
+			News news = newsService.selectSimpleOne(newsParam);
 			if(news==null){
 				throw new NullPointerException("根据code查询不到文章！");
 			}
 			
 			String url = "/jsp/helps/"+news.getId()+".jsp";
 			logger.error("url = " + url);
-			getRequest().setAttribute("newsInfoUrl",url);
-			
+			model.addAttribute("newsInfoUrl", url);
+			model.addAttribute("news", news);
 			return "help";
 		}
 	}

@@ -28,7 +28,7 @@
 		
 		<div class="row">
 			<div class="col-xs-3">
-				<%@ include file="/helpCatalog2.jsp"%>
+				<%@ include file="/helpCatalog.jsp"%>
 			</div>
 			<s:if test="helpCode.equals(\"index\")">
 				<div class="col-xs-9">

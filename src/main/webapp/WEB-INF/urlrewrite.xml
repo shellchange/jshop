@@ -2,17 +2,17 @@
 <!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 3.1//EN"
         "http://tuckey.org/res/dtds/urlrewrite3.1.dtd">
 <urlrewrite>
-	<rule> <from>/activity/([a-zA-Z]+).html</from> <to last="true">/activity/$1.jsp</to> </rule>
+	<rule> <from>/activity/([a-zA-Z]+).html</from> <to last="true">/activity/$1</to> </rule>
 	<!-- 产品详细信息 -->
 	<rule>
 		<from>/product/([0-9]+).html</from>
-		<to last="true">/product!product?e.id=$1</to>
+		<to last="true">/product/$1</to>
 	</rule>
 	
 	<!--请求prouct中的方法，注意：要和请求商品明细区别开来-->
 	<rule>
 		<from>/product/([a-zA-Z]+).html</from>
-		<to last="true">/product!$1.action</to>
+		<to last="true">/product/$1</to>
 	</rule>
 	
 	<!-- 购物车操作 -->
