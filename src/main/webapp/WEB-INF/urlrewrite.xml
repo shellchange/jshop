@@ -17,7 +17,7 @@
     <!-- 购物车操作 -->
     <rule>
         <from>/cart/([a-zA-Z0-9]+).html</from>
-        <to last="true">/cart!$1.action</to>
+        <to last="true">/cart/$1</to>
     </rule>
 
     <!-- 问卷调查 -->
@@ -28,14 +28,14 @@
 
     <!-- 会员中心 -->
     <rule>
-        <from>/user/([a-zA-Z0-9]+).html</from>
-        <to last="true">/account!$1.action</to>
+        <from>/account/([a-zA-Z0-9]+).html</from>
+        <to last="true">/account/$1</to>
     </rule>
 
     <!-- 订单管理 -->
     <rule>
         <from>/order/([a-zA-Z0-9]+).html</from>
-        <to last="true">/orders!$1.action</to>
+        <to last="true">/order/$1</to>
     </rule>
 
     <!-- 根据商品关键字，搜索商品 -->

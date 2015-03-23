@@ -24,8 +24,8 @@ import javax.servlet.http.HttpServletRequest;
 public abstract class FrontBaseController<E extends PagerModel> {
     protected Logger logger = LoggerFactory.getLogger(getClass());
     public abstract Services<E> getService();
-    protected static final String page_toLogin = "/account/login";
-    protected static final String page_toLoginRedirect = "redirect:/account/login";
+    protected static final String page_toLogin = "/account/login.html";
+    protected static final String page_toLoginRedirect = "redirect:/account/login.html";
 
     protected Account getLoginAccount(){
         return LoginUserHolder.getLoginAccount();

@@ -1,35 +1,14 @@
-<%@page import="net.jeeshop.core.util.TokenUtil"%>
-<%@page import="net.jeeshop.core.front.SystemManager"%>
-<%@page import="net.jeeshop.services.front.product.bean.Product"%>
-<%@page import="net.jeeshop.services.front.product.ProductService"%>
-<%@page import="org.springframework.web.context.support.WebApplicationContextUtils"%>
-<%@page import="org.springframework.web.context.WebApplicationContext"%>
-<%@page import="com.opensymphony.xwork2.ActionContext"%>
-<%@page import="org.apache.commons.lang.StringUtils"%>
-<%@page import="java.util.*"%>
-<%@page import="net.jeeshop.services.front.news.bean.News"%>
-<%@page import="net.jeeshop.core.ManageContainer"%>
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
-<%@ taglib uri="http://jsptags.com/tags/navigation/pager" prefix="pg"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-<!DOCTYPE html>
-<html class="no-js">
-<head>
-<%@ include file="/resource/common_html_meat.jsp"%>
-<%@ include file="/resource/common_css.jsp"%>
+<#import "/resource/common_html_front.ftl" as html>
+<#import "/indexMenu.ftl" as menu>
+<@html.htmlBase>
 <style type="text/css">
 .totalPayMonery{
 	color: red;font-weight: bold;font-size:22px;
 }
 </style>
-</head>
-
-<body>
 <div id="wrap">
-	<%@ include file="indexMenu.jsp"%>
-	<s:form action="/order/pay.html" namespace="/" method="post" theme="simple" onsubmit="return submitOrder();">
+	<@menu.menu selectMenu=""/>
+	<form action="${basepath}/order/pay.html" method="post" theme="simple" onsubmit="return submitOrder();">
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12" style="font-size: 14px;font-weight: normal;">
@@ -62,49 +41,43 @@
 						</a>
 					</li>
 					<li class="list-group-item">
-						<s:if test="#session.myCart!=null and #session.myCart.productList.size!=0">
-						<s:if test="#session.myCart!=null and #session.myCart.addressList.size!=0">
+						<#if myCart?? && myCart.productList?? && myCart.productList?size gt 0>
+						<#if myCart?? && myCart.addressList?? && myCart.addressList?size gt 0>
 							<div class="row">
 								<div class="col-xs-12" style="line-height: 20px;" id="adressListDiv">
-<%-- 									defaultAddessID=<s:property escape="false" value="#session.myCart.defaultAddessID"/> --%>
-									<!-- 
+									<!--
 									<div class="alert alert-danger fade in">
 								        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 								        <strong>提示：</strong>请选择收货地址!
 								      </div>
 									 -->
-									<s:iterator value="#session.myCart.addressList">
-										<s:if test="id.equals(#session.myCart.defaultAddessID)">
+									<#list myCart.addressList as item>
+										<#if myCart.defaultAddessID?? && item.id == myCart.defaultAddessID>
 											<div address="address" class="col-xs-3 alert alert-info" style="border: 1px solid;text-align: left;margin-right: 10px;width: 200px;line-height: 20px;cursor: pointer;">
-<%-- 												id:<s:property value="id" escape="false"/><br> --%>
-												<s:property value="name" escape="false"/>,<s:property escape="false" value="phone"/>
-												<input type="radio" name="e.selectAddressID" checked="checked"  value="<s:property escape="false" value="id"/>"/>
+												${item.name!""},${item.phone!""}
+												<input type="radio" name="selectAddressID" checked="checked"  value="${item.id!""}"/>
 												<br>
-												<s:property escape="false" value="address"/><br>
+												${item.address!""}<br>
 											</div>
-										</s:if>
-										<s:else>
+										<#else>
 											<div address="address" class="col-xs-3 alert" style="border: 1px solid;text-align: left;margin-right: 10px;width: 200px;line-height: 20px;cursor: pointer;">
-<%-- 												id:<s:property value="id" escape="false"/><br> --%>
-												<s:property escape="false" value="name"/>,<s:property value="phone" escape="false"/>
-												<input type="radio" name="e.selectAddressID" value="<s:property escape="false" value="id"/>"/>
+												${item.name!""},${item.phone!""}
+												<input type="radio" name="selectAddressID" value="${item.id!""}"/>
 												<br>
-												<s:property value="address" escape="false"/><br>
+												${item.address!""}<br>
 											</div>
-										</s:else>
-									</s:iterator>
+										</#if>
+									</#list>
 								</div>
 							</div>
-						</s:if>
-						<s:else>
-			<%-- 				<div class="alert alert-danger">暂时还没有收获地址！<a href="<%=request.getContextPath() %>/user/address.html">设置</a></div> --%>
-							<s:if test="#session.user_info!=null">
+						<#else>
+							<#if currentAccount()??>
 								<div class="bs-callout bs-callout-danger author" style="text-align: left;font-size: 14px;margin: 2px 0px;">
-									暂时还没有收获地址！<a style="text-decoration: underline;" href="<%=request.getContextPath() %>/user/address.html">点此设置</a>
+									暂时还没有收获地址！<a style="text-decoration: underline;" href="${basepath}/user/address.html">点此设置</a>
 								</div>
-							</s:if>
-						</s:else>
-					</s:if>
+							</#if>
+						</#if>
+					</#if>
 					</li>
 					<li class="list-group-item">
 						<a href="#" data-toggle="tooltip" title="请选择配送方式！" id="expressTips">
@@ -120,16 +93,15 @@
 							        <strong>提示：</strong>请选择配送方式!
 							      </div>
 								 -->
-								<%application.setAttribute("expressMap", SystemManager.expressMap); %>
 								<table class="table table-bordered table-hover" id="expressTable">
-									<s:iterator value="#application.expressMap">
+									<#list expressList as item>
 										<tr style="cursor: pointer;">
 											<td width="400px">
-											<input type="radio" name="e.expressCode" value="<s:property escape="false" value="key" />" fee="<s:property escape="false" value="value.fee" />"/>
-											<s:property escape="false" value="value.name" /></td>
-											<td><s:property escape="false" value="value.fee" /></td>
+											<input type="radio" name="expressCode" value="${item.code!""}" fee="${item.fee!""}"/>
+											${item.name!""}</td>
+											<td>${item.fee!""}</td>
 										</tr>
-									</s:iterator>
+									</#list>
 								</table>
 							</div>
 						</div>
@@ -146,34 +118,33 @@
 			<!-- 							<th >优惠方式(元)</th> -->
 										<th >小计(元)</th>
 									</tr>
-									<s:iterator value="#session.myCart.productList">
+									<#list myCart.productList as item>
 										<tr>
-											<td style="display: none;">&nbsp;<s:property escape="false" value="id" /></td>
-											<td>&nbsp;<a target="_blank" href="<%=request.getContextPath() %>/product/<s:property escape="false" value="id" />.html"><s:property escape="false" value="name" /></a>
-												<a name="stockErrorTips" productid="<s:property escape="false" value="id" />" href="#" data-toggle="tooltip" title="" data-placement="right" data-original-title="商品库存不足20个，"></a>
-												<s:if test="exchangeScore!=0">
+											<td style="display: none;">&nbsp;${item.id!""}</td>
+											<td>&nbsp;<a target="_blank" href="${basepath}/product/${item.id!""}.html">${item.name!""}</a>
+												<a name="stockErrorTips" productid="${item.id!""}" href="#" data-toggle="tooltip" title="" data-placement="right" data-original-title="商品库存不足20个，"></a>
+												<#if item.exchangeScore!=0>
 													<p>
-														<span id="totalExchangeScoreSpan" class="label label-default">兑换积分:<s:property escape="false" value="exchangeScore" />
+														<span id="totalExchangeScoreSpan" class="label label-default">兑换积分:${item.exchangeScore!""}
 														</span>
 													</p>
-												</s:if>
+												</#if>
 											</td>
 											<td>
-												<s:if test="totalExchangeScore!=0">
+												<#if item.totalExchangeScore!=0>
 													<span style="text-decoration: line-through;">
-												</s:if>
-												<s:else>
+												<#else>
 													<span>
-												</s:else>
-													<s:property escape="false" value="nowPrice" />
+												</#if>
+													${item.nowPrice!""}
 												</span>
 											</td>
 											<td>
-												<s:property escape="false" value="buyCount" />												
+												${item.buyCount!""}
 											</td>
-											<td>&nbsp;<s:property escape="false" value="total0" /></td>
+											<td>&nbsp;${item.total0!""}</td>
 										</tr>
-									</s:iterator>
+									</#list>
 								</table>
 							</div>
 						</div>
@@ -183,22 +154,22 @@
 				<div class="panel-footer primary" align="right">
 					<div class="row">
 						<div class="col-xs-12">
-							<input id="productTotalMonery" type="hidden" value="<s:property escape="false" value="#session.myCart.amount"/>"/>		
-							合计：<span class="totalPayMonery" id="totalPayMonery"><s:property escape="false" value="#session.myCart.amount"/></span>
+							<input id="productTotalMonery" type="hidden" value="${myCart.amount!""}"/>
+							合计：<span class="totalPayMonery" id="totalPayMonery">${myCart.amount!""}</span>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-xs-12">
-							<s:if test="#session.myCart.totalExchangeScore!=0">
-								<h4>所需积分：<span style="color: red;font-weight: bold;" id="totalExchangeScore"><s:property escape="false" value="#session.myCart.totalExchangeScore"/></span>
+							<#if myCart.totalExchangeScore!=0>
+								<h4>所需积分：<span style="color: red;font-weight: bold;" id="totalExchangeScore">${myCart.totalExchangeScore!""}</span>
 								</h4>
-							</s:if>
+							</#if>
 						</div>
 					</div>
 							
 					<div class="row">
 						<div class="col-xs-6">
-							<input name="e.otherRequirement" class="form-control" placeholder="此处您可以输入您的附加要求，以便我们提供更好的服务。" size="50" maxlength="50"/>	
+							<input name="otherRequirement" class="form-control" placeholder="此处您可以输入您的附加要求，以便我们提供更好的服务。" size="50" maxlength="50"/>
 						</div>
 						<div class="col-xs-6">
 							<button type="submit" class="btn btn-success" value="提交订单" id="confirmOrderBtn" disabled="disabled">
@@ -210,11 +181,9 @@
 			</div>			
 			
 		</div>
-	</s:form>
+	</form>
 </div>
-<%@ include file="foot.jsp"%>
 
-<%-- <script type="text/javascript" src="<%=request.getContextPath() %>/resource/js/jquery-1.4.2.min.js"></script> --%>
 <script type="text/javascript">
 $(function() {
 	$("div[address=address]").click(function(){
@@ -274,5 +243,4 @@ function submitOrder(){
 }
 
 </script>
-</body>
-</html>
+</@html.htmlBase>

@@ -69,6 +69,9 @@
                 <entry key="keyValueParser">
                     <bean class="net.jeeshop.core.freemarker.fn.KeyValueGetter" />
                 </entry>
+                <entry key="shoppingCart">
+                    <bean class="net.jeeshop.core.freemarker.fn.ShoppingCartGetter" />
+                </entry>
             </map>
         </property>
     </bean>

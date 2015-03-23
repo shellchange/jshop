@@ -55,8 +55,8 @@ body{
 								</button>
 								<a class="btn btn-success btn-sm" href="${basepath}/cart/cart.html">
 									<span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;购物车
-									<#if myCart?? && myCart.productList?? && myCart.productList.size() gt 0>
-                                        <span class="badge badge-success">${session.myCart.productList.size()}</span>
+									<#if shoppingCart()?? && shoppingCart().productList?? && shoppingCart().productList?size gt 0>
+                                        <span class="badge badge-success">${shoppingCart().productList?size}</span>
 									</#if>
 								</a>
 							</span>

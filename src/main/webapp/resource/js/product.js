@@ -117,7 +117,7 @@ function checkStockFunc(){
 //通知购物车
 function notifyCart(_obj){
 	//var _url = "cart/notifyCart.html?currentBuyNumber="+_obj.val()+"&productID="+_obj.attr("pid")+"&date="+(new Date().getTime());
-	var _url = "cart/notifyCart.html?currentBuyNumber="+_obj.val()+"&productID="+_obj.attr("pid")+"&radom="+Math.random();
+	var _url = basepath +"/cart/notifyCart.html?currentBuyNumber="+_obj.val()+"&productID="+_obj.attr("pid")+"&radom="+Math.random();
 	console.log("_url="+_url);
 	$.ajax({
 	  type: 'POST',
@@ -200,7 +200,7 @@ function addToCart(){
 
 //最后一次检查库存
 function checkStockLastTime(){
-	var _url = "cart/checkStockLastTime.html?radom="+Math.random();
+	var _url = basepath+"/cart/checkStockLastTime?radom="+Math.random();
 	console.log("_url="+_url);
 	var result;
 	$.ajax({
