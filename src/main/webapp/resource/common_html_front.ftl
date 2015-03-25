@@ -80,9 +80,17 @@
     <#include "/resource/common_css.ftl"/>
 </head>
     <#if nobody>
+        <#if systemSetting().isopen=="false">
+        ${systemSetting().closeMsg!"系统关闭，请联系管理员"}
+            <#return />
+        </#if>
         <#nested />
     <#else >
     <body>
+        <#if systemSetting().isopen=="false">
+        ${systemSetting().closeMsg!"系统关闭，请联系管理员"}
+            <#return />
+        </#if>
         <#nested />
         <#include "/foot.ftl">
         <#include "/index_superSlide_js.ftl">

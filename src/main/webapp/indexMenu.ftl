@@ -1,7 +1,4 @@
 <#macro menu selectMenu="0">
-<#if systemSetting().isopen=="false">
-    ${systemSetting().closeMsg!"系统关闭，请联系管理员"}
-</#if>
 
 <style type="text/css">
 .centerImageCss{

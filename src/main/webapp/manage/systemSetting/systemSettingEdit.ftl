@@ -140,7 +140,7 @@ function changeStyle(){
 					<tr>
 						<td style="text-align: right;">是否开放网站</td>
 						<td style="text-align: left;">
-							<input type="checkbox" id="isopen" name="isopen" <#if e.isopen=="true">checked="checked"</#if> />
+							<input type="checkbox" id="isopen" name="isopen" value="true" <#if e.isopen=="true">checked="checked"</#if> />
 						</td>
 					</tr>
 					<tr>
