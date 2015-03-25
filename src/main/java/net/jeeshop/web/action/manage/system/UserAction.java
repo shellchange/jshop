@@ -275,7 +275,7 @@ public class UserAction extends BaseController<User> {
 			e.setUpdateAccount(user.getUsername());
 			getService().update(e);
 		}
-		return back(RequestHolder.getRequest(), e);
+		return "redirect:back";
 	}
 
     /**
@@ -437,13 +437,14 @@ public class UserAction extends BaseController<User> {
 	 * @return
 	 */
     @RequestMapping("show")
-	public String show(@ModelAttribute("e") User e, String account){
+	public String show(@ModelAttribute("e") User e, String account, ModelMap model){
 		if(StringUtils.isBlank(account)){
 			throw new NullPointerException("非法请求！");
 		}
 		
 		e.setUsername(account);
 		e = getService().selectOne(e);
+		model.addAttribute("e", e);
 		return page_show;
 	}
 

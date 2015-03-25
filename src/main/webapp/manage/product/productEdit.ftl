@@ -14,7 +14,7 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 		</div>
 	</div>
 	
-	<span id="pifeSpan" class="input-group-addon" style="display:none"><%=SystemManager.systemSetting.getImageRootPath()%></span>
+	<span id="pifeSpan" class="input-group-addon" style="display:none">${systemSetting().imageRootPath}</span>
 	<input type="hidden" value="${e.id!""}" id="productID"/>
 	<input type="hidden" value="${e.catalogID!""}" id="catalogID"/>
 
@@ -198,9 +198,9 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 							<tr>
 								<td style="text-align: right;" nowrap="nowrap">其他信息</td>
 								<td style="text-align: left;" colspan="3">
-									录入人：<a style="text-decoration: underline;" target="_blank" href="user!show?account=${e.createAccount!""}">${e.createAccount!""}</a>
+									录入人：<a style="text-decoration: underline;" target="_blank" href="${basepath}/manage/user/show?account=${e.createAccount!""}">${e.createAccount!""}</a>
 									录入时间：${e.createtime!""}<br>
-									最后修改人：<a style="text-decoration: underline;" target="_blank" href="user!show?account=${e.createAccount!""}">${e.updateAccount!""}</a>
+									最后修改人：<a style="text-decoration: underline;" target="_blank" href="${basepath}/manage/user/show?account=${e.updateAccount!""}">${e.updateAccount!""}</a>
 									最后修改时间：${e.updatetime!""}
 								</td>
 							</tr>
@@ -269,7 +269,7 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
                                     <select id="attrSelectIds" name="attrSelectIds">
                                         <option value="">--请选择--</option>
                                         <#list attr.attrList as item>
-                                            <option value="${item.id!""}" <#if attr.selectedID.toString()==item.id>selected="selected" </#if>>${item.name!""}</option>
+                                            <option value="${item.id!""}" <#if attr.selectedID==item.id?eval>selected="selected" </#if>>${item.name!""}</option>
                                         </#list>
                                     </select>
                                 </td>
@@ -309,10 +309,10 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
                         <#list e.specList as item>
 							<tr>
 								<th style="display: none;"><input type="hidden" value="${item.id!""}" name="specList[${item_index}].id"/></th>
-								<th><input type="text"  value="${e.specList[item_index].specSize!""}" name="specList[item_index].specSize"  class="search-query input-small"/></th>
-								<th><input type="text"  value="${e.specList[item_index].specColor!""}" name="specList[item_index].specColor"  class="search-query input-small"/></th>
-								<th><input type="text"  value="${e.specList[item_index].specStock!""}" name="specList[item_index].specStock"  class="search-query input-small"/></th>
-								<th><input type="text"  value="${e.specList[item_index].specPrice!""}" name="specList[item_index].specPrice"  class="search-query input-small"/></th>
+								<th><input type="text"  value="${e.specList[item_index].specSize!""}" name="specList[${item_index}].specSize"  class="search-query input-small"/></th>
+								<th><input type="text"  value="${e.specList[item_index].specColor!""}" name="specList[${item_index}].specColor"  class="search-query input-small"/></th>
+								<th><input type="text"  value="${e.specList[item_index].specStock!""}" name="specList[${item_index}].specStock"  class="search-query input-small"/></th>
+								<th><input type="text"  value="${e.specList[item_index].specPrice!""}" name="specList[${item_index}].specPrice"  class="search-query input-small"/></th>
 								<th>
                                     <#assign map = {'n':'不显示','y':'显示'}>
                                     <select id="e_spec_specStatus" name="specList[${item_index}].specStatus" class="search-query input-medium">
@@ -324,9 +324,9 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 							</tr>
                         </#list>
 					<#else>
-                        <#list [1..5] as item>
+                        <#list [1,2] as item>
 							<tr>
-								<th style="display: none;"><input type="hidden" value="${e.id!""}" name="id"/></th>
+								<th style="display: none;"><input type="hidden" value="${e.id!""}" name="specList[${item_index}].id"/></th>
 								<th><input type="text" name="specList[${item_index}].specColor"  class="search-query input-small"/></th>
 								<th><input type="text" name="specList[${item_index}].specSize"  class="search-query input-small"/></th>
 								<th><input type="text" name="specList[${item_index}].specStock"  class="search-query input-small"/></th>
@@ -348,9 +348,9 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 			<div id="tabs-7">
 				商品赠品:
                     <select name="giftID">
+                        <option></option>
                         <#if giftList??>
                             <#list giftList as item>
-                                <option></option>
                                 <option value="${item.id}">${item.giftName!""}</option>
                             </#list>
                         </#if>

@@ -23,7 +23,7 @@
                     <#assign map = {"0":'',"1":'新增',"2":'已上架',"3":'已下架'}>
                     <select id="status" name="status" class="input-medium">
                         <#list map?keys as key>
-                            <option value="${key}" <#if e.status?? && e.status.toString()==key>selected="selected" </#if>>${map[key]}</option>
+                            <option value="${key}" <#if e.status?? && e.status==key?eval>selected="selected" </#if>>${map[key]}</option>
                         </#list>
 				</td>
 				<td style="text-align: right;">
@@ -144,7 +144,7 @@
 						<#if item.giftID??>
 							【赠品】
 						</#if>
-						<a class="product-name" title="${item.name}" href="toEdit?=${item.id}">${item.name!""}</a>
+						<a class="product-name" title="${item.name}" href="toEdit?id=${item.id}">${item.name!""}</a>
 					</td>
 					<td>&nbsp;${item.price!""}</td>
 					<td>&nbsp;${item.nowPrice!""}</td>
