@@ -1,23 +1,5 @@
-<%@page import="net.jeeshop.core.FrontContainer"%>
-<%@page import="net.jeeshop.services.front.order.bean.Order"%>
-<%@page import="net.jeeshop.services.front.order.OrderService"%>
-<%@page import="org.springframework.web.context.support.WebApplicationContextUtils"%>
-<%@page import="org.springframework.web.context.WebApplicationContext"%>
-<%@page import="org.slf4j.*"%>
-<%@page import="net.jeeshop.core.pay.alipay.alipayescow.util.AlipayNotify"%>
 
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@page import="com.opensymphony.xwork2.ActionContext"%>
-<%@page import="org.apache.commons.lang.StringUtils"%>
-<%@page import="java.util.*"%>
-<%@page import="net.jeeshop.services.front.news.bean.News"%>
-<%@page import="net.jeeshop.core.ManageContainer"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
-<%@ taglib uri="http://jsptags.com/tags/navigation/pager" prefix="pg"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-<%
-	/* *
+<#--	/* *
  功能：支付宝页面跳转同步通知页面
  版本：3.2
  日期：2011-03-17
@@ -31,22 +13,11 @@
  TRADE_FINISHED(表示交易已经成功结束，并不能再对该交易做后续操作);
  TRADE_SUCCESS(表示交易已经成功结束，可以对该交易做后续操作，如：分润、退款等);
  //********************************
- * */
-%>
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.util.*"%>
-<%@ page import="java.util.Map"%>
-<!DOCTYPE html>
-<html class="no-js">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>支付宝页面跳转同步通知页面</title>
-	<%@ include file="/resource/common_html_meat.jsp"%>
-<%@ include file="/resource/common_css.jsp"%>
- </head>
- <body>
-		<%@ include file="/indexMenu.jsp"%>
+ * */-->
+<#import "/resource/common_html_front.ftl" as html>
+<#import "/indexMenu.ftl" as menu>
+<@html.htmlBase title="支付宝页面跳转同步通知页面">
+	<@menu.menu selectMenu=""/>
 		
 		<div class="container">
 			<div class="row">
@@ -101,7 +72,4 @@
 				</div>
 			</div>
 		</div>
-	
-		<%@ include file="/foot.jsp"%>
-  </body>
-</html>
+	</@html.htmlBase>

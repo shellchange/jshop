@@ -1,19 +1,7 @@
-<%@page import="net.jeeshop.core.util.TokenUtil"%>
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
-<%@ page session="false"%>
-<%@ taglib uri="http://jsptags.com/tags/navigation/pager" prefix="pg"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
-<html>
-<head>
-<%@ include file="/resource/common_html_meat.jsp"%>
-<%@ include file="/resource/common_css.jsp"%>
-</head>
-
-<body>
-	<%@ include file="/indexMenu.jsp"%>
-
+<#import "/resource/common_html_front.ftl" as html>
+<#import "/indexMenu.ftl" as menu>
+<@html.htmlBase>
+	<@menu.menu selectMenu=""/>
 	<div class="container">
 		<div class="row">
 	
@@ -46,25 +34,23 @@
 		                </h3>
 		              </div>
 		              <div class="panel-body">
-		              	<s:form role="form" name="form" id="form" cssClass="form-horizontal" action="/user/doForget.html" theme="simple">
-		              		<%String token = TokenUtil.getInstance().generateToken(request.getSession());%>
-						    <input type="hidden" value="<%=token%>" name="token"/>
+		              	<form role="form" name="form" method="post" id="form" class="form-horizontal" action="${basepath}/account/doForget.html" theme="simple">
 						  <div class="form-group">
 						    <label for="account" class="col-lg-2 control-label">账号</label>
 						    <div class="col-lg-6">
-							    <input  name="e.account" type="text" class="form-control" id="account" placeholder="请输入会员账号" 
-							    data-rule="账号:required;account;length[3~10];remote[user/checkAccountExist.html]"/>
+							    <input  name=".account" type="text" class="form-control" id="account" placeholder="请输入会员账号"
+							    data-rule="账号:required;account;length[3~10];remote[checkAccountExist.html]"/>
 						    </div>
 						  </div>
 						  
 						  <div class="form-group">
 						    <label for="vcode" class="col-lg-2 control-label">验证码</label>
 						    <div class="col-lg-2">
-							    <s:textfield name="e.vcode" type="text" cssClass="form-control" id="vcode" placeholder="验证码" 
-							    data-rule="验证码:required;vcode;remote[user/unique.html]" size="4" maxlength="4" />
+							    <input type="text" name=".vcode" type="text" class="form-control" id="vcode" placeholder="验证码"
+							    data-rule="验证码:required;vcode;remote[unique.html]" size="4" maxlength="4" />
 						    </div>
 						    <div class="col-lg-6" style="float: right;">
-						    	<img src="<%=SystemManager.systemSetting.getWww() %>/ValidateImage.do" id="codes2" 
+						    	<img src="${systemSetting().www}/ValidateImage.do" id="codes2"
 										onclick="javaScript:reloadImg2();" class="vcodeCss"></img>
 						    </div>
 						  </div>
@@ -76,21 +62,18 @@
 						      </button>
 						    </div>
 						  </div>
-						</s:form>
+						</form>
 		              </div>
 				</div>
 				<hr>
 			</div>
 		</div>
 	</div>
-	<%@ include file="/foot.jsp"%>
-	<%@ include file="/resource/common_html_validator.jsp"%>
 <script type="text/javascript">
 function reloadImg2() {
-	document.getElementById("codes2").src = "<%=SystemManager.systemSetting.getWww() %>/ValidateImage.do?" + "radom="
+	document.getElementById("codes2").src = "${systemSetting().www}/ValidateImage.do?random="
 			+ Math.random();
 	$("#vcode2").focus();
 }
 </script>
-</body>
-</html>
+</@html.htmlBase>

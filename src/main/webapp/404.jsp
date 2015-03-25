@@ -31,7 +31,7 @@
                 	
                    	<div id="da-error-pin"></div>
                     <div id="da-error-code">
-                    	404 <br></br><div style="font-size: 22px;">抱歉，页面不存在！</div>                    </div>
+                    	404 <br/><div style="font-size: 22px;">抱歉，页面不存在！</div>                    </div>
                 
                 	<h1 class="da-error-heading" style="display: none;">抱歉，您没有此权限！</h1>
                 </div>

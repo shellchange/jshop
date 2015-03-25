@@ -1,17 +1,7 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
-<%@ page session="false"%>
-<%@ taglib uri="http://jsptags.com/tags/navigation/pager" prefix="pg"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
-<html>
-<head>
-<%@ include file="/resource/common_html_meat.jsp"%>
-<%@ include file="/resource/common_css.jsp"%>
-</head>
-
-<body>
-	<%@ include file="/indexMenu.jsp"%>
+<#import "/resource/common_html_front.ftl" as html>
+<#import "/indexMenu.ftl" as menu>
+<@html.htmlBase>
+	<@menu.menu selectMenu=""/>
 
 		<div class="container">
 			<div class="row" style="margin-top: 10px;">
@@ -22,12 +12,10 @@
 							<span class="label label-default" style="font-size:100%;">
 								1.填写注册信息 
 							</span>
-<%-- 							&nbsp;<span class="glyphicon glyphicon-arrow-right"></span> --%>
 							&nbsp;<span class="glyphicon glyphicon-circle-arrow-right"></span>
 							<span class="label label-success" style="font-size:100%;">
 								2.邮箱验证 
 							</span>
-<%-- 							&nbsp;<span class="glyphicon glyphicon-arrow-right"></span> --%>
 							&nbsp;<span class="glyphicon glyphicon-circle-arrow-right"></span>
 							<span class="label label-default" style="font-size:100%;">
 								3.注册成功 
@@ -51,25 +39,16 @@
 								 	<dl>
 									  <dt>如果您长时间未收到邮件，您可以：</dt>
 									  <dd>1、登陆注册时填写的邮箱，检查是否被当成垃圾邮件处理了。</dd>
-									  <dd>2、您可以点击<span class="glyphicon glyphicon-share-alt"></span><a href="<%=SystemManager.systemSetting.getWww()%>/user/sendEmailAgain.html?uid=<%=request.getSession().getAttribute("uid").toString()%>">再次发送</a></dd>
-									  <dd>如果已上都不能解决您的问题，请联系<%=SystemManager.systemSetting.getSystemCode() %>管理员寻求帮助：
-									 	<%=SystemManager.systemSetting.getEmail() %></dd>
+									  <dd>2、您可以点击<span class="glyphicon glyphicon-share-alt"></span><a href="${systemSetting().www}/account/sendEmailAgain.html?uid=${uid!""}">再次发送</a></dd>
+									  <dd>如果已上都不能解决您的问题，请联系${systemSetting().systemCode!""}管理员寻求帮助：
+									 	${systemSetting().email!""}</dd>
 									</dl>
 								 </div>
 				              </div>
 			              </div>
 					</div>
 					<hr>
-					<%
-					//检查是否是从注册成功后的跳转,不是则直接报错,主要是禁止直接访问该页面.
-					//String checkEmail = request.getSession().getAttribute("checkEmail").toString();
-					//if(!checkEmail.equals("checkEmail")){
-						//throw new NullPointerException("error");
-					//}
-					%>
 				</div>
 			</div>
 		</div>
-	<%@ include file="/foot.jsp"%>
-</body>
-</html>
+</@html.htmlBase>

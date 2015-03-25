@@ -1,13 +1,6 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
-<%@ page session="false"%>
-<%@ taglib uri="http://jsptags.com/tags/navigation/pager" prefix="pg"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
-<html>
-<head>
-<%@ include file="/resource/common_html_meat.jsp"%>
-<%@ include file="/resource/common_css.jsp"%>
+<#import "/resource/common_html_front.ftl" as html>
+<#import "/indexMenu.ftl" as menu>
+<@html.htmlBase>
 <style>
 	#advert img{
 		max-width: 300px;
@@ -15,18 +8,11 @@
 		border:0px;
 	}
 </style>
-</head>
-
-<body>
-
-	<%request.getSession().setAttribute(FrontContainer.selectMenu,FrontContainer.not_select_menu); %>
-	<%@ include file="/indexMenu.jsp"%>
+	<@menu.menu selectMenu=""/>
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-4" style="background-color:#fff;border:0px;">
 				<div id="advert" style="text-align: right;">
-<%-- 					<%@ include file="/advert/advert_register_page.jsp"%> --%>
-
 					<div style="margin-top: 100px;text-align: right;font-weight: 600" >
 						<div class="panel panel-default">
 							<div class="panel-heading">也可以这样登陆：</div>
@@ -34,22 +20,22 @@
 						    
 						    
 						    <div>
-								<a href="<%=request.getContextPath() %>/user/qqLogin.html" title="使用QQ号登陆">
-			              		<img src="<%=SystemManager.systemSetting.getWww()%>/resource/images/qqLogin.png">
+								<a href="${basepath}/account/qqLogin.html" title="使用QQ号登陆">
+			              		<img src="${systemSetting().www}/resource/images/qqLogin.png">
 			              	</a>
 							</div>
 			              	<br>
 	              	
 			              	<div>
-				              	<a  href="<%=request.getContextPath() %>/user/sinawb.html" title="使用新浪微博账号登陆">
-				              		<img src="<%=SystemManager.systemSetting.getWww()%>/resource/images/sinawbLogin.png">
+				              	<a  href="${basepath}/account/sinawb.html" title="使用新浪微博账号登陆">
+				              		<img src="${systemSetting().www}/resource/images/sinawbLogin.png">
 				              	</a>
 			              	</div>
 			              	<br>
 	              	
 			              	<div>
-				              	<a href="alipayFastLogin.html" title="使用支付宝快捷登陆">
-									<img src="<%=SystemManager.systemSetting.getWww() %>/resource/images/alipay_fastlogin.jpg" alt="支付宝快捷登陆">
+				              	<a href="${basepath}/account/alipayFastLogin.html" title="使用支付宝快捷登陆">
+									<img src="${systemSetting().www}/resource/images/alipay_fastlogin.jpg" alt="支付宝快捷登陆">
 								</a>
 			              	</div>
 							<br>
@@ -77,27 +63,27 @@
 					</div>
 				</div>
 				<hr>
-				<s:form role="form" id="form" cssClass="form-horizontal" action="/user/doRegister.html" theme="simple" >   
+				<form role="form" id="form" method="post" class="form-horizontal" action="${basepath}/account/doRegister.html" theme="simple" >
 				  <div class="form-group">
 				    <label for="nickname" class="col-md-2 control-label">昵称</label>
 				    <div class="col-md-6">
-					    <input  name="e.nickname" type="text" class="form-control" id="nickname" placeholder="请输入昵称" 
-					    data-rule="昵称:required;nickname;length[2~10];remote[user/unique.html]" maxlength="100"/>
+					    <input  name="nickname" type="text" class="form-control" id="nickname" placeholder="请输入昵称"
+					    data-rule="昵称:required;nickname;length[2~10];remote[unique.html]" maxlength="100"/>
 				    </div>
 				  </div>
 				  
 				  <div class="form-group">
 				    <label for="account" class="col-md-2 control-label">账号</label>
 				    <div class="col-md-6">
-					    <input  name="e.account" type="text" class="form-control" id="account" placeholder="请输入账号" 
-					    data-rule="账号:required;account;length[3~10];remote[user/unique.html]" maxlength="100" />
+					    <input  name="account" type="text" class="form-control" id="account" placeholder="请输入账号"
+					    data-rule="账号:required;account;length[3~10];remote[unique.html]" maxlength="100" />
 				    </div>
 				  </div>
 				  
 				  <div class="form-group">
 				    <label for="password" class="col-md-2 control-label">密码</label>
 				    <div class="col-md-6">
-					    <input  name="e.password" type="password" class="form-control" id="password" placeholder="请输入密码" 
+					    <input  name="password" type="password" class="form-control" id="password" placeholder="请输入密码"
 					    maxlength="100" data-rule="密码:required;password"/>
 				    </div>
 				  </div>
@@ -105,27 +91,27 @@
 				  <div class="form-group">
 				    <label for="password" class="col-md-2 control-label">确认密码</label>
 				    <div class="col-md-6">
-					    <input  name="e.password2" type="password" class="form-control" id="password2" placeholder="请输入确认密码" 
-					    maxlength="100" data-rule="确认密码:required;match(e.password)"/>
+					    <input  name="password2" type="password" class="form-control" id="password2" placeholder="请输入确认密码"
+					    maxlength="100" data-rule="确认密码:required;match(password)"/>
 				    </div>
 				  </div>
 				  
 				  <div class="form-group">
 				    <label for="email" class="col-md-2 control-label">邮箱</label>
 				    <div class="col-md-6">
-					    <input  name="e.email" type="text" class="form-control" id="email" maxlength="45" 
-					    data-rule="邮箱:required;email;length[1~45];remote[user/unique.html]" placeholder="请输入邮箱，找回密码用的" />
+					    <input  name="email" type="text" class="form-control" id="email" maxlength="45"
+					    data-rule="邮箱:required;email;length[1~45];remote[unique.html]" placeholder="请输入邮箱，找回密码用的" />
 				    </div>
 				  </div>
 				  
 				  <div class="form-group">
 				    <label for="vcode" class="col-md-2 control-label">验证码</label>
 				    <div class="col-md-2">
-					    <s:textfield name="e.vcode" type="text" cssClass="form-control" id="vcode" placeholder="验证码" 
-					    data-rule="验证码:required;vcode;remote[user/unique.html]" size="4" maxlength="4" />
+					    <input type="text" name="vcode" type="text" class="form-control" id="vcode" placeholder="验证码"
+					    data-rule="验证码:required;vcode;remote[unique.html]" size="4" maxlength="4" />
 				    </div>
 				    <div class="col-md-6" style="float: right;">
-				    	<img src="<%=SystemManager.systemSetting.getWww() %>/ValidateImage.do" id="codes2" 
+				    	<img src="${systemSetting().www}/ValidateImage.do" id="codes2"
 								onclick="javaScript:reloadImg2();" class="vcodeCss"></img>
 				    </div>
 				  </div>
@@ -141,22 +127,19 @@
 				  <div class="form-group">
 				    <label for="email" class="col-md-2 control-label">注册协议</label>
 				    <div class="col-md-6">
-				    	<a target="_blank" class="form-control" href="<%=SystemManager.systemSetting.getWww() %>/help/zcxy.html">《myshop用户注册协议》</a>
+				    	<a target="_blank" class="form-control" href="${systemSetting().www}/help/zcxy.html">《myshop用户注册协议》</a>
 				    </div>
 				  </div>
 				  
-				</s:form>
+				</form>
 			</div>
 			</div>
 		</div>
-<%@ include file="/foot.jsp"%>
-<%@ include file="/resource/common_html_validator.jsp"%>
 <script type="text/javascript">
 function reloadImg2() {
-	document.getElementById("codes2").src = "<%=SystemManager.systemSetting.getWww() %>/ValidateImage.do?" + "radom="
+	document.getElementById("codes2").src = "${systemSetting().www}/ValidateImage.do?" + "radom="
 			+ Math.random();
 	$("#vcode2").focus();
 }
 </script>
-</body>
-</html>
+</@html.htmlBase>

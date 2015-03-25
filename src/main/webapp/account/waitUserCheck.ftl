@@ -1,17 +1,7 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
-<%@ page session="false"%>
-<%@ taglib uri="http://jsptags.com/tags/navigation/pager" prefix="pg"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
-<html>
-<head>
-<%@ include file="/resource/common_html_meat.jsp"%>
-<%@ include file="/resource/common_css.jsp"%>
-</head>
-
-<body>
-	<%@ include file="/indexMenu.jsp"%>
+<#import "/resource/common_html_front.ftl" as html>
+<#import "/indexMenu.ftl" as menu>
+<@html.htmlBase>
+	<@menu.menu selectMenu=""/>
 
 	<div class="container">
 		<div class="row">
@@ -53,7 +43,4 @@
 			</div>
 		</div>
 	</div>
-	<%@ include file="/foot.jsp"%>
-	<%@ include file="/resource/common_html_validator.jsp"%>
-</body>
-</html>
+</@html.htmlBase>
