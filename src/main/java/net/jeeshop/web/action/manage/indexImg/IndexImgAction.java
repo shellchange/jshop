@@ -4,26 +4,20 @@
  */
 package net.jeeshop.web.action.manage.indexImg;
 
-import java.io.File;
-import java.io.IOException;
-
-import net.jeeshop.core.BaseAction;
 import net.jeeshop.core.Services;
 import net.jeeshop.core.dao.page.PagerModel;
 import net.jeeshop.services.manage.indexImg.IndexImgService;
 import net.jeeshop.services.manage.indexImg.bean.IndexImg;
-
 import net.jeeshop.web.action.BaseController;
-import org.apache.commons.io.FileUtils;
-import org.apache.struts2.ServletActionContext;
-
-import com.opensymphony.xwork2.ActionContext;
+import net.jeeshop.web.util.RequestHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * 滚动图片
@@ -69,7 +63,7 @@ public class IndexImgAction extends BaseController<IndexImg> {
 			return;
 		}
 		String imageName = String.valueOf(System.currentTimeMillis()) + ".jpg";
-		String realpath = ServletActionContext.getServletContext().getRealPath("/indexImg/");
+		String realpath = RequestHolder.getSession().getServletContext().getRealPath("/indexImg/");
 		// D:\apache-tomcat-6.0.18\webapps\struts2_upload\images
 		logger.info("realpath: " + realpath);
 		if (image != null) {
@@ -79,7 +73,7 @@ public class IndexImgAction extends BaseController<IndexImg> {
 			}
 			image.transferTo(savefile);
 //			FileUtils.copyFile(image, savefile);
-			ActionContext.getContext().put("message", "文件上传成功");
+//			ActionContext.getContext().put("message", "文件上传成功");
 		}
 //		SystemInfo sInfo = SystemSingle.getInstance().getSystemInfo();
 //		String url = sInfo.getWww_ip() + "/file/img/" + imageName;

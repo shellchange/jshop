@@ -4,13 +4,8 @@
  */
 package net.jeeshop.web.action.front.freemarker;
 
-import java.io.IOException;
-
-import net.jeeshop.core.BaseAction;
 import net.jeeshop.core.Services;
 import net.jeeshop.core.freemarker.front.FreemarkerHelper;
-import net.jeeshop.services.front.account.bean.Account;
-
 import net.jeeshop.web.action.front.FrontBaseController;
 import net.jeeshop.web.util.RequestHolder;
 import org.apache.commons.lang.StringUtils;
@@ -18,6 +13,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.io.IOException;
 
 
 /**

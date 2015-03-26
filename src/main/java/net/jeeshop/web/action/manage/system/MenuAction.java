@@ -1,32 +1,17 @@
 package net.jeeshop.web.action.manage.system;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-
+import net.jeeshop.core.ManageContainer;
+import net.jeeshop.core.Services;
 import net.jeeshop.core.dao.page.PagerModel;
+import net.jeeshop.core.system.bean.*;
+import net.jeeshop.services.manage.system.impl.MenuService;
+import net.jeeshop.services.manage.system.impl.PrivilegeService;
 import net.jeeshop.web.action.BaseController;
 import net.jeeshop.web.util.LoginUserHolder;
 import net.jeeshop.web.util.RequestHolder;
-import org.omg.CORBA.Request;
+import net.sf.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.jeeshop.core.BaseAction;
-import net.jeeshop.core.ManageContainer;
-import net.jeeshop.core.Services;
-import net.jeeshop.core.system.bean.Menu;
-import net.jeeshop.core.system.bean.MenuItem;
-import net.jeeshop.core.system.bean.MenuType;
-import net.jeeshop.core.system.bean.Privilege;
-import net.jeeshop.core.system.bean.User;
-import net.jeeshop.services.manage.system.impl.MenuService;
-import net.jeeshop.services.manage.system.impl.PrivilegeService;
-import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -37,6 +22,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.*;
 
 
 /**

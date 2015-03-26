@@ -1,33 +1,24 @@
 package net.jeeshop.core.freemarker.front;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
-import javax.servlet.ServletContext;
-
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
 import net.jeeshop.services.front.news.NewsService;
 import net.jeeshop.services.front.news.bean.News;
 import net.jeeshop.services.front.product.ProductService;
 import net.jeeshop.services.front.product.bean.Product;
-
+import net.jeeshop.web.util.RequestHolder;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.apache.struts2.ServletActionContext;
-
-
-import freemarker.template.Configuration;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import javax.servlet.ServletContext;
+import java.io.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * 生成模板的帮助类
@@ -165,8 +156,8 @@ public class FreemarkerHelper {
 			
 			data.clear();
 			data.put("e", news);
-			String templateHtml = ServletActionContext.getServletContext().getRealPath("/")+"/jsp/helps/"+news.getId()+".jsp";
-			crateHTML(ServletActionContext.getServletContext(), data, template_newsInfo,templateHtml);
+			String templateHtml = RequestHolder.getSession().getServletContext().getRealPath("/")+"/jsp/helps/"+news.getId()+".jsp";
+			crateHTML(RequestHolder.getSession().getServletContext(), data, template_newsInfo,templateHtml);
 			logger.error("生成html页面成功！id="+news.getId());
 		}
 	}
@@ -194,8 +185,8 @@ public class FreemarkerHelper {
 			
 			data.clear();
 			data.put("e", news);
-			String templateHtml = ServletActionContext.getServletContext().getRealPath("/")+"/jsp/notices/"+news.getId()+".jsp";
-			crateHTML(ServletActionContext.getServletContext(), data, template_newsInfo,templateHtml);
+			String templateHtml = RequestHolder.getSession().getServletContext().getRealPath("/")+"/jsp/notices/"+news.getId()+".jsp";
+			crateHTML(RequestHolder.getSession().getServletContext(), data, template_newsInfo,templateHtml);
 			logger.error("生成html页面成功！id="+news.getId());
 		}
 	}
@@ -222,9 +213,9 @@ public class FreemarkerHelper {
 			
 			data.clear();
 			data.put("e", p);
-			String templateHtml = ServletActionContext.getServletContext().getRealPath("/")+"/jsp/product/"+p.getId()+".jsp";
+			String templateHtml = RequestHolder.getSession().getServletContext().getRealPath("/")+"/jsp/product/"+p.getId()+".jsp";
 			try {
-				crateHTML(ServletActionContext.getServletContext(), data, template_product,templateHtml);
+				crateHTML(RequestHolder.getSession().getServletContext(), data, template_product,templateHtml);
 			} catch (Exception e) {
 				e.printStackTrace();
 				logger.error("生成html页面失败！id="+p.getId());
@@ -257,8 +248,8 @@ public class FreemarkerHelper {
 		HashMap<String, Object> data = new HashMap<String, Object>();
 		data.clear();
 		data.put("e", p);
-		String templateHtml = ServletActionContext.getServletContext().getRealPath("/")+"/jsp/product/"+p.getId()+".jsp";
-		crateHTML(ServletActionContext.getServletContext(), data, template_product,templateHtml);
+		String templateHtml = RequestHolder.getSession().getServletContext().getRealPath("/")+"/jsp/product/"+p.getId()+".jsp";
+		crateHTML(RequestHolder.getSession().getServletContext(), data, template_product,templateHtml);
 		logger.error("生成html页面成功！id="+p.getId());
 		
 		return "success";
@@ -287,11 +278,11 @@ public class FreemarkerHelper {
 		String templateHtml = null;
 		
 		if(news.getType().equals(News.news_type_help)){
-			templateHtml = ServletActionContext.getServletContext().getRealPath("/")+"/jsp/helps/"+news.getId()+".jsp";
+			templateHtml = RequestHolder.getSession().getServletContext().getRealPath("/")+"/jsp/helps/"+news.getId()+".jsp";
 		}else if(news.getType().equals(News.news_type_notice)){
-			templateHtml = ServletActionContext.getServletContext().getRealPath("/")+"/jsp/notices/"+news.getId()+".jsp";
+			templateHtml = RequestHolder.getSession().getServletContext().getRealPath("/")+"/jsp/notices/"+news.getId()+".jsp";
 		}
-		crateHTML(ServletActionContext.getServletContext(), data, template_newsInfo,templateHtml);
+		crateHTML(RequestHolder.getSession().getServletContext(), data, template_newsInfo,templateHtml);
 		logger.error("生成html页面成功！id="+news.getId());
 		
 		return "success";

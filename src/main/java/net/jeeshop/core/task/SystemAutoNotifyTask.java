@@ -1,26 +1,11 @@
 package net.jeeshop.core.task;
 
-import java.text.SimpleDateFormat;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import javax.servlet.http.HttpServletRequest;
-
 import net.jeeshop.core.front.SystemManager;
-import net.jeeshop.core.oscache.FrontCache;
-import net.jeeshop.core.util.MailUtil;
 import net.jeeshop.services.manage.emailNotifyProduct.EmailNotifyProductService;
-import net.jeeshop.services.manage.emailNotifyProduct.bean.EmailNotifyProduct;
-import net.jeeshop.services.manage.product.ProductService;
-import net.jeeshop.services.manage.product.bean.Product;
-
-import org.apache.struts2.ServletActionContext;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.opensymphony.xwork2.ActionContext;
+import java.text.SimpleDateFormat;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 系统自动到货通知定时器

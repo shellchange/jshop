@@ -1,14 +1,12 @@
 package net.jeeshop.core.freemarker.fn;
 
-import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.util.logging.Logger;
-import com.opensymphony.xwork2.util.logging.LoggerFactory;
 import freemarker.template.TemplateMethodModelEx;
 import freemarker.template.TemplateModelException;
-import net.jeeshop.core.ManageContainer;
 import net.jeeshop.core.PrivilegeUtil;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.struts2.ServletActionContext;
+import net.jeeshop.web.util.RequestHolder;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -30,7 +28,7 @@ public class PrivilegeChecker implements TemplateMethodModelEx {
         if(StringUtils.isBlank(res)){
             return true;
         }
-        HttpSession session = ServletActionContext.getRequest().getSession(false);
+        HttpSession session = RequestHolder.getSession();
         logger.info("check privilege ,res : {}, session id :{}", res, session == null ? null : session.getId());
         return PrivilegeUtil.check(session, res);
     }

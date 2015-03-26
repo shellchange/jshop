@@ -4,11 +4,6 @@
  */
 package net.jeeshop.web.action.manage.news;
 
-import java.io.IOException;
-import java.util.List;
-
-import net.jeeshop.core.BaseAction;
-import net.jeeshop.core.ManageContainer;
 import net.jeeshop.core.dao.page.PagerModel;
 import net.jeeshop.core.front.SystemManager;
 import net.jeeshop.core.system.bean.User;
@@ -16,7 +11,6 @@ import net.jeeshop.services.manage.catalog.CatalogService;
 import net.jeeshop.services.manage.indexImg.IndexImgService;
 import net.jeeshop.services.manage.news.NewsService;
 import net.jeeshop.services.manage.news.bean.News;
-
 import net.jeeshop.web.action.BaseController;
 import net.jeeshop.web.util.LoginUserHolder;
 import net.jeeshop.web.util.RequestHolder;
@@ -31,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.util.List;
 
 
 /**
