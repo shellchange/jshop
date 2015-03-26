@@ -7,11 +7,17 @@ package net.jeeshop.web.action.front.freemarker;
 import java.io.IOException;
 
 import net.jeeshop.core.BaseAction;
+import net.jeeshop.core.Services;
 import net.jeeshop.core.freemarker.front.FreemarkerHelper;
 import net.jeeshop.services.front.account.bean.Account;
 
+import net.jeeshop.web.action.front.FrontBaseController;
+import net.jeeshop.web.util.RequestHolder;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 /**
@@ -20,9 +26,11 @@ import org.apache.log4j.Logger;
  * @author li
  * 
  */
-public class FreemarkerAction extends BaseAction<Account> {
+@RequestMapping("freemarker")
+public class FreemarkerAction extends FrontBaseController {
 	private static final Logger logger = Logger.getLogger(FreemarkerAction.class);
 	private static final long serialVersionUID = 1L;
+	@Autowired
 	private FreemarkerHelper freemarkerHelper;
 
 	public FreemarkerHelper getFreemarkerHelper() {
@@ -33,40 +41,16 @@ public class FreemarkerAction extends BaseAction<Account> {
 		this.freemarkerHelper = freemarkerHelper;
 	}
 
-	private String error;// 错误消息
-
-	public String getError() {
-		return error;
-	}
-
-	public void setError(String error) {
-		this.error = error;
-	}
-
 	@Override
-	public Account getE() {
-		return this.e;
+	public Services getService() {
+		return null;
 	}
 
-	@Override
-	public void prepare() throws Exception {
-		if (this.e == null) {
-			this.e = new Account();
-		}
-	}
-
+	@RequestMapping("toIndex")
 	public String toIndex() {
-		return SUCCESS;
+		return "manage/freemarker/freemarkerList";
 	}
 
-	@Override
-	public void insertAfter(Account e) {
-	}
-
-	@Override
-	protected void selectListAfter() {
-	}
-	
 	/**
 	 * 生成门户菜单
 	 * 
@@ -85,8 +69,10 @@ public class FreemarkerAction extends BaseAction<Account> {
 	 * @return
 	 * @throws Exception
 	 */
+	@RequestMapping("create")
+	@ResponseBody
 	public String create() throws Exception{
-		String method = getRequest().getParameter("method");
+		String method = RequestHolder.getRequest().getParameter("method");
 		logger.error("create method = " + method);
 		if(StringUtils.isBlank(method)){
 			
@@ -97,29 +83,23 @@ public class FreemarkerAction extends BaseAction<Account> {
 		}else if(method.equals("products")){
 			String error = freemarkerHelper.products();//所有商品描述静态化
 			if(error==null){
-				getResponse().getWriter().write("success");
+				return ("success");
 			}else{
-				getResponse().getWriter().write("部分商品静态化失败，商品ID："+error);
+				return ("部分商品静态化失败，商品ID："+error);
 			}
-			return null;
 		}else if(method.equals("staticProductByID")){
-			String id = getRequest().getParameter("id");
+			String id = RequestHolder.getRequest().getParameter("id");
 			
 			String response = freemarkerHelper.staticProductByID(id);//所有商品描述静态化
-			getResponse().setCharacterEncoding("utf-8");
-			getResponse().getWriter().write(response);
-			return null;
+			return (response);
 		}else if(method.equals("staticNewsByID")){
-			String id = getRequest().getParameter("id");
+			String id = RequestHolder.getRequest().getParameter("id");
 			
 			String response = freemarkerHelper.staticNewsByID(id);//所有商品描述静态化
-			getResponse().setCharacterEncoding("utf-8");
-			getResponse().getWriter().write(response);
-			return null;
+			return (response);
 		}
 		
-		getResponse().getWriter().write("success");
-		return null;
+		return ("success");
 //		return SUCCESS;
 	}
 	

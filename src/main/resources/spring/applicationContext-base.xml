@@ -10,4 +10,5 @@
 		<property name="sqlSessionFactory" ref="sessionFactory"/>
 	</bean>
     <bean id="cacheInitiator" class="net.jeeshop.core.oscache.CacheInitiator"/>
+    <bean id="freemarkerHelper" class="net.jeeshop.core.freemarker.front.FreemarkerHelper"/>
 </beans>

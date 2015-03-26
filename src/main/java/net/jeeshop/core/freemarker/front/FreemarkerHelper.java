@@ -26,6 +26,8 @@ import org.apache.struts2.ServletActionContext;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * 生成模板的帮助类
@@ -33,9 +35,12 @@ import freemarker.template.TemplateException;
  * @author huangfei
  * 
  */
+@Component
 public class FreemarkerHelper {
 	private static final Logger logger = Logger.getLogger(FreemarkerHelper.class);
+	@Autowired
 	private ProductService productService;
+	@Autowired
 	private NewsService newsService;
 	
 	/**
