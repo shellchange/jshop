@@ -6,6 +6,8 @@ import net.jeeshop.core.front.SystemManager;
 import net.jeeshop.core.oscache.ManageCache;
 
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * 后台缓存定时更新
@@ -13,9 +15,11 @@ import org.slf4j.LoggerFactory;
  * @author huangf
  * 
  */
+@Component
 public class ManageCacheTask implements Runnable {
 	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(ManageCacheTask.class);
 //	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	@Autowired
 	private ManageCache manageCache;
 
 	public void setManageCache(ManageCache manageCache) {

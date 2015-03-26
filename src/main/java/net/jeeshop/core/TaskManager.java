@@ -19,7 +19,8 @@ import org.apache.commons.lang.time.DateUtils;
 import org.slf4j.LoggerFactory;
 
 import com.aliyun.common.utils.DateUtil;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -28,6 +29,7 @@ import com.aliyun.common.utils.DateUtil;
  * @author huangf
  * 
  */
+@Component
 public class TaskManager {
 	private static final org.slf4j.Logger logger = LoggerFactory
 			.getLogger(TaskManager.class);
@@ -36,9 +38,11 @@ public class TaskManager {
 	private static final ExecutorService pool = Executors.newCachedThreadPool();
 	public static final Map<String, Task> taskPool = new HashMap<String, Task>();//任务池
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	
+	@Autowired
 	private CancelOrderTask cancelOrderTask;
+	@Autowired
 	private SystemAutoNotifyTask systemAutoNotifyTask;
+	@Autowired
 	private ManageCacheTask manageCacheTask;
 
 	public void setManageCacheTask(ManageCacheTask manageCacheTask) {

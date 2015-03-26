@@ -11,6 +11,8 @@ import net.jeeshop.services.manage.order.bean.Order;
 
 import org.apache.commons.lang.time.DateUtils;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -18,8 +20,10 @@ import org.slf4j.LoggerFactory;
  * @author huangf
  *
  */
+@Component
 public class CancelOrderTask implements Runnable{
 	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(CancelOrderTask.class);
+	@Autowired
 	private OrderService orderService;
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
