@@ -4,7 +4,7 @@
 <html>
 <head>
 <%@ include file="/resource/common_html_meat.jsp"%>
-<%@ include file="/manage/system/common.jsp"%>
+<%@ include file="/manage/common.jsp"%>
 <%@ include file="/resource/common_html_validator.jsp"%>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resource/jquery-jquery-ui/themes/base/jquery.ui.all.css">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resource/kindeditor-4.1.7/themes/default/default.css" />

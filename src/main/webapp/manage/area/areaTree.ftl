@@ -1,5 +1,5 @@
-<#import "/resource/common_html_meat.ftl" as html>
-<@html.htmlBase>
+<#import "/manage/tpl/pageBase.ftl" as page>
+<@page.pageBase currentMenu="区域管理">
 <form action="" name="form1" style="display: none;">
 	<input type="hidden" value="${id!""}" name="id" id="dfsfsf"></s:hidden>
 </form>
@@ -161,4 +161,4 @@ function loadMenusTree(){
 			$("#expandOrCollapseAllBtn").bind("click", {type:"expandOrCollapse"}, expandNode);
 		});
 </SCRIPT>
-</@html.htmlBase>
+</@page.pageBase>

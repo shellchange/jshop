@@ -1,5 +1,37 @@
-<#import "/resource/common_html_meat.ftl" as html>
-<@html.htmlBase>
+<#import "/manage/tpl/pageBase.ftl" as page>
+<@page.pageBase currentMenu="用户管理">
+<script>
+	$(function(){
+        $('#dataTables-example').dataTable({
+            responsive: true,
+            scrollY: 400,
+            searching: false,
+            "serverSide": true,
+            "processing": true,
+            "ajax": {
+				url:"loadData",
+				dataSrc:"list"
+            },
+            pagingType : "bootstrap",
+            serverParams:function(data){
+			$.extend(data, {"text":"text value"});
+			},
+			columns:[
+                {name:"ID", "orderable": false, title:'<input type="checkbox" name="firstCheckbox"/>', data:"id"},
+				{name:"username", title:"User Name", data:"username"},
+				{name:"nickname", title:"Nick Name", data:"nickname"},
+                {name:"createtime", title:"create Time", data:"createtime"},
+                {name:"role_name", title:"ROLE NAME", data:"role_name"},
+			],
+			columnDefs:[
+				{name:"ID",data:"id",targets:[0], render:function ( data, type, row, meta ) {
+            // 'sort', 'type' and undefined all just use the integer
+            return '<input type="checkbox" name="ids" value="'+data+'"/>';
+        }}
+			]
+        });
+	});
+</script>
 <form action="${basepath}/manage/user" method="post">
 	<table class="table table-bordered table-condensed">
 		<tr>
@@ -24,13 +56,15 @@
 				</#if>
 
 				<div style="float: right;vertical-align: middle;bottom: 0px;top: 10px;">
-                    <#include "/manage/system/pager.ftl"/>
+                    <#--<#include "/manage/system/pager.ftl"/>-->
 				</div>
 
 			</td>
 		</tr>
 	</table>
-	
+
+    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+    </table>
 	<table class="table table-bordered table-hover">
 		<thead>
 		<tr style="background-color: #dff0d8">
@@ -66,9 +100,9 @@
 			</tr>
         </#list>
 		<tr><td colspan="16" style="text-align:center;">
-        <#include "/manage/system/pager.ftl"/>
+        <#--<#include "/manage/system/pager.ftl"/>-->
         </td>
 		</tr>
 	</table>
 </form>
-</@html.htmlBase>
+</@page.pageBase>

@@ -1,5 +1,5 @@
-<#import "/resource/common_html_meat.ftl" as html>
-<@html.htmlBase>
+<#import "/manage/tpl/pageBase.ftl" as page>
+<@page.pageBase currentMenu="评论插件管理">
 <script type="text/javascript">
 	$(function() {
 		
@@ -80,4 +80,4 @@
 
 	</form>
 
-</@html.htmlBase>
+</@page.pageBase>

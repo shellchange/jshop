@@ -1,4 +1,4 @@
-<#import "/resource/common_html_meat.ftl" as html>
+<#import "/manage/tpl/htmlBase.ftl" as html>
 <@html.htmlBase>
 <div class="container">
 	<div class="row">

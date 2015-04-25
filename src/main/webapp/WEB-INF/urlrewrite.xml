@@ -93,7 +93,7 @@
     <!-- 此优先级是最低的,直接转发 -->
     <rule>
         <from>/([a-zA-Z]+).html</from>
-        <to last="true">$1.jsp</to>
+        <to last="true">/$1.jsp</to>
     </rule>
 
 </urlrewrite>

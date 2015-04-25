@@ -1,5 +1,5 @@
-<#import "/resource/common_html_meat.ftl" as html>
-<@html.htmlBase>
+<#import "/manage/tpl/pageBase.ftl" as page>
+<@page.pageBase currentMenu="商品促销">
 <style>
 	.dfsfdsfsf label{
 		display: inline;
@@ -197,4 +197,4 @@ function ceqweqeqwe(){
 	}
 }
 </script>
-</@html.htmlBase>
+</@page.pageBase>

@@ -1,5 +1,6 @@
-<#import "/resource/common_html_meat.ftl" as html />
-<@html.htmlBase nobody=true>
+<#--该页面废弃-->
+<#import "/manage/tpl/htmlBase.ftl" as html />
+<@html.htmlBase>
 <#--<%-->
 		<#--Map<String,Object> map = ActionContext.getContext().getSession();-->
 		<#--User u = (User)map.get(ManageContainer.manage_session_user_info);-->

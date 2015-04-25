@@ -1,5 +1,5 @@
-<#import "/resource/common_html_meat.ftl" as html>
-<@html.htmlBase>
+<#import "/manage/tpl/pageBase.ftl" as page>
+<@page.pageBase currentMenu="评论管理">
 	<form action="${basepath}/manage/comment" theme="simple" name="form" id="form">
 		<table id="result_table" class="table table-bordered" style="width: 95%;margin: auto;">
 			<tr style="background-color: #dff0d8">
@@ -73,4 +73,4 @@
 	});
 
 </script>
-</@html.htmlBase>
+</@page.pageBase>

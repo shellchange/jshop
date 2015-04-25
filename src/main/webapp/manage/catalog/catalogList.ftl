@@ -1,5 +1,5 @@
-<#import "/resource/common_html_meat.ftl" as html/>
-<@html.htmlBase>
+<#import "/manage/tpl/pageBase.ftl" as page/>
+<@page.pageBase currentMenu=(e.type=="p")?string("商品目录","文章分类")>
 <script type="text/javascript">
 	$(function() {
 		$("#treegrid").treegrid({"treeColumn":1});
@@ -129,5 +129,5 @@
 <link rel="stylesheet" type="text/css" href="${basepath}/resource/jquery-treegrid/css/jquery.treegrid.css">
 <#--<link rel="stylesheet" type="text/css" href="${basepath}/resource/jquery-easyui-1.3.4/demo/demo.css">-->
 <script type="text/javascript" src="${basepath}/resource/jquery-treegrid/jquery.treegrid.js"></script>
-<script type="text/javascript" src="${basepath}/resource/jquery-treegrid/jquery.treegrid.bootstrap2.js"></script>
-</@html.htmlBase>
+<script type="text/javascript" src="${basepath}/resource/jquery-treegrid/jquery.treegrid.bootstrap3.js"></script>
+</@page.pageBase>

@@ -1,4 +1,4 @@
-<#import "/resource/common_html_meat.ftl" as html/>
+<#import "/manage/tpl/htmlBase.ftl" as html/>
 <@html.htmlBase>
 	<form action="${basepath}/manage/freemarker" namespace="/manage" method="post" theme="simple">
 		<table class="table table-bordered">

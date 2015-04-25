@@ -1,6 +1,5 @@
 <%@page import="net.jeeshop.core.ManageContainer"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ page session="false"%>
 <%@ taglib uri="http://jsptags.com/tags/navigation/pager" prefix="pg"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -8,7 +7,7 @@
 <html>
 <head>
 <%@ include file="/resource/common_html_meat.jsp"%>
-<%@ include file="/manage/system/common.jsp"%>
+<%@ include file="/manage/common.jsp"%>
 </head>
 
 <body>

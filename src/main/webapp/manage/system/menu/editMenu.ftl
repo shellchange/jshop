@@ -1,5 +1,5 @@
-<#import "/resource/common_html_meat.ftl" as html/>
-<@html.htmlBase>
+<#import "/manage/tpl/pageBase.ftl" as page>
+<@page.pageBase currentMenu="资源管理">
 <div style="text-align: center; border: 0px solid #999;margin: auto;">
 	<div style="text-align: center; border: 0px solid #999;
 		margin: auto;margin-top: 150px;">
@@ -38,4 +38,4 @@
 		</form>
 	</div>
 </div>
-</@html.htmlBase>
+</@page.pageBase>

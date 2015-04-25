@@ -1,7 +1,7 @@
 package net.jeeshop.web.action.manage.system;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -12,9 +12,12 @@ import net.jeeshop.core.ManageContainer;
 import net.jeeshop.core.Services;
 import net.jeeshop.core.dao.page.PagerModel;
 import net.jeeshop.core.oscache.ManageCache;
+import net.jeeshop.core.system.bean.Menu;
+import net.jeeshop.core.system.bean.MenuItem;
 import net.jeeshop.core.system.bean.User;
 import net.jeeshop.core.util.AddressUtils;
 import net.jeeshop.core.util.MD5;
+import net.jeeshop.services.manage.system.impl.MenuService;
 import net.jeeshop.services.manage.system.impl.RoleService;
 import net.jeeshop.services.manage.system.impl.UserService;
 import net.jeeshop.services.manage.systemlog.SystemlogService;
@@ -44,15 +47,15 @@ public class UserAction extends BaseController<User> {
 
 	private static final long serialVersionUID = 1L;
 
-    private static final String page_input = "/manage/system/index";
-    private static final String page_home = "/manage/main";
+    private static final String page_input = "/manage/system/login";
+    private static final String page_home = "/manage/system/home";
     private static final String page_toList = "/manage/system/user/userList";
     private static final String page_toAdd = "/manage/system/user/editUser";
     private static final String page_toEdit = "/manage/system/user/editUser";
     private static final String page_toChangePwd = "/manage/system/user/toChangePwd";
     private static final String page_changePwd = "/manage/system/user/changePwd";
     private static final String page_show = "/manage/system/user/show";
-    private static final String page_initManageIndex = "/manage/system/right";
+    private static final String page_initManageIndex = page_home;
     public UserAction() {
         super.page_toEdit = page_toEdit;
         super.page_toList = page_toList;
@@ -62,6 +65,8 @@ public class UserAction extends BaseController<User> {
 	private UserService userService;
     @Autowired
 	private RoleService roleService;
+	@Autowired
+	private MenuService menuService;
     @Resource(name = "systemlogServiceManage")
 	private SystemlogService systemlogService;
     @Resource
@@ -108,6 +113,31 @@ public class UserAction extends BaseController<User> {
 //
 //		super.initPageSelect();
 //	}
+	@RequestMapping("loadData")
+	@ResponseBody
+	public PagerModel loadData(HttpServletRequest request, User e){
+		int offset = 0;
+		int pageSize = 10;
+		if (request.getParameter("start") != null) {
+			offset = Integer
+					.parseInt(request.getParameter("start"));
+		}
+		if (request.getParameter("length") != null) {
+			pageSize = Integer
+					.parseInt(request.getParameter("length"));
+		}
+		if (offset < 0)
+			offset = 0;
+		if(pageSize < 0){
+			pageSize = 10;
+		}
+		e.setOffset(offset);
+		e.setPageSize(pageSize);
+		PagerModel pager = userService.selectPageList(e);
+		pager.setRecordsTotal(pager.getTotal());
+		pager.setRecordsFiltered(pager.getTotal());
+		return pager;
+	}
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public String login(@ModelAttribute("e") User e){
         return page_input;
@@ -119,8 +149,8 @@ public class UserAction extends BaseController<User> {
 	 * @throws Exception
 	 */
     @RequestMapping(value = "login", method = RequestMethod.POST)
-	public String login(HttpSession session, @ModelAttribute("errorMsg") String errorMsg,@ModelAttribute("e") User e) throws Exception {
-
+	public String login(HttpSession session,@ModelAttribute("e") User e) throws Exception {
+		String errorMsg;
 		if (session.getAttribute(ManageContainer.manage_session_user_info) != null) {
 			return "redirect:/manage/user/home";
 		}
@@ -144,7 +174,6 @@ public class UserAction extends BaseController<User> {
 			return page_input;
 		}
 		u.setUsername(e.getUsername());
-		errorMsg = null;
 		e.clear();
 		session.setAttribute(ManageContainer.manage_session_user_info, u);
 		
@@ -163,7 +192,9 @@ public class UserAction extends BaseController<User> {
 				}
 			}
 		}
-		
+		//用户可访问的菜单写入session
+		Collection<MenuItem> userMenus = loadMenus(u);
+		session.setAttribute("userMenus", userMenus);
 		try {
 			loginLog(u,"login");
 		} catch (Exception ex) {
@@ -171,6 +202,53 @@ public class UserAction extends BaseController<User> {
 		}
 		
 		return "redirect:/manage/user/home";
+	}
+
+	private Collection<MenuItem> loadMenus(User u) {
+		/*
+		 * 首先，加载顶级目录或页面菜单
+		 */
+		Map<String, String> param = new HashMap<String, String>();
+		if (u != null && u.getRid() != null) {
+			param.put("rid", u.getRid());//角色ID
+		}
+//		param.put("pid", pid);//菜单父ID
+		List<Menu> menus = menuService.selectList(param);
+		//创建菜单集合
+		LinkedHashMap<String, MenuItem> root = new LinkedHashMap<String, MenuItem>();
+		//循环添加菜单到菜单集合
+		for (Menu menu : menus) {
+			MenuItem item = new MenuItem(menu.getName(), null);
+			item.setId(menu.getId());
+			item.setPid(menu.getPid());
+			item.setMenuType(menu);
+//			if(item.getType().equals(MenuType.page)){
+//				item.setIcon("http://127.0.0.1:8082/myshop/resource/images/letter.gif");
+//			}
+			item.setUrl(StringUtils.trimToEmpty(menu.getUrl()));
+			if(item.isRootMenu()) {
+				root.put(item.getId(), item);
+			}
+		}
+		for (Menu menu : menus) {
+			MenuItem item = new MenuItem(menu.getName(), null);
+			item.setId(menu.getId());
+			item.setPid(menu.getPid());
+			item.setMenuType(menu);
+//			if(item.getType().equals(MenuType.page)){
+//				item.setIcon("http://127.0.0.1:8082/myshop/resource/images/letter.gif");
+//			}
+			item.setUrl(StringUtils.trimToEmpty(menu.getUrl()));
+			if(!item.isRootMenu() && !item.isButton()) {
+				MenuItem parentItem = root.get(item.getPid());
+				if(parentItem != null) {
+					parentItem.addClild(item);
+				} else {
+					logger.warn("菜单项{}({})没有对应的父级菜单", item.getName(), item.getId());
+				}
+			}
+		}
+		return root.values();
 	}
     @RequestMapping("home")
     public String home(){
@@ -283,8 +361,8 @@ public class UserAction extends BaseController<User> {
      * @return
      * @throws Exception
      */
-    @RequestMapping("loginOut")
-	public String loginOut(@ModelAttribute("e") User e) throws Exception {
+    @RequestMapping("logout")
+	public String logout(@ModelAttribute("e") User e) throws Exception {
         HttpSession session = RequestHolder.getSession();
         if(session != null) {
             User u = LoginUserHolder.getLoginUser();

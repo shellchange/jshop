@@ -1,5 +1,6 @@
-<#import "/resource/common_html_meat.ftl" as html/>
+<#import "/manage/tpl/htmlBase.ftl" as html/>
 <@html.htmlBase>
+<body>
 	<SCRIPT type="text/javascript">
 		<!--
 		$(function(){
@@ -197,4 +198,5 @@
 	</table>
 </div></div>
 </form>
+</body>
 </@html.htmlBase>

@@ -1,5 +1,5 @@
-<#import "/resource/common_html_meat.ftl" as html>
-<@html.htmlBase>
+<#import "/manage/tpl/pageBase.ftl" as page>
+<@page.pageBase currentMenu=(e.pid==0)?string("商品属性","商品参数")>
 <script type="text/javascript">
 	$(function() {
 		$("#title").focus();
@@ -206,4 +206,4 @@
 		}
 	});
 </script>
-</@html.htmlBase>
+</@page.pageBase>

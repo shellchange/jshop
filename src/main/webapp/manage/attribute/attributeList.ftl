@@ -1,5 +1,5 @@
-<#import "/resource/common_html_meat.ftl" as html>
-<@html.htmlBase>
+<#import "/manage/tpl/pageBase.ftl" as page>
+<@page.pageBase currentMenu=(e.pid==0)?string("商品属性","商品参数")>
 	<form action="${basepath}/manage/attribute" method="post" theme="simple">
 				<input type="hidden" value="${e.pid!""}" name="pid" />
 				<table class="table table-bordered">
@@ -109,4 +109,4 @@
 		}
 	}
 </script>
-</@html.htmlBase>
+</@page.pageBase>

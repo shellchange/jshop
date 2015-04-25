@@ -4,6 +4,7 @@
  */
 package net.jeeshop.core.system.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import net.jeeshop.core.front.SystemManager;
@@ -29,7 +30,6 @@ public class MenuItem {
 	/**
 	 *	指定菜单的功能类型
 	 * @param menu
-	 * @param item
 	 */
 	public void setMenuType(Menu menu) {
 		if(menu!=null && StringUtils.isNotEmpty(menu.getType())){
@@ -67,6 +67,17 @@ public class MenuItem {
 			return true;
 		}
 		return false;
+	}
+
+	public boolean isRootMenu() {
+		return "0".equals(pid);
+	}
+
+	public void addClild(MenuItem item) {
+		if(children == null){
+			children = new ArrayList<MenuItem>();
+		}
+		children.add(item);
 	}
 
 	public String getIcon() {

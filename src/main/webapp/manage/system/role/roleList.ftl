@@ -1,5 +1,5 @@
-<#import "/resource/common_html_meat.ftl" as html/>
-<@html.htmlBase>
+<#import "/manage/tpl/pageBase.ftl" as page>
+<@page.pageBase currentMenu="角色管理">
 <script type="text/javascript">
 $(function(){
 	$("#result_table tr").mouseover(function(){
@@ -85,4 +85,4 @@ function deleteSelect(){
 							</tr>
 			</table>
     </form>
-</@html.htmlBase>
+</@page.pageBase>

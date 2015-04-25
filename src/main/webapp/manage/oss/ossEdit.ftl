@@ -1,5 +1,5 @@
-<#import "/resource/common_html_meat.ftl" as html>
-<@html.htmlBase>
+<#import "/manage/tpl/pageBase.ftl" as page>
+<@page.pageBase currentMenu="存储插件管理">
 	<form action="${basepath}/manage/oss" method="post" theme="simple" id="form" name="form">
 		<table class="table table-bordered">
 			<tr style="background-color: #dff0d8">
@@ -78,4 +78,4 @@
 			</tr>
 		</table>
 	</form>
-</@html.htmlBase>
+</@page.pageBase>

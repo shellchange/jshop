@@ -1,5 +1,5 @@
-<#import "/resource/common_html_meat.ftl" as html>
-<@html.htmlBase>
+<#import "/manage/tpl/pageBase.ftl" as page>
+<@page.pageBase currentMenu="订单管理">
 <style>
 .simpleOrderReport{
 	font-weight: 700;font-size: 16px;color: #f50;
@@ -466,4 +466,4 @@ function onSubmit(obj){
 }
 </script>
 
-</@html.htmlBase>
+</@page.pageBase>

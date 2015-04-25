@@ -9,7 +9,7 @@
 <html>
 <head>
 <%@ include file="/resource/common_html_meat.jsp"%>
-<%@ include file="/manage/system/common.jsp"%>
+<%@ include file="/manage/common.jsp"%>
 <title>修改订单的配送地址信息</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resource/jquery-jquery-ui/themes/base/jquery.ui.all.css">
 <script type="text/javascript"

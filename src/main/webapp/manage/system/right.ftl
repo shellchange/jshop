@@ -1,4 +1,4 @@
-<#import "/resource/common_html_meat.ftl" as html>
+<#import "/manage/tpl/htmlBase.ftl" as html>
 <@html.htmlBase>
 <style>
 	a:link {text-decoration:underline;}
@@ -24,10 +24,6 @@ $(function() {
 });
 </script>
 
-</head>
-
-<body
-	style="background-color: #E6EAE9; text-align: center; margin: auto;">
 	<div class="container">
 	
 		

@@ -1,5 +1,5 @@
-<#import "/resource/common_html_meat.ftl" as html>
-<@html.htmlBase>
+<#import "/manage/tpl/pageBase.ftl" as page>
+<@page.pageBase currentMenu="友情链接">
     <form action="${basepath}/manage/navigation" theme="simple" name="form" id="form">
 		<table class="table table-bordered">
 			<tr style="background-color: #dff0d8">
@@ -64,4 +64,4 @@
 			</tr>
 		</table>
 	</form>
-</@html.htmlBase>
+</@page.pageBase>

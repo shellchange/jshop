@@ -8,7 +8,7 @@
 <html>
 <head>
 <%@ include file="/resource/common_html_meat.jsp"%>
-<%@ include file="/manage/system/common.jsp"%>
+<%@ include file="/manage/common.jsp"%>
 </head>
 
 <body>

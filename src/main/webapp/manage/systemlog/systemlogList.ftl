@@ -1,37 +1,34 @@
-<#import "/resource/common_html_meat.ftl" as html />
-<@html.htmlBase>
-<style type="text/css">
-.titleCss {
-	background-color: #e6e6e6;
-	border: solid 1px #e6e6e6;
-	position: relative;
-	margin: -1px 0 0 0;
-	line-height: 32px;
-	text-align: left;
-}
+<#import "/manage/tpl/pageBase.ftl" as page>
+<@page.pageBase currentMenu="日志管理">
+<#--<style type="text/css">-->
+<#--.titleCss {-->
+	<#--background-color: #e6e6e6;-->
+	<#--border: solid 1px #e6e6e6;-->
+	<#--position: relative;-->
+	<#--margin: -1px 0 0 0;-->
+	<#--line-height: 32px;-->
+	<#--text-align: left;-->
+<#--}-->
 
-.aCss {
-	overflow: hidden;
-	word-break: keep-all;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	text-align: left;
-	font-size: 12px;
-}
+<#--.aCss {-->
+	<#--overflow: hidden;-->
+	<#--word-break: keep-all;-->
+	<#--white-space: nowrap;-->
+	<#--text-overflow: ellipsis;-->
+	<#--text-align: left;-->
+	<#--font-size: 12px;-->
+<#--}-->
 
-.liCss {
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	overflow: hidden;
-	height: 30px;
-	text-align: left;
-	margin-left: 10px;
-	margin-right: 10px;
-}
-</style>
-</head>
-
-<body style="font-size: 12px;">
+<#--.liCss {-->
+	<#--white-space: nowrap;-->
+	<#--text-overflow: ellipsis;-->
+	<#--overflow: hidden;-->
+	<#--height: 30px;-->
+	<#--text-align: left;-->
+	<#--margin-left: 10px;-->
+	<#--margin-right: 10px;-->
+<#--}-->
+<#--</style>-->
 	<form action="${basepath}/manage/systemlog" method="post" theme="simple">
 				<table class="table table-bordered">
 					<tr>
@@ -99,4 +96,4 @@
 					</tr>
 				</table>
 	</form>
-</@html.htmlBase>
+</@page.pageBase>

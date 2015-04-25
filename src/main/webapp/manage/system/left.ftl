@@ -1,4 +1,4 @@
-<#import "/resource/common_html_meat.ftl" as html>
+<#import "/manage/tpl/common_html_meat.ftl" as html>
 <@html.htmlBase>
     <script type="text/javascript">
     	//注销

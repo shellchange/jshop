@@ -1,5 +1,5 @@
-<#import "/resource/common_html_meat.ftl" as html>
-<@html.htmlBase>
+<#import "/manage/tpl/pageBase.ftl" as page>
+<@page.pageBase currentMenu="通知模板管理">
 	<form action="${basepath}/manage/notifyTemplate" method="post" theme="simple">
 		<#if e.templateCheckError??>
 			<div class="alert alert-danger">
@@ -133,4 +133,4 @@
 		});
 	}
 </script>
-</@html.htmlBase>
+</@page.pageBase>

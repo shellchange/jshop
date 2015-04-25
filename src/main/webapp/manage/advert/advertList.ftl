@@ -1,5 +1,5 @@
-<#import "/resource/common_html_meat.ftl" as html>
-<@html.htmlBase>
+<#import "/manage/tpl/pageBase.ftl" as page>
+<@page.pageBase currentMenu="广告管理">
 <style type="text/css">
 .aCss {
 	overflow: hidden;
@@ -74,7 +74,7 @@
 							<td><input type="checkbox" name="ids"
 								value="${item.id!""}" /></td>
 							<td class="aCss">
-							  <a href="advert!toEdit.action?e.id=${item.id}"
+							  <a href="advert/toEdit?id=${item.id}"
 										>${item.title!""}</a>
 							</td>
 							<td>&nbsp;${item.code!""}</td>
@@ -110,4 +110,4 @@
 
 	</form>
 
-</@html.htmlBase>
+</@page.pageBase>

@@ -1,5 +1,5 @@
-<#import "/resource/common_html_meat.ftl" as html/>
-<@html.htmlBase>
+<#import "/manage/tpl/pageBase.ftl" as page>
+<@page.pageBase currentMenu=(e.type=="help")?string("文章管理","公告管理")>
 <style type="text/css">
 .titleCss {
 	background-color: #e6e6e6;
@@ -183,4 +183,4 @@ function selectDefaultCatalog(){
 	}
 }
 </SCRIPT>
-</@html.htmlBase>
+</@page.pageBase>

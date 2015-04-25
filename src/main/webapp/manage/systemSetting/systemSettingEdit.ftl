@@ -1,5 +1,5 @@
-<#import "/resource/common_html_meat.ftl" as html>
-<@html.htmlBase>
+<#import "/manage/tpl/pageBase.ftl" as page>
+<@page.pageBase currentMenu="系统设置">
 <style type="text/css">
 input,textarea{
 	width: 80%;
@@ -340,4 +340,4 @@ function deleteImageByImgPaths(){
 }
 </script>
 
-</@html.htmlBase>
+</@page.pageBase>

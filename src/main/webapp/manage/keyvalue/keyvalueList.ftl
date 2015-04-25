@@ -1,5 +1,5 @@
-<#import "/resource/common_html_meat.ftl" as html>
-<@html.htmlBase>
+<#import "/manage/tpl/pageBase.ftl" as page>
+<@page.pageBase currentMenu="键值对管理">
 <style type="text/css">
 .titleCss {
 	background-color: #e6e6e6;
@@ -85,4 +85,4 @@
 				</table>
 
 	</form>
-</@html.htmlBase>
+</@page.pageBase>

@@ -1,5 +1,5 @@
-<#import "/resource/common_html_meat.ftl" as html>
-<@html.htmlBase>
+<#import "/manage/tpl/pageBase.ftl" as page>
+<@page.pageBase currentMenu="用户管理">
 <style>
 	.td_right{text-align: right;}
 </style>
@@ -101,4 +101,4 @@
 			</tr>
 		</table>
 </form>
-</@html.htmlBase>
+</@page.pageBase>

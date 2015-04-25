@@ -1,5 +1,5 @@
-<#import "/resource/common_html_meat.ftl" as html>
-<@html.htmlBase>
+<#import "/manage/tpl/pageBase.ftl" as page>
+<@page.pageBase currentMenu="赠品管理">
 <style>
 #insertOrUpdateMsg{
 border: 0px solid #aaa;margin: 0px;position: fixed;top: 0;width: 100%;
@@ -158,4 +158,4 @@ function clearRootImagePath(picInput){
 
 </script>
 
-	</@html.htmlBase>
+</@page.pageBase>

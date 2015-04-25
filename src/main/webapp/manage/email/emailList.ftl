@@ -1,5 +1,5 @@
-<#import "/resource/common_html_meat.ftl" as html>
-<@html.htmlBase>
+<#import "/manage/tpl/pageBase.ftl" as page>
+<@page.pageBase currentMenu="发送邮件列表">
 	<form action="${basepath}/manage/email" method="post" theme="simple">
 		<table class="table table-bordered">
 			<tr>
@@ -100,4 +100,4 @@
 		return confirm("确定删除选择的记录?");
 	}
 </script>
-</@html.htmlBase>
+</@page.pageBase>

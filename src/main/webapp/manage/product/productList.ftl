@@ -1,5 +1,5 @@
-<#import "/resource/common_html_meat.ftl" as html>
-<@html.htmlBase>
+<#import "/manage/tpl/pageBase.ftl" as page>
+<@page.pageBase currentMenu="商品管理">
 <style type="text/css">
 .product-name {
 	display: inline-block;
@@ -215,4 +215,4 @@
 		}
 	}
 </script>
-</@html.htmlBase>
+</@page.pageBase>

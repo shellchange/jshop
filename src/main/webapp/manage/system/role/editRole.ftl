@@ -1,5 +1,5 @@
-<#import "/resource/common_html_meat.ftl" as html/>
-<@html.htmlBase>
+<#import "/manage/tpl/pageBase.ftl" as page>
+<@page.pageBase currentMenu="角色管理">
 
 <SCRIPT type="text/javascript">
 	$(function(){
@@ -236,4 +236,4 @@
 					</tr>
 				</table>
 	</form>
-</@html.htmlBase>
+</@page.pageBase>

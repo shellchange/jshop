@@ -21,6 +21,9 @@ public class PagerModel implements ClearBean {
 	private int pagerSize;// 总页数
 	protected String pagerUrl;//分页标签需要访问的ACTION地址
 	private String id;
+	private int recordsTotal;
+	private int recordsFiltered;
+	private int draw;
 
 	public String getPagerUrl() {
 		return pagerUrl;
@@ -89,10 +92,34 @@ public class PagerModel implements ClearBean {
 		offset = 0; // 偏移量
 		pagerSize = 0;// 总页数
 //		pagerUrl = null;//分页标签需要访问的ACTION地址
-		
+		recordsTotal = 0;
 		id = null;
 	}
-	
+
+	public int getRecordsTotal() {
+		return recordsTotal;
+	}
+
+	public void setRecordsTotal(int recordsTotal) {
+		this.recordsTotal = recordsTotal;
+	}
+
+	public int getRecordsFiltered() {
+		return recordsFiltered;
+	}
+
+	public void setRecordsFiltered(int recordsFiltered) {
+		this.recordsFiltered = recordsFiltered;
+	}
+
+	public int getDraw() {
+		return draw;
+	}
+
+	public void setDraw(int draw) {
+		this.draw = draw;
+	}
+
 	public String trim(String str){
 		if(str==null){
 			return null;

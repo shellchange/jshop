@@ -1,6 +1,7 @@
-<#import "/resource/common_html_meat.ftl" as html>
-<@html.htmlBase>
+<#import "/manage/tpl/pageBase.ftl" as page>
+<@page.pageBase currentMenu="会员管理">
 	<form action="${basepath}/manage/account" method="post" theme="simple">
+		<div class="table-responsive">
 		<table class="table table-bordered">
 			<tr>
 				<td style="text-align: right;" nowrap="nowrap">账号</td>
@@ -53,8 +54,9 @@
 				</td>
 			</tr>
 		</table>
-		
-		<table class="table table-bordered table-hover">
+        </div>
+		<div class="table-responsive">
+		<table class="table table-hover">
 			<tr style="background-color: #dff0d8">
 				<th width="20"><input type="checkbox" id="firstCheckbox" /></th>
 				<th nowrap="nowrap">登陆方式</th>
@@ -120,6 +122,7 @@
 					<#include "/manage/system/pager.ftl"/></td>
 			</tr>
 		</table>
+        </div>
 	</form>
 <script type="text/javascript">
 	$(function() {
@@ -145,4 +148,4 @@
 	}
 </script>
 
-</@html.htmlBase>
+</@page.pageBase>
