@@ -1,9 +1,43 @@
-#jshop
+#JShop
 ---
 
-JShop是jeeshop的分支版本，在技术选型上使用spring mvc替换strutus2，使用freemarker替换jsp；在代码管理上使用maven替换传统的项目结构。
-###jshop版权声明
-jshop是在jeeshop的基础上进行技术框架变更，以及业务功能完善，开源协议沿用jeeshop的LGPL协议，请大家在学习和试用时，遵循LGPL协议规范，并请尊重jeeshop原作者的劳动成果！
+JShop是Jeeshop的分支版本，与Jeeshop最大的区别在于技术选型上的差异：
+1. 使用spring mvc替换strutus2
+2. 使用freemarker替换jsp
+3. 使用maven替换传统的项目结构管理
+4. 将免费进行得更彻底：使用[jquery-treegrid](http://maxazan.github.io/jquery-treegrid/)([下载](https://github.com/maxazan/jquery-treegrid))替换easyui(因为easyui是GPL协议)
+5. 更加紧密地拥抱bootstrap:后台管理界面使用[startbootstrap admin2](http://ironsummitmedia.github.io/startbootstrap-sb-admin-2/pages/index.html)([下载](https://github.com/IronSummitMedia/startbootstrap-sb-admin-2))
+
+## JShop技术选型
+JShop&Jeeshop的技术选型如下:
+### 后端技术
+* 核心框架: Spring Framework
+* 数据库访问: Mybatis
+* 视图框架: Spring MVC
+* 页面视图: Freemarker/jsp
+* 视图重写: urlrewrite
+* 日志组件: logback
+* 其他组件: commons-io,commons-fileupload,commons-beanutils,jackson,pinyin4j,aliyun,alipay,commons-lang
+
+### 前端技术
+* JS框架： jquery1.9
+* CSS框架: Bootstrap3.0.0
+* 后台集成框架: StartBootstrap SB admin V2 / jquery UI
+* 富文本编辑器: KindEditor
+* 树形组件: zTree
+* 日期控件: My97DatePicker
+* 客户端校验：JQuery Validation
+* 树形表格组件： jquery-treegrid(暂定)
+* 文件上传: uploadify
+
+##技术交流
+QQ群：417059832
+
+##JShop版权声明
+JShop是在Jeeshop的基础上进行技术框架变更，以及业务功能完善，开源协议沿用jeeshop的LGPL协议，请大家在学习和试用时，遵循LGPL协议规范，并请尊重jeeshop原作者的劳动成果！
+
+
+
 #jeeshop
 
 简介：jeeshop是一套使用Java语言开发的独立网店系统，jeeshop致力于为个人或企业提供免费、好用的网店系统系统，该系统采用较为流行的J2EE框架 struts2+ myBatis+ spring 进行合理的组合开发,欢迎学习和试用。
