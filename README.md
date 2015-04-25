@@ -2,6 +2,7 @@
 ---
 
 JShop是Jeeshop的分支版本，与Jeeshop最大的区别在于技术选型上的差异：
+
 1. 使用spring mvc替换strutus2
 2. 使用freemarker替换jsp
 3. 使用maven替换传统的项目结构管理
