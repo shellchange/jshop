@@ -3,9 +3,6 @@ $(function(){
         top.location = self.location;
     }
     $("#username").focus();
-    $("#password").onkeydown(function(e){
-
-    });
     $("#btnLogin").click(function(){
         $("#formLogin").submit();
     });

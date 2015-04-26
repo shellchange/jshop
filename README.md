@@ -27,7 +27,7 @@ JShop&Jeeshop的技术选型如下:
 * 富文本编辑器: KindEditor
 * 树形组件: zTree
 * 日期控件: My97DatePicker
-* 客户端校验：JQuery Validation
+* 客户端校验：[nice validator](http://niceue.com/validator/)
 * 树形表格组件： jquery-treegrid(暂定)
 * 文件上传: uploadify
 

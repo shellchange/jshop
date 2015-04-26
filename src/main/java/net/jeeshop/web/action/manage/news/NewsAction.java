@@ -23,6 +23,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -114,7 +115,7 @@ public class NewsAction extends BaseController<News> {
 	 */
 	@Override
     @RequestMapping(value = "insert", method = RequestMethod.POST)
-	public String insert(HttpServletRequest request, News e) throws Exception {
+	public String insert(HttpServletRequest request, News e, RedirectAttributes flushAttrs) throws Exception {
 		logger.error("NewsAction code = " + e.getCode());
 		User user = LoginUserHolder.getLoginUser();
 		e.setCreateAccount(user.getUsername());
@@ -132,7 +133,7 @@ public class NewsAction extends BaseController<News> {
 	 */
 	@Override
     @RequestMapping(value = "update", method = RequestMethod.POST)
-	public String update(HttpServletRequest request, News e) throws Exception {
+	public String update(HttpServletRequest request, News e, RedirectAttributes flushAttrs) throws Exception {
 		logger.error("NewsAction code = ");
 		logger.error("NewsAction code = " + e.getCode()+",id="+e.getId());
 //		getE().setStatus(News.news_status_n);//未审核

@@ -21,6 +21,12 @@
 
 <#--<%-- formAction=<s:property value="#formAction"/><br> --%>-->
 <#--<%-- formAction2=<s:property value="#request.formAction"/><br> --%>-->
+	<#if errorMsg??>
+		<div class="alert alert-danger alert-dismissable">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		${errorMsg}
+		</div>
+	</#if>
 <form action="${basepath}/manage/user" id="form" method="post">
 	<#--<s:form action="user!" namespace="/" theme="simple" id="form">-->
 		<table class="table table-bordered">
@@ -39,6 +45,7 @@
                     <#if insertAction>
                         <input type="text" name="username" id="username"  data-rule="帐号:required;username;length[4~20];remote[unique]">
                     <#else >
+                        <input type="text" name="username" id="username" value="${e.username!""}">
                         ${e.username}
                     </#if>
 				</td>
@@ -46,7 +53,7 @@
 			<tr>
 				<th class="td_right">昵称</th>
 				<td style="text-align: left;">
-				<input type="text" name="nickname" value="${e.nickname!""}" id="nickname"  data-rule="昵称:required;nickname;length[2~20];remote[unique]"/>
+				<input type="text" name="nickname" value="${e.nickname!""}" id="nickname"  data-rule="昵称:required;nickname;length[2~20];remote[unique, id]"/>
 					</td>
 			</tr>
 
@@ -89,11 +96,11 @@
 			<tr >
 				<td colspan="2" style="text-align: center;">
 					<#if insertAction>
-						<button method="user/insert" class="btn btn-success">
+						<button method="insert" class="btn btn-success">
 							<i class="icon-ok icon-white"></i> 新增
 						</button>
                         <#else >
-						<button method="user/update" class="btn btn-success">
+						<button method="update" class="btn btn-success">
 							<i class="icon-ok icon-white"></i> 保存
 						</button>
                     </#if>

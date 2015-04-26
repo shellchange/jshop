@@ -1,13 +1,5 @@
 package net.jeeshop.web.action.manage.system;
 
-import java.io.IOException;
-import java.util.*;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import net.jeeshop.core.ManageContainer;
 import net.jeeshop.core.Services;
 import net.jeeshop.core.dao.page.PagerModel;
@@ -22,17 +14,26 @@ import net.jeeshop.services.manage.system.impl.RoleService;
 import net.jeeshop.services.manage.system.impl.UserService;
 import net.jeeshop.services.manage.systemlog.SystemlogService;
 import net.jeeshop.services.manage.systemlog.bean.Systemlog;
-
 import net.jeeshop.web.action.BaseController;
 import net.jeeshop.web.util.LoginUserHolder;
 import net.jeeshop.web.util.RequestHolder;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * 后台用户管理
@@ -301,29 +302,31 @@ public class UserAction extends BaseController<User> {
 	 */
     @Override
     @RequestMapping("insert")
-	public String insert(HttpServletRequest request, @ModelAttribute("e") User user) throws Exception {
-		return save0(user);
+	public String insert(HttpServletRequest request, @ModelAttribute("e") User user, RedirectAttributes flushAttrs) throws Exception {
+		return save0(user, flushAttrs);
 	}
 
 	/**
 	 * 修改用户信息
 	 */
     @Override
-    @RequestMapping("update")
-	public String update(HttpServletRequest request, @ModelAttribute("e") User user) throws Exception {
-		return save0(user);
+    @RequestMapping(value = "update", method = RequestMethod.POST)
+	public String update(HttpServletRequest request, @ModelAttribute("e") User user, RedirectAttributes flushAttrs) throws Exception {
+		return save0(user, flushAttrs);
 	}
 
-	private String save0(User e) throws Exception {
+	private String save0(User e, RedirectAttributes flushAttrs) throws Exception {
 		logger.error("save0..."+e.getPassword()+","+e.getNewpassword2());
 		
 		if(StringUtils.isBlank(e.getId())){//添加
 			if(StringUtils.isBlank(e.getPassword()) || StringUtils.isBlank(e.getNewpassword2())){
-				throw new NullPointerException("输入的密码不符合要求！");
+				flushAttrs.addFlashAttribute("errorMsg", "输入的密码不符合要求！");
+				return "redirect:toEdit?id=" + e.getId();
 			}
 			
 			if(!e.getPassword().equals(e.getNewpassword2())){
-				throw new IllegalArgumentException("两次输入的密码不一致！");
+				flushAttrs.addFlashAttribute("errorMsg", "两次输入的密码不一致！");
+				return "redirect:toEdit?id=" + e.getId();
 			}
 			
 			User user = (User)RequestHolder.getSession().getAttribute(ManageContainer.manage_session_user_info);
@@ -338,7 +341,10 @@ public class UserAction extends BaseController<User> {
 			//当前登录用户是admin，才能修改admin的信息，其他用户修改admin信息都属于非法操作。
 			User user = (User)RequestHolder.getSession().getAttribute(ManageContainer.manage_session_user_info);
 			if(!user.getUsername().equals("admin") && e.getUsername().equals("admin")){
-				throw new RuntimeException("操作非法！");
+//				throw new RuntimeException("操作非法！");
+				logger.warn("非admin用户正在尝试修改admin用户信息，{}", user.getUsername());
+				flushAttrs.addFlashAttribute("errorMsg", "非法操作！");
+				return "redirect:toEdit?id=" + e.getId();
 			}
 			
 			if(StringUtils.isBlank(e.getPassword()) && StringUtils.isBlank(e.getNewpassword2())){
@@ -347,7 +353,8 @@ public class UserAction extends BaseController<User> {
 			}else{
 				//修改密码
 				if(!e.getPassword().equals(e.getNewpassword2())){
-					throw new IllegalArgumentException("两次输入的密码不一致！");
+					flushAttrs.addFlashAttribute("errorMsg", "两次输入的密码不一致！");
+					return "redirect:toEdit?id=" + e.getId();
 				}
 				e.setPassword(MD5.md5(e.getPassword()));
 			}
@@ -355,6 +362,7 @@ public class UserAction extends BaseController<User> {
 			e.setUpdateAccount(user.getUsername());
 			getService().update(e);
 		}
+		flushAttrs.addFlashAttribute("message", "操作成功!");
 		return "redirect:back";
 	}
 
@@ -389,41 +397,39 @@ public class UserAction extends BaseController<User> {
 	public String unique(@ModelAttribute("e") User e, HttpServletResponse response) throws IOException{
 		logger.error("验证输入的字符的唯一性"+e);
         response.setCharacterEncoding("utf-8");
-		synchronized (this) {
-			if(StringUtils.isNotBlank(e.getNickname())){//验证昵称是否被占用
-				logger.error("验证昵称是否被占用");
-				User user = new User();
-				user.setNickname(e.getNickname());
-				
+		if(StringUtils.isNotBlank(e.getNickname())){//验证昵称是否被占用
+			logger.error("验证昵称是否被占用");
+			User user = new User();
+			user.setNickname(e.getNickname());
+
 //				if(userService.selectCount(e)>0){
 //					getResponse().getWriter().write("{\"error\":\"昵称已经被占用!\"}");
 //				}else{
 //					getResponse().getWriter().write("{\"ok\":\"昵称可以使用!\"}");
 //				}
-				
-				user = userService.selectOneByCondition(user);
-				
-				if(user==null){
-					//数据库中部存在此编码
-                    return "{\"ok\":\"昵称可以使用!\"}";
-				}else{
-					if(StringUtils.isBlank(e.getId())){
-						//当前为insert操作，但是编码已经存在，则只可能是别的记录的编码
-						return "{\"error\":\"昵称已经存在!\"}";
-					}else{
-						//update操作，又是根据自己的编码来查询的，所以当然可以使用啦
-						return "{\"ok\":\"昵称可以使用!\"}";
-					}
+
+			user = userService.selectOneByCondition(user);
+
+			if(user==null){
+				//数据库中部存在此编码
+				return "{\"ok\":\"昵称可以使用!\"}";
+			}else{
+				if(StringUtils.isNotBlank(e.getId()) && e.getId().equals(user.getId())){
+					//update操作，又是根据自己的编码来查询的，所以当然可以使用啦
+					return "{\"ok\":\"昵称可以使用!\"}";
+				}else {
+					//当前为insert操作，但是编码已经存在，则只可能是别的记录的编码
+					return "{\"error\":\"昵称已经存在!\"}";
 				}
-			}else if(StringUtils.isNotBlank(e.getUsername())){//验证用户名是否被占用
-				logger.error("验证账号是否被占用");
-				User user = new User();
-				user.setUsername(e.getUsername());
-				if(userService.selectCount(user)>0){
-					return "{\"error\":\"账号已经被占用!\"}";
-				}else{
-					return "{\"ok\":\"账号可以使用!\"}";
-				}
+			}
+		}else if(StringUtils.isNotBlank(e.getUsername())){//验证用户名是否被占用
+			logger.error("验证账号是否被占用");
+			User user = new User();
+			user.setUsername(e.getUsername());
+			if(userService.selectCount(user)>0){
+				return "{\"error\":\"账号已经被占用!\"}";
+			}else{
+				return "{\"ok\":\"账号可以使用!\"}";
 			}
 		}
 		return null;

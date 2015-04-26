@@ -10,6 +10,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -140,7 +141,7 @@ public abstract class BaseController<E extends PagerModel> {
      * @throws Exception
      */
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    public String update(HttpServletRequest request, @ModelAttribute("e") E e) throws Exception {
+    public String update(HttpServletRequest request, @ModelAttribute("e") E e, RedirectAttributes redirectAttributes) throws Exception {
 //		User user = (User) getSession().getAttribute(Global.USER_INFO);
 //		if(user==null){
 //			throw new NullPointerException();
@@ -173,7 +174,7 @@ public abstract class BaseController<E extends PagerModel> {
      * @throws Exception
      */
     @RequestMapping(value = "insert",method = RequestMethod.POST)
-    public String insert(HttpServletRequest request, @ModelAttribute("e") E e) throws Exception {
+    public String insert(HttpServletRequest request, @ModelAttribute("e") E e, RedirectAttributes flushAttrs) throws Exception {
 //		User user = (User) getSession().getAttribute(Global.USER_INFO);
 //		if(user==null){
 //			throw new NullPointerException();

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -119,11 +120,11 @@ public class RoleAction extends BaseController<Role> {
 	 */
 	@Override
     @RequestMapping(value = "update", method = RequestMethod.POST)
-	public String update(HttpServletRequest request, @ModelAttribute("e") Role role) throws Exception {
+	public String update(HttpServletRequest request, @ModelAttribute("e") Role role, RedirectAttributes flushAttrs) throws Exception {
         User user = LoginUserHolder.getLoginUser();
 		if(!user.getUsername().equals("admin")){
 			throw new NullPointerException(ManageContainer.RoleAction_update_error);
 		}
-		return super.update(request, role);
+		return super.update(request, role, flushAttrs);
 	}
 }
