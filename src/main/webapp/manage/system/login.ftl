@@ -12,10 +12,18 @@
                     <form role="form" id="formLogin" action="${basepath}/manage/user/login" method="post">
                         <fieldset>
                             <div class="form-group">
+                                <#if errorMsg??>
+                                <div class="alert alert-danger alert-dismissable">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                   ${errorMsg}
+                                </div>
+                                </#if>
+                            </div>
+                            <div class="form-group">
                                 <input type="text" value="${e.username!""}"placeholder="账号" name="username" class="len form-control" id="username" autofocus/>
                             </div>
                             <div class="form-group">
-                                <input type="password" name="password" placeholder="密码" class="len form-control" value="123456" label="密码" />
+                                <input type="password" name="password" placeholder="密码" class="len form-control" label="密码" />
                             </div>
                             <#--<div class="checkbox">-->
                                 <#--<label>-->
@@ -23,7 +31,7 @@
                                 <#--</label>-->
                             <#--</div>-->
                             <!-- Change this to a button or input when using this as a form -->
-                            <a href="javascript:void(0);" id="btnLogin" class="btn btn-lg btn-success btn-block">登录</a>
+                            <input type="submit" id="btnLogin" class="btn btn-lg btn-success btn-block" value="登录">
                         </fieldset>
                     </form>
                 </div>

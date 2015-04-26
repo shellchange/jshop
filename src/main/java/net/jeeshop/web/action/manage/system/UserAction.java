@@ -139,7 +139,10 @@ public class UserAction extends BaseController<User> {
 		return pager;
 	}
     @RequestMapping(value = "login", method = RequestMethod.GET)
-    public String login(@ModelAttribute("e") User e){
+    public String login(@ModelAttribute("e") User e, HttpSession session){
+		if (session.getAttribute(ManageContainer.manage_session_user_info) != null) {
+			return "redirect:/manage/user/home";
+		}
         return page_input;
     }
 
@@ -149,32 +152,31 @@ public class UserAction extends BaseController<User> {
 	 * @throws Exception
 	 */
     @RequestMapping(value = "login", method = RequestMethod.POST)
-	public String login(HttpSession session,@ModelAttribute("e") User e) throws Exception {
+	public String login(HttpSession session,@ModelAttribute("e") User e, ModelMap model) throws Exception {
 		String errorMsg;
 		if (session.getAttribute(ManageContainer.manage_session_user_info) != null) {
 			return "redirect:/manage/user/home";
 		}
-		
-		errorMsg = "<font color='red'>帐号或密码错误!</font>";
+
 		if (StringUtils.isBlank(e.getUsername()) || StringUtils.isBlank(e.getPassword())){
-			session.setAttribute(ManageContainer.loginError, "账户和密码不能为空!");
+			model.addAttribute("errorMsg", "账户和密码不能为空!");
 			return page_input;
 		}
-		
+		logger.info("用户登录:{}", e.getUsername());
 		e.setPassword(MD5.md5(e.getPassword()));
 		User u = ((UserService)getService()).login(e);
 		if (u == null) {
-			logger.error("登陆失败，账号不存在！");
-			session.setAttribute(ManageContainer.loginError, errorMsg);
+			errorMsg = "登陆失败，账户或密码错误！";
+			logger.error("登陆失败，账户或密码错误,{}", e.getUsername());
+			model.addAttribute("errorMsg", errorMsg);
 			return page_input;
 		}else if(!u.getStatus().equals(User.user_status_y)){
-			logger.error("帐号已被禁用，请联系管理员!");
-			errorMsg = "<font color='red'>帐号已被禁用，请联系管理员!</font>";
-            session.setAttribute(ManageContainer.loginError, errorMsg);
+			errorMsg = "帐号已被禁用，请联系管理员!";
+			logger.error("帐号已被禁用，请联系管理员,{}", u.getUsername());
+			model.addAttribute("errorMsg", errorMsg);
 			return page_input;
 		}
 		u.setUsername(e.getUsername());
-		e.clear();
 		session.setAttribute(ManageContainer.manage_session_user_info, u);
 		
 		//解析用户的数据库权限，以后可以进行DB权限限制
