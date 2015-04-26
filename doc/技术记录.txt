@@ -56,3 +56,8 @@ lower_case_table_names=1
         <testCompilerArgument>-XDignore.symbol.file=true -Xlint</testCompilerArgument>
     </configuration>
 </plugin>
+
+7. logback与p6spy的集成
+(1) 创建p6spy的P6Logger实现类net.jeeshop.core.p6spy.LogbackLogger
+(2) 修改spy.properties文件，修改appender为
+appender=net.jeeshop.core.p6spy.LogbackLogger
