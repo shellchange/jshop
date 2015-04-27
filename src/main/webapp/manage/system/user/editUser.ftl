@@ -21,12 +21,6 @@
 
 <#--<%-- formAction=<s:property value="#formAction"/><br> --%>-->
 <#--<%-- formAction2=<s:property value="#request.formAction"/><br> --%>-->
-	<#if errorMsg??>
-		<div class="alert alert-danger alert-dismissable">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-		${errorMsg}
-		</div>
-	</#if>
 <form action="${basepath}/manage/user" id="form" method="post">
 	<#--<s:form action="user!" namespace="/" theme="simple" id="form">-->
 		<table class="table table-bordered">

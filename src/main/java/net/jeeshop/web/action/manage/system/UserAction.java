@@ -54,7 +54,7 @@ public class UserAction extends BaseController<User> {
     private static final String page_toAdd = "/manage/system/user/editUser";
     private static final String page_toEdit = "/manage/system/user/editUser";
     private static final String page_toChangePwd = "/manage/system/user/toChangePwd";
-    private static final String page_changePwd = "/manage/system/user/changePwd";
+    private static final String page_changePwd_result = "/manage/system/user/changePwd";
     private static final String page_show = "/manage/system/user/show";
     private static final String page_initManageIndex = page_home;
     public UserAction() {
@@ -456,36 +456,46 @@ public class UserAction extends BaseController<User> {
 		e.setId(u.getId());
 		return page_toChangePwd;
 	}
+
+	@RequestMapping("changePwd")
+	public String changePwd(){
+		return page_changePwd_result;
+	}
 	
 	/**
 	 * 修改密码
 	 * @return
 	 */
-    @RequestMapping("updateChangePwd")
-	public String updateChangePwd(@ModelAttribute("errorMsg")String errorMsg, @ModelAttribute("e") User e){
-		errorMsg = "两次输入的密码不一致，修改密码失败!";
+    @RequestMapping(value = "updateChangePwd", method = RequestMethod.POST)
+	public String updateChangePwd(@ModelAttribute("e") User e, RedirectAttributes flushAttrs) {
+//		String errorMsg = "两次输入的密码不一致，修改密码失败!";
 		if(StringUtils.isBlank(e.getNewpassword()) || StringUtils.isBlank(e.getNewpassword2())){
-			throw new NullPointerException("密码不能为空！");
+			addMessage(flushAttrs, "密码不能为空！");
+			return "redirect:toChangePwd";
 		}
 		
 		if(!e.getNewpassword().equals(e.getNewpassword2())){
-			throw new IllegalArgumentException("两次输入的密码不一致！");
+			addError(flushAttrs, "两次输入的密码不一致！");
+			return "redirect:toChangePwd";
 		}
 		
-		errorMsg = "旧密码输入错误，修改密码失败!";
+//		errorMsg = "旧密码输入错误，修改密码失败!";
 		
 		User u = (User) RequestHolder.getSession().getAttribute(ManageContainer.manage_session_user_info);
 		e.setPassword(MD5.md5(e.getPassword()));
 		if(!e.getPassword().equals(u.getPassword())){//用户输入的旧密码和数据库中的密码一致
-			throw new IllegalArgumentException("原密码不正确！");
+			addError(flushAttrs, "原密码不正确！");
+			return "redirect:toChangePwd";
 		}
 		
 		//修改密码
 		e.setPassword(MD5.md5(e.getNewpassword()));
 		this.getService().update(e);
-		errorMsg = "密码修改成功!";
-		
-		return page_changePwd;
+		//更新session中的用户信息
+		u = userService.selectById(u.getId());
+		RequestHolder.getSession().setAttribute(ManageContainer.manage_session_user_info, u);
+		addMessage(flushAttrs, "密码修改成功!");
+		return "redirect:changePwd";
 	}
 	
 
@@ -567,8 +577,7 @@ public class UserAction extends BaseController<User> {
 		return page_initManageIndex;
 	}
     @Override
-    @RequestMapping("deletes")
-    public String deletes(HttpServletRequest request, String[] ids, @ModelAttribute("e") User e) throws Exception{
+    public String deletes(HttpServletRequest request, String[] ids, @ModelAttribute("e") User e, RedirectAttributes flushAttrs) throws Exception{
         throw new RuntimeException("not support");
     }
 }

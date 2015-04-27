@@ -56,6 +56,11 @@ $(function(){
 		createMark();
 		form.submit();
 	});
+	setTimeout(function(){
+		$('#alert-success').alert("close");
+		$('#alert-warning').alert("close");
+		$('#alert-danger').alert("close");
+	}, 3000);
 		
 });
 

@@ -36,7 +36,7 @@
                     <#--</ul>-->
                <!-- /.navbar-collapse -->
             <ul class="nav navbar-top-links navbar-right">
-                 <li><a href="${basepath}" target="_blank"><i class="glyphicon glyphicon-globe"></i> 访问站台</a></li>
+                 <li><a href="${basepath}" target="_blank"><i class="glyphicon glyphicon-globe"></i> 访问站点</a></li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i> ${currentUser().nickname!currentUser().username} <i class="fa fa-caret-down"></i>
@@ -70,7 +70,7 @@
                     <div class="navbar navbar-default">
                         <ol class="breadcrumb bootstrap-admin-breadcrumb">
                             <li>
-                                <a href="${basepath}/user/home">首页</a>
+                                <a href="${basepath}/manage/user/home">首页</a>
                             </li>
                             <li class="active">${currentMenu}</li>
                         </ol>
@@ -79,6 +79,26 @@
             </div>
             <!-- /.row -->
             <div class="row">
+                <div class="col-lg-12">
+                    <#if message??>
+                        <div class="alert alert-success alert-dismissable fade in" id="alert-success">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        ${message}
+                        </div>
+                    </#if>
+                    <#if warning??>
+                        <div class="alert alert-warning alert-dismissable fade in" id="alert-warning">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        ${warning}
+                        </div>
+                    </#if>
+                    <#if errorMsg??>
+                        <div class="alert alert-danger alert-dismissable fade in" id="alert-danger">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        ${errorMsg}
+                        </div>
+                    </#if>
+                </div>
                 <div class="col-lg-12">
                     <#nested />
                 </div>

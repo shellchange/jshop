@@ -27,7 +27,7 @@
 		}
 	}
 </script>
-    <form name="form" action="${basepath}/manage/user/updateChangePwd" method="post">
+    <form name="form" action="${basepath}/manage/user" method="post">
 		<table class="table table-bordered" >
 			<tr>
 				<td colspan="2" style="background-color: #dff0d8;text-align: center;">

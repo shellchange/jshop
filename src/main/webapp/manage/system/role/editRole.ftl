@@ -97,6 +97,7 @@
 							// 							loadMenusTree();
 							jQuery.unblockUI();
 							alert("修改角色成功！");
+							document.location = "${basepath}/manage/role/selectList";
 	// 						document.form1.submit();
 						} else {
 							jQuery.unblockUI();

@@ -76,7 +76,9 @@ public class UserService implements UserInteface {
 
 	@Override
 	public User selectById(String id) {
-		return null;
+		User user = new User();
+		user.setId(id);
+		return selectOne(user);
 	}
 	
 	/**

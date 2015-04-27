@@ -119,7 +119,7 @@ public abstract class BaseController<E extends PagerModel> {
      * @throws Exception
      */
     @RequestMapping(value = "deletes", method = RequestMethod.POST)
-    public String deletes(HttpServletRequest request, String[] ids, @ModelAttribute("e") E e) throws Exception {
+    public String deletes(HttpServletRequest request, String[] ids, @ModelAttribute("e") E e, RedirectAttributes flushAttrs) throws Exception {
 //		User user = (User) getSession().getAttribute(Global.USER_INFO);
 //		if(user==null){
 //			throw new NullPointerException();
@@ -131,7 +131,8 @@ public abstract class BaseController<E extends PagerModel> {
 //		}
 
         getService().deletes(ids);
-        return selectList(request, e);
+        addMessage(flushAttrs, "操作成功！");
+        return "redirect:selectList";
     }
 
     /**
@@ -141,7 +142,7 @@ public abstract class BaseController<E extends PagerModel> {
      * @throws Exception
      */
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    public String update(HttpServletRequest request, @ModelAttribute("e") E e, RedirectAttributes redirectAttributes) throws Exception {
+    public String update(HttpServletRequest request, @ModelAttribute("e") E e, RedirectAttributes flushAttrs) throws Exception {
 //		User user = (User) getSession().getAttribute(Global.USER_INFO);
 //		if(user==null){
 //			throw new NullPointerException();
@@ -154,7 +155,8 @@ public abstract class BaseController<E extends PagerModel> {
 
         getService().update(e);
         insertAfter(e);
-        return selectList(request, e);
+        addMessage(flushAttrs, "操作成功！");
+        return "redirect:selectList";
     }
 
     /**
@@ -187,7 +189,8 @@ public abstract class BaseController<E extends PagerModel> {
 
         getService().insert(e);
         insertAfter(e);
-        return selectList(request, e);
+        addMessage(flushAttrs, "操作成功！");
+        return "redirect:selectList";
     }
 
     /**
@@ -210,4 +213,23 @@ public abstract class BaseController<E extends PagerModel> {
 //        e.clear();
 //        return toAdd;
 //    }
+
+    protected void addMessage(ModelMap modelMap, String message) {
+        modelMap.addAttribute("message", message);
+    }
+    protected void addWarning(ModelMap modelMap, String warning) {
+        modelMap.addAttribute("warning", warning);
+    }
+    protected void addError(ModelMap modelMap, String warning) {
+        modelMap.addAttribute("errorMsg", warning);
+    }
+    protected void addMessage(RedirectAttributes flushAttrs, String message) {
+        flushAttrs.addFlashAttribute("message", message);
+    }
+    protected void addWarning(RedirectAttributes flushAttrs, String warning) {
+        flushAttrs.addFlashAttribute("warning", warning);
+    }
+    protected void addError(RedirectAttributes flushAttrs, String warning) {
+        flushAttrs.addFlashAttribute("errorMsg", warning);
+    }
 }
