@@ -10,13 +10,19 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 	background-position: -288px 0;
 }
 </style>
-	<div class="navbar navbar-inverse" >
-		<div id="insertOrUpdateMsg">
-			${insertOrUpdateMsg!""}
-		</div>
-	</div>
-	
-	<form action="${basepath}/manage/news" namespace="/manage" theme="simple" name="form" id="form" >
+<script>
+$(function(){
+	<#if e.id??>
+	var id = "${e.id}";
+	$("#btnStatic").click(function(){
+		$.post("${basepath}/freemarker/create?method=staticNewsByID&id="+id, null ,function(response){
+			alert(response == "success" ? "操作成功！" : "操作失败!");
+		});
+	});
+	</#if>
+});
+</script>
+	<form action="${basepath}/manage/news" namespace="/manage" theme="simple" name="form" id="form" method="post">
 		<input type="hidden" value="${e.type!""}" name="type"/>
 		<input type="hidden" value="${e.catalogID!""}" id="catalogID"/>
 		<table class="table table-bordered">
@@ -30,10 +36,10 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 
 
                         <#if e.status??&&e.status=="y">
-                        <a action="news" href="down?id=${e.id}" class="btn btn-warning" onclick="return confirm(\"确定不显示此文章吗?\");">
+                        <a action="news" id="btnDown" href="down?id=${e.id}" class="btn btn-warning" onclick="return confirm(\"确定不显示此文章吗?\");">
                         <i class="icon-arrow-down icon-white"></i> 不显示</a>
                         <#else>
-                            <a action="news" href="up?id=${e.id}" class="btn btn-warning" onclick="return confirm(\"确定显示此文章吗?\");">
+                            <a action="news" id="btnUp" href="up?id=${e.id}" class="btn btn-warning" onclick="return confirm(\"确定显示此文章吗?\");">
                             <i class="icon-arrow-up icon-white"></i> 显示</a>
                         </#if>
 
@@ -44,10 +50,8 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
                         <a class="btn btn-info" target="_blank" href="${systemSetting().www}/help/${e.code!""}.html">
                         <i class="icon-eye-open icon-white"></i> 查看</a>
                         </#if>
-                        <a target="_blank" href="${systemSetting().www}/freemarker/create?method=staticNewsByID&id=${e.id!""}" class="btn btn-warning">
+                        <a id="btnStatic" href="#" class="btn btn-warning">
                         <i class="icon-refresh icon-white"></i> 静态化</a>
-
-						
 					<#else>
                         <button method="insert" class="btn btn-success">
                             <i class="icon-ok icon-white"></i> 新增
@@ -107,45 +111,7 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 	$(function() {
 		//$("#title").focus();
 		selectDefaultCatalog();
-		
-		var ccc = $("#insertOrUpdateMsg").html();
-		console.log("insertOrUpdateMsg="+insertOrUpdateMsg);
-		if(ccc!='' && ccc.trim().length>0){
-			$("#insertOrUpdateMsg").slideDown(1000).delay(1500).slideUp(1000);
-		};
 	});
-	
-	//function abc(){
-		//return $('#form').trigger("validate");
-	//}
-	
-	/*
-	$("#form").validator({
-		rules: {
-	        remote: function(element){
-	            return $.ajax({
-	                url: 'news!unique.action',
-	                type: 'post',
-	                data: $(form).serialize(),
-	                dataType: 'json',
-	                success: function(d){
-	                	console.log("remote.d="+d);
-	                    window.console && console.log(d);
-	                }
-	            });
-	        }
-	    },
-	    fields: {
-	        'code': 'required; remote;'
-	    },
-		valid:function(form){
-			this.isAjaxSubmit = false;
-			console.log(this.isValid);
-			
-			console.log("submit...");
-		}
-	});*/
-		
 	function doSubmitFunc(obj){
 			var m = $(obj).attr("name");
 			console.log(m);

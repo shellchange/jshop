@@ -70,7 +70,7 @@
 				<td style="text-align: right;">编码</td>
 				<td style="text-align: left;">
 <!-- 							<input type="button" onclick="getCode()" value="自动获取" class="btn btn-default"/> -->
-					<input type="text"  value="${e.code!""}" name="code"  data-rule="编码;required;code;length[1~45];remote[unique]" size="45" maxlength="45" id="code" /></td>
+					<input type="text"  value="${e.code!""}" name="code"  data-rule="编码;required;code;length[1~45];remote[uniqueCode, id]" size="45" maxlength="45" id="code" /></td>
 <#--<%-- 						<td style="text-align: left;"><input type="text"  value="${e.code!""}" name="code"  data-rule="编码;required;code;" size="20" maxlength="20" id="code" /></td> --%>-->
 			</tr>
 			<tr>

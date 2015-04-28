@@ -10,12 +10,6 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 	background-position: -288px 0;
 }
 </style>
-<div class="navbar navbar-inverse" >
-	<div id="insertOrUpdateMsg">
-        ${insertOrUpdateMsg!""}
-	</div>
-</div>
-	
 <form action="${basepath}/manage/advert" theme="simple" name="form1">
 			<table class="table table-bordered" style="width: 95%;margin: auto;">
 				<tr>

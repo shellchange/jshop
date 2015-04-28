@@ -2,10 +2,10 @@
 <%@page import="net.jeeshop.core.oss.OSSFileManagerJson"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="net.jeeshop.core.ManageContainer"%>
-<%@page import="net.jeeshop.services.front.systemSetting.bean.SystemSetting"%>
 <%@page import="com.alibaba.fastjson.JSONObject"%>
 <%@ page import="java.util.*,java.io.*" %>
 <%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="net.jeeshop.services.manage.systemSetting.bean.SystemSetting" %>
 <%-- <%@ page import="org.json.simple.*" %> --%>
 <%
 
@@ -29,7 +29,7 @@ if(oss){
 	
 	SystemSetting systemSetting = SystemManager.systemSetting;
 	//根目录路径，可以指定绝对路径，比如 /var/www/attached/
-	String rootPath = pageContext.getServletContext().getRealPath("/") + "attached/";
+	String rootPath = request.getSession().getServletContext().getRealPath("/") + "attached/";
 	//String rootPath = "D:\\workspace\\myshop\\web\\attached\\";//pageContext.getServletContext().getRealPath("/") + "attached/";
 	//根目录URL，可以指定绝对路径，比如 http://www.yoursite.com/attached/
 	String rootUrl  = systemSetting.getImageRootPath()+"/attached/";//request.getContextPath() + "/attached/";

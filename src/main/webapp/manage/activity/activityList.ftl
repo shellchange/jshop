@@ -40,7 +40,7 @@
 					<button method="selectList" class="btn btn-primary" onclick="selectList(this)">
 						<i class="icon-search icon-white"></i> 查询
 					</button>
-					<a method="toAdd" class="btn btn-success">
+					<a href="${basepath}/manage/activity/toAdd" class="btn btn-success">
 						<i class="icon-plus-sign icon-white"></i> 添加
 					</a>
 					<button method="deletes" class="btn btn-danger" onclick="return submitIDs(this,'确定删除选择的记录?');">

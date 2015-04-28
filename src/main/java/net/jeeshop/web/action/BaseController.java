@@ -166,7 +166,6 @@ public abstract class BaseController<E extends PagerModel> {
      * @param e
      */
     protected void insertAfter(E e){
-        e.clear();
     }
 
     /**

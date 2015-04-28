@@ -198,9 +198,21 @@ public class NewsAction extends BaseController<News> {
 	 * @throws Exception
 	 */
     @RequestMapping(value = "updateStatusY", method = RequestMethod.POST)
-	public String updateStatusY(String[] ids) throws Exception {
+	public String updateStatusY(String[] ids, String type, RedirectAttributes flushAttrs) throws Exception {
 		newsService.updateStatus(ids,News.news_status_y);
-		return super.selectList(RequestHolder.getRequest(), null);
+		addMessage(flushAttrs, "操作成功!");
+		return "redirect:selectList?type=" + type;
+	}
+	/**
+	 * 审核未通过,记录将不会出现在门户上
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "updateStatusN", method = RequestMethod.POST)
+	public String updateStatusN(String[] ids, String type, RedirectAttributes flushAttrs) throws Exception {
+		newsService.updateStatus(ids,News.news_status_n);
+		addMessage(flushAttrs, "操作成功!");
+		return "redirect:selectList?type=" + type;
 	}
 
 	/**
@@ -208,9 +220,9 @@ public class NewsAction extends BaseController<News> {
 	 * @return
 	 * @throws Exception
 	 */
-    @RequestMapping(value = "up", method = RequestMethod.POST)
-	public String up(News e) throws Exception {
-		return updateDownOrUp0(e, News.news_status_y);
+    @RequestMapping(value = "up")
+	public String up(News e, RedirectAttributes flushAttrs) throws Exception {
+		return updateDownOrUp0(e, News.news_status_y, flushAttrs);
 	}
 
 	/**
@@ -218,12 +230,12 @@ public class NewsAction extends BaseController<News> {
 	 * @return
 	 * @throws Exception
 	 */
-    @RequestMapping(value = "down", method = RequestMethod.POST)
-	public String down(News e) throws Exception {
-		return updateDownOrUp0(e, News.news_status_n);
+    @RequestMapping(value = "down")
+	public String down(News e, RedirectAttributes flushAttrs) throws Exception {
+		return updateDownOrUp0(e, News.news_status_n, flushAttrs);
 	}
 	
-	private String updateDownOrUp0(News e, String status) throws Exception {
+	private String updateDownOrUp0(News e, String status, RedirectAttributes flushAttrs) throws Exception {
 		if(StringUtils.isBlank(e.getId())){
 			throw new NullPointerException("参数不能为空！");
 		}
@@ -232,18 +244,8 @@ public class NewsAction extends BaseController<News> {
 		news.setId(e.getId());
 		news.setStatus(status);
 		newsService.updateDownOrUp(news);
+		addMessage(flushAttrs, "更新成功!");
 		return "redirect:toEdit2?id="+e.getId();
-	}
-	
-	/**
-	 * 审核未通过,记录将不会出现在门户上
-	 * @return
-	 * @throws Exception
-	 */
-    @RequestMapping(value = "updateStatusN", method = RequestMethod.POST)
-	public String updateStatusN(String[] ids) throws Exception {
-		newsService.updateStatus(ids,News.news_status_n);
-		return super.selectList(RequestHolder.getRequest(), null);
 	}
 
 //	@Override
