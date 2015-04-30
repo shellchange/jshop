@@ -7,7 +7,8 @@ package net.jeeshop.web.action.manage.freemarker;
 import net.jeeshop.core.freemarker.front.FreemarkerHelper;
 import net.jeeshop.web.util.RequestHolder;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("freemarker")
 public class FreemarkerAction {
-	private static final Logger logger = Logger.getLogger(FreemarkerAction.class);
+	private static final Logger logger = LoggerFactory.getLogger(FreemarkerAction.class);
 	private static final long serialVersionUID = 1L;
 	@Autowired
 	private FreemarkerHelper freemarkerHelper;

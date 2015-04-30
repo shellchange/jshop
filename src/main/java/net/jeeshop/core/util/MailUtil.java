@@ -23,9 +23,9 @@ import net.jeeshop.core.front.SystemManager;
 import net.jeeshop.services.front.account.impl.AccountServiceImpl;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 
-import sun.util.logging.resources.logging;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -34,7 +34,7 @@ import sun.util.logging.resources.logging;
  *
  */
 public class MailUtil {
-	private static final Logger logger = Logger.getLogger(MailUtil.class);
+	private static final Logger logger = LoggerFactory.getLogger(MailUtil.class);
 	public static void main(String[] args) {//huangf@spider.com.cn
 		MailUtil mail = new MailUtil("543089122@qq.com",
 				"xxx@163.com","xxx", "smtp.163.com", "标题");

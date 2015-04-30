@@ -9,7 +9,8 @@ import net.jeeshop.services.front.product.ProductService;
 import net.jeeshop.services.front.product.bean.Product;
 import net.jeeshop.web.util.RequestHolder;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,7 +29,7 @@ import java.util.Map;
  */
 @Component
 public class FreemarkerHelper {
-	private static final Logger logger = Logger.getLogger(FreemarkerHelper.class);
+	private static final Logger logger = LoggerFactory.getLogger(FreemarkerHelper.class);
 	@Autowired
 	private ProductService productService;
 	@Autowired

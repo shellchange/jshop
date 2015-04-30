@@ -7,8 +7,9 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.Logger;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import sun.misc.BASE64Encoder;
 
 /**
@@ -17,7 +18,7 @@ import sun.misc.BASE64Encoder;
  *
  */
 public class TokenUtil {
-	private static final Logger logger = Logger.getLogger(TokenUtil.class);
+	private static final Logger logger = LoggerFactory.getLogger(TokenUtil.class);
 	private static final TokenUtil instance = new TokenUtil();
 	private Object checkTokenLock = new Object();
 	private BASE64Encoder encoder = new BASE64Encoder();// base64编码

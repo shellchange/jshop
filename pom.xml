@@ -34,6 +34,23 @@
 					<testCompilerArgument>-XDignore.symbol.file=true -Xlint</testCompilerArgument>
 				</configuration>
             </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.1.1</version>
+				<!--<configuration>-->
+					<!--<webResources>-->
+						<!--<resource>-->
+							<!--<directory>${project.basedir}/libs</directory>-->
+							<!--<targetPath>WEB-INF/lib</targetPath>-->
+							<!--<filtering>true</filtering>-->
+							<!--<includes>-->
+								<!--<include>*.jar</include>-->
+							<!--</includes>-->
+						<!--</resource>-->
+					<!--</webResources>-->
+				<!--</configuration>-->
+			</plugin>
 		</plugins>
 	</build>
 	<properties>
@@ -490,21 +507,21 @@
 			<groupId>qq</groupId>
 			<artifactId>qqLoginSdk4J</artifactId>
 			<version>1.0</version>
-			<systemPath>${project.basedir}/libs/qqLoginSdk4J.jar</systemPath>
+			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/qqLoginSdk4J.jar</systemPath>
 			<scope>system</scope>
 		</dependency>
 		<dependency>
 			<groupId>QRCode</groupId>
 			<artifactId>QRCode</artifactId>
 			<version>1.0</version>
-			<systemPath>${project.basedir}/libs/QRCode.jar</systemPath>
+			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/QRCode.jar</systemPath>
 			<scope>system</scope>
 		</dependency>
 		<dependency>
 			<groupId>sinaWeibo</groupId>
 			<artifactId>sinaWeibo</artifactId>
 			<version>1.0</version>
-			<systemPath>${project.basedir}/libs/sinaWeibo.jar</systemPath>
+			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/sinaWeibo.jar</systemPath>
 			<scope>system</scope>
 		</dependency>
 	</dependencies>
