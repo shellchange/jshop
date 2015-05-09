@@ -27,19 +27,19 @@ JShop&Jeeshop的技术选型如下:
 * 富文本编辑器: KindEditor
 * 树形组件: zTree
 * 日期控件: My97DatePicker
-* 客户端校验：[nice validator](http://niceue.com/validator/)
+* 客户端校验：[nice validator](http://niceue.com/validator/){:target="_blank"}
 * 树形表格组件： jquery-treegrid(暂定)
 * 文件上传: uploadify
 
 ##演示系统
-* 前台: [http://jshop.coding.io](http://jshop.coding.io)
-* 后台: [http://jshop.coding.io/manage/user/login](http://jshop.coding.io/manage/user/login) (admin/123456)
+* 前台: [http://jshop.coding.io](http://jshop.coding.io){:target="_blank"}
+* 后台: [http://jshop.coding.io/manage/user/login](http://jshop.coding.io/manage/user/login){:target="_blank"} (admin/123456)
 
 ##WIKI
-1. [快速入门](http://git.oschina.net/dinguangx/jshop/wikis/home)
+1. [快速入门](http://git.oschina.net/dinguangx/jshop/wikis/home){:target="_blank"}
 
 ##change log
-http://git.oschina.net/dinguangx/jshop/blob/master/changelog.md
+[Change Log](http://git.oschina.net/dinguangx/jshop/blob/master/changelog.md){:target="_blank"}
 
 ##技术交流
 QQ群：417059832
