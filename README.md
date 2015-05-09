@@ -31,6 +31,16 @@ JShop&Jeeshop的技术选型如下:
 * 树形表格组件： jquery-treegrid(暂定)
 * 文件上传: uploadify
 
+##演示系统
+* 前台: [http://jshop.coding.io](http://jshop.coding.io)
+* 后台: [http://jshop.coding.io/manage/user/login](http://jshop.coding.io/manage/user/login) (admin/123456)
+
+##WIKI
+1. [快速入门](http://git.oschina.net/dinguangx/jshop/wikis/home)
+
+##change log
+http://git.oschina.net/dinguangx/jshop/blob/master/changelog.md
+
 ##技术交流
 QQ群：417059832
 
