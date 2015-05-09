@@ -21,9 +21,9 @@
 		destroy-method="close">
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
 		
-		<property name="jdbcUrl" value="jdbc:mysql://10.4.26.93:3306/dc24c31d8738f4653b37108733844a00a" />
-		<property name="user" value="uhIlhLMytGE3h" />
-		<property name="password" value="pb3gosl0NTx4S" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/jeeshop" />
+		<property name="user" value="root" />
+		<property name="password" value="root" />
 <!-- 		<property name="setAutoCommitOnClose" value="false"/> -->
 		<!--连接池中保留的最小连接数。 -->
 		<property name="minPoolSize">
