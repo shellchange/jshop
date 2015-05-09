@@ -19,6 +19,7 @@
 * 2015.4.28 bugfix:通知模板管理，编辑之后页面报错的问题
 * 2015.4.30 bugfix:mvn package时未将system score的jar包打包进去的问题
 * 2015.4.30 为oschina演示系统修改一些代码
+* 2015.5.9 增加sql执行拦截器，将所有的待执行SQL转为小写(见LowerCaseSqlInterceptor,为解决云平台表名大小写严格区分的问题，一般不建议使用)
 
 
 
