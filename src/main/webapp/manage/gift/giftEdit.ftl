@@ -122,7 +122,7 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 <script>
 KindEditor.ready(function(K) {
 	var editor = K.editor({
-		fileManagerJson : '<%=request.getContextPath() %>/resource/kindeditor-4.1.7/jsp/file_manager_json.jsp'
+		fileManagerJson : '${basepath}/resource/kindeditor-4.1.7/jsp/file_manager_json.jsp'
 	});
 	K('input[name=filemanager]').click(function() {
 		var imagesInputObj = $(this).parent().children("input[ccc=imagesInput]");
