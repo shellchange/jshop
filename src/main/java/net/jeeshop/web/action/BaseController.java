@@ -2,10 +2,12 @@ package net.jeeshop.web.action;
 
 import net.jeeshop.core.Services;
 import net.jeeshop.core.dao.page.PagerModel;
+import net.jeeshop.core.front.SystemManager;
 import net.jeeshop.core.system.bean.User;
 import net.jeeshop.web.util.RequestHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +27,9 @@ public abstract class BaseController<E extends PagerModel> {
     protected String page_toEdit = null;
     protected String page_toAdd = null;
     public abstract Services<E> getService();
+
+    @Autowired
+    protected SystemManager systemManager;
 
     /**
      * 后台左边导航菜单的初始化查询方法

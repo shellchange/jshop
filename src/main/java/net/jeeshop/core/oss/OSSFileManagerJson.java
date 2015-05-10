@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.jeeshop.core.front.SystemManager;
+import net.jeeshop.services.manage.oss.bean.AliyunOSS;
 import net.jeeshop.services.manage.systemSetting.bean.SystemSetting;
 
 import org.apache.commons.lang.StringUtils;
@@ -44,7 +45,7 @@ public class OSSFileManagerJson {
 	
 	public String write(HttpServletRequest request,HttpServletResponse response){
 		logger.error("write...");
-		SystemSetting systemSetting = SystemManager.systemSetting;
+		SystemSetting systemSetting = SystemManager.getInstance().getSystemSetting();
 		//根目录路径，可以指定绝对路径，比如 /var/www/attached/
 		String rootPath = null;//pageContext.getServletContext().getRealPath("/") + "attached/";
 		//String rootPath = "D:\\workspace\\myshop\\web\\attached\\";//pageContext.getServletContext().getRealPath("/") + "attached/";
@@ -199,10 +200,11 @@ public class OSSFileManagerJson {
 	}
 	
 	private ObjectListing getDirList(String dir){
-		String ACCESS_ID = SystemManager.aliyunOSS.getACCESS_ID();
-        String OSS_ENDPOINT=SystemManager.aliyunOSS.getOSS_ENDPOINT();
-        String ACCESS_KEY=SystemManager.aliyunOSS.getACCESS_KEY();
-        String bucketName = SystemManager.aliyunOSS.getBucketName();
+        AliyunOSS aliyunOSS = SystemManager.getInstance().getAliyunOSS();
+        String ACCESS_ID = aliyunOSS.getACCESS_ID();
+        String OSS_ENDPOINT= aliyunOSS.getOSS_ENDPOINT();
+        String ACCESS_KEY= aliyunOSS.getACCESS_KEY();
+        String bucketName = aliyunOSS.getBucketName();
         // 可以使用ClientConfiguration对象设置代理服务器、最大重试次数等参数。
         ClientConfiguration config = new ClientConfiguration();
         client = new OSSClient(OSS_ENDPOINT, ACCESS_ID, ACCESS_KEY, config);

@@ -1,12 +1,14 @@
 package net.jeeshop.services.manage.oss.bean;
 
+import java.io.Serializable;
+
 /**
  * 阿里云OSS
  * 
  * @author huangf
  * 
  */
-public class AliyunOSS {
+public class AliyunOSS implements Serializable {
 	private String ACCESS_ID;
 	private String ACCESS_KEY;
 	private String OSS_ENDPOINT;

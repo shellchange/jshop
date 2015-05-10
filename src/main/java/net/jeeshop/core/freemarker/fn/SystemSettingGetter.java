@@ -13,6 +13,6 @@ import java.util.List;
 public class SystemSettingGetter implements TemplateMethodModelEx {
     @Override
     public Object exec(List arguments) throws TemplateModelException {
-        return SystemManager.systemSetting;
+        return SystemManager.getInstance().getSystemSetting();
     }
 }

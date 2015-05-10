@@ -66,9 +66,9 @@ public class MailUtil {
 	
 	public MailUtil(String to){
 		this.to = to;
-		this.from = SystemManager.getInstance().get("from_email_account");
-		this.password = SystemManager.getInstance().get("from_email_password");
-		this.host = SystemManager.getInstance().get("from_eamil_smtpServer");
+		this.from = SystemManager.getInstance().getProperty("from_email_account");
+		this.password = SystemManager.getInstance().getProperty("from_email_password");
+		this.host = SystemManager.getInstance().getProperty("from_eamil_smtpServer");
 //		this.subject = subject;
 	}
 

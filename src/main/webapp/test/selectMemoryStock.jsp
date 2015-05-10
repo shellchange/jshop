@@ -30,7 +30,7 @@
 			<td>库存是否有所改变</td>
 		</tr>
 		<%
-		ConcurrentMap<String, ProductStockInfo> productStockMap = SystemManager.productStockMap;
+		Map<String, ProductStockInfo> productStockMap = SystemManager.getInstance().getProductStockMap();
 		request.setAttribute("productStockMap", productStockMap);
 		%>
 		<tr>

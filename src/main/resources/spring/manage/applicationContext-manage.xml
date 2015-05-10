@@ -9,7 +9,5 @@
            http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 	<context:component-scan base-package="net.jeeshop.services.manage" />
-    <bean id="manageCache" class="net.jeeshop.core.oscache.ManageCache">
-        <property name="cacheInitiator" ref="cacheInitiator"/>
-    </bean>
+    <bean id="manageCache" class="net.jeeshop.core.oscache.ManageCache"/>
 </beans>

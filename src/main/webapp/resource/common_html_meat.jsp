@@ -25,8 +25,8 @@ if(!non_responsive2){
 <%} %>
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title><%=SystemManager.systemSetting.getTitle()%></title>
-<meta name="description" content="<%=SystemManager.systemSetting.getDescription()%>" />
-<meta name="keywords"  content="<%=SystemManager.systemSetting.getKeywords()%>" />
-<link rel="shortcut icon" type="image/x-icon" href="<%=SystemManager.systemSetting.getShortcuticon()%>">
+<title><%=SystemManager.getInstance().getSystemSetting().getTitle()%></title>
+<meta name="description" content="<%=SystemManager.getInstance().getSystemSetting().getDescription()%>" />
+<meta name="keywords"  content="<%=SystemManager.getInstance().getSystemSetting().getKeywords()%>" />
+<link rel="shortcut icon" type="image/x-icon" href="<%=SystemManager.getInstance().getSystemSetting().getShortcuticon()%>">
 

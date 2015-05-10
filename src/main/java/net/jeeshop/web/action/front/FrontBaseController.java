@@ -3,6 +3,7 @@ package net.jeeshop.web.action.front;
 import net.jeeshop.core.FrontContainer;
 import net.jeeshop.core.Services;
 import net.jeeshop.core.dao.page.PagerModel;
+import net.jeeshop.core.front.SystemManager;
 import net.jeeshop.services.front.account.bean.Account;
 import net.jeeshop.services.front.order.bean.Order;
 import net.jeeshop.web.action.front.orders.CartInfo;
@@ -10,6 +11,7 @@ import net.jeeshop.web.util.LoginUserHolder;
 import net.jeeshop.web.util.RequestHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,6 +28,9 @@ public abstract class FrontBaseController<E extends PagerModel> {
     public abstract Services<E> getService();
     protected static final String page_toLogin = "/account/login.html";
     protected static final String page_toLoginRedirect = "redirect:/account/login.html";
+
+    @Autowired
+    protected SystemManager systemManager;
 
     protected Account getLoginAccount(){
         return LoginUserHolder.getLoginAccount();

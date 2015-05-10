@@ -1,5 +1,6 @@
 package net.jeeshop.services.front.product.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 import net.jeeshop.services.manage.spec.bean.Spec;
@@ -10,7 +11,7 @@ import net.jeeshop.services.manage.spec.bean.Spec;
  * @author huangf
  * 
  */
-public class ProductStockInfo {
+public class ProductStockInfo implements Serializable {
 	private String id;// 商品ID
 	private volatile int stock;// 商品库存
 	private boolean changeStock;// 库存是否有所改变，false:库存未改变。true：库存已经改变

@@ -14,6 +14,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import net.jeeshop.core.FrontContainer;
 import net.jeeshop.core.KeyValueHelper;
 import net.jeeshop.core.ManageContainer;
@@ -127,8 +129,14 @@ public class FrontCache {
     @Autowired
 	private ProductService productService;
 
+    private static SystemManager systemManager;
 
-	public HotqueryService getHotqueryService() {
+    @Autowired
+    public void setSystemManager(SystemManager systemManager) {
+        FrontCache.systemManager = systemManager;
+    }
+
+    public HotqueryService getHotqueryService() {
 		return hotqueryService;
 	}
 
@@ -226,35 +234,6 @@ public class FrontCache {
 	}
 
 	/**
-	 * 加载系统配置信息
-	 */
-	public void loadSystemSetting() {
-		SystemManager.systemSetting = systemSettingService.selectOne(new SystemSetting());
-		if(SystemManager.systemSetting==null){
-			throw new NullPointerException("未设置本地环境变量，请管理员在后台进行设置");
-		}
-
-		//从环境变量中分解出图集来。
-		if(StringUtils.isNotBlank(SystemManager.systemSetting.getImages())){
-			String[] images = SystemManager.systemSetting.getImages().split(ManageContainer.product_images_spider);
-			if(SystemManager.systemSetting.getImagesList()==null){
-				SystemManager.systemSetting.setImagesList(new LinkedList<String>());
-			}else{
-				SystemManager.systemSetting.getImagesList().clear();
-			}
-
-			for(int i=0;i<images.length;i++){
-				SystemManager.systemSetting.getImagesList().add(images[i]);
-			}
-		}
-
-		//分解信任登陆
-//		if(StringUtils.isNotBlank(SystemManager.systemSetting.getBelieveLoginConfig())){
-////			SystemManager.systemSetting.setBelieveLoginInfo(JSON.parseObject(SystemManager.systemSetting.getBelieveLoginConfig(), BelieveLoginInfo.class));
-//		}
-	}
-
-	/**
 	 * 加载插件配置
 	 */
 	public void loadPlugConfig() {
@@ -278,8 +257,9 @@ public class FrontCache {
 		CommentType commentType = new CommentType();
 		commentType.setStatus(CommentType.commentType_status_y);
 		commentType = commentTypeService.selectOne(commentType);
-		SystemManager.commentTypeCode = commentType.getCode();
-		logger.info("SystemManager.commentTypeCode=" + SystemManager.commentTypeCode);
+		String commentTypeCode = commentType.getCode();
+        systemManager.setCommentTypeCode(commentTypeCode);
+        logger.info("SystemManager.commentTypeCode=" + systemManager.getCommentTypeCode());
 	}
 
 	/**
@@ -287,14 +267,15 @@ public class FrontCache {
 	 */
 	public void loadAttributeList() {
 		List<Attribute> attrs = attributeService.selectList(new Attribute());
-		SystemManager.attrs = attrs;
+//		SystemManager.attrs = attrs;
+        systemManager.setAttrs(attrs);
 
 		/**
 		 * 转换成map的形式存储
 		 */
-		if(attrs!=null && attrs.size()>0){
+        Map<String, Attribute> attrsMap = Maps.newHashMap();
+        if(attrs!=null && attrs.size()>0){
 			Map<String, Integer> map = new HashMap<String, Integer>();
-			SystemManager.attrsMap.clear();
 
 			for(int i=0;i<attrs.size();i++){
 				Attribute mainAttr = attrs.get(i);
@@ -303,11 +284,11 @@ public class FrontCache {
 				}else{
 					Attribute newAttr = new Attribute();
 					newAttr.setPid(mainAttr.getPid());
-					SystemManager.attrsMap.put(mainAttr.getId(), newAttr);
+                    attrsMap.put(mainAttr.getId(), newAttr);
 				}
 			}
 			if(map.size()>0){
-				for(Iterator<Entry<String, Attribute>> it = SystemManager.attrsMap.entrySet().iterator();it.hasNext();){
+				for(Iterator<Entry<String, Attribute>> it = attrsMap.entrySet().iterator();it.hasNext();){
 					Entry<String, Attribute> entry = it.next();
 					String id = String.valueOf(entry.getValue().getPid());
 //					logger.error("id="+id);
@@ -320,6 +301,7 @@ public class FrontCache {
 //				logger.error("SystemManager.attrsMap(63) = "+SystemManager.attrsMap.get("63"));
 			}
 		}
+        systemManager.setAttrsMap(attrsMap);
 	}
 
 	/**
@@ -341,7 +323,8 @@ public class FrontCache {
 				item.setNews(newsList);
 			}
 		}
-		SystemManager.newCatalogs = newCatalogs;
+//		SystemManager.newCatalogs = newCatalogs;
+        systemManager.setNewsCatalogs(newCatalogs);
 	}
 
 	/**
@@ -349,13 +332,14 @@ public class FrontCache {
 	 */
 	public void loadNews() {
 		List<News> news = newsService.selectList(new News());
+        Map<String, News> newsMap = Maps.newHashMap();
 		if(news!=null && news.size()>0){
-			SystemManager.newsMap.clear();
 			for(int i=0;i<news.size();i++){
 				News newsObj = news.get(i);
-				SystemManager.newsMap.put(newsObj.getCode(),newsObj);
+                newsMap.put(newsObj.getCode(),newsObj);
 			}
 		}
+        systemManager.setNewsMap(newsMap);
 	}
 
 	/**
@@ -370,7 +354,8 @@ public class FrontCache {
 				throw new NullPointerException();
 			}
 
-			Catalog catalog = SystemManager.catalogsMap.get(catalogID);
+//			Catalog catalog = SystemManager.catalogsMap.get(catalogID);
+            Catalog catalog = systemManager.getCatalogsMap().get(catalogID);
 			if(catalog==null){
 				throw new NullPointerException();
 			}
@@ -397,14 +382,15 @@ public class FrontCache {
 		if(StringUtils.isBlank(catalogID)){
 			throw new NullPointerException();
 		}
-		Catalog catalog = SystemManager.catalogsMap.get(catalogID);
+        Map<String, Catalog> catalogsMap = systemManager.getCatalogsMap();
+        Catalog catalog = catalogsMap.get(catalogID);
 		if(catalog==null){
 			throw new NullPointerException();
 		}
 		if(catalog.getPid().equals("0")){
 			return catalog.getId();
 		}else{
-			catalog = SystemManager.catalogsMap.get(catalog.getPid());
+			catalog = catalogsMap.get(catalog.getPid());
 			return catalog.getId();
 		}
 	}
@@ -415,24 +401,25 @@ public class FrontCache {
 	 * @param catalogID
 	 */
 	public static List<Attribute> loadAttrByCatalogID(int catalogID) {
-		if (SystemManager.attrs == null || SystemManager.attrs.size() == 0) {
+        List<Attribute> attrs = systemManager.getAttrs();
+		if (attrs == null || attrs.size() == 0) {
 			return null;
 		}
 
-		List<Attribute> attrs = new LinkedList<Attribute>();
-		for (int i = 0; i < SystemManager.attrs.size(); i++) {
-			Attribute attr = SystemManager.attrs.get(i);
+		List<Attribute> targetAttrs = new LinkedList<Attribute>();
+		for (int i = 0; i < attrs.size(); i++) {
+			Attribute attr = attrs.get(i);
 			if (attr.getPid() == -1) {
 				continue;
 			}
 
 			if (attr.getCatalogID() == catalogID) {
-				attrs.add(attr);// 添加主属性
+                targetAttrs.add(attr);// 添加主属性
 				attr.getAttrList().clear();
 				int id = Integer.valueOf(attr.getId());
 				// 添加子属性列表
-				for (int j = 0; j < SystemManager.attrs.size(); j++) {
-					Attribute attr2 = SystemManager.attrs.get(j);
+				for (int j = 0; j < attrs.size(); j++) {
+					Attribute attr2 = attrs.get(j);
 					if (attr2.getPid() == id) {
 						attr.getAttrList().add(attr2);// 添加子属性到主属性的内部集合
 					}
@@ -440,8 +427,8 @@ public class FrontCache {
 			}
 		}
 
-		logger.info("attrs=" + attrs);
-		return attrs;
+		logger.info("attrs=" + targetAttrs);
+		return targetAttrs;
 	}
 
 	/**
@@ -462,15 +449,22 @@ public class FrontCache {
 
 //		loadCatalogs2();
 
-		loadCatalogs2("p",SystemManager.catalogs);
-		loadCatalogs2("a",SystemManager.catalogsArticle);
+		List<Catalog> catalogs = loadCatalogs2("p");
+        systemManager.setCatalogs(catalogs);
+		List<Catalog> catalogsArticle = loadCatalogs2("a");
+        systemManager.setCatalogsArticle(catalogsArticle);
 
-		logger.info("SystemManager.catalogs=" + SystemManager.catalogs.size());
-		logger.info("SystemManager.catalogsArticle="+SystemManager.catalogsArticle.size());
+//		logger.info("SystemManager.catalogs=" + SystemManager.catalogs.size());
+//		logger.info("SystemManager.catalogsArticle="+SystemManager.catalogsArticle.size());
 
-		SystemManager.catalogsMap.clear();
-		SystemManager.catalogsCodeMap.clear();
-		putToMap(SystemManager.catalogs,loadProduct);
+//		SystemManager.catalogsMap.clear();
+//		SystemManager.catalogsCodeMap.clear();
+
+        Map<String, Catalog> catalogsMap = Maps.newHashMap();
+        Map<String, Catalog> catalogsCodeMap = Maps.newHashMap();
+		putToMap(systemManager.getCatalogs(), loadProduct, catalogsMap, catalogsCodeMap);
+        systemManager.setCatalogsMap(catalogsMap);
+        systemManager.setCatalogsCodeMap(catalogsCodeMap);
 	}
 
 	/**
@@ -478,11 +472,10 @@ public class FrontCache {
 	 * @param catalogs
 	 * @throws Exception
 	 */
-	public void putToMap(List<Catalog> catalogs,boolean loadProduct) throws Exception{
+	public void putToMap(List<Catalog> catalogs,boolean loadProduct, Map<String, Catalog> catalogsMap, Map<String, Catalog> catalogsCodeMap) throws Exception{
 		if(catalogs==null || catalogs.size()==0){
 			return;
 		}
-
 		for(int i=0;i<catalogs.size();i++){
 			Catalog item = catalogs.get(i);
 
@@ -494,18 +487,18 @@ public class FrontCache {
 				loadHotProductByCatalog(item);
 			}
 
-			SystemManager.catalogsMap.put(item.getId(),item);
+			catalogsMap.put(item.getId(),item);
 
-			if(SystemManager.catalogsCodeMap.get(item.getCode())!=null){
+			if(catalogsCodeMap.get(item.getCode())!=null){
 				logger.error("item.code = " + item.getCode());
 				throw new Exception("错误：商品类别code重复!");
 			}
 
-			SystemManager.catalogsCodeMap.put(item.getCode(),item);
+			catalogsCodeMap.put(item.getCode(),item);
 			if(item.getChildren()!=null && item.getChildren().size()>0){
 
 				//递归调用
-				putToMap(item.getChildren(),loadProduct);
+				putToMap(item.getChildren(),loadProduct, catalogsMap, catalogsCodeMap);
 			}
 		}
 	}
@@ -581,9 +574,9 @@ public class FrontCache {
 	 * 原来递归的方式修改为非递归方式。
 	 * 非递归方法查询商品/文章目录结构，并且自动排序。
 	 * @param type
-	 * @param catalogs
 	 */
-	private void loadCatalogs2(String type,List<Catalog> catalogs){
+	private List<Catalog> loadCatalogs2(String type){
+        List<Catalog> catalogs = Lists.newLinkedList();
 		Catalog cc = new Catalog();
 		cc.setType(type);
 		List<Catalog> catalogsList = catalogService.selectList(cc);
@@ -619,12 +612,6 @@ public class FrontCache {
 				}
 			}
 
-			if(catalogs==null){
-				catalogs = new LinkedList<Catalog>();
-			}else{
-				catalogs.clear();
-			}
-
 			for(Iterator<Entry<String, Catalog>> it = map.entrySet().iterator();it.hasNext();){
 				catalogs.add(it.next().getValue());
 			}
@@ -657,6 +644,7 @@ public class FrontCache {
 				});
 			}
 		}
+        return catalogs;
 	}
 
 	/**
@@ -665,7 +653,8 @@ public class FrontCache {
 	public void loadIndexImgs() {
 		logger.info("loadIndexImgs...");
 		IndexImg c = new IndexImg();
-		SystemManager.indexImages = indexImgService.selectList(c);
+		List<IndexImg> indexImages = indexImgService.selectList(c);
+        systemManager.setIndexImages(indexImages);
 	}
 
 	/**
@@ -707,8 +696,8 @@ public class FrontCache {
 				break;
 			}
 		}
-		SystemManager.goodsTopList = list;// productTypeService.selectList(e);
-
+//		SystemManager.goodsTopList = list;// productTypeService.selectList(e);
+        systemManager.setGoodsTopList(list);
 		System.out.println("list====" + list);
 	}
 
@@ -720,16 +709,20 @@ public class FrontCache {
 		Navigation nav = new Navigation();
 		nav.setPosition("bottom");
 		List<Navigation> navigations = navigationService.selectList(nav);
-		SystemManager.navigations = navigations;
+//		SystemManager.navigations = navigations;
+        systemManager.setNavigations(navigations);
 	}
 
 	/**
 	 * 加载特价商品、热门商品、新品商品  显示到首页的中下方位置
 	 */
 	public void loadProductsShowInIndex() {
-		SystemManager.newProducts = loadProducts(1);
-		SystemManager.saleProducts = loadProducts(2);
-		SystemManager.hotProducts = loadProducts(3);
+//		SystemManager.newProducts = loadProducts(1);
+//        SystemManager.saleProducts = loadProducts(2);
+//        SystemManager.hotProducts = loadProducts(3);
+        systemManager.setNewProducts(loadProducts(1));
+        systemManager.setSaleProducts(loadProducts(2));
+        systemManager.setHotProducts(loadProducts(3));
 	}
 
 	/**
@@ -768,7 +761,8 @@ public class FrontCache {
 		News news = new News();
 		news.setOffset(0);
 		news.setPageSize(7);
-		SystemManager.noticeList = newsService.selectNoticeList(news);
+		List<News> noticeList = newsService.selectNoticeList(news);
+        systemManager.setNoticeList(noticeList);
 	}
 
 	/**
@@ -776,20 +770,14 @@ public class FrontCache {
 	 */
 	public void loadProductStock() {
 		List<ProductStockInfo> list = productService.selectStockList(new Product());
-		synchronized (SystemManager.product_stock_lock) {
-			if(SystemManager.productStockMap==null){
-				SystemManager.productStockMap = new ConcurrentHashMap<String, ProductStockInfo>(list.size());
-			}else{
-				SystemManager.productStockMap.clear();
-			}
-
-			if(list!=null && list.size()>0){
-				for(int i=0;i<list.size();i++){
-					ProductStockInfo p = list.get(i);
-					SystemManager.productStockMap.put(p.getId(), p);
-				}
-			}
-		}
+        Map<String, ProductStockInfo> productStockMap = Maps.newHashMap();
+        if(list!=null && list.size()>0){
+            for(int i=0;i<list.size();i++){
+                ProductStockInfo p = list.get(i);
+                productStockMap.put(p.getId(), p);
+            }
+        }
+        systemManager.setProductStockMap(productStockMap);
 	}
 
 	/**
@@ -804,9 +792,9 @@ public class FrontCache {
 		p.setId(productID);
 		List<ProductStockInfo> list = productService.selectStockList(p);
 		if(list!=null && list.size()>0){
-			synchronized (SystemManager.product_stock_lock) {
-				SystemManager.productStockMap.put(productID,list.get(0));
-			}
+            Map<String, ProductStockInfo> stockInfoMap = systemManager.getProductStockMap();
+            stockInfoMap.put(productID,list.get(0));
+            systemManager.setProductStockMap(stockInfoMap);
 		}
 	}
 
@@ -815,17 +803,14 @@ public class FrontCache {
 	 */
 	private void loadExpress(){
 		List<Express> expressList = expressService.selectList(new Express());
-		if(SystemManager.expressMap==null){
-			SystemManager.expressMap = new HashMap<String, Express>();
-		}else{
-			SystemManager.expressMap.clear();
-		}
+        Map<String, Express> expressMap = Maps.newHashMap();
 		if(expressList!=null && expressList.size()>0){
 			for(int i=0;i<expressList.size();i++){
 				Express item = expressList.get(i);
-				SystemManager.expressMap.put(item.getCode(), item);
+				expressMap.put(item.getCode(), item);
 			}
 		}
+        systemManager.setExpressMap(expressMap);
 	}
 
 	/**
@@ -835,17 +820,14 @@ public class FrontCache {
 		Advert advert = new Advert();
 		advert.setStatus(Advert.advert_status_y);
 		List<Advert> advertList = advertService.selectList(advert);
-		if(SystemManager.advertMap==null){
-			SystemManager.advertMap = new HashMap<String, Advert>();
-		}else{
-			SystemManager.advertMap.clear();
-		}
+        Map<String, Advert> advertMap = Maps.newHashMap();
 		if(advertList!=null && advertList.size()>0){
 			for(int i=0;i<advertList.size();i++){
 				Advert item = advertList.get(i);
-				SystemManager.advertMap.put(item.getCode(), item);
+				advertMap.put(item.getCode(), item);
 			}
 		}
+        systemManager.setAdvertMap(advertMap);
 	}
 
 	/**
@@ -882,7 +864,8 @@ public class FrontCache {
 			List<String> list = FileUtils.readLines(file, "utf-8");
 			logger.info("list.size()="+list.size());
 
-			SystemManager.areaMap = JSON.parseObject(list.get(0),new TypeReference<Map<String,Area>>(){});
+			Map<String, Area> areaMap = JSON.parseObject(list.get(0),new TypeReference<Map<String,Area>>(){});
+            systemManager.setAreaMap(areaMap);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -895,13 +878,14 @@ public class FrontCache {
 	 */
 	public void loadNotifyTemplate(){
 		List<NotifyTemplate> list = notifyTemplateService.selectList(null);
+        Map<String, NotifyTemplate> notifyTemplateMap = Maps.newHashMap();
 		if(list!=null && list.size()>0){
-			SystemManager.notifyTemplateMap = new HashMap<String, NotifyTemplate>();
 			for(int i=0;i<list.size();i++){
 				NotifyTemplate item = list.get(i);
-				SystemManager.notifyTemplateMap.put(item.getCode(), item);
+				notifyTemplateMap.put(item.getCode(), item);
 			}
 		}
+        systemManager.setNotifyTemplateMap(notifyTemplateMap);
 	}
 
 	/**
@@ -909,13 +893,14 @@ public class FrontCache {
 	 */
 	private void loadAccountRank(){
 		List<AccountRank> list = accountRankService.selectList(new AccountRank());
+        Map<String, AccountRank> accountRankMap = Maps.newHashMap();
 		if(list!=null && list.size()>0){
-			SystemManager.notifyTemplateMap = new HashMap<String, NotifyTemplate>();
 			for(int i=0;i<list.size();i++){
 				AccountRank item = list.get(i);
-				SystemManager.accountRankMap.put(item.getCode(), item);
+				accountRankMap.put(item.getCode(), item);
 			}
 		}
+        systemManager.setAccountRankMap(accountRankMap);
 	}
 
 	/**
@@ -956,15 +941,17 @@ public class FrontCache {
 	private void loadIndexLeftProduct(){
 		Product p = new Product();
 		p.setTop(FrontContainer.default_page_left_product_size);
-		SystemManager.indexLeftProduct = productService.selectPageLeftHotProducts(p);
+		List<Product> indexLeftProduct = productService.selectPageLeftHotProducts(p);
+        systemManager.setIndexLeftProduct(indexLeftProduct);
 	}
 
 	/**
 	 * 加载促销活动的商品
 	 */
 	public void loadActivityProductList(){
-		SystemManager.activityProductMap.clear();
-		if(SystemManager.activityMap.size()==0){
+        Map<String, List<Product>> activityProductMap = Maps.newHashMap();
+        Map<String, Activity> activityMap = systemManager.getActivityMap();
+        if(activityMap.size()==0){
 			return;
 		}
 		List<Product> list = productService.selectActivityProductList(null);
@@ -974,7 +961,7 @@ public class FrontCache {
 			logger.info("loadActivityProductList.list="+list.size());
 			for(int i=0;i<list.size();i++){
 				Product p = list.get(i);
-				Activity activity = SystemManager.activityMap.get(p.getActivityID());
+				Activity activity = activityMap.get(p.getActivityID());
 				if(activity==null){
 					logger.info(" p = " + p.getId());
 					continue;
@@ -982,23 +969,24 @@ public class FrontCache {
 
 				if(activity.getActivityType().equals(Activity.activity_activityType_c)){
 					if(activity.getDiscountType().equals(Activity.activity_discountType_r)){
-						addProductByDiscountType(p,activity);
+						addProductByDiscountType(p,activity, activityProductMap);
 					}else if(activity.getDiscountType().equals(Activity.activity_discountType_d)){
-						addProductByDiscountType(p,activity);
+						addProductByDiscountType(p,activity, activityProductMap);
 					}else if(activity.getDiscountType().equals(Activity.activity_discountType_s)){
-						addProductByDiscountType(p,activity);
+						addProductByDiscountType(p,activity, activityProductMap);
 					}
 				}
 			}
 		}
+        systemManager.setActivityProductMap(activityProductMap);
 	}
 
 	//根据此商品的优惠类型,进行分组
-	private void addProductByDiscountType(Product p,Activity activity) {
-		List<Product> valueList = SystemManager.activityProductMap.get(activity.getDiscountType());
+	private void addProductByDiscountType(Product p,Activity activity, Map<String, List<Product>> activityProductMap) {
+		List<Product> valueList = activityProductMap.get(activity.getDiscountType());
 		if(valueList == null){
 			valueList = new LinkedList<Product>();
-			SystemManager.activityProductMap.put(activity.getDiscountType(), valueList);
+			activityProductMap.put(activity.getDiscountType(), valueList);
 		}
 
 		//复制活动的属性过来
@@ -1015,12 +1003,13 @@ public class FrontCache {
 	 */
 	public void loadActivityScoreProductList(){
 		logger.info("loadActivityScoreProductList...");
-		if(SystemManager.activityMap.size()==0){
+        Map<String, Activity> activityMap = systemManager.getActivityMap();
+        if(activityMap.size()==0){
 			return;
 		}
 
 		List<String> productIds = new LinkedList<String>();
-		for(Iterator<Entry<String, Activity>> it = SystemManager.activityMap.entrySet().iterator();it.hasNext();){
+		for(Iterator<Entry<String, Activity>> it = activityMap.entrySet().iterator();it.hasNext();){
 			Entry<String, Activity> entry = it.next();
 			if(entry.getValue().getActivityType().equals(Activity.activity_activityType_j) &&
 					StringUtils.isNotBlank(entry.getValue().getProductID())){
@@ -1031,15 +1020,15 @@ public class FrontCache {
 			}
 		}
 		logger.info("loadActivityScoreProductList...productIds="+productIds.toString());
-		if(productIds.size()>0){
+        List<Product> activityScoreProductList = Lists.newArrayList();
+        if(productIds.size()>0){
 			Product queryProduct = new Product();
 			queryProduct.setProductIds(productIds);
-			SystemManager.activityScoreProductList = productService.selectActivityProductList(queryProduct);
-
+			activityScoreProductList = productService.selectActivityProductList(queryProduct);
 			//从活动中拷贝属性过去
-			for(int i=0;i<SystemManager.activityScoreProductList.size();i++){
-				Product p = SystemManager.activityScoreProductList.get(i);
-				Activity activity = SystemManager.activityMap.get(p.getActivityID());
+			for(int i=0;i<activityScoreProductList.size();i++){
+				Product p = activityScoreProductList.get(i);
+				Activity activity = activityMap.get(p.getActivityID());
 				if(activity==null){
 					logger.info(" p = " + p.getId());
 					continue;
@@ -1053,19 +1042,22 @@ public class FrontCache {
 					p.setMaxSellCount(activity.getMaxSellCount());
 				}
 			}
+
 		}
+        systemManager.setActivityScoreProductList(activityScoreProductList);
 	}
 	/**
 	 * 加载团购活动商品列表
 	 */
 	public void loadActivityTuanProductList(){
 		logger.info("loadActivityTuanProductList...");
-		if(SystemManager.activityMap.size()==0){
+        Map<String, Activity> activityMap = systemManager.getActivityMap();
+        if(activityMap.size()==0){
 			return;
 		}
 
 		List<String> productIds = new LinkedList<String>();
-		for(Iterator<Entry<String, Activity>> it = SystemManager.activityMap.entrySet().iterator();it.hasNext();){
+		for(Iterator<Entry<String, Activity>> it = activityMap.entrySet().iterator();it.hasNext();){
 			Entry<String, Activity> entry = it.next();
 			if(entry.getValue().getActivityType().equals(Activity.activity_activityType_t) &&
 					StringUtils.isNotBlank(entry.getValue().getProductID())){
@@ -1076,15 +1068,16 @@ public class FrontCache {
 			}
 		}
 		logger.info("loadActivityScoreProductList...productIds="+productIds.toString());
+        List<Product> activityTuanProductList = Lists.newArrayList();
 		if(productIds.size()>0){
 			Product queryProduct = new Product();
 			queryProduct.setProductIds(productIds);
-			SystemManager.activityTuanProductList = productService.selectActivityProductList(queryProduct);
+			activityTuanProductList = productService.selectActivityProductList(queryProduct);
 
 			//从活动中拷贝属性过去
-			for(int i=0;i<SystemManager.activityTuanProductList.size();i++){
-				Product p = SystemManager.activityTuanProductList.get(i);
-				Activity activity = SystemManager.activityMap.get(p.getActivityID());
+			for(int i=0;i<activityTuanProductList.size();i++){
+				Product p = activityTuanProductList.get(i);
+				Activity activity = activityMap.get(p.getActivityID());
 				if(activity==null){
 					logger.info(" p = " + p.getId());
 					continue;
@@ -1102,13 +1095,14 @@ public class FrontCache {
 				}
 			}
 		}
+        systemManager.setActivityTuanProductList(activityTuanProductList);
 	}
 
 	/**
 	 * 加载所有的活动列表
 	 */
 	public void loadActivityMap(){
-		SystemManager.activityMap.clear();
+        Map<String, Activity> activityMap = Maps.newHashMap();
 		List<Activity> list = activityService.selectList(new Activity());
 		if(list!=null){
 			for(int i=0;i<list.size();i++){
@@ -1126,16 +1120,18 @@ public class FrontCache {
 					activity.setDiscountFormat(String.valueOf(Double.valueOf(activity.getDiscount()) / 10D));
 				}
 
-				SystemManager.activityMap.put(activity.getId(), activity);
+				activityMap.put(activity.getId(), activity);
 			}
 		}
+        systemManager.setActivityMap(activityMap);
 	}
 
 	/**
 	 * 加载热门查询列表
 	 */
 	public void loadHotquery(){
-		SystemManager.hotqueryList = hotqueryService.selectList(new Hotquery());
+		List<Hotquery> hotqueryList = hotqueryService.selectList(new Hotquery());
+        systemManager.setHotqueryList(hotqueryList);
 	}
 
 	/**
@@ -1151,7 +1147,7 @@ public class FrontCache {
 		loadIndexImgs();
 		loadKeyValue();
 		loadNavigations();
-		loadSystemSetting();
+//		loadSystemSetting();
 		loadPlugConfig();
 //		loadArea();
 		loadExpress();

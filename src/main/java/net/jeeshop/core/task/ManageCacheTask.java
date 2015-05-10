@@ -32,7 +32,7 @@ public class ManageCacheTask implements Runnable {
 			
 			try {
 //				TimeUnit.MINUTES.sleep(15);//单位：分钟
-				TimeUnit.SECONDS.sleep(Long.valueOf(SystemManager.getInstance().get("task_SystemAutoNotifyTask_time")));
+				TimeUnit.SECONDS.sleep(Long.valueOf(SystemManager.getInstance().getProperty("task_SystemAutoNotifyTask_time")));
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

@@ -164,7 +164,7 @@ public class NewsAction extends BaseController<News> {
 
     @RequestMapping(value = "toEdit0")
 	private String toEdit0(News e, ModelMap model) throws Exception {
-        model.addAttribute("catalogsArticle", SystemManager.catalogsArticle);
+        model.addAttribute("catalogsArticle", SystemManager.getInstance().getCatalogsArticle());
 		return super.toEdit(e, model);
 	}
 	
@@ -352,14 +352,14 @@ public class NewsAction extends BaseController<News> {
 		e.clear();
 		e.setType(type);
         model.addAttribute("e", e);
-        model.addAttribute("catalogsArticle", SystemManager.catalogsArticle);
+        model.addAttribute("catalogsArticle", SystemManager.getInstance().getCatalogsArticle());
 		return page_toAdd;
 	}
 	
 	@Override
 	protected void selectListAfter(PagerModel pager) {
 		pager.setPagerUrl("selectList");
-        RequestHolder.getRequest().setAttribute("catalogsArticle", SystemManager.catalogsArticle);
+        RequestHolder.getRequest().setAttribute("catalogsArticle", SystemManager.getInstance().getCatalogsArticle());
 	}
 	
 }

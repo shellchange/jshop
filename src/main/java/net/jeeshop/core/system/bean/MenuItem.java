@@ -9,6 +9,7 @@ import java.util.List;
 
 import net.jeeshop.core.front.SystemManager;
 
+import net.jeeshop.services.manage.systemSetting.bean.SystemSetting;
 import org.apache.commons.lang.StringUtils;
 
 
@@ -45,12 +46,13 @@ public class MenuItem {
 //				manageHttp = SystemManager.systemSetting.getManageHttp();
 //			}
 			//为z-tree自定义图标
-			if(this.getType().equals(MenuType.page)){
-				this.setIcon(SystemManager.systemSetting.getManageLeftTreeLeafIcon());
+            SystemSetting systemSetting = SystemManager.getInstance().getSystemSetting();
+            if(this.getType().equals(MenuType.page)){
+				this.setIcon(systemSetting.getManageLeftTreeLeafIcon());
 //				this.setIcon("/myshop/resource/images/letter.gif");
 //				this.setIcon(manageHttp+"../resource/images/letter.gif");
 			}else if(this.getType().equals(MenuType.button)){
-				this.setIcon(SystemManager.systemSetting.getManageLeftTreeLeafIcon());
+				this.setIcon(systemSetting.getManageLeftTreeLeafIcon());
 //				this.setIcon(manageHttp+"../resource/images/reply.gif");
 //				this.setIcon("/myshop/resource/images/reply.gif");
 			}

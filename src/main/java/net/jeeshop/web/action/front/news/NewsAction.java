@@ -39,7 +39,7 @@ public class NewsAction extends FrontBaseController<News> {
 
 	@ModelAttribute("newsCatalogs")
 	public List<Catalog> getNewsCatalogs(){
-		return SystemManager.newCatalogs;
+		return SystemManager.getInstance().getNewsCatalogs();
 	}
 	@RequestMapping("news/list")
 	public String newsList(ModelMap model, News e) throws Exception{

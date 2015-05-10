@@ -1,19 +1,10 @@
 package net.jeeshop.core.mybatis.interceptor;
 
-import org.apache.ibatis.builder.SqlSourceBuilder;
-import org.apache.ibatis.builder.xml.dynamic.DynamicContext;
-import org.apache.ibatis.builder.xml.dynamic.SqlNode;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.SqlSource;
 import org.apache.ibatis.plugin.*;
-import org.apache.ibatis.reflection.MetaObject;
-import org.apache.ibatis.reflection.factory.DefaultObjectFactory;
-import org.apache.ibatis.reflection.factory.ObjectFactory;
-import org.apache.ibatis.reflection.wrapper.DefaultObjectWrapperFactory;
-import org.apache.ibatis.reflection.wrapper.ObjectWrapperFactory;
-import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
@@ -106,65 +97,6 @@ public class LowerCaseSqlInterceptor implements Interceptor {
             ReflectionUtils.makeAccessible(sqlField);
             ReflectionUtils.setField(sqlField, boundSql, sql.toLowerCase());
             return boundSql;
-        }
-    }
-
-
-    public static class SystemMetaObject {
-        public static final ObjectFactory DEFAULT_OBJECT_FACTORY = new DefaultObjectFactory();
-        public static final ObjectWrapperFactory DEFAULT_OBJECT_WRAPPER_FACTORY = new DefaultObjectWrapperFactory();
-        public static final MetaObject NULL_META_OBJECT = MetaObject.forObject(NullObject.class, DEFAULT_OBJECT_FACTORY, DEFAULT_OBJECT_WRAPPER_FACTORY);
-
-        private SystemMetaObject() {
-            // Prevent Instantiation of Static Class
-        }
-
-        private static class NullObject {
-        }
-
-        public static MetaObject forObject(Object object) {
-            return MetaObject.forObject(object, DEFAULT_OBJECT_FACTORY, DEFAULT_OBJECT_WRAPPER_FACTORY);
-        }
-    }
-
-    private static class DynamicSqlSource implements SqlSource {
-        private Configuration configuration;
-        private SqlNode rootSqlNode;
-
-        public DynamicSqlSource(Configuration configuration, SqlNode rootSqlNode) {
-            this.configuration = configuration;
-            this.rootSqlNode = rootSqlNode;
-        }
-
-        public BoundSql getBoundSql(Object parameterObject) {
-            DynamicContext context = new DynamicContext(configuration, parameterObject);
-            rootSqlNode.apply(context);
-            SqlSourceBuilder sqlSourceParser = new SqlSourceBuilder(configuration);
-            Class<?> parameterType = parameterObject == null ? Object.class : parameterObject.getClass();
-            SqlSource sqlSource = sqlSourceParser.parse(context.getSql().toLowerCase(), parameterType);
-            BoundSql boundSql = sqlSource.getBoundSql(parameterObject);
-            return boundSql;
-        }
-    }
-
-
-    private static class ProviderSqlSource implements SqlSource {
-        private Configuration configuration;
-        private ProviderSqlSource providerSqlSource;
-
-        public ProviderSqlSource( Configuration configuration, ProviderSqlSource providerSqlSource) {
-            this.configuration = configuration;
-            this.providerSqlSource = providerSqlSource;
-        }
-
-        @Override
-        public BoundSql getBoundSql(Object parameterObject) {
-            BoundSql boundSql = providerSqlSource.getBoundSql(parameterObject);
-                return new BoundSql(
-                        configuration,
-                        boundSql.getSql().toLowerCase(),
-                        boundSql.getParameterMappings(),
-                        parameterObject);
         }
     }
 

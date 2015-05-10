@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 import net.jeeshop.core.front.SystemManager;
+import net.jeeshop.services.manage.oss.bean.AliyunOSS;
 import net.jeeshop.web.action.manage.news.NewsAction;
 
 import org.slf4j.Logger;
@@ -82,7 +83,8 @@ public class OSSObjectSample {
 
 	private static void save0(String filePath, File file)
 			throws FileNotFoundException {
-		if(SystemManager.aliyunOSS==null){
+        AliyunOSS aliyunOSS = SystemManager.getInstance().getAliyunOSS();
+		if(aliyunOSS==null){
     		logger.error("阿里云存储未被启用");
     		return;
     	}
@@ -91,20 +93,20 @@ public class OSSObjectSample {
     	System.out.println("filePath="+filePath);
     	// 可以使用ClientConfiguration对象设置代理服务器、最大重试次数等参数。
         ClientConfiguration config = new ClientConfiguration();
-        OSSClient client = new OSSClient(SystemManager.aliyunOSS.getOSS_ENDPOINT(), SystemManager.aliyunOSS.getACCESS_ID(), SystemManager.aliyunOSS.getACCESS_KEY(), config);
+        OSSClient client = new OSSClient(aliyunOSS.getOSS_ENDPOINT(), aliyunOSS.getACCESS_ID(), aliyunOSS.getACCESS_KEY(), config);
 
-        ensureBucket(client, SystemManager.aliyunOSS.getBucketName());
-        setBucketPublicReadable(client, SystemManager.aliyunOSS.getBucketName());
+        ensureBucket(client, aliyunOSS.getBucketName());
+        setBucketPublicReadable(client, aliyunOSS.getBucketName());
         // 获取Object，返回结果为OSSObject对象
-        logger.error("bucketName=" + SystemManager.aliyunOSS.getBucketName());
-        OSSObject object = client.getObject(SystemManager.aliyunOSS.getBucketName(), "attached/");
+        logger.error("bucketName=" + aliyunOSS.getBucketName());
+        OSSObject object = client.getObject(aliyunOSS.getBucketName(), "attached/");
         
         // 获取Object的输入流
         InputStream objectContent = object.getObjectContent();
         System.out.println(objectContent);
         System.out.println("正在上传...");
 //            fileName = System.currentTimeMillis() + "." +getExtensionName(fileName);
-        String url = uploadFile(client, SystemManager.aliyunOSS.getBucketName(), filePath, file);
+        String url = uploadFile(client, aliyunOSS.getBucketName(), filePath, file);
         System.out.println("上传成功！url="+url);
 	}
     

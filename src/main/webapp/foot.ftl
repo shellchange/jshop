@@ -22,7 +22,7 @@
 	
 		<div class="container">
 			<div class="row IndexBottom">
-				<#list systemManager().newCatalogs as item>
+				<#list systemManager().newsCatalogs as item>
 					<div class="col-xs-2" style="text-align: center;">
 						<div class="row" style="margin-bottom: 10px;"><strong>${item.name!""}</strong></div>
 						<#if item.news??>

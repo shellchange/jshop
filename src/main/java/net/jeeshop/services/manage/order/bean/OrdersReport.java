@@ -1,12 +1,14 @@
 package net.jeeshop.services.manage.order.bean;
 
+import java.io.Serializable;
+
 /**
  * 后台首页综合报表统计数据
  * 
  * @author jqsl2012@163.com
  * 
  */
-public class OrdersReport {
+public class OrdersReport implements Serializable{
 	private int cancelCount;
 //	private AtomicInteger notPayCount;// 未付款订单数
 	private volatile int notPayCount;// 未付款订单数

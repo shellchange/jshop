@@ -1,6 +1,7 @@
 package net.jeeshop.core.oscache;
 
 import com.alibaba.fastjson.JSON;
+import net.jeeshop.core.ManageContainer;
 import net.jeeshop.core.TaskManager;
 import net.jeeshop.core.front.SystemManager;
 import net.jeeshop.services.manage.area.AreaService;
@@ -11,13 +12,17 @@ import net.jeeshop.services.manage.oss.OssService;
 import net.jeeshop.services.manage.oss.bean.AliyunOSS;
 import net.jeeshop.services.manage.oss.bean.Oss;
 import net.jeeshop.services.manage.product.ProductService;
+import net.jeeshop.services.manage.systemSetting.SystemSettingService;
+import net.jeeshop.services.manage.systemSetting.bean.SystemSetting;
 import net.jeeshop.services.manage.task.TaskService;
 import net.jeeshop.services.manage.task.bean.Task;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -44,7 +49,10 @@ public class ManageCache {
 	private TaskService taskService;
     @Resource(name = "ossServiceManage")
 	private OssService ossService;
-    private CacheInitiator cacheInitiator;
+    @Autowired
+    private SystemSettingService systemSettingService;
+    @Autowired
+    private SystemManager systemManager;
 	
 	public void setOssService(OssService ossService) {
 		this.ossService = ossService;
@@ -82,29 +90,22 @@ public class ManageCache {
 		this.commentService = commentService;
 	}
 
-    public CacheInitiator getCacheInitiator() {
-        return cacheInitiator;
-    }
-
-    public void setCacheInitiator(CacheInitiator cacheInitiator) {
-        this.cacheInitiator = cacheInitiator;
-    }
-
     /**
 	 * 加载订单报表
 	 */
 	public void loadOrdersReport(){
-		SystemManager.ordersReport = orderService.loadOrdersReport();
-		if(SystemManager.ordersReport==null){
-			SystemManager.ordersReport = new OrdersReport();
+		OrdersReport ordersReport = orderService.loadOrdersReport();
+		if(ordersReport==null){
+			ordersReport = new OrdersReport();
 		}
 		//加载缺货商品数
-		SystemManager.ordersReport.setOutOfStockProductCount(productService.selectOutOfStockProductCount());
+		ordersReport.setOutOfStockProductCount(productService.selectOutOfStockProductCount());
 
 		//加载吐槽评论数
-		SystemManager.ordersReport.setNotReplyCommentCount(commentService.selectNotReplyCount());
+		ordersReport.setNotReplyCommentCount(commentService.selectNotReplyCount());
 		
-		logger.error("SystemManager.ordersReport = " + SystemManager.ordersReport.toString());
+		logger.error("SystemManager.ordersReport = " + ordersReport.toString());
+        systemManager.setOrdersReport(ordersReport);
 	}
 	
 //	/**
@@ -182,10 +183,10 @@ public class ManageCache {
 				if(aliyunOSS==null){
 					throw new NullPointerException("阿里云配置不正确，请检查！");
 				}
-				SystemManager.aliyunOSS = aliyunOSS;
+                systemManager.setAliyunOSS(aliyunOSS);
 			}
 		}else{
-			SystemManager.aliyunOSS = null;
+            systemManager.setAliyunOSS(null);
 		}
 	}
 	
@@ -213,9 +214,34 @@ public class ManageCache {
 //		readJsonArea();
 		loadTask();
 		loadOSS();
-        cacheInitiator.loadSystemSetting();
+        loadSystemSetting();
 		logger.error("后台缓存加载完毕!");
 	}
+
+    /**
+     * 加载系统配置信息
+     */
+    public void loadSystemSetting() {
+        SystemSetting systemSetting = systemSettingService.selectOne(new SystemSetting());
+        if (systemSetting == null) {
+            throw new NullPointerException("未设置本地环境变量，请管理员在后台进行设置");
+        }
+
+        //从环境变量中分解出图集来。
+        if (StringUtils.isNotBlank(systemSetting.getImages())) {
+            String[] images = systemSetting.getImages().split(ManageContainer.product_images_spider);
+            if (systemSetting.getImagesList() == null) {
+                systemSetting.setImagesList(new LinkedList<String>());
+            } else {
+                systemSetting.getImagesList().clear();
+            }
+
+            for (int i = 0; i < images.length; i++) {
+                systemSetting.getImagesList().add(images[i]);
+            }
+        }
+        systemManager.setSystemSetting(systemSetting);
+    }
 
 	public static void main(String[] args) {
 		String str = "10280|10281|10282";

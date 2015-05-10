@@ -1,15 +1,17 @@
 package net.jeeshop.core;
 
-import java.util.List;
-
 import net.jeeshop.core.dao.page.PagerModel;
-import net.jeeshop.services.manage.account.bean.Account;
-
+import net.jeeshop.core.front.SystemManager;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 
 public abstract class ServersManager<E extends PagerModel, DAO extends  DaoManager<E>> implements Services<E>{
 
+    @Autowired
+    protected SystemManager systemManager;
 	protected DAO dao;
 
 	public DAO getDao() {

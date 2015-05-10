@@ -5,13 +5,13 @@
 <%@page import="net.jeeshop.core.util.ImageUtils"%>
 <%@page import="net.jeeshop.core.oss.OSSObjectSample"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="net.jeeshop.services.front.systemSetting.bean.SystemSetting"%>
 <%@page import="net.jeeshop.core.ManageContainer"%>
 <%@ page import="java.util.*,java.io.*" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="org.apache.commons.fileupload.*" %>
 <%@ page import="org.apache.commons.fileupload.disk.*" %>
 <%@ page import="org.apache.commons.fileupload.servlet.*" %>
+<%@ page import="net.jeeshop.services.manage.systemSetting.bean.SystemSetting" %>
 <%-- <%@ page import="org.json.simple.*" %> --%>
 <%
 
@@ -24,7 +24,7 @@
  */
 Logger logger = LoggerFactory.getLogger(OSSObjectSample.class);
 logger.error("upload_json.jsp>>>>>");
-SystemSetting systemSetting = SystemManager.systemSetting;
+SystemSetting systemSetting = SystemManager.getInstance().getSystemSetting();
 //文件保存目录路径
 String savePath = pageContext.getServletContext().getRealPath("/") + "attached/";
 //String savePath = "D:\\workspace\\myshop\\web\\attached\\";//pageContext.getServletContext().getRealPath("/") + "attached/";
@@ -139,8 +139,8 @@ String rootPath = "attached/"+dirName+ "/"+ df.format(new Date()) + "/";//云存
 			File uploadedFile1 = new File(savePath, newFileName1+"."+fileExt);
 			File uploadedFile2 = new File(savePath, newFileName2+"."+fileExt);
 			
-			ImageUtils.ratioZoom2(uploadedFile3,uploadedFile1,Double.valueOf(SystemManager.getInstance().get("product_image_1_w")));
-			ImageUtils.ratioZoom2(uploadedFile3,uploadedFile2,Double.valueOf(SystemManager.getInstance().get("product_image_2_w")));
+			ImageUtils.ratioZoom2(uploadedFile3,uploadedFile1,Double.valueOf(SystemManager.getInstance().getProperty("product_image_1_w")));
+			ImageUtils.ratioZoom2(uploadedFile3,uploadedFile2,Double.valueOf(SystemManager.getInstance().getProperty("product_image_2_w")));
 			
 			OSSObjectSample.save(rootPath + newFileName1+"."+fileExt, uploadedFile1);
 			OSSObjectSample.save(rootPath + newFileName2+"."+fileExt, uploadedFile2);
