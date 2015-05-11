@@ -43,10 +43,10 @@ http://git.oschina.net/dinguangx/jshop/blob/master/changelog.md
 
 ##技术交流
 QQ群：417059832
-开发团队:
-Dylan: dinguangx@163.com 270705821
-lizm: 736578498
-庄周梦蝶:735422529
+####开发团队:
+* Dylan: dinguangx@163.com 270705821
+* lizm: 736578498
+* 庄周梦蝶:735422529
 
 
 ##JShop版权声明
