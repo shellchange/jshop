@@ -22,6 +22,7 @@
 * 2015.5.9 增加sql执行拦截器，将所有的待执行SQL转为小写(见LowerCaseSqlInterceptor,为解决云平台表名大小写严格区分的问题，一般不建议使用)
 * 2015.5.10 引入redis组件jedis(2.6.0),spring-data-redis(1.4.2.RELEASE)
 * 2015.5.10 改进缓存机制，提供三种不同缓存实现（simple/ehcache/redis）
+* 2015.5.11 报表统计页面，jsp转换为ftl(lizm)
 
 
 
@@ -32,3 +33,5 @@
 * FS00002:增加登录过滤器
 * FS00003:缓存管理页面，使用freemarker改造
 * FS00004:区域管理，全部从数据库中加载数据
+* FR00001:报表统计->订单销售统计，由jsp改造为freemarker(已完成,lizm)
+* FR00002:报表统计->商品销售统计，由jsp改造为freemarker(已完成,lizm)

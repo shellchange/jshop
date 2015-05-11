@@ -43,6 +43,11 @@ http://git.oschina.net/dinguangx/jshop/blob/master/changelog.md
 
 ##技术交流
 QQ群：417059832
+开发团队:
+Dylan: dinguangx@163.com 270705821
+lizm: 736578498
+庄周梦蝶:735422529
+
 
 ##JShop版权声明
 JShop是在Jeeshop的基础上进行技术框架变更，以及业务功能完善，开源协议沿用jeeshop的LGPL协议，请大家在学习和试用时，遵循LGPL协议规范，并请尊重jeeshop原作者的劳动成果！

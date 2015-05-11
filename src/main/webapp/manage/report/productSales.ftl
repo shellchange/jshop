@@ -1,33 +1,20 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
-<%@ page session="false"%>
-<%@ taglib uri="http://jsptags.com/tags/navigation/pager" prefix="pg"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
-<html>
-<head>
-<%@ include file="/resource/common_html_meat.jsp"%>
-<%@ include file="/manage/common.jsp"%>
-<script type="text/javascript" src="<%=request.getContextPath()%>/resource/My97DatePicker/WdatePicker.js"></script>
-</head>
-
-<body>
+<#import "/manage/tpl/pageBase.ftl" as page>
+<@page.pageBase currentMenu="商品销售统计">
 	<table class="table table-bordered">
 		<tr>
 			<td style="text-align: right;" nowrap="nowrap">日期范围</td>
 			<td style="text-align: left;">
-				<input id="startDate" class="Wdate search-query input-small" type="text" name="e.startDate"
-					value="<s:property value="e.startDate" />"
+				<input id="startDate" class="Wdate search-query input-small" type="text" name="startDate"
+					value="${(e.startDate)!""}"
 					onFocus="WdatePicker({dateFmt:'yyyy-MM',maxDate:'#F{$dp.$D(\'endDate\')||\'2020-10-01\'}'})"/>
 					~ 
-				<input id="endDate" class="Wdate search-query input-small" type="text" name="e.endDate" 
-				value="<s:property value="e.endDate" />"
+				<input id="endDate" class="Wdate search-query input-small" type="text" name="endDate" 
+				value="${(e.endDate)!""}"
 				onFocus="WdatePicker({dateFmt:'yyyy-MM',minDate:'#F{$dp.$D(\'startDate\')}',maxDate:'2020-10-01'})"/>
 			</td>
 		</tr>
 		<tr>
 			<td colspan="8">
-<%-- 				<s:submit method="productSales" value="查询" cssClass="btn btn-primary"/> --%>
 				<button class="btn btn-primary" onclick="return loadProductSales();">
 					<i class="icon-search icon-white"></i> 查询
 				</button>
@@ -35,7 +22,7 @@
 		</tr>
 	</table>
 
-<script type="text/javascript" src="<%=request.getContextPath()%>/resource/echarts-1.3.5/echarts-plain-map.js" ></script>
+<script type="text/javascript" src="${basepath}/resource/echarts-1.3.5/echarts-plain-map.js" ></script>
 <!--Step:2 Prepare a dom for ECharts which (must) has size (width & hight)-->
     <!--Step:2 为ECharts准备一个具备大小（宽高）的Dom-->
     <div id="main" style="height:500px;border:1px solid #ccc;padding:10px;"></div>
@@ -73,7 +60,7 @@
         }});
     	console.log("正在查询，请稍候...");
     	
-    	var _url = "report!selectProductSales.action?e.startDate="+$("#startDate").val()+"&e.endDate="+$("#endDate").val();
+    	var _url = "selectProductSales?startDate="+$("#startDate").val()+"&endDate="+$("#endDate").val();
     	//var _url = "report!selectProductSales.action?e.startDate=2012-01&e.endDate=2015-03";
     	console.log("_url="+_url);
 		$.ajax({
@@ -178,5 +165,4 @@
         });
     }
     </script>
-</body>
-</html>
+</@page.pageBase>
