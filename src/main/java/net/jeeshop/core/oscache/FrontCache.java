@@ -3,14 +3,7 @@ package net.jeeshop.core.oscache;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -851,6 +844,71 @@ public class FrontCache {
 //		}
 //	}
 
+    /**
+     * 加载省市区数据
+     */
+    public void loadArea(){
+        logger.error("loadArea...");
+        Area area = new Area();
+//        area.setPcode("0");
+        List<Area> areas = areaService.selectList(area);
+        List<Area> rootAreas = Lists.newArrayList();
+        for(Area a : areas){
+            if("0".equals(a.getPcode())){
+                rootAreas.add(a);
+            }
+        }
+        if(rootAreas.size() == 0){
+            return ;
+        }
+
+        for(Area a : rootAreas){
+            getAreaByDigui2(a, areas);
+        }
+
+        Map<String, Area> map = new TreeMap<String, Area>();
+        for(Area a : rootAreas){
+            map.put(a.getCode(), a);
+        }
+        systemManager.setAreaMap(map);
+//        SystemManager.areaMap = map;
+
+//		logger.error("SystemManager.areaMap=="+SystemManager.areaMap);
+
+//        String json = JSON.toJSONString(SystemManager.areaMap);
+////		logger.error("json="+json);
+//        try {
+//            //写到文件
+//            File file = new File("__area.txt");
+//            logger.error(file.getAbsolutePath());
+//            FileUtils.writeStringToFile(new File("__area.json"), json, "utf-8");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+    }
+
+	/**
+	 * 递归加载省份下的：城市、区域、以后还会有街道的数据
+	 * @param item
+     * @param areas 所有的地区列表
+	 */
+	private void getAreaByDigui2(Area item, final List<Area> areas){
+		List<Area> children = Lists.newArrayList();
+        for(Area a : areas) {
+            if(item.getCode().equals(a.getPcode())){
+                children.add(a);
+            }
+        }
+
+		item.setChildren(children);
+        if(children.size() == 0){
+            return ;
+        }
+
+		for(Area a : children){
+			getAreaByDigui2(a, areas);
+		}
+	}
 	/**
 	 * 读取本地区域数据
 	 */
@@ -1149,7 +1207,7 @@ public class FrontCache {
 		loadNavigations();
 //		loadSystemSetting();
 		loadPlugConfig();
-//		loadArea();
+		loadArea();
 		loadExpress();
 		loadAdvertList();
 
@@ -1167,7 +1225,7 @@ public class FrontCache {
 		loadAccountRank();
 //		loadHotSearch();
 
-		readJsonArea();
+//		readJsonArea();
 		loadNotifyTemplate();
 
 

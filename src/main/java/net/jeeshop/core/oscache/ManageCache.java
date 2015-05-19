@@ -119,22 +119,22 @@ public class ManageCache {
 //		if(rootData==null){
 //			return ;
 //		}
-//		
+//
 //		for(int i=0;i<rootData.size();i++){
 //			Area item = rootData.get(i);
 //			getAreaByDigui2(item);
 //		}
-//		
+//
 //		Map<String, Area> map = new TreeMap<String, Area>();
 //		for(int i=0;i<rootData.size();i++){
 //			Area item = rootData.get(i);
 //			map.put(item.getCode(), item);
 //		}
-//		
+//
 //		SystemManager.areaMap = map;
-//		
+//
 ////		logger.error("SystemManager.areaMap=="+SystemManager.areaMap);
-//		
+//
 //		String json = JSON.toJSONString(SystemManager.areaMap);
 ////		logger.error("json="+json);
 //		try {
