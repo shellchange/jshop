@@ -9,24 +9,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import com.aliyun.oss.ClientConfiguration;
+import com.aliyun.oss.ClientException;
+import com.aliyun.oss.OSSClient;
+import com.aliyun.oss.OSSException;
+import com.aliyun.oss.model.*;
 import net.jeeshop.core.front.SystemManager;
 import net.jeeshop.services.manage.oss.bean.AliyunOSS;
 import net.jeeshop.web.action.manage.news.NewsAction;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.aliyun.openservices.ClientConfiguration;
-import com.aliyun.openservices.ClientException;
-import com.aliyun.openservices.oss.OSSClient;
-import com.aliyun.openservices.oss.OSSException;
-import com.aliyun.openservices.oss.model.CannedAccessControlList;
-import com.aliyun.openservices.oss.model.GetObjectRequest;
-import com.aliyun.openservices.oss.model.ListObjectsRequest;
-import com.aliyun.openservices.oss.model.OSSObject;
-import com.aliyun.openservices.oss.model.OSSObjectSummary;
-import com.aliyun.openservices.oss.model.ObjectListing;
-import com.aliyun.openservices.oss.model.ObjectMetadata;
 
 /**
  * 该示例代码展示了如果在OSS中创建和删除一个Bucket，以及如何上传和下载一个文件。
@@ -63,8 +56,8 @@ public class OSSObjectSample {
      * 上传本地文件到阿里云OSS
      * @param filePath 文件存储到阿里云OSS的路径
      * @param file	本地文件对象
-     * @throws OSSException
-     * @throws ClientException
+     * @throws com.aliyun.oss.OSSException
+     * @throws com.aliyun.oss.ClientException
      * @throws FileNotFoundException
      */
 	public static void save(String filePath, File file) {
@@ -251,7 +244,7 @@ public class OSSObjectSample {
 //        String path = "attached/"+ymd+"/"+key;
         client.putObject(bucketName, filePath, input, objectMeta);
         
-        return "http://"+bucketName+".oss.aliyuncs.com/"+filePath;
+        return "http://"+bucketName+".oss-cn-hangzhou.aliyuncs.com/"+filePath;
     }
 
     // 下载文件

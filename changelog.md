@@ -23,6 +23,7 @@
 * 2015.5.10 引入redis组件jedis(2.6.0),spring-data-redis(1.4.2.RELEASE)
 * 2015.5.10 改进缓存机制，提供三种不同缓存实现（simple/ehcache/redis）
 * 2015.5.11 报表统计页面，jsp转换为ftl(lizm)
+* 2015.5.19 更新aliyun oss存储jar包aliyun-sdk-oss(2.0.3)，修复图片上传和浏览不能显示的问题
 
 
 

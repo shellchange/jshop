@@ -66,6 +66,7 @@
 			<tr>
 				<td colspan="2" style="text-align: center;">
 					<#if e.id??>
+                        <input type="hidden" name="id" value="${e.id!""}">
                         <button method="update" class="btn btn-success">
                             <i class="icon-ok icon-white"></i> 保存
                         </button>

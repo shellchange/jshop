@@ -28,6 +28,7 @@
     <!-- 配置静态文件路径 -->
     <!-- max caching age: 24 h -->
     <mvc:resources mapping="/resource/**" location="/resource/" cache-period="86400"/>
+    <mvc:resources mapping="/attached/**" location="/attached/" cache-period="86400"/>
     <mvc:default-servlet-handler/>
     <!-- 拦截器 -->
     <!--<mvc:interceptors>-->

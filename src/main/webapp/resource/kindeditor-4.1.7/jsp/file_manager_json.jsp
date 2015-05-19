@@ -27,7 +27,7 @@ if(oss){
 	out.println(json);
 }else{
 	
-	SystemSetting systemSetting = SystemManager.systemSetting;
+	SystemSetting systemSetting = SystemManager.getInstance().getSystemSetting();
 	//根目录路径，可以指定绝对路径，比如 /var/www/attached/
 	String rootPath = request.getSession().getServletContext().getRealPath("/") + "attached/";
 	//String rootPath = "D:\\workspace\\myshop\\web\\attached\\";//pageContext.getServletContext().getRealPath("/") + "attached/";

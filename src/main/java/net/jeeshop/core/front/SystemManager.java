@@ -629,7 +629,7 @@ public class SystemManager {
 
     public void setAliyunOSS(AliyunOSS aliyunOSS) {
 //        this.aliyunOSS = aliyunOSS;
-        putCacheObject("aliyunOSS", Lists.newArrayList(aliyunOSS));
+        putCacheObject("aliyunOSS", aliyunOSS);
     }
 
     /**

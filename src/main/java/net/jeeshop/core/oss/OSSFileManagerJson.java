@@ -14,6 +14,14 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.aliyun.oss.ClientConfiguration;
+import com.aliyun.oss.ClientException;
+import com.aliyun.oss.OSSClient;
+import com.aliyun.oss.OSSException;
+import com.aliyun.oss.model.CannedAccessControlList;
+import com.aliyun.oss.model.ListObjectsRequest;
+import com.aliyun.oss.model.OSSObjectSummary;
+import com.aliyun.oss.model.ObjectListing;
 import net.jeeshop.core.front.SystemManager;
 import net.jeeshop.services.manage.oss.bean.AliyunOSS;
 import net.jeeshop.services.manage.systemSetting.bean.SystemSetting;
@@ -23,14 +31,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSONObject;
-import com.aliyun.openservices.ClientConfiguration;
-import com.aliyun.openservices.ClientException;
-import com.aliyun.openservices.oss.OSSClient;
-import com.aliyun.openservices.oss.OSSException;
-import com.aliyun.openservices.oss.model.CannedAccessControlList;
-import com.aliyun.openservices.oss.model.ListObjectsRequest;
-import com.aliyun.openservices.oss.model.OSSObjectSummary;
-import com.aliyun.openservices.oss.model.ObjectListing;
 
 /**
  * 读取阿里云OSS的目录列表或文件列表
@@ -232,7 +232,7 @@ public class OSSFileManagerJson {
 //                System.out.println(commonPrefix);
 //            }
             return list;
-        } catch(OSSException e){ 
+        } catch(OSSException e){
         	e.printStackTrace();
         	if(e.getErrorCode().equals("NoSuchKey")){
         		System.out.println("文件不存在");
@@ -258,7 +258,7 @@ public class OSSFileManagerJson {
 	
 	// 如果Bucket不存在，则创建它。
     private static void ensureBucket(OSSClient client, String bucketName)
-            throws OSSException, ClientException{
+            throws OSSException, ClientException {
 
         if (client.isBucketExist(bucketName)){
         	logger.error("isBucketExist true");
