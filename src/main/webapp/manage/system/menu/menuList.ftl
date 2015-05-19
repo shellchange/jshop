@@ -65,7 +65,12 @@ var setting = {
                 document.form1.action = url;
                 document.form1.submit();
             }
-		}
+		},
+        data:{
+            key:{
+                url:"_url"
+            }
+        }
 };
 
 loadMenusTree();
