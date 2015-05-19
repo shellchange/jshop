@@ -13,7 +13,7 @@ if(responsive_session2!=null){
 		non_responsive2 = false;
 	}
 }else{
-	if(SystemManager.systemSetting.getOpenResponsive().equals("n")){
+	if(SystemManager.getInstance().getSystemSetting().getOpenResponsive().equals("n")){
 		non_responsive2 = true;
 	}else{
 		non_responsive2 = false;
