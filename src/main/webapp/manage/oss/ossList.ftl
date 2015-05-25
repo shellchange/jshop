@@ -24,15 +24,16 @@
 				<th >状态</th>
 				<th width="50px">操作</th>
 			</tr>
+
+            <#assign map = {'aliyun':'阿里云存储','qiniu':'七牛云存储'}>
 			<#list pager.list as item>
 				<tr>
 					<td><input type="checkbox" name="ids"
 						value="${item.id!""}" /></td>
 					<td style="display: none;">&nbsp;${item.id!""}</td>
 					<td>&nbsp;${item.name!""}</td>
-					<td>&nbsp;${item.code!""}</td>
+					<td>&nbsp;${map[item.code]}[${item.code!""}]</td>
 					<td>&nbsp;
-
 						<#if item.status??&&item.status=="y">
 <!-- 							<input type="radio" name="e.status" checked="checked"/> -->
 							<img src="${basepath}/resource/images/action_check.gif">

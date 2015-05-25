@@ -113,7 +113,7 @@ while (itr.hasNext()) {
 		String newFileName1 = null;//小图
 		String newFileName2 = null;//中图
 		String newFileName3 = null;//大图 ，也是原图
-		synchronized(OSSObjectSample.lock){
+		synchronized(OSSObjectSample.lock) {
 			String newFileName0 = String.valueOf(System.currentTimeMillis());
 			logger.error("newFileName0="+newFileName0);
 			newFileName1 = newFileName0 + "_1";
@@ -141,10 +141,12 @@ String rootPath = "attached/"+dirName+ "/"+ df.format(new Date()) + "/";//云存
 			
 			ImageUtils.ratioZoom2(uploadedFile3,uploadedFile1,Double.valueOf(SystemManager.getInstance().getProperty("product_image_1_w")));
 			ImageUtils.ratioZoom2(uploadedFile3,uploadedFile2,Double.valueOf(SystemManager.getInstance().getProperty("product_image_2_w")));
-			
-			OSSObjectSample.save(rootPath + newFileName1+"."+fileExt, uploadedFile1);
-			OSSObjectSample.save(rootPath + newFileName2+"."+fileExt, uploadedFile2);
-			OSSObjectSample.save(rootPath + newFileName3, uploadedFile3);
+			boolean aliyunOSS = "aliyun".equalsIgnoreCase(SystemManager.getInstance().getProperty("file.upload.oss"));
+            if(aliyunOSS) {
+                OSSObjectSample.save(rootPath + newFileName1+"."+fileExt, uploadedFile1);
+                OSSObjectSample.save(rootPath + newFileName2+"."+fileExt, uploadedFile2);
+                OSSObjectSample.save(rootPath + newFileName3, uploadedFile3);
+            }
 		}catch(Exception e){
 			e.printStackTrace();
 			logger.error("上传文件异常："+e.getMessage());

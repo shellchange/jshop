@@ -17,7 +17,7 @@
  *
  */
  
-boolean oss = true;
+boolean oss = "aliyun".equals(SystemManager.getInstance().getProperty("file.upload.oss"));
 if(oss){
 	
 	OSSFileManagerJson ossManager = new OSSFileManagerJson();

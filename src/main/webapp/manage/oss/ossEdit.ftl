@@ -14,7 +14,7 @@
 			<tr>
 				<td style="text-align: right;width: 200px;">存储类型</td>
 				<td style="text-align: left;">
-					<#assign map = {'aliyun':'阿里云存储'}>
+					<#assign map = {'aliyun':'阿里云存储','qiniu':'七牛云存储'}>
                     <select id="code" name="code" class="input-medium">
 						<#list map?keys as key>
                             <option value="${key}" <#if e.code?? && e.code==key>selected="selected" </#if>>${map[key]}</option>

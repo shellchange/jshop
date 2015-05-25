@@ -41,15 +41,6 @@ import org.slf4j.LoggerFactory;
  */
 public class OSSObjectSample {
 	private static final Logger logger = LoggerFactory.getLogger(OSSObjectSample.class);
-//    private static final String ACCESS_ID = SystemManager.getInstance().get("ACCESS_ID");
-//    private static final String ACCESS_KEY = SystemManager.getInstance().get("ACCESS_KEY");
-//    private static final String OSS_ENDPOINT = SystemManager.getInstance().get("OSS_ENDPOINT");
-//    private static final String bucketName =  SystemManager.getInstance().get("bucketName");
-
-//    private static final String ACCESS_ID = SystemManager.aliyunOSS.getACCESS_ID();
-//    private static final String ACCESS_KEY = SystemManager.aliyunOSS.getACCESS_KEY();
-//    private static final String OSS_ENDPOINT = SystemManager.aliyunOSS.getOSS_ENDPOINT();
-//    private static final String bucketName =  SystemManager.aliyunOSS.getBucketName();
     public static Object lock = new Object();
     
     /**
