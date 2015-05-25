@@ -124,7 +124,7 @@ function defaultProductImg(){
 				</div>
 		
 				<!-- 排序栏 -->
-				<#if productList??>
+				<#if productList?? && productList?size gt 0>
 					<div class="row" style="margin: 0px;">
 						<div class="col-xs-12">
 							<span class="attr_css" style="margin:5px;font-weight: bold;">排序</span>
@@ -148,7 +148,7 @@ function defaultProductImg(){
 				<div class="row">
 					<!-- 商品展示 -->
 					<div >
-						<#if productList??>
+						<#if productList?? && productList?size gt 0>
 						<#list productList as item>
 						<div class="col-xs-3" style="padding: 5px;text-align: center;">
 							<div class="thumbnail" style="width: 100%; display: block;">
