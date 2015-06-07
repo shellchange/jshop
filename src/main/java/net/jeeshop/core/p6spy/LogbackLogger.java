@@ -26,8 +26,14 @@ public class LogbackLogger extends FormattedLogger implements P6Logger {
         this.logText(sw.toString());
     }
 
+
+    @Override
+    public void logSQL(int connectionId, String now, long elapsed, String category, String prepared, String sql) {
+        if (!"resultset".equals(category)) log.debug(sql);
+    }
+
     public void logText(String text) {
-        log.info(text);
+        log.debug(text);
         this.setLastEntry(text);
     }
 }

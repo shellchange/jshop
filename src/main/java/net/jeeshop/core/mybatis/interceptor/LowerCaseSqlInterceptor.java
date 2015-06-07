@@ -52,7 +52,7 @@ public class LowerCaseSqlInterceptor implements Interceptor {
     private SqlSource wrapperSqlSource(MappedStatement ms, SqlSource sqlSource, Object parameter, String method){
         BoundSql originBoundSql = sqlSource.getBoundSql(parameter);
         String sql = originBoundSql.getSql();
-        logger.info("method type : {}, source sql : {}", method, sql);
+        logger.debug("method type : {}, source sql : {}", method, sql);
 
 //        if (sqlSource instanceof DynamicSqlSource) {//动态sql
 //            MetaObject msObject = SystemMetaObject.forObject(ms);
@@ -74,7 +74,7 @@ public class LowerCaseSqlInterceptor implements Interceptor {
 //        }
         SqlSource wrapper = new SqlSourceWrapper(sqlSource);
         sql = wrapper.getBoundSql(parameter).getSql();
-        logger.info("method type : {}, converted sql : {}", method, sql);
+        logger.debug("method type : {}, converted sql : {}", method, sql);
         return wrapper;
     }
 
