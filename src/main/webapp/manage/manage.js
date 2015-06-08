@@ -79,6 +79,17 @@ function createMark(){
 
 //查询
 function selectList(obj){
+	var tableId = $(obj).attr("table-id");
+	var table;
+	if(tableId && (table=$("#"+tableId).DataTable({"retrieve":true}))) {
+		table.on('preXhr.dt', function ( e, settings, data ) {
+			$.each($("form").serializeArray(),function(ix,v){
+				data[v.name]= v.value;
+			});
+		} );
+		table.ajax.reload();
+		return false;
+	}
 	console.log("selectList...");
 	var _form = $("form");
 	_form.attr("action",$(obj).attr("method"));

@@ -61,3 +61,82 @@ lower_case_table_names=1
 (1) 创建p6spy的P6Logger实现类net.jeeshop.core.p6spy.LogbackLogger
 (2) 修改spy.properties文件，修改appender为
 appender=net.jeeshop.core.p6spy.LogbackLogger
+
+8. datatables使用
+（1） style
+基本表格样式: display stripe row-border cell-border
+与bootstrap集成，分页条的样式有问题，增加样式表：
+
+div.dataTables_wrapper.dt-bootstrap .dataTables_paginate .paginate_button {
+    padding: 0;
+    margin-left: 0
+}
+div.dataTables_wrapper.dt-bootstrap div.a.btn, body.example div.dataTables_wrapper.dt-bootstrap button.btn,
+div.dataTables_wrapper.dt-bootstrap input.btn {
+    margin-right: 0;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em
+}
+div.dataTables_wrapper.dt-bootstrap th {
+    background: none !important
+}
+（2） 国际化配置
+"language": {
+                "lengthMenu": "每页 _MENU_ 条记录",
+                "zeroRecords": "没有找到记录",
+                //"info": "第 _PAGE_ / _PAGES_ 页， 共 _TOTAL_ 条记录，当前_START_ - _END_",
+                "info": "第 _PAGE_ / _PAGES_ 页， 共 _TOTAL_ 条",
+                "infoEmpty": "无记录",
+                "emptyTable": "无记录",
+                "infoFiltered": "(从 _MAX_ 条记录过滤)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "loadingRecords": "加载中...",
+                "processing": "处理中...",
+                "search": "搜索:",
+                "paginate": {
+                    "first": "|<",
+                    "last": ">|",
+                    "next": ">>",
+                    "previous": "<<"
+                },
+                "aria": {
+                    "sortAscending": ": 正向排序",
+                    "sortDescending": ": 反向排序"
+                },
+            }
+（3） 服务端数据请求参数
+附加参数有三种方式：
+第一种是配置serverParams参数，如：
+           serverParams:function(data){
+				$.each($("form").serializeArray(),function(ix,v){
+					data[v.name]= v.value;
+				})
+			},
+第二种是配置ajax的data属性(未经过验证)，如：
+ajax:{
+    url:"loadData",
+    type:"post",
+    data:function(params){
+        $.each($("form").serializeArray(),function(ix,v){
+            params[v.name]= v.value;
+        })
+    }
+}
+第三种是拦截ajax请求的preXhr.dt事件，如：
+table.on('preXhr.dt', function ( e, settings, data ) {
+			$.each($("form").serializeArray(),function(ix,v){
+				data[v.name]= v.value;
+			});
+		} );
+		table.ajax.reload();
+
+（4） 常用参数：
+searching: false,
+"serverSide": true,
+"processing": true,
+"ordering":false,
+pagingType:"full_numbers",//simple,simple_numbers,full,full_numbers
+lengthMenu:[1,10,20,50,100],
+pageLength:10,
+（5） 获取已经存在的table api : $("#tableId").DataTable({"retrieve":true})))

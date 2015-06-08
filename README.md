@@ -22,7 +22,7 @@ JShop&Jeeshop的技术选型如下:
 
 ### 前端技术
 * JS框架： jquery1.9
-* CSS框架: Bootstrap3.0.0
+* CSS框架: Bootstrap3.3.2
 * 后台集成框架: StartBootstrap SB admin V2 / jquery UI
 * 富文本编辑器: KindEditor
 * 树形组件: zTree

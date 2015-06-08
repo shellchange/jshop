@@ -28,9 +28,9 @@
 <%-- <script type="text/javascript" src="<%=request.getContextPath()%>/resource/js/bsa.js"></script> --%>
 <%-- <script type="text/javascript" src="<%=request.getContextPath()%>/resource/js/bootswatch.js"></script> --%>
 <!-- <script type="text/javascript" src="http://bootswatch.com/bower_components/jquery/jquery.min.js"></script> -->
-<%-- <link rel="stylesheet" href="<%=request.getContextPath()%>/resource/bootstrap3.0.0/css/bootstrap.min.css"  type="text/css"> --%>
+<%-- <link rel="stylesheet" href="<%=request.getContextPath()%>/resource/bootstrap3.3.4/css/bootstrap.min.css"  type="text/css"> --%>
 <!-- <link rel="stylesheet" href="http://v3.bootcss.com/examples/non-responsive/non-responsive.css"  type="text/css"> -->
-<script type="text/javascript" src="<%=request.getContextPath() %>/resource/bootstrap3.0.0/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/resource/bootstrap3.3.4/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/resource/js/jquery.lazyload.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/resource/js/superMenu/js/new.js"></script>
 <%-- <script type="text/javascript" src="<%=request.getContextPath() %>/resource/js/jqBootstrapValidation.js"></script> --%>

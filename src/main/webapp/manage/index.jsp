@@ -13,7 +13,7 @@
     <title>SB Admin 2 - Bootstrap Admin Theme</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="<%=request.getContextPath()%>/resource/bootstrap3.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/resource/bootstrap3.3.4/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
     <link href="<%=request.getContextPath()%>/resource/metisMenu/metisMenu.min.css" rel="stylesheet">
@@ -41,7 +41,7 @@
     <script src="<%=request.getContextPath()%>/resource/js/jquery-1.9.1.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="<%=request.getContextPath()%>/resource/bootstrap3.0.0/js/bootstrap.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resource/bootstrap3.3.4/js/bootstrap.min.js"></script>
 
     <!-- Metis Menu Plugin JavaScript -->
     <script src="<%=request.getContextPath()%>/resource/metisMenu/metisMenu.min.js"></script>

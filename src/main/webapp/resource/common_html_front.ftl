@@ -12,7 +12,7 @@
     <#else >
         <#assign non_responsive2>n</#assign>
     </#if>
-    <#assign style>${style!""}</#assign>
+    <#assign style>${RequestParameters.style!""}</#assign>
     <#if style=="">
         <#assign style>${systemSetting().style}</#assign>
     </#if>
@@ -42,12 +42,12 @@
     <link rel="stylesheet" href="${basepath}/resource/css/sticky-footer.css"  type="text/css">
     <link rel="stylesheet" href="${basepath}/resource/css/base.css"  type="text/css">
     <#--<link rel="stylesheet" href="${basepath}/resource/zTree3.5/css/zTreeStyle/zTreeStyle.css" type="text/css">-->
-    <link rel="stylesheet" href="${basepath}/resource/bootstrap3.0.0/css/${style}/bootstrap.min.css"  type="text/css">
-    <link rel="stylesheet" href="${basepath}/resource/bootstrap3.0.0/css/docs.css"  type="text/css">
+    <link rel="stylesheet" href="${basepath}/resource/bootstrap3.3.4/css/${style}/bootstrap.min.css"  type="text/css">
+    <link rel="stylesheet" href="${basepath}/resource/bootstrap3.3.4/css/docs.css"  type="text/css">
     <#--<link rel="stylesheet" href="${basepath}/resource/jquery-jquery-ui/themes/base/jquery.ui.all.css">-->
     <link rel="stylesheet" href="${basepath}/resource/validator-0.7.0/jquery.validator.css" />
     <#if non_responsive2 == "y">
-        <link rel="stylesheet" href="${basepath}/resource/bootstrap3.0.0/css/non-responsive.css"  type="text/css">
+        <link rel="stylesheet" href="${basepath}/resource/bootstrap3.3.4/css/non-responsive.css"  type="text/css">
     </#if>
 
 <#--<script type="text/javascript" src="${basepath}/resource/js/jquery-1.4.2.min.js"></script>-->

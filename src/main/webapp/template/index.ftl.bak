@@ -20,7 +20,7 @@
 <meta name="keywords" content="${news.title}" />
 
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resource/css/base.css"  type="text/css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resource/bootstrap3.0.0/css/bootstrap.min.css"  type="text/css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resource/bootstrap3.3.4/css/bootstrap.min.css"  type="text/css">
 <link rel="stylesheet" href="http://v3.bootcss.com/examples/non-responsive/non-responsive.css"  type="text/css">
 </head>
 

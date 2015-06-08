@@ -30,9 +30,9 @@
 <%-- <script type="text/javascript" src="<%=request.getContextPath()%>/resource/js/bsa.js"></script> --%>
 <%-- <script type="text/javascript" src="<%=request.getContextPath()%>/resource/js/bootswatch.js"></script> --%>
 <!-- <script type="text/javascript" src="http://bootswatch.com/bower_components/jquery/jquery.min.js"></script> -->
-<%-- <link rel="stylesheet" href="<%=request.getContextPath()%>/resource/bootstrap3.0.0/css/bootstrap.min.css"  type="text/css"> --%>
+<%-- <link rel="stylesheet" href="<%=request.getContextPath()%>/resource/bootstrap3.3.4/css/bootstrap.min.css"  type="text/css"> --%>
 
-<%-- <link rel="stylesheet" href="<%=request.getContextPath()%>/resource/bootstrap3.0.0/css/font-awesome.css"  type="text/css"> --%>
+<%-- <link rel="stylesheet" href="<%=request.getContextPath()%>/resource/bootstrap3.3.4/css/font-awesome.css"  type="text/css"> --%>
 
 <%
 String style = request.getParameter("style");
@@ -45,9 +45,9 @@ if(StringUtils.isBlank(style)){
 
 <!-- <link rel="stylesheet" href="http://v3.bootcss.com/dist/css/bootstrap.css"  type="text/css"> -->
 
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resource/bootstrap3.0.0/css/<%=style %>/bootstrap.min.css"  type="text/css">
-<%-- <link rel="stylesheet" href="<%=request.getContextPath()%>/resource/bootstrap3.0.0/css/bootstrap-theme.min.css"> --%>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resource/bootstrap3.0.0/css/docs.css"  type="text/css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resource/bootstrap3.3.4/css/<%=style %>/bootstrap.min.css"  type="text/css">
+<%-- <link rel="stylesheet" href="<%=request.getContextPath()%>/resource/bootstrap3.3.4/css/bootstrap-theme.min.css"> --%>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resource/bootstrap3.3.4/css/docs.css"  type="text/css">
 <%
 System.out.println("SystemManager.systemSetting.getOpenResponsive()="+SystemManager.systemSetting.getOpenResponsive());
 
@@ -68,7 +68,7 @@ if(responsive_session!=null){
 
 if(non_responsive){
 %>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resource/bootstrap3.0.0/css/non-responsive.css"  type="text/css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resource/bootstrap3.3.4/css/non-responsive.css"  type="text/css">
 <%} %>
 <!-- <link rel="stylesheet" href="http://v3.bootcss.com/examples/non-responsive/non-responsive.css"  type="text/css"> -->
-<%-- <script type="text/javascript" src="<%=request.getContextPath() %>/resource/bootstrap3.0.0/js/bootstrap.min.js"></script> --%>
+<%-- <script type="text/javascript" src="<%=request.getContextPath() %>/resource/bootstrap3.3.4/js/bootstrap.min.js"></script> --%>

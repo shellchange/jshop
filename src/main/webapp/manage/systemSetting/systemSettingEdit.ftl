@@ -21,7 +21,7 @@ $(function() {
 	changeStyle();
 });
 function changeStyle(){
-	var _png = "${basepath}/resource/bootstrap3.0.0/style/"+$("#style").val()+".png";
+	var _png = "${basepath}/resource/bootstrap3.3.4/style/"+$("#style").val()+".png";
 	$("#styleImg").attr("src",_png);
 	$("#ceshiA").attr("href",$("#base_input").val()+$("#style").val());
 }
@@ -261,7 +261,7 @@ function changeStyle(){
 	
 </div>
 </form>
-<input value="${systemSetting().www}/index.jsp?style=" id="base_input" style="display: none;"/>
+<input value="${basepath}/?style=" id="base_input" style="display: none;"/>
 <script>
 	var qqHelpHtml;
 	KindEditor.ready(function(K) {

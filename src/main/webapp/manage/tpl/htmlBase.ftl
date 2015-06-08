@@ -37,11 +37,9 @@
     <link rel="shortcut icon" type="image/x-icon" href="${systemSetting().shortcuticon}">
 
     <link rel="stylesheet" href="${staticpath}/zTree3.5/css/zTreeStyle/zTreeStyle.css" type="text/css">
-    <#--<link rel="stylesheet" href="${staticpath}/bootstrap/css/bootstrap.min.css"  type="text/css">-->
-    <link rel="stylesheet" href="${staticpath}/bootstrap3.0.0/css/bootstrap.min.css"  type="text/css">
-    <#--<link rel="stylesheet" href="${staticpath}/css/base.css"  type="text/css">-->
-    <#--<link rel="stylesheet" href="${staticpath}/bootstrap3.0.0/css/docs.css"  type="text/css">-->
-    <link rel="stylesheet" href="${staticpath}/jquery-jquery-ui/themes/base/jquery.ui.all.css">
+    <link rel="stylesheet" href="${staticpath}/bootstrap3.3.4/css/bootstrap.min.css"  type="text/css">
+    <link rel="stylesheet" href="${staticpath}/jquery-ui-1.11.2/jquery-ui.css">
+    <#--<link rel="stylesheet" href="${staticpath}/jquery-ui-1.11.2/jquery-theme.css">-->
     <link rel="stylesheet" href="${staticpath}/validator-0.7.0/jquery.validator.css" />
 
 <#--<script type="text/javascript" src="${staticpath}/js/jquery-1.4.2.min.js"></script>-->
@@ -49,17 +47,14 @@
     <script type="text/javascript" src="${staticpath}/zTree3.5/js/jquery.ztree.all-3.5.min.js"></script>
 
     <script type="text/javascript" src="${staticpath}/js/jquery.blockUI.js"></script>
-    <script type="text/javascript" src="${staticpath}/bootstrap3.0.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="${staticpath}/bootstrap3.3.4/js/bootstrap.min.js"></script>
     <!-- sb admin -->
     <link rel="stylesheet" href="${staticpath}/sb-admin/css/sb-admin-2.css" />
     <script src="${staticpath}/sb-admin/js/sb-admin-2.js" ></script>
 
     <link href="${staticpath}/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-    <#--<script src="${staticpath}/jquery-jquery-ui/jquery-1.5.1.js"></script>-->
-    <script src="${staticpath}/jquery-jquery-ui/ui/jquery.ui.core.js"></script>
-    <script src="${staticpath}/jquery-jquery-ui/ui/jquery.ui.widget.js"></script>
-    <script src="${staticpath}/jquery-jquery-ui/ui/jquery.ui.tabs.js"></script>
+    <script src="${staticpath}/jquery-ui-1.11.2/jquery-ui.js"></script>
     <!-- jquery validator -->
 
     <script type="text/javascript" src="${staticpath}/validator-0.7.0/jquery.validator.js"></script>

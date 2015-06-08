@@ -596,3 +596,17 @@ table.dataTable thead .sorting:after {
 .text-maroon {
   color: #d81b60 !important;
 }
+
+div.dataTables_wrapper.dt-bootstrap .dataTables_paginate .paginate_button {
+    padding: 0;
+    margin-left: 0
+}
+div.dataTables_wrapper.dt-bootstrap div.a.btn, body.example div.dataTables_wrapper.dt-bootstrap button.btn,
+div.dataTables_wrapper.dt-bootstrap input.btn {
+    margin-right: 0;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em
+}
+div.dataTables_wrapper.dt-bootstrap th {
+    background: none !important
+}
