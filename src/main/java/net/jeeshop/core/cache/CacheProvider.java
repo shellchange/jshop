@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * cache provider
- * @author dylan
+ * @author dylan  测试
  */
 public interface CacheProvider {
     /**
