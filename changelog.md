@@ -31,7 +31,7 @@
 * 2015.6.8 升级jquery ui以v1.11.2
 * 2015.6.8 升级bootstrap到v3.3.4
 * 2015.6.8 后台管理集成datatables, 将用户列表中的表格改为datatables展示
-
+* 2015.6.9 后台管理，全局对表单中的输入框增加bootstrap3风格的样式
 
 
 ## todo list

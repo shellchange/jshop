@@ -91,4 +91,8 @@ $(function() {
         return $(this)._dataTable(options);
     }
 
+    //对表单中的输入框增加bootstrap3风格的样式
+    $("form :text,:password,select").each(function(){
+        $(this).addClass("form-control").css("width","auto");
+    });
 });
