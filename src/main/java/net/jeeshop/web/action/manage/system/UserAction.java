@@ -116,6 +116,7 @@ public class UserAction extends BaseController<User> {
 //	}
 	@RequestMapping("loadData")
 	@ResponseBody
+	@Override
 	public PagerModel loadData(HttpServletRequest request, User e){
 		int offset = 0;
 		int pageSize = 10;

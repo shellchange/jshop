@@ -599,7 +599,8 @@ table.dataTable thead .sorting:after {
 
 div.dataTables_wrapper.dt-bootstrap .dataTables_paginate .paginate_button {
     padding: 0;
-    margin-left: 0
+    margin-left: 0;
+    border:0px;
 }
 div.dataTables_wrapper.dt-bootstrap div.a.btn, body.example div.dataTables_wrapper.dt-bootstrap button.btn,
 div.dataTables_wrapper.dt-bootstrap input.btn {

@@ -29,6 +29,26 @@
 	<#--margin-right: 10px;-->
 <#--}-->
 <#--</style>-->
+<script>
+$(function(){
+    var table = $('#dataTable').DataTable({
+        "ajax": {
+            url:"loadData",
+            dataSrc:"list"
+        },
+        columns:[
+            {name:"title", title:"标题", data:"title"},
+            {name:"account", title:"账号", data:"account"},
+            {name:"logintime", title:"登陆时间", data:"logintime"},
+            {name:"loginIP", title:"登陆IP", data:"loginIP"},
+                {name:"loginArea", title:"登陆位置", data:"loginArea"},
+            {name:"diffAreaLogin", title:"是否异地登录", data:"diffAreaLogin",render:function(data,type,row,meta){
+				return data=="y"?"是":"否";
+            }}
+        ]
+    });
+});
+</script>
 	<form action="${basepath}/manage/systemlog" method="post" theme="simple">
 				<table class="table table-bordered">
 					<tr>
@@ -45,55 +65,20 @@
 						<td><input type="text" value="${e.account!""}" class="input-medium search-query" name="account"/></td>
 					</tr>
 				</table>
-				
+
 				<table class="table table-bordered">
 					<tr>
 						<td colspan="16">
 <!-- 								<i class="icon-search icon-white"></i> 查询 -->
 
-							<button method="selectList" class="btn btn-primary" onclick="selectList(this)">
+							<button method="selectList" class="btn btn-primary" table-id="dataTable" onclick="return selectList(this)">
 								<i class="icon-search icon-white"></i> 查询
 							</button>
-							
-							<div style="float: right;vertical-align: middle;bottom: 0px;top: 10px;">
-								<#include "/manage/system/pager.ftl" />
-							</div>
 						</td>
 					</tr>
 				</table>
-				<table class="table table-bordered">
-					<tr style="background-color: #dff0d8">
-						<th width="20"><input type="checkbox" id="firstCheckbox" /></th>
-						<th style="display: none;">编号</th>
-						<th >标题</th>
-						<th >账号</th>
-<!-- 						<th >类型</th> -->
-						<th >登陆时间</th>
-						<th >登陆IP</th>
-						<th >登陆位置</th>
-						<th >是否异地登陆</th>
-<!-- 						<th >操作</th> -->
-					</tr>
-					<#list pager.list as item>
-						<tr>
-							<td><input type="checkbox" name="ids"
-								value="${item.id!""}"/></td>
-							<td style="display: none;">&nbsp;${item.id!""}</td>
-							<td>&nbsp;${item.title!""}</td>
-							<td>&nbsp;${item.account!""}</td>
-<#--<%-- 							<td>&nbsp;<s:property value="type" /></td> --%>-->
-							<td>&nbsp;${item.logintime!""}</td>
-							<td>&nbsp;${item.loginIP!""}</td>
-							<td>&nbsp;${item.loginArea!""}</td>
-							<td>&nbsp;
-								<#if diffAreaLogin?? && diffAreaLogin=="y">是<#else>否 </#if>
-							</td>
-						</tr>
-					</#list>
-					<tr>
-						<td colspan="17" style="text-align: center;">
-							<#include "/manage/system/pager.ftl" /></td>
-					</tr>
-				</table>
+
+        <table class="display stripe row-border cell-border" id="dataTable">
+        </table>
 	</form>
 </@page.pageBase>

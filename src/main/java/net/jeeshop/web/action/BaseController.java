@@ -3,7 +3,6 @@ package net.jeeshop.web.action;
 import net.jeeshop.core.Services;
 import net.jeeshop.core.dao.page.PagerModel;
 import net.jeeshop.core.front.SystemManager;
-import net.jeeshop.core.system.bean.User;
 import net.jeeshop.web.util.RequestHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -218,6 +218,32 @@ public abstract class BaseController<E extends PagerModel> {
 //        return toAdd;
 //    }
 
+
+    @RequestMapping("loadData")
+    @ResponseBody
+    public PagerModel loadData(HttpServletRequest request, E e){
+        int offset = 0;
+        int pageSize = 10;
+        if (request.getParameter("start") != null) {
+            offset = Integer
+                    .parseInt(request.getParameter("start"));
+        }
+        if (request.getParameter("length") != null) {
+            pageSize = Integer
+                    .parseInt(request.getParameter("length"));
+        }
+        if (offset < 0)
+            offset = 0;
+        if(pageSize < 0){
+            pageSize = 10;
+        }
+        e.setOffset(offset);
+        e.setPageSize(pageSize);
+        PagerModel pager = getService().selectPageList(e);
+        pager.setRecordsTotal(pager.getTotal());
+        pager.setRecordsFiltered(pager.getTotal());
+        return pager;
+    }
     protected void addMessage(ModelMap modelMap, String message) {
         modelMap.addAttribute("message", message);
     }
