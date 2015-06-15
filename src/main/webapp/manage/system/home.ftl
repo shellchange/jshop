@@ -38,7 +38,7 @@
             <#--<%-- 					<li><a href="#tabs-6"><strong>系统使用帮助</strong></a></li> --%>-->
             </ul>
             <div id="tabs-1">
-                <div class="alert alert-danger" style="margin-bottom: 2px;text-align: left;">
+                <div class="alert alert-success" style="margin-bottom: 2px;text-align: left;">
                     <span class="badge badge-important">重要</span>&nbsp;<strong>主公，订单汇总如下：</strong>
                 </div>
                 <table class="table table-bordered">
@@ -52,7 +52,7 @@
                     </tr>
                 </table>
 
-                <div class="alert alert-danger" style="margin-bottom: 2px;text-align: left;">
+                <div class="alert alert-info" style="margin-bottom: 2px;text-align: left;">
                     <strong><span class="badge badge-important">重要</span>&nbsp;主公，退款订单汇总如下：</strong>
                 </div>
                 <table class="table table-bordered">
@@ -79,7 +79,7 @@
                     </tr>
                 </table>
 
-                <div class="alert alert-info" style="margin-bottom: 2px;text-align: left;">
+                <div class="alert alert-warning" style="margin-bottom: 2px;text-align: left;">
                     <strong><span class="badge badge-info">关注</span>&nbsp;主公，吐槽和缺货也是要关注一下子的啊：</strong>
                 </div>
                 <table class="table table-bordered">

@@ -93,6 +93,7 @@ $(function() {
 
     //对表单中的输入框增加bootstrap3风格的样式
     $("form :text,:password,select").not(".form-control").each(function(){
-        $(this).addClass("form-control").css("width","auto");
+        var display = $(this).css("display");
+        $(this).addClass("form-control").css("width","auto").css("display",display||"inline-block");
     });
 });

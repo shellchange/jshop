@@ -23,13 +23,7 @@
 		background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18px;color: red;
 	}
 </style>
-	<div class="navbar navbar-inverse" >
-		<div id="insertOrUpdateMsg">
-			${Session.insertOrUpdateMsg!""}
-			<#--<%request.getSession().setAttribute("insertOrUpdateMsg", "");//列表页面进行编辑文章的时候,需要清空信息 %>-->
-		</div>
-	</div>
-	
+
 	<input type="hidden" value="${e.catalogID!""}" id="catalogID"/>
 	<form action="${basepath}/manage/attribute" theme="simple" id="form">
 		<input type="hidden" value="${e.pid!""}" name="pid" />

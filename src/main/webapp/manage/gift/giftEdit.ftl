@@ -1,21 +1,12 @@
 <#import "/manage/tpl/pageBase.ftl" as page>
 <@page.pageBase currentMenu="赠品管理">
 <style>
-#insertOrUpdateMsg{
-border: 0px solid #aaa;margin: 0px;position: fixed;top: 0;width: 100%;
-background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18px;color: red;
-}
 .btnCCC{
 	background-image: url("../img/glyphicons-halflings-white.png");
 	background-position: -288px 0;
 }
 </style>
-	<div class="navbar navbar-inverse" >
-		<div id="insertOrUpdateMsg">
-			<#--${session.insertOrUpdateMsg!""}-->
-		</div>
-	</div>
-	
+
 	<form action="${basepath}/manage/gift" namespace="/manage" theme="simple" name="form" id="form" >
 		<input type="hidden" value="${e.type!""}" name="type"/>
 		<input type="hidden" value="${e.catalogID!""}" id="catalogID"/>

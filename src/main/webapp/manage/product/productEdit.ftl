@@ -1,19 +1,7 @@
 <#import "/manage/tpl/pageBase.ftl" as page>
 <@page.pageBase currentMenu="商品管理">
-<style>
-#insertOrUpdateMsg{
-border: 0px solid #aaa;margin: 0px;position: fixed;top: 0;width: 100%;
-background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18px;color: red;
-}
-</style>
 <form action="${basepath}/manage/product" id="form" name="form" namespace="/manage" theme="simple" enctype="multipart/form-data" method="post">
 
-	<div class="navbar navbar-inverse" >
-		<div id="insertOrUpdateMsg">
-			${insertOrUpdateMsg!""}
-		</div>
-	</div>
-	
 	<span id="pifeSpan" class="input-group-addon" style="display:none">${systemSetting().imageRootPath}</span>
 	<input type="hidden" value="${e.id!""}" id="productID"/>
 	<input type="hidden" value="${e.catalogID!""}" id="catalogID"/>
@@ -63,148 +51,154 @@ background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18
 				<li><a href="#tabs-7">绑定商品赠品</a></li>
 			</ul>
 			<div id="tabs-1">
-				<table class="table table-condensed">
-							<tr style="display: none;">
-								<td>id</td>
-								<td><input type="hidden" value="${e.id!""}" name="id" label="id" id="id"/></td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-							</tr>
-							<tr>
-								<td style="text-align: right;">名称</td>
-								<td style="text-align: left;" colspan="3">
-									<input type="text"  value="${e.name!""}" name="name"  data-rule="商品名称;required;name;length[0~44];" size="44" maxlength="44" style="width: 80%;"
-										id="name" /></td>
-							</tr>
-							<tr>
-								<td style="text-align: right;">类别</td>
-								<td colspan="1">
-									<!-- 
-									<input id="combotree22" name="catalogID" value="${e.catalogID!""}"
-									class="easyui-combotree" data-options="url:'${basepath}/manage/catalog/catalog/getRootWithTreegrid?type=p',method:'get',required:false"
-									></input>(请选择子类别)
-									 -->
-									
-									<select onchange="catalogChange(this)" name="catalogID" id="catalogSelect">
-										<option></option>
-                                        <#list catalogs as item>
-                                            <option pid="0" value="${item.id!""}"><font color='red'>${item.name!""}</font></option>
-                                            <#if item.children??>
-                                                <#list item.children as item>
-                                                    <option value="${item.id!""}">&nbsp;&nbsp;&nbsp;&nbsp;${item.name!""}</option>
-                                                </#list>
-                                            </#if>
-                                        </#list>
-									</select>(请选择子类别)
-								</td>
-								<td style="text-align: right;">单位</td>
-								<td colspan="1">
-                                    <#assign map = {'item':'件'}>
-                                    <select id="unit" name="unit" class="input-medium">
-                                        <#list map?keys as key>
-                                            <option value="${key}" <#if e.unit?? && e.unit==key>selected="selected" </#if>>${map[key]}</option>
-                                        </#list>
-                                    </select>
-								</td>
-							</tr>
-							<tr>
-								<td style="text-align: right;">简介</td>   
-								<td style="text-align: left;" colspan="3">
-									<textarea name="introduce" rows="3" cols="600" style="width:800px;" id="introduce"
-									data-rule="商品简介;required;introduce;length[4~500];">${e.introduce!""}</textarea>
-								</td>
-							</tr>
-		<!-- 					<tr> -->
-		<!-- 						<td style="text-align: right;">大图</td>    -->
-		<!-- 						<td style="text-align: left;" colspan="3"> -->
-		<!-- 							<input type="button" id="max_filemanager" value="浏览服务器" class="btn btn-warning"/> -->
-		<!-- 							</a> -->
-		<!-- 						</td> -->
-		<!-- 					</tr> -->
-							<tr>
-								<td style="text-align: right;">主图</td>   
-								<td style="text-align: left;" colspan="3">
-									<input type="button" name="filemanager" value="浏览图片" class="btn btn-success"/>
-									<input type="text"  value="${e.picture!""}" name="picture" type="text" id="picture"  ccc="imagesInput" style="width: 600px;"
-									data-rule="小图;required;maxPicture;"/>
-									<#if e.picture??>
-										<a target="_blank" href="${systemSetting().imageRootPath}${e.picture!""}">
-											<img style="max-width: 50px;max-height: 50px;" alt="" src="${systemSetting().imageRootPath}${e.picture!""}">
-										</a>
+                <input type="hidden" value="${e.id!""}" name="id" label="id" id="id"/>
+				<div class="row form-horizontal"-role="form">
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">名称</label>
+                        <div class="col-md-10">
+                            <input type="text" value="${e.name!""}" name="name"  data-rule="商品名称;required;name;length[0~44];" size="44" maxlength="44" style="width: 80%;"
+                                   id="name" />
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="col-md-4 control-label">类别</label>
+						<div class="col-md-8">
+                            <select onchange="catalogChange(this)" name="catalogID" id="catalogSelect">
+                                <option></option>
+								<#list catalogs as item>
+                                    <option pid="0" value="${item.id!""}"><font color='red'>${item.name!""}</font></option>
+									<#if item.children??>
+										<#list item.children as item>
+                                            <option value="${item.id!""}">&nbsp;&nbsp;&nbsp;&nbsp;${item.name!""}</option>
+										</#list>
 									</#if>
-								</td>
-							</tr>
-							<tr>
-								<td style="text-align: right;">定价</td>
-								<td style="text-align: left;"><input type="text"  value="${e.price!""}" name="price"  data-rule="定价;required;price;" size="10" maxlength="10"
-										id="price" /></td>
-								<td style="text-align: right;">现价</td>
-								<td style="text-align: left;"><input type="text"  value="${e.nowPrice!""}" name="nowPrice"  data-rule="现价;required;nowPrice;" size="10" maxlength="10"
-										id="nowPrice" /></td>
-							</tr>
-							<tr>
-								<td style="text-align: right;">库存</td>
-								<td style="text-align: left;"><input type="text"  value="${e.stock!""}" name="stock"  data-rule="库存;required;integer;stock;"
-										id="stock" /></td>
-								<td style="text-align: right;">销量</td>
-								<td style="text-align: left;"><input type="text"  value="${e.sellcount!""}" name="sellcount"  data-rule="销量;required;integer;sellcount;"
-										id="sellcount" /></td>
-							</tr>
-							<tr>
-								<td style="text-align: right;">是否新品</td>
-								<td style="text-align: left;">
-                                    <#assign map = {'n':'否','y':'是'}>
-                                    <select id="isnew" name="isnew" class="input-medium">
-                                        <#list map?keys as key>
-                                            <option value="${key}" <#if e.isnew?? && e.isnew==key>selected="selected" </#if>>${map[key]}</option>
-                                        </#list>
-                                    </select>
-								</td>
-								<td style="text-align: right;">是否特价</td>
-								<td style="text-align: left;">
-                                    <#assign map = {'n':'否','y':'是'}>
-                                    <select id="sale" name="sale" class="input-medium">
-                                        <#list map?keys as key>
-                                            <option value="${key}" <#if e.sale?? && e.sale==key>selected="selected" </#if>>${map[key]}</option>
-                                        </#list>
-                                    </select>
-								</td>
-							</tr>
-							
-							<tr>
-								<td style="text-align: right;" nowrap="nowrap">送积分</td>
-								<td style="text-align: left;" colspan="3">
-									<input type="text"  value="${e.score!""}" name="score" type="text"  id="score" maxlength="20" data-rule="销量;required;integer;score;"/>
-								</td>
-							</tr>
-							<tr>
-								<td style="text-align: right;" nowrap="nowrap">页面标题</td>
-								<td style="text-align: left;" colspan="3">
-									<input type="text"  value="${e.title!""}" name="title" type="text"  maxlength="300" size="300" style="width: 80%;" />
-								</td>
-							</tr>
-							<tr>
-								<td style="text-align: right;" nowrap="nowrap">页面描述</td>
-								<td style="text-align: left;" colspan="3">
-									<input type="text"  value="${e.description!""}" name="description" type="text"  maxlength="300" size="300" style="width: 80%;" />
-								</td>
-							</tr>
-							<tr>
-								<td style="text-align: right;" nowrap="nowrap">页面关键字</td>
-								<td style="text-align: left;" colspan="3">
-									<input type="text"  value="${e.keywords!""}" name="keywords" type="text"  maxlength="300" size="300" style="width: 80%;" />
-								</td>
-							</tr>
-							<tr>
-								<td style="text-align: right;" nowrap="nowrap">其他信息</td>
-								<td style="text-align: left;" colspan="3">
-									录入人：<a style="text-decoration: underline;" target="_blank" href="${basepath}/manage/user/show?account=${e.createAccount!""}">${e.createAccount!""}</a>
-									录入时间：${e.createtime!""}<br>
-									最后修改人：<a style="text-decoration: underline;" target="_blank" href="${basepath}/manage/user/show?account=${e.updateAccount!""}">${e.updateAccount!""}</a>
-									最后修改时间：${e.updatetime!""}
-								</td>
-							</tr>
-						</table>
+								</#list>
+                            </select>(请选择子类别)
+                        </div>
+						</div>
+
+                    <div class="form-group col-md-6">
+                        <label class="col-md-4 control-label">单位</label>
+                        <div class="col-md-8">
+							<#assign map = {'item':'件'}>
+                            <select id="unit" name="unit" class="input-medium">
+								<#list map?keys as key>
+                                    <option value="${key}" <#if e.unit?? && e.unit==key>selected="selected" </#if>>${map[key]}</option>
+								</#list>
+                            </select>
+							</div>
+						</div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">简介</label>
+                        <div class="col-md-10">
+							<textarea name="introduce" class="form-control" rows="3" id="introduce"
+									  data-rule="商品简介;required;introduce;length[4~500];">${e.introduce!""}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">主图</label>
+                        <div class="col-md-10">
+                            <input type="button" name="filemanager" value="浏览图片" class="btn btn-success"/>
+                            <input type="text"  value="${e.picture!""}" name="picture" type="text" id="picture"  ccc="imagesInput" style="width: 600px;"
+                                   data-rule="小图;required;maxPicture;"/>
+							<#if e.picture??>
+                                <a target="_blank" href="${systemSetting().imageRootPath}${e.picture!""}">
+                                    <img style="max-width: 50px;max-height: 50px;" alt="" src="${systemSetting().imageRootPath}${e.picture!""}">
+                                </a>
+							</#if>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="col-md-4 control-label">定价</label>
+                        <div class="col-md-8"><input type="text"  value="${e.price!""}" name="price"  data-rule="定价;required;price;" size="10" maxlength="10"
+                                                     id="price" />
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label class="col-md-4 control-label">现价</label>
+                        <div class="col-md-8"><input type="text"  value="${e.nowPrice!""}" name="nowPrice"  data-rule="现价;required;nowPrice;" size="10" maxlength="10"
+                                                     id="nowPrice" />
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label class="col-md-4 control-label">库存</label>
+                        <div class="col-md-8"><input type="text"  value="${e.stock!""}" name="stock"  data-rule="库存;required;integer;stock;"
+                                                     id="stock" />
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label class="col-md-4 control-label">销量</label>
+                        <div class="col-md-8"><input type="text"  value="${e.sellcount!""}" name="sellcount"  data-rule="销量;required;integer;sellcount;"
+                                                     id="sellcount" />
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label class="col-md-4 control-label">是否新品</label>
+                        <div class="col-md-8">
+							<#assign map = {'n':'否','y':'是'}>
+                            <select id="isnew" name="isnew" class="input-medium">
+								<#list map?keys as key>
+                                    <option value="${key}" <#if e.isnew?? && e.isnew==key>selected="selected" </#if>>${map[key]}</option>
+								</#list>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label class="col-md-4 control-label">是否特价</label>
+                        <div class="col-md-8">
+							<#assign map = {'n':'否','y':'是'}>
+                            <select id="sale" name="sale" class="input-medium">
+								<#list map?keys as key>
+                                    <option value="${key}" <#if e.sale?? && e.sale==key>selected="selected" </#if>>${map[key]}</option>
+								</#list>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">送积分</label>
+                        <div class="col-md-10">
+                            <input type="text"  value="${e.score!""}" name="score" type="text"  id="score" maxlength="20" data-rule="销量;required;integer;score;"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">页面标题</label>
+                        <div class="col-md-10">
+                            <input type="text"  value="${e.title!""}" name="title" type="text" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">页面描述</label>
+                        <div class="col-md-10">
+                            <input type="text"  value="${e.description!""}" name="description" type="text" class="form-control" />
+						</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">页面关键字</label>
+                        <div class="col-md-10">
+                            <input type="text"  value="${e.keywords!""}" name="keywords" type="text" class="form-control" />
+                        </div>
+                    </div>
+					<#if e.id??>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">其他信息</label>
+                        <div class="col-md-10">
+                            录入人：<a style="text-decoration: underline;" target="_blank" href="${basepath}/manage/user/show?account=${e.createAccount!""}">${e.createAccount!""}</a>
+                            录入时间：${e.createtime!""}<br>
+                            最后修改人：<a style="text-decoration: underline;" target="_blank" href="${basepath}/manage/user/show?account=${e.updateAccount!""}">${e.updateAccount!""}</a>
+                            最后修改时间：${e.updatetime!""}
+                        </div>
+                    </div>
+					</#if>
+                    </div> <!--end form-->
 			</div>
 			<div id="tabs-2">
 				<textarea data-rule="商品介绍;required;productHTML;" id="productHTML" name="productHTML" style="width:100%;height:500px;visibility:hidden;">${e.productHTML!""}</textarea>
@@ -366,9 +360,9 @@ $(function() {
 		//event: "mouseover"
 	});
 	//alert($("#insertOrUpdateMsg").html());
-	if($("#insertOrUpdateMsg").html()!='' && $("#insertOrUpdateMsg").html().trim().length>0){
-		$("#insertOrUpdateMsg").slideDown(1000).delay(1500).slideUp(1000);
-	}
+//	if($("#insertOrUpdateMsg").html()!='' && $("#insertOrUpdateMsg").html().trim().length>0){
+//		$("#insertOrUpdateMsg").slideDown(1000).delay(1500).slideUp(1000);
+//	}
 	
 	selectDefaultCatalog();
 	
