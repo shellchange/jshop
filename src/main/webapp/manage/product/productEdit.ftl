@@ -223,10 +223,10 @@
                             <#list e.imagesList as item>
                                 <tr>
                                     <td><input type="checkbox" name="imagePaths"
-                                            value="${item.img!""}" /></td>
+                                            value="${item!""}" /></td>
                                     <td>
-                                        <a href="${systemSetting().imageRootPath}${item.img!""}" target="_blank">
-                                            <img style="max-width: 100px;max-height: 100px;" alt="" src="${systemSetting().imageRootPath}${item.img!""}">
+                                        <a href="${systemSetting().imageRootPath}${item!""}" target="_blank">
+                                            <img style="max-width: 100px;max-height: 100px;" alt="" src="${systemSetting().imageRootPath}${item!""}">
                                         </a>
                                     </td>
                                 </tr>

@@ -1,21 +1,6 @@
 <#import "/manage/tpl/pageBase.ftl" as page>
 <@page.pageBase currentMenu="热门查询管理">
-<style>
-#insertOrUpdateMsg{
-border: 0px solid #aaa;margin: 0px;position: fixed;top: 0;width: 100%;
-background-color: #d1d1d1;display: none;height: 30px;z-index: 9999;font-size: 18px;color: red;
-}
-.btnCCC{
-	background-image: url("../img/glyphicons-halflings-white.png");
-	background-position: -288px 0;
-}
-</style>
-	<div class="navbar navbar-inverse" >
-		<div id="insertOrUpdateMsg">
-			${insertOrUpdateMsg!""}
-		</div>
-	</div>
-	
+
 	<div class="alert alert-info">
 		提示：对【热门查询】的添加/修改不会立即生效，需要到系统管理--缓存管理页面点击【热门查询关键字】按钮，才能生效。
 	</div>
