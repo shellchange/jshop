@@ -126,18 +126,16 @@
 		}
 		//session.setAttribute("pay_result", result);
 		//转到首页
-		response.sendRedirect(SystemManager.systemSetting.getWww()+"/order/paySuccess.html");
+		response.sendRedirect(SystemManager..getInstance().getSystemSetting().getWww()+"/order/paySuccess.html");
 		if(true){
 			return;
 		}
 	%>
 
-	<%@ include file="/indexMenu.jsp"%>
 	<div class="container">
 		<div class="row">
 			<%=result%>
 		</div>
 	</div>
-	<%@ include file="/foot.jsp"%>
 </body>
 </html>

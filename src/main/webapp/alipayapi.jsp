@@ -39,25 +39,31 @@
 		String payment_type = "1";
 		//必填，不能修改
 		//服务器异步通知页面路径
-		String notify_url = SystemManager.systemSetting.getWww()+"/alipayapi_notify_url.jsp";
-		//需http://格式的完整路径，不能加?id=123这类自定义参数
+		String notify_url = SystemManager.getInstance().getSystemSetting().getWww()+"/alipayapi_notify_url.jsp";
+		//需http://格式的完整路径，不能加?id=123这类自定义参数
+
 		//页面跳转同步通知页面路径
-		String return_url = SystemManager.systemSetting.getWww()+"/alipayapi_return_url.jsp";
-		//需http://格式的完整路径，不能加?id=123这类自定义参数，不能写成http://localhost/
+		String return_url = SystemManager.getInstance().getSystemSetting().getWww()+"/alipayapi_return_url.jsp";
+		//需http://格式的完整路径，不能加?id=123这类自定义参数，不能写成http://localhost/
+
 		//卖家支付宝帐户
-		String seller_email = SystemManager.alipayConfig;//"15000748603";//payInfo.getWIDseller_email();//new String(payInfo.getWIDseller_email().getBytes("ISO-8859-1"),"UTF-8");
-		//必填
+		String seller_email = SystemManager.getInstance().getAlipayConfig();//"15000748603";//payInfo.getWIDseller_email();//new String(payInfo.getWIDseller_email().getBytes("ISO-8859-1"),"UTF-8");
+		//必填
+
 		//商户订单号
 		String out_trade_no = payInfo.getWIDout_trade_no();//new String(payInfo.getWIDout_trade_no().getBytes("ISO-8859-1"),"UTF-8");
-		//商户网站订单系统中唯一订单号，必填
+		//商户网站订单系统中唯一订单号，必填
+
 		//payInfo.setWIDsubject("订单11");
 		//订单名称
 		String subject = payInfo.getWIDsubject();//new String(payInfo.getWIDsubject().getBytes("ISO-8859-1"),"UTF-8");
 		//String subject = new String(payInfo.getWIDsubject().getBytes("ISO-8859-1"),"UTF-8");
-		//必填
+		//必填
+
 		//付款金额
 		String price = String.valueOf(payInfo.getWIDprice());
-		//必填
+		//必填
+
 		//商品数量
 		String quantity = "1";
 		//必填，建议默认为1，不改变值，把一次交易看成是一次下订单而非购买一件商品
@@ -70,25 +76,31 @@
 		//物流支付方式
 		String logistics_payment = "BUYER_PAY";//"SELLER_PAY";
 		//必填，两个值可选：SELLER_PAY（卖家承担运费）、BUYER_PAY（买家承担运费）
-		//订单描述
+		//订单描述
+
 		//String body = new String(payInfo.getWIDbody().getBytes("ISO-8859-1"),"UTF-8");
 		String body = payInfo.getWIDsubject();//"描述";new String("".getBytes("ISO-8859-1"),"UTF-8");
 		//商品展示地址
 		//String show_url = new String(payInfo.getWIDshow_url().getBytes("ISO-8859-1"),"UTF-8");
 		String show_url = payInfo.getShow_url();
-		//需以http://开头的完整路径，如：http://www.xxx.com/myorder.html
+		//需以http://开头的完整路径，如：http://www.xxx.com/myorder.html
+
 		//收货人姓名
 		String receive_name = payInfo.getWIDreceive_name();//new String(payInfo.getWIDreceive_name().getBytes("ISO-8859-1"),"UTF-8");
-		//如：张三
+		//如：张三
+
 		//收货人地址
 		String receive_address = payInfo.getWIDreceive_address();//new String(payInfo.getWIDreceive_address().getBytes("ISO-8859-1"),"UTF-8");
-		//如：XX省XXX市XXX区XXX路XXX小区XXX栋XXX单元XXX号
+		//如：XX省XXX市XXX区XXX路XXX小区XXX栋XXX单元XXX号
+
 		//收货人邮编
 		String receive_zip = payInfo.getWIDreceive_zip();//new String(payInfo.getWIDreceive_zip().getBytes("ISO-8859-1"),"UTF-8");
-		//如：123456
+		//如：123456
+
 		//收货人电话号码
 		String receive_phone = payInfo.getWIDreceive_phone();//new String(payInfo.getWIDreceive_phone().getBytes("ISO-8859-1"),"UTF-8");
-		//如：0571-88158090
+		//如：0571-88158090
+
 		//收货人手机号码
 		String receive_mobile = payInfo.getWIDreceive_mobile();//new String(payInfo.getWIDreceive_mobile().getBytes("ISO-8859-1"),"UTF-8");
 		//如：13312341234
