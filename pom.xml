@@ -535,13 +535,13 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>qq</groupId>
-            <artifactId>qqLoginSdk4J</artifactId>
-            <version>1.0</version>
-            <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/qqLoginSdk4J.jar</systemPath>
-            <scope>system</scope>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>qq</groupId>-->
+            <!--<artifactId>qqLoginSdk4J</artifactId>-->
+            <!--<version>1.0</version>-->
+            <!--<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/qqLoginSdk4J.jar</systemPath>-->
+            <!--<scope>system</scope>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>QRCode</groupId>
             <artifactId>QRCode</artifactId>
@@ -549,12 +549,12 @@
             <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/QRCode.jar</systemPath>
             <scope>system</scope>
         </dependency>
-        <dependency>
-            <groupId>sinaWeibo</groupId>
-            <artifactId>sinaWeibo</artifactId>
-            <version>1.0</version>
-            <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/sinaWeibo.jar</systemPath>
-            <scope>system</scope>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>sinaWeibo</groupId>-->
+            <!--<artifactId>sinaWeibo</artifactId>-->
+            <!--<version>1.0</version>-->
+            <!--<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/sinaWeibo.jar</systemPath>-->
+            <!--<scope>system</scope>-->
+        <!--</dependency>-->
     </dependencies>
 </project>

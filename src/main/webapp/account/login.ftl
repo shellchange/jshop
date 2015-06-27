@@ -68,26 +68,26 @@
 						  </div>
 						</form>
 		              </div>
-		              <div class="panel-footer" id="otherLogin">
-		              	<a href="${basepath}/account/qqLogin">
-		              		<img src="${systemSetting().www}/resource/images/qqLogin.png">
-		              	</a>
-		              	<a  href="${basepath}/account/sinawb">
-		              		<img src="${systemSetting().www}/resource/images/sinawbLogin.png">
-		              	</a>
-<#--<%-- 		              	<span id="qqLoginBtn" title="使用QQ号登陆"></span> --%>-->
-<#--<%-- 						<span id="wb_connect_btn" title="使用新浪微博号登陆"></span> --%>-->
-						<span>
-							<a href="alipayFastLogin" title="使用支付宝快捷登陆">
-	<#--<%-- 							<img src="${systemSetting().www}/resource/images/alipay.gif" alt="支付宝快捷登陆"> --%>-->
-								<img src="${systemSetting().www}/resource/images/alipay_fastlogin.jpg" alt="支付宝快捷登陆">
-							</a>
-						</span>
-						<span style="display:none">
-							<button type="button" class="btn btn-primary btn-sm" id="login-test">百度登陆</button>
-<!-- 							<a><img style="width: 100px;height: 25px;" src="http://www.baidu.com/img/bdlogo.gif">百度登陆</a> -->
-						</span>
-		              </div>
+		              <#--<div class="panel-footer" id="otherLogin">-->
+		              	<#--<a href="${basepath}/account/qqLogin">-->
+		              		<#--<img src="${systemSetting().www}/resource/images/qqLogin.png">-->
+		              	<#--</a>-->
+		              	<#--<a  href="${basepath}/account/sinawb">-->
+		              		<#--<img src="${systemSetting().www}/resource/images/sinawbLogin.png">-->
+		              	<#--</a>-->
+<#--&lt;#&ndash;<%-- 		              	<span id="qqLoginBtn" title="使用QQ号登陆"></span> --%>&ndash;&gt;-->
+<#--&lt;#&ndash;<%-- 						<span id="wb_connect_btn" title="使用新浪微博号登陆"></span> --%>&ndash;&gt;-->
+						<#--<span>-->
+							<#--<a href="alipayFastLogin" title="使用支付宝快捷登陆">-->
+	<#--&lt;#&ndash;<%-- 							<img src="${systemSetting().www}/resource/images/alipay.gif" alt="支付宝快捷登陆"> --%>&ndash;&gt;-->
+								<#--<img src="${systemSetting().www}/resource/images/alipay_fastlogin.jpg" alt="支付宝快捷登陆">-->
+							<#--</a>-->
+						<#--</span>-->
+						<#--<span style="display:none">-->
+							<#--<button type="button" class="btn btn-primary btn-sm" id="login-test">百度登陆</button>-->
+<#--<!-- 							<a><img style="width: 100px;height: 25px;" src="http://www.baidu.com/img/bdlogo.gif">百度登陆</a> &ndash;&gt;-->
+						<#--</span>-->
+		              <#--</div>-->
 	            </div>
 			</div>
 		</div>

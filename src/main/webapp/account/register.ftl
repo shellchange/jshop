@@ -11,42 +11,42 @@
 	<@menu.menu selectMenu=""/>
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-4" style="background-color:#fff;border:0px;">
-				<div id="advert" style="text-align: right;">
-					<div style="margin-top: 100px;text-align: right;font-weight: 600" >
-						<div class="panel panel-default">
-							<div class="panel-heading">也可以这样登陆：</div>
-						  <div class="panel-body">
-						    
-						    
-						    <div>
-								<a href="${basepath}/account/qqLogin.html" title="使用QQ号登陆">
-			              		<img src="${systemSetting().www}/resource/images/qqLogin.png">
-			              	</a>
-							</div>
-			              	<br>
-	              	
-			              	<div>
-				              	<a  href="${basepath}/account/sinawb.html" title="使用新浪微博账号登陆">
-				              		<img src="${systemSetting().www}/resource/images/sinawbLogin.png">
-				              	</a>
-			              	</div>
-			              	<br>
-	              	
-			              	<div>
-				              	<a href="${basepath}/account/alipayFastLogin.html" title="使用支付宝快捷登陆">
-									<img src="${systemSetting().www}/resource/images/alipay_fastlogin.jpg" alt="支付宝快捷登陆">
-								</a>
-			              	</div>
-							<br>
-					
-						  </div>
-						</div>
-					</div>
-					
-				</div>
-			</div>		
-			<div class="col-xs-8">
+			<#--<div class="col-xs-4" style="background-color:#fff;border:0px;">-->
+				<#--<div id="advert" style="text-align: right;">-->
+					<#--<div style="margin-top: 100px;text-align: right;font-weight: 600" >-->
+						<#--<div class="panel panel-default">-->
+							<#--<div class="panel-heading">也可以这样登陆：</div>-->
+						  <#--<div class="panel-body">-->
+						    <#---->
+						    <#---->
+						    <#--<div>-->
+								<#--<a href="${basepath}/account/qqLogin.html" title="使用QQ号登陆">-->
+			              		<#--<img src="${systemSetting().www}/resource/images/qqLogin.png">-->
+			              	<#--</a>-->
+							<#--</div>-->
+			              	<#--<br>-->
+	              	<#---->
+			              	<#--<div>-->
+				              	<#--<a  href="${basepath}/account/sinawb.html" title="使用新浪微博账号登陆">-->
+				              		<#--<img src="${systemSetting().www}/resource/images/sinawbLogin.png">-->
+				              	<#--</a>-->
+			              	<#--</div>-->
+			              	<#--<br>-->
+	              	<#---->
+			              	<#--<div>-->
+				              	<#--<a href="${basepath}/account/alipayFastLogin.html" title="使用支付宝快捷登陆">-->
+									<#--<img src="${systemSetting().www}/resource/images/alipay_fastlogin.jpg" alt="支付宝快捷登陆">-->
+								<#--</a>-->
+			              	<#--</div>-->
+							<#--<br>-->
+					<#---->
+						  <#--</div>-->
+						<#--</div>-->
+					<#--</div>-->
+					<#---->
+				<#--</div>-->
+			<#--</div>		-->
+			<div class="col-md-8 col-md-offset-2">
 				<div class="row">
 					<div class="col-md-12" style="font-size: 14px;font-weight: normal;margin-left: 50px;">
 						<span class="label label-success" style="font-size:100%;">
@@ -115,7 +115,15 @@
 								onclick="javaScript:reloadImg2();" class="vcodeCss"></img>
 				    </div>
 				  </div>
-				  
+
+                    <div class="form-group">
+						<div class="col-md-2 control-label">
+                        <label for="link-zcxy">注册协议</label>
+                        </div>
+                        <div class="col-md-6">
+                            <a target="_blank" id="link-zcxy" class="btn-link" href="${systemSetting().www}/help/zcxy.html">jshop用户注册协议</a>
+                        </div>
+                    </div>
 				  <div class="form-group">
 				    <div class="col-md-offset-2 col-md-6">
 				      <button type="submit" class="btn btn-success btn-sm" value="注 册">
@@ -123,13 +131,7 @@
 				      </button>
 				    </div>
 				  </div>
-				  
-				  <div class="form-group">
-				    <label for="email" class="col-md-2 control-label">注册协议</label>
-				    <div class="col-md-6">
-				    	<a target="_blank" class="form-control" href="${systemSetting().www}/help/zcxy.html">《myshop用户注册协议》</a>
-				    </div>
-				  </div>
+
 				  
 				</form>
 			</div>
