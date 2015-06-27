@@ -19,7 +19,16 @@
 			</div>
 			
 			<div class="col-xs-9">
-				
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <ol class="breadcrumb">
+                            <li class="active">修改密码</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <hr>
 				<form role="form" id="form" method="post" class="form-horizontal jqtransform" action="${basepath}/account/changePwd" autocomplete="off" theme="simple" >
 
 				  <div class="form-group">

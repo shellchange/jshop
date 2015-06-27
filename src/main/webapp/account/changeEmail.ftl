@@ -39,12 +39,12 @@
 				<div class="row">
 					<div class="col-xs-12" style="font-size: 14px;font-weight: normal;">
 						<div class="panel panel-default">
-				              <div class="panel-body" style="font-size: 16px;font-weight: normal;text-align: center;">
+				              <div class="panel-body" style="font-weight: normal;text-align: center;">
 				              		<form role="form" id="form" class="form-horizontal" action="${basepath}/account/doChangeEmail.html" theme="simple">
 									  <div class="form-group">
 									    <label for="account" class="col-lg-2 control-label">登陆密码：</label>
 									    <div class="col-lg-6">
-										    <input type="text" name="password" type="text" cssClass="form-control" id="password"
+										    <input type="text" name="password" type="text" class="form-control" id="password"
 					 					    data-rule="登陆密码:required;length[6~20];password;remote[checkPassword]" placeholder="请输入登陆密码" />
 									    </div>
 									  </div>

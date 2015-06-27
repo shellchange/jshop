@@ -10,6 +10,15 @@
 			</div>
 			
 			<div class="col-xs-9">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <ol class="breadcrumb">
+                            <li class="active">收藏夹</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <hr>
 				<div class="row">
 				<#if pager.list??>
 					<table class="table table-bordered">

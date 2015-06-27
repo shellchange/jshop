@@ -23,7 +23,7 @@
 						</div>
 					</div>
 					<hr>
-					
+
 					<div class="panel panel-success">
 						<div class="panel-heading" style="text-align: left;">
 			                <h3 class="panel-title">

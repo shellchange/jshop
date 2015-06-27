@@ -37,6 +37,7 @@
 		              	  <div class="panel-body" style="font-size: 16px;font-weight: normal;">
 			              	 <span class="glyphicon glyphicon-ok"></span>
 			              	 <span class="text-success">密码已成功修改！您可以使用新密码登陆了。</span>
+							  <a href="${basepath}/account/login.html" class="btn btn-link btn-md">立即登录</a>
 			              </div>
 		              </div>
 				</div>

@@ -10,7 +10,7 @@
 </style>
 	<@menu.menu selectMenu=""/>
 	<div class="container">
-		<div class="row">
+		<div class="row" style="margin-top: 10px;">
 			<#--<div class="col-xs-4" style="background-color:#fff;border:0px;">-->
 				<#--<div id="advert" style="text-align: right;">-->
 					<#--<div style="margin-top: 100px;text-align: right;font-weight: 600" >-->
@@ -46,9 +46,8 @@
 					<#---->
 				<#--</div>-->
 			<#--</div>		-->
-			<div class="col-md-8 col-md-offset-2">
 				<div class="row">
-					<div class="col-md-12" style="font-size: 14px;font-weight: normal;margin-left: 50px;">
+					<div class="col-md-12" style="font-size: 14px;font-weight: normal;">
 						<span class="label label-success" style="font-size:100%;">
 							1.填写注册信息 
 						</span>
@@ -63,6 +62,14 @@
 					</div>
 				</div>
 				<hr>
+                <div class="panel panel-success">
+                    <div class="panel-heading" style="text-align: left;">
+                        <h3 class="panel-title">
+                            <span class="glyphicon glyphicon-user"></span>&nbsp;用户注册
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+						<div class="col-md-10 col-md-offset-1">
 				<form role="form" id="form" method="post" class="form-horizontal" action="${basepath}/account/doRegister.html" theme="simple" >
 				  <div class="form-group">
 				    <label for="nickname" class="col-md-2 control-label">昵称</label>
@@ -110,9 +117,10 @@
 					    <input type="text" name="vcode" type="text" class="form-control" id="vcode" placeholder="验证码"
 					    data-rule="验证码:required;vcode;remote[unique.html]" size="4" maxlength="4" />
 				    </div>
-				    <div class="col-md-6" style="float: right;">
+				    <div class="col-md-4 col-md-offset-1">
 				    	<img src="${systemSetting().www}/ValidateImage.do" id="codes2"
 								onclick="javaScript:reloadImg2();" class="vcodeCss"></img>
+						<a href="javascript:void(0);" onclick="javascript:reloadImg2();" class="btn btn-link btn-sm">看不清?换一张</a>
 				    </div>
 				  </div>
 
@@ -121,7 +129,7 @@
                         <label for="link-zcxy">注册协议</label>
                         </div>
                         <div class="col-md-6">
-                            <a target="_blank" id="link-zcxy" class="btn-link" href="${systemSetting().www}/help/zcxy.html">jshop用户注册协议</a>
+                            <a target="_blank" id="link-zcxy" class="btn btn-link btn-md" href="${systemSetting().www}/help/zcxy.html">jshop用户注册协议</a>
                         </div>
                     </div>
 				  <div class="form-group">
@@ -131,10 +139,10 @@
 				      </button>
 				    </div>
 				  </div>
-
-				  
 				</form>
-			</div>
+                        </div>
+				</div>
+				</div>
 			</div>
 		</div>
 <script type="text/javascript">

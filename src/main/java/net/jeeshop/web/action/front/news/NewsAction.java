@@ -83,7 +83,7 @@ public class NewsAction extends FrontBaseController<News> {
 		
 		logger.error("this.helpCode="+helpCode);
 		if(StringUtils.isBlank(helpCode)){
-			throw new NullPointerException("helpCode参数不能为空");
+			return "help";
 		}else if(helpCode.equals("index")){
 			return "help";
 		}else{

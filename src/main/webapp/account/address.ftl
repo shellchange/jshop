@@ -16,6 +16,16 @@
 			</div>
 			
 			<div class="col-xs-9" style="min-height: 200px;">
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <ol class="breadcrumb">
+                            <li class="active">配送地址</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <hr>
 				<div class="row">
 					<form role="form" id="form" class="form-horizontal" method="post" action="saveAddress" theme="simple">
 					  <input type="hidden"  name="address.id"/>

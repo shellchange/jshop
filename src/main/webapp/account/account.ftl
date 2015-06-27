@@ -10,7 +10,16 @@
 			</div>
 			
 			<div class="col-xs-9">
-			
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <ol class="breadcrumb">
+                            <li class="active">个人资料</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <hr>
 				<form method="post" role="form" id="form" class="form-horizontal" action="${basepath}/account/saveSetting" theme="simple">
 				  <div class="form-group">
 				    <label for="account" class="col-lg-2 control-label">昵称：</label>
@@ -44,7 +53,7 @@
 				  
 				  <div class="form-group">
 				    <label for="account" class="col-lg-2 control-label">生日：</label>
-				    <div class="col-lg-6">
+				    <div class="col-lg-3">
 				    	<input id="birthday" name="birthday" class="Wdate form-control" value="${e.birthday!""}"
 				    	type="text" onFocus="WdatePicker({isShowClear:false,readOnly:true})"/>
 				    </div>
@@ -53,8 +62,8 @@
 				  <div class="form-group">
 				    <label for="account" class="col-lg-2 control-label">邮箱：</label>
 				    <div class="col-lg-6">
-						${e.email!""}
-				    	<a href="${basepath}/account/changeEmail">修改邮箱</a>
+						<label>${e.email!""}</label>
+				    	<a href="${basepath}/account/changeEmail" class="btn btn-link btn-sm">修改邮箱</a>
 				    </div>
 				  </div>
 				  

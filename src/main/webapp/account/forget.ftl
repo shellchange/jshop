@@ -37,22 +37,24 @@
 		              	<form role="form" name="form" method="post" id="form" class="form-horizontal" action="${basepath}/account/doForget.html" theme="simple">
 						  <div class="form-group">
 						    <label for="account" class="col-lg-2 control-label">账号</label>
-						    <div class="col-lg-6">
-							    <input  name=".account" type="text" class="form-control" id="account" placeholder="请输入会员账号"
+						    <div class="col-lg-4">
+							    <input  name="account" type="text" class="form-control" id="account" placeholder="请输入会员账号"
 							    data-rule="账号:required;account;length[3~10];remote[checkAccountExist.html]"/>
 						    </div>
 						  </div>
 						  
 						  <div class="form-group">
-						    <label for="vcode" class="col-lg-2 control-label">验证码</label>
-						    <div class="col-lg-2">
-							    <input type="text" name=".vcode" type="text" class="form-control" id="vcode" placeholder="验证码"
+						    <label for="vcode" class="col-md-2 control-label">验证码</label>
+						    <div class="col-md-2">
+							    <input type="text" name="vcode" type="text" class="form-control" id="vcode" placeholder="验证码"
 							    data-rule="验证码:required;vcode;remote[unique.html]" size="4" maxlength="4" />
 						    </div>
-						    <div class="col-lg-6" style="float: right;">
+						    <div class="col-md-4 col-lg-offset-1">
 						    	<img src="${systemSetting().www}/ValidateImage.do" id="codes2"
 										onclick="javaScript:reloadImg2();" class="vcodeCss"></img>
-						    </div>
+                                <a href="javascript:void(0)"
+                                     onclick="javaScript:reloadImg2();" class="btn btn-link btn-sm">看不清？换一张</a>
+								</div>
 						  </div>
 						  
 						  <div class="form-group">
