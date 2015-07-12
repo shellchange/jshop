@@ -276,7 +276,7 @@
 			<!-- 商品参数 -->
 			<div id="tabs-5">
 				<table class="table">
-                    <#if e.parameterList?? >
+                    <#if e.parameterList?? && e.parameterList?size gt 0 >
                         <#list e.parameterList as param>
                             <tr>
                                 <th style="display: none;"><input type="hidden" value="${param.id!""}" name="parameterIds"/></th>
@@ -290,6 +290,7 @@
 			
 			<!-- 商品规格 -->
 			<div id="tabs-6">
+				<div class="row">
 				<table class="table">
 					<tr>
 						<th style="display: none;">id</th>
@@ -299,44 +300,45 @@
 						<th>价格</th>
 						<th>是否显示</th>
 					</tr>
-					<#if e.specList??>
+					<#if e.specList?? && e.specList?size gt 0>
                         <#list e.specList as item>
 							<tr>
-								<th style="display: none;"><input type="hidden" value="${item.id!""}" name="specList[${item_index}].id"/></th>
-								<th><input type="text"  value="${e.specList[item_index].specSize!""}" name="specList[${item_index}].specSize"  class="search-query input-small"/></th>
-								<th><input type="text"  value="${e.specList[item_index].specColor!""}" name="specList[${item_index}].specColor"  class="search-query input-small"/></th>
-								<th><input type="text"  value="${e.specList[item_index].specStock!""}" name="specList[${item_index}].specStock"  class="search-query input-small"/></th>
-								<th><input type="text"  value="${e.specList[item_index].specPrice!""}" name="specList[${item_index}].specPrice"  class="search-query input-small"/></th>
-								<th>
+								<td style="display: none;"><input type="hidden" value="${item.id!""}" name="specList[${item_index}].id"/></td>
+								<td><input type="text"  value="${e.specList[item_index].specSize!""}" name="specList[${item_index}].specSize"  class="search-query input-small"/></td>
+								<td><input type="text"  value="${e.specList[item_index].specColor!""}" name="specList[${item_index}].specColor"  class="search-query input-small"/></td>
+								<td><input type="text"  value="${e.specList[item_index].specStock!""}" name="specList[${item_index}].specStock"  class="search-query input-small"/></td>
+								<td><input type="text"  value="${e.specList[item_index].specPrice!""}" name="specList[${item_index}].specPrice"  class="search-query input-small"/></td>
+								<td>
                                     <#assign map = {'n':'不显示','y':'显示'}>
                                     <select id="e_spec_specStatus" name="specList[${item_index}].specStatus" class="search-query input-medium">
                                         <#list map?keys as key>
                                             <option value="${key}" <#if item.specStatus?? && item.specStatus==key>selected="selected" </#if>>${map[key]}</option>
                                         </#list>
                                     </select>
-                                </th>
+                                </td>
 							</tr>
                         </#list>
 					<#else>
                         <#list [1,2] as item>
 							<tr>
-								<th style="display: none;"><input type="hidden" value="${e.id!""}" name="specList[${item_index}].id"/></th>
-								<th><input type="text" name="specList[${item_index}].specColor"  class="search-query input-small"/></th>
-								<th><input type="text" name="specList[${item_index}].specSize"  class="search-query input-small"/></th>
-								<th><input type="text" name="specList[${item_index}].specStock"  class="search-query input-small"/></th>
-								<th><input type="text" name="specList[${item_index}].specPrice"  class="search-query input-small"/></th>
-								<th>
+								<td style="display: none;"><input type="hidden" value="${e.id!""}" name="specList[${item_index}].id"/></td>
+								<td><input type="text" name="specList[${item_index}].specColor"  class="search-query input-small"/></td>
+								<td><input type="text" name="specList[${item_index}].specSize"  class="search-query input-small"/></td>
+								<td><input type="text" name="specList[${item_index}].specStock"  class="search-query input-small"/></td>
+								<td><input type="text" name="specList[${item_index}].specPrice"  class="search-query input-small"/></td>
+								<td>
                                     <#assign map = {'n':'不显示','y':'显示'}>
                                     <select id="e_spec_specStatus" name="specList[${item_index}].specStatus" class="search-query input-medium">
                                         <#list map?keys as key>
-                                            <option value="${key}">${map[key]}</option>
+                                            <option value="${key}" >${map[key]}</option>
                                         </#list>
                                     </select>
-                                </th>
+                                </td>
 							</tr>
                         </#list>
 					</#if>
 				</table>
+                </div>
 			</div>
 			
 			<div id="tabs-7">
@@ -345,7 +347,7 @@
                         <option></option>
                         <#if giftList??>
                             <#list giftList as item>
-                                <option value="${item.id}">${item.giftName!""}</option>
+                                <option value="${item.id}" <#if e.giftID?? && e.giftID == item.id>selected="selected"</#if>>${item.giftName!""}</option>
                             </#list>
                         </#if>
                     </select>
