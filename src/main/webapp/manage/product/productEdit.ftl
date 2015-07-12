@@ -255,12 +255,12 @@
 			<!-- 商品属性 -->
 			<div id="tabs-4">
 				<table class="table table-bordered">
-                    <#if e.attrList??>
+                    <#if e.attrList?? && e.attrList?size gt 0>
                         <#list e.attrList as attr>
                             <tr>
                                 <td nowrap="nowrap" style="text-align: right;">${attr.name!""}</td>
                                 <td>
-                                    <select id="attrSelectIds" name="attrSelectIds">
+                                    <select id="attrSelectIds_${attr_index}" name="attrSelectIds">
                                         <option value="">--请选择--</option>
                                         <#list attr.attrList as item>
                                             <option value="${item.id!""}" <#if attr.selectedID==item.id?eval>selected="selected" </#if>>${item.name!""}</option>
@@ -279,9 +279,9 @@
                     <#if e.parameterList?? >
                         <#list e.parameterList as param>
                             <tr>
-                                <th style="display: none;"><input type="hidden" value="${param.id!""}" name="param.id"/></th>
+                                <th style="display: none;"><input type="hidden" value="${param.id!""}" name="parameterIds"/></th>
                                 <th style="text-align: right;">${param.name!""}</th>
-                                <th><input type="text"  value="${param.parameterValue!""}" name="parameterValue" /></th>
+                                <th><input type="text"  value="${param.parameterValue!""}" name="parameterNames" /></th>
                             </tr>
                         </#list>
                     </#if>
