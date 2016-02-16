@@ -83,7 +83,7 @@
 						<#elseif item.accountType??&&item.accountType=="alipay">
 							<span class="badge badge-warning">alipay</span>
 						<#else>
-							<span class="badge badge-warning">jeeshop</span>
+							<span class="badge badge-warning">shuiguobucuo</span>
 						</#if>
 					</td>
 					<td nowrap="nowrap">

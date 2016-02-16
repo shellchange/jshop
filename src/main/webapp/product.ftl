@@ -166,7 +166,6 @@ function defaultProductImg(){
 					</#list>
 					<#include "/history_productList.ftl"/>
 				</div>
-				
 				<!-- 商品图片列表和购买按钮 -->
 				<div class="col-xs-9" style="border: 0px solid red; text-align: left;">
 					<!-- 导航 -->
@@ -343,7 +342,7 @@ function defaultProductImg(){
 										<div class="col-xs-12">
 											
 											<br>购买数量：
-											<span onclick="subFunc()" style="cursor: pointer;"><img src="${basepath}/resource/images/minimize.png" style="vertical-align: middle;"/></span>
+											<span onclick="subFunc(this,false)" style="cursor: pointer;"><img src="${basepath}/resource/images/minimize.png" style="vertical-align: middle;"/></span>
 											<input value="1" size="4" maxlength="4" name="inputBuyNum" id="inputBuyNum" style="text-align: center;"/>
 											<!-- <a id="addProductToCartErrorTips" href="#" data-toggle="tooltip" data-placement="bottom" data-original-title="购买的商品超出库存数！"></a> -->
 											<span onclick="addFunc(this,false)" style="cursor: pointer;"><img src="${basepath}/resource/images/maximize.png" style="vertical-align: middle;"/></span>
@@ -371,11 +370,11 @@ function defaultProductImg(){
 											
 												<a name="stockErrorTips" productid="${id!""}" href="#" data-toggle="tooltip" title="" data-placement="top" ></a>
 												<button type="button" data-toggle="show" data-placement="top" id="addToCartBtn" onclick="addToCart()" value="加入购物车" disabled="disabled" class="btn btn-primary btn-sm">
-													<span class="glyphicon glyphicon-shopping-cart"></span>加入购物车
+													<span class="glyphicon glyphicon-shopping-cart"></span>加入1购物车
 												</button>
 											<#else>
 												<button type="button" id="addToCartBtn" onclick="addToCart()" value="加入购物车" class="btn btn-primary btn-sm" disabled="disabled">
-													<span class="glyphicon glyphicon-shopping-cart"></span>加入购物车
+													<span class="glyphicon glyphicon-shopping-cart"></span>加入d购物车
 												</button>
 											</#if>
 											

@@ -1,7 +1,8 @@
-<#macro htmlBase title="JEESHOP" jsFiles=[] cssFiels=[] nobody=false>
+<#macro htmlBase title="水果不错官网" jsFiles=[] cssFiels=[] nobody=false>
 <!DOCTYPE html>
 <html>
 <head>
+  	<title>水果不错官网123-欢迎来到水果不错官网-我的网上私人果园</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <#assign non_responsive2>y</#assign>
     <#assign responsive>${Session["responsive"]!""}</#assign>
@@ -34,10 +35,12 @@
     <#if non_responsive2 != "y">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </#if>
+    <!-- hanxc 20160201
     <meta name="description" content="${systemSetting().description}"/>
     <meta name="keywords" content="${systemSetting().keywords}"/>
+    -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>${title!"JEESHOP"}</title>
+    <title>${title!"水果不错官网"}</title>
     <link rel="shortcut icon" type="image/x-icon" href="${systemSetting().shortcuticon}">
     <link rel="stylesheet" href="${basepath}/resource/css/sticky-footer.css"  type="text/css">
     <link rel="stylesheet" href="${basepath}/resource/css/base.css"  type="text/css">
@@ -92,7 +95,7 @@
             <#return />
         </#if>
         <#nested />
-        <#include "/foot.ftl">
+        <#--<#include "/foot.ftl">-->
         <#include "/index_superSlide_js.ftl">
     </body>
     </#if>

@@ -33,7 +33,7 @@
     <meta name="description" content="${systemSetting().description}"/>
     <meta name="keywords" content="${systemSetting().keywords}"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>${(title?? && title!="")?string("JEESHOP - "+ title , "JEESHOP - JAVA开源电商系统")}</title>
+    <title>${(title?? && title!="")?string("水果不错 - "+ title , "水果不错")}</title>
     <link rel="shortcut icon" type="image/x-icon" href="${systemSetting().shortcuticon}">
 
     <link rel="stylesheet" href="${staticpath}/zTree3.5/css/zTreeStyle/zTreeStyle.css" type="text/css">

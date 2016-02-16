@@ -3,7 +3,7 @@
 	<!-- Duoshuo Comment BEGIN -->
 	<div class="ds-thread" data-form-position="top" data-limit="25" data-order="desc" data-thread-key="${e.id!""}"></div>
 	<script type="text/javascript">
-	var duoshuoQuery = {short_name:"jeeshop"};
+	var duoshuoQuery = {short_name:"shuiguobucuo"};
 		(function() {
 			var ds = document.createElement('script');
 			ds.type = 'text/javascript';ds.async = true;

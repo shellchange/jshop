@@ -17,8 +17,8 @@
 				<div class="row">
 					<div class="col-xs-12">
 <!-- 						<blockquote> -->
-						  	<h3><strong style="color:#dd4814;">${news.title!""}</strong></h3>
-						  	<div style="text-align: right;"><small>jeeshop 发布于:${news.createtime!""}</small></div>
+						  	<h3><strong style="color:#DFF0D8;">${news.title!""}</strong></h3>
+						  	<div style="text-align: right;"><small>shuiguobucuo 发布于:${news.createtime!""}</small></div>
 <!-- 						</blockquote> -->
 						<hr style="margin-top: 5px;">
 					</div>

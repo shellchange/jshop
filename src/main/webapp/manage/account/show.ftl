@@ -28,7 +28,7 @@
 								<span class="badge badge-warning">alipay</span>
 								<img alt="" src="${basepath}/resource/images/alipay_fastlogin.jpg">
 							<#else>
-								<span class="badge badge-warning">jeeshop</span>
+								<span class="badge badge-warning">shuiguobucuo</span>
 							</#if>
 						
 						</td>

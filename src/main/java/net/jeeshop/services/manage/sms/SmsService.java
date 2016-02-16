@@ -1,1 +1,1 @@
-package net.jeeshop.services.manage.sms;import net.jeeshop.core.Services;import net.jeeshop.services.manage.sms.bean.Sms;public interface SmsService extends Services<Sms> {}
+package net.jeeshop.services.manage.sms;import java.util.List;import net.jeeshop.core.Services;import net.jeeshop.services.manage.sms.bean.Sms;public interface SmsService extends Services<Sms> {	/**	 * 根据ID查询一条记录	 * 	 * @param e	 * @return	 */	public Sms  selectByPhone(String phone);}

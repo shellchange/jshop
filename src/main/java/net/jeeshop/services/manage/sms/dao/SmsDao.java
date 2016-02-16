@@ -1,1 +1,1 @@
-package net.jeeshop.services.manage.sms.dao;import net.jeeshop.core.DaoManager;import net.jeeshop.services.manage.sms.bean.Sms;public interface SmsDao extends DaoManager<Sms> {}
+package net.jeeshop.services.manage.sms.dao;import java.util.List;import net.jeeshop.core.DaoManager;import net.jeeshop.services.manage.sms.bean.Sms;public interface SmsDao extends DaoManager<Sms> {	/**	 * 根据ID查询一条记录	 * 	 * @param e	 * @return	 */	public Sms selectByPhone(String phone);}

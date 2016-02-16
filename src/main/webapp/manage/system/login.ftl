@@ -6,7 +6,10 @@
         <div class="col-md-4 col-md-offset-4">
             <div class="login-panel panel panel-success">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><b>${systemSetting().name}</b>-后台</h3>
+                    <h3 class="panel-title">
+                    	<!-- hanxc 20160131<b>${systemSetting().name}</b>-->
+                    	水果不错-后台
+                    </h3>
                 </div>
                 <div class="panel-body">
                     <form role="form" id="formLogin" action="${basepath}/manage/user/login" method="post">
@@ -40,8 +43,10 @@
                             </div>
                             <div class="row help-block">
                                 <div class="col-md-offset-1 col-md-11">
+                                    <!-- hanxc 20160131 注释掉
                                     <span class="fa fa-info-circle"></span>默认用户名密码:admin/123456
                                     </span><a class="btn btn-link" href="http://git.oschina.net/dinguangx/jshop" target="_blank"><span class="fa fa-git-square">源码</a>
+                                    -->
                                 </div>
                             </div>
                         <#--<div class="checkbox">-->

@@ -434,18 +434,19 @@
             <artifactId>commons-codec</artifactId>
             <version>${commons-codec.version}</version>
         </dependency>
-
+		<!-- 
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>${httpclient.version}</version>
         </dependency>
+         
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpcore</artifactId>
             <version>${httpclient.version}</version>
         </dependency>
-
+		-->
         <dependency>
             <groupId>org.htmlparser</groupId>
             <artifactId>htmllexer</artifactId>
@@ -556,5 +557,12 @@
             <!--<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/sinaWeibo.jar</systemPath>-->
             <!--<scope>system</scope>-->
         <!--</dependency>-->
+        <dependency>
+		    <groupId>org.apache.httpcomponents</groupId>
+		    <artifactId>httpclient</artifactId>
+		    <version>4.3.5</version>
+            <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/org.apache.httpcomponents.httpclient_4.3.5.jar</systemPath>
+            <scope>system</scope>
+		</dependency>
     </dependencies>
 </project>

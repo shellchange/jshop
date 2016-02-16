@@ -30,6 +30,10 @@ public enum LoginTypeEnum {
 	/**
 	 * 支付宝快捷
 	 */
-	alipay
+	alipay,
+	/**
+	 * 手机
+	 */
+	phone
 	
 }

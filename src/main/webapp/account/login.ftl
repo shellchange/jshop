@@ -39,7 +39,7 @@
 				<div class="panel panel-success" style="width:500px;">
 		              <div class="panel-heading">
 		                <h3 class="panel-title">
-		                	<span class="glyphicon glyphicon-user"></span>&nbsp;用户登陆
+		                	<span class="glyphicon glyphicon-user"></span>&nbsp;用户登录
 		                </h3>
 		              </div>
 		              <div class="panel-body">
@@ -63,7 +63,7 @@
 						      <button type="submit" class="btn btn-success btn-sm" value="登陆">
 						      	<span class="glyphicon glyphicon-ok"></span>&nbsp;登陆
 						      </button>
-						      <a href="${basepath}/account/forget">忘记密码？</a>
+						      <a href="${basepath}/account/forget">忘记33密码？</a>
 						    </div>
 						  </div>
 						</form>
@@ -233,5 +233,4 @@ function sinaWeiboLoginNotifySession(status,id,nickname){
 }
 </script>
 
-<!-- baidu登陆 
 </@html.htmlBase>

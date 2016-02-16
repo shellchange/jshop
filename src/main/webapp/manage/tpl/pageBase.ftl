@@ -14,7 +14,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="${basepath}/manage/user/home">JEESHOP 后台管理系统</a>
+                <a class="navbar-brand" href="${basepath}/manage/user/home">水果不错 后台管理系统</a>
             </div>
             <!-- /.navbar-header -->
                     <#--<ul class="nav navbar-nav">-->

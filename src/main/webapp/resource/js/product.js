@@ -169,11 +169,11 @@ function addToCart(){
 			return;
 		}
 	}
-	
 	if(!checkStockFunc()){
 		return false;
 	}
 	var _url = basepath+"/cart/addToCart?productID="+$("#productID").val()+"&buyCount="+$("#inputBuyNum").val()+"&buySpecID="+$("#specIdHidden").val();
+	
 	$.ajax({
 	  type: 'POST',
 	  url: _url,
